@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "talk.message.ip",
+    "type": "java.lang.String",
+    "description": "The message server's ip'"
+  },
+  {
+    "name": "talk.message.port",
+    "type": "java.lang.String",
+    "description": "The message server's port"
+  },
+  {
+    "name": "talk.router.ip",
+    "type": "java.lang.String",
+    "description": "The router server's ip of udp"
+  },
+  {
+    "name": "talk.router.port",
+    "type": "java.lang.String",
+    "description": "The router server's port of udp'"
+  }
+]}
