@@ -49,4 +49,12 @@ public interface IMOtherHandler {
      */
     void roleSet(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
+    /**
+     * @param header
+     * @param body
+     * @param ctx
+     * @since  1.0
+     */
+    void updateMessageServer(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+
 }

@@ -10,7 +10,6 @@ import com.blt.talk.common.constant.SysConstant;
 import com.google.protobuf.MessageLite;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
@@ -49,7 +48,7 @@ public final class PacketDecoder extends ByteToMessageDecoder {
                 return;
             }
 
-            ByteBuf byteBuf = Unpooled.buffer(header.getLength() - SysConstant.PROTOCOL_HEADER_LENGTH);
+            ByteBuf byteBuf = ctx.alloc().buffer(header.getLength() - SysConstant.PROTOCOL_HEADER_LENGTH);
 
             in.readBytes(byteBuf);
             byte[] body;

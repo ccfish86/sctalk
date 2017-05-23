@@ -15,6 +15,7 @@ import com.blt.talk.common.code.proto.IMServer;
 import com.blt.talk.router.server.handler.IMOtherHandler;
 import com.blt.talk.router.server.manager.ClientConnection;
 import com.blt.talk.router.server.manager.ClientConnectionMap;
+import com.blt.talk.router.server.manager.MessageServerManager;
 import com.blt.talk.router.server.manager.UserClientInfoManager;
 import com.google.protobuf.MessageLite;
 
@@ -43,6 +44,7 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
         logger.debug("更新用户信息, user_cnt={}", onlineUserInfo.getUserStatListCount());
         
         Long netId = ctx.attr(ClientConnection.NETID).get();
+        MessageServerManager.update(netId, onlineUserInfo.getUserStatListCount());
         
         // _UpdateUserStatus
         for (ServerUserStat userStat: onlineUserInfo.getUserStatListList()) {
@@ -80,6 +82,7 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
                 }
             }
         }
+        
     }
 
     @Override
@@ -150,5 +153,22 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
                 UserClientInfoManager.insert(userId, userClientInfo);
             }
         }
+    }
+
+    /* (non-Javadoc)
+     * @see com.blt.talk.router.server.handler.IMOtherHandler#updateMessageServer(com.blt.talk.common.code.IMHeader, com.google.protobuf.MessageLite, io.netty.channel.ChannelHandlerContext)
+     */
+    @Override
+    public void updateMessageServer(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+        
+        logger.info("更新消息服务器信息");
+        IMServer.IMMsgServInfo messageServerInfo = (IMServer.IMMsgServInfo) body;
+        Long netId = ctx.attr(ClientConnection.NETID).get();
+        
+        MessageServerManager.MessageServerInfo serverInfo = new MessageServerManager.MessageServerInfo();
+        serverInfo.setIp(messageServerInfo.getIp1());
+        serverInfo.setPort(messageServerInfo.getPort());
+        serverInfo.setUserCount(messageServerInfo.getCurConnCnt());
+        MessageServerManager.insert(netId, serverInfo);
     }
 }

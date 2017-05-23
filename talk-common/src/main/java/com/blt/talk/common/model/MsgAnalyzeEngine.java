@@ -7,7 +7,6 @@ import org.apache.commons.lang.StringUtils;
 
 import com.alibaba.fastjson.JSONException;
 import com.blt.talk.common.code.proto.IMBaseDefine;
-import com.blt.talk.common.code.proto.helper.ProtoBuf2JavaBean;
 import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.constant.MessageConstant;
 import com.blt.talk.common.util.SecurityUtils;
@@ -59,7 +58,7 @@ public class MsgAnalyzeEngine {
        messageEntity.setUpdated(msgInfo.getCreateTime());
        messageEntity.setFromId(msgInfo.getFromSessionId());
        messageEntity.setMsgId(msgInfo.getMsgId());
-       messageEntity.setMsgType(ProtoBuf2JavaBean.getJavaMsgType(msgInfo.getMsgType()));
+       messageEntity.setMsgType(msgInfo.getMsgType().getNumber());
        messageEntity.setStatus(MessageConstant.MSG_SUCCESS);
        messageEntity.setContent(msgInfo.getMsgData().toStringUtf8());
         /**

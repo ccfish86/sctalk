@@ -9,8 +9,7 @@ import com.blt.talk.service.jpa.util.Criterion.Operator;
 
 /** 
  * 条件构造器 
- * 用于创建条件表达式 
- * @Class Name Restrictions 
+ * 用于创建条件表达式  
 * @author YuanGui
  */  
 public class JpaRestrictions {  
@@ -90,7 +89,7 @@ public class JpaRestrictions {
    }  
  
    /** 
-    * 大于等于 
+    * 小于等于
     * @param fieldName 
     * @param value 
     * @param ignoreNull 
@@ -98,11 +97,11 @@ public class JpaRestrictions {
     */  
    public static SimpleExpression lte(String fieldName, Object value, boolean ignoreNull) {  
        if(StringUtils.isEmpty(value))return null;  
-       return new SimpleExpression (fieldName, value, Operator.GTE);  
+       return new SimpleExpression (fieldName, value, Operator.LTE);  
    }  
  
    /** 
-    * 小于等于 
+    * 大于等于 
     * @param fieldName 
     * @param value 
     * @param ignoreNull 
@@ -110,7 +109,7 @@ public class JpaRestrictions {
      */  
     public static SimpleExpression gte(String fieldName, Object value, boolean ignoreNull) {  
         if(StringUtils.isEmpty(value))return null;  
-        return new SimpleExpression (fieldName, value, Operator.LTE);  
+        return new SimpleExpression (fieldName, value, Operator.GTE);  
     }  
   
     /** 

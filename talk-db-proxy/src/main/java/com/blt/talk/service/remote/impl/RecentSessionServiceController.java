@@ -62,7 +62,7 @@ public class RecentSessionServiceController implements RecentSessionService {
         BaseModel<List<SessionEntity>> sessionRes = new BaseModel<List<SessionEntity>>();
 
         List<SessionEntity> recentInfoList = new ArrayList<>();
-        if (recentSessions.hasNext()) {
+        if (recentSessions.getSize() > 0) {
             recentSessions.forEach(recentSession -> {
 
                 SessionEntity recentInfo = new SessionEntity();

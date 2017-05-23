@@ -10,11 +10,11 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-/** 
- * 定义一个查询条件容器 
-* @author YuanGui
+/**
+ * 定义一个查询条件容器
  * 
- * @param <T> 
+ * @param <T>
+ * @author YuanGui
  */
 public class SearchCriteria<T> implements Specification<T> {
     private List<Criterion> criterions = new ArrayList<Criterion>();
@@ -33,11 +33,12 @@ public class SearchCriteria<T> implements Specification<T> {
         return builder.conjunction();
     }
 
-    /** 
-     * 增加简单条件表达式 
-     * @Methods Name add 
-     * @Create In 2012-2-8 By lee 
-     * @param expression0 void 
+    /**
+     * 增加简单条件表达式
+     * 
+     * @Methods Name add
+     * @Create In 2012-2-8 By lee
+     * @param expression0 void
      */
     public void add(Criterion criterion) {
         if (criterion != null) {

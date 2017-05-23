@@ -40,7 +40,6 @@ public class IMHeader {
         this.version = SysConstant.PROTOCOL_VERSION;
         this.serviceId = 0;
         this.commandId = 0;
-        this.reserved = 0;
         this.flag = SysConstant.PROTOCOL_FLAG;
         this.seqnum = 0;
         this.reserved = SysConstant.PROTOCOL_RESERVED;

@@ -20,7 +20,7 @@ import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
  * @version 1.0
  * @since  1.0
  */
-public class UserClientInfoManager {
+public final class UserClientInfoManager {
 
     private static Map<Long, UserClientInfo> userClientInfoMap = new HashMap<>();
     

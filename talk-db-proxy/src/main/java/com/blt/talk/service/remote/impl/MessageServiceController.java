@@ -350,7 +350,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable = new PageRequest(0, 1, sortMessage);
                     Page<IMMessage0> message0List = message0Repository.findAll(message0SearchCriteria, pageable);
-                    if (message0List.hasNext()) {
+                    if (message0List.getSize() > 0) {
                         lastMessage = message0List.getContent().get(0);
                     }
                     break;
@@ -362,7 +362,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
                     Page<IMMessage1> message1List = message1Repository.findAll(message1SearchCriteria, pageable1);
-                    if (message1List.hasNext()) {
+                    if (message1List.getSize() > 0) {
                         lastMessage = message1List.getContent().get(0);
                     }
                     break;
@@ -373,7 +373,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
                     Page<IMMessage2> message2List = message2Repository.findAll(message2SearchCriteria, pageable2);
-                    if (message2List.hasNext()) {
+                    if (message2List.getSize() > 0) {
                         lastMessage = message2List.getContent().get(0);
                     }
                     break;
@@ -384,7 +384,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
                     Page<IMMessage3> message3List = message3Repository.findAll(message3SearchCriteria, pageable3);
-                    if (message3List.hasNext()) {
+                    if (message3List.getSize() > 0) {
                         lastMessage = message3List.getContent().get(0);
                     }
                     break;
@@ -395,7 +395,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
                     Page<IMMessage4> message4List = message4Repository.findAll(message4SearchCriteria, pageable4);
-                    if (message4List.hasNext()) {
+                    if (message4List.getSize() > 0) {
                         lastMessage = message4List.getContent().get(0);
                     }
                     break;
@@ -406,7 +406,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
                     Page<IMMessage5> message5List = message5Repository.findAll(message5SearchCriteria, pageable5);
-                    if (message5List.hasNext()) {
+                    if (message5List.getSize() > 0) {
                         lastMessage = message5List.getContent().get(0);
                     }
                     break;
@@ -417,7 +417,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
                     Page<IMMessage6> message6List = message6Repository.findAll(message6SearchCriteria, pageable6);
-                    if (message6List.hasNext()) {
+                    if (message6List.getSize() > 0) {
                         lastMessage = message6List.getContent().get(0);
                     }
                     break;
@@ -428,7 +428,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
                     Page<IMMessage7> message7List = message7Repository.findAll(message7SearchCriteria, pageable7);
-                    if (message7List.hasNext()) {
+                    if (message7List.getSize() > 0) {
                         lastMessage = message7List.getContent().get(0);
                     }
                     break;
@@ -439,7 +439,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
                     Page<IMMessage8> message8List = message8Repository.findAll(message8SearchCriteria, pageable8);
-                    if (message8List.hasNext()) {
+                    if (message8List.getSize() > 0) {
                         lastMessage = message8List.getContent().get(0);
                     }
                     break;
@@ -450,7 +450,7 @@ public class MessageServiceController implements MessageService {
                     Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
                     Page<IMMessage9> message9List = message9Repository.findAll(message9SearchCriteria, pageable9);
-                    if (message9List.hasNext()) {
+                    if (message9List.getSize() > 0) {
                         lastMessage = message9List.getContent().get(0);
                     }
                     break;
@@ -521,7 +521,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable = new PageRequest(0, 1, sortMessage);
                             Page<IMGroupMessage0> groupMessage0List =
                                     groupMessage0Repository.findAll(groupMessage0SearchCriteria, pageable);
-                            if (groupMessage0List.hasNext()) {
+                            if (groupMessage0List.getSize() > 0) {
                                 lastMessage = groupMessage0List.getContent().get(0);
                             }
                             break;
@@ -533,7 +533,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
                             Page<IMGroupMessage1> groupMessage1List =
                                     groupMessage1Repository.findAll(groupMessage1SearchCriteria, pageable1);
-                            if (groupMessage1List.hasNext()) {
+                            if (groupMessage1List.getSize() > 0) {
                                 lastMessage = groupMessage1List.getContent().get(0);
                             }
                             break;
@@ -545,7 +545,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
                             Page<IMGroupMessage2> groupMessage2List =
                                     groupMessage2Repository.findAll(groupMessage2SearchCriteria, pageable2);
-                            if (groupMessage2List.hasNext()) {
+                            if (groupMessage2List.getSize() > 0) {
                                 lastMessage = groupMessage2List.getContent().get(0);
                             }
                             break;
@@ -557,7 +557,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
                             Page<IMGroupMessage3> groupMessage3List =
                                     groupMessage3Repository.findAll(groupMessage3SearchCriteria, pageable3);
-                            if (groupMessage3List.hasNext()) {
+                            if (groupMessage3List.getSize() > 0) {
                                 lastMessage = groupMessage3List.getContent().get(0);
                             }
                             break;
@@ -569,7 +569,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
                             Page<IMGroupMessage4> groupMessage4List =
                                     groupMessage4Repository.findAll(groupMessage4SearchCriteria, pageable4);
-                            if (groupMessage4List.hasNext()) {
+                            if (groupMessage4List.getSize() > 0) {
                                 lastMessage = groupMessage4List.getContent().get(0);
                             }
                             break;
@@ -581,7 +581,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
                             Page<IMGroupMessage5> groupMessage5List =
                                     groupMessage5Repository.findAll(groupMessage5SearchCriteria, pageable5);
-                            if (groupMessage5List.hasNext()) {
+                            if (groupMessage5List.getSize() > 0) {
                                 lastMessage = groupMessage5List.getContent().get(0);
                             }
                             break;
@@ -593,7 +593,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
                             Page<IMGroupMessage6> groupMessage6List =
                                     groupMessage6Repository.findAll(groupMessage6SearchCriteria, pageable6);
-                            if (groupMessage6List.hasNext()) {
+                            if (groupMessage6List.getSize() > 0) {
                                 lastMessage = groupMessage6List.getContent().get(0);
                             }
                             break;
@@ -605,7 +605,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
                             Page<IMGroupMessage7> groupMessage7List =
                                     groupMessage7Repository.findAll(groupMessage7SearchCriteria, pageable7);
-                            if (groupMessage7List.hasNext()) {
+                            if (groupMessage7List.getSize() > 0) {
                                 lastMessage = groupMessage7List.getContent().get(0);
                             }
                             break;
@@ -617,7 +617,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
                             Page<IMGroupMessage8> groupMessage8List =
                                     groupMessage8Repository.findAll(groupMessage8SearchCriteria, pageable8);
-                            if (groupMessage8List.hasNext()) {
+                            if (groupMessage8List.getSize() > 0) {
                                 lastMessage = groupMessage8List.getContent().get(0);
                             }
                             break;
@@ -629,7 +629,7 @@ public class MessageServiceController implements MessageService {
                             Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
                             Page<IMGroupMessage9> groupMessage9List =
                                     groupMessage9Repository.findAll(groupMessage9SearchCriteria, pageable9);
-                            if (groupMessage9List.hasNext()) {
+                            if (groupMessage9List.getSize() > 0) {
                                 lastMessage = groupMessage9List.getContent().get(0);
                             }
                             break;
@@ -719,7 +719,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable = new PageRequest(0, messageCount, sortMessage);
                 Page<IMMessage0> message0List = message0Repository.findAll(message0SearchCriteria, pageable);
-                if (message0List.hasNext()) {
+                if (message0List.getSize() > 0) {
                     messageList = findMessageList(message0List.getContent());
                 }
                 break;
@@ -731,7 +731,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable1 = new PageRequest(0, messageCount, sortMessage1);
                 Page<IMMessage1> message1List = message1Repository.findAll(message1SearchCriteria, pageable1);
-                if (message1List.hasNext()) {
+                if (message1List.getSize() > 0) {
                     messageList = findMessageList(message1List.getContent());
                 }
                 break;
@@ -743,7 +743,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable2 = new PageRequest(0, messageCount, sortMessage2);
                 Page<IMMessage2> message2List = message2Repository.findAll(message2SearchCriteria, pageable2);
-                if (message2List.hasNext()) {
+                if (message2List.getSize() > 0) {
                     messageList = findMessageList(message2List.getContent());
                 }
                 break;
@@ -755,7 +755,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable3 = new PageRequest(0, messageCount, sortMessage3);
                 Page<IMMessage3> message3List = message3Repository.findAll(message3SearchCriteria, pageable3);
-                if (message3List.hasNext()) {
+                if (message3List.getSize() > 0) {
                     messageList = findMessageList(message3List.getContent());
                 }
                 break;
@@ -767,7 +767,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable4 = new PageRequest(0, messageCount, sortMessage4);
                 Page<IMMessage4> message4List = message4Repository.findAll(message4SearchCriteria, pageable4);
-                if (message4List.hasNext()) {
+                if (message4List.getSize() > 0) {
                     messageList = findMessageList(message4List.getContent());
                 }
                 break;
@@ -779,7 +779,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable5 = new PageRequest(0, messageCount, sortMessage5);
                 Page<IMMessage5> message5List = message5Repository.findAll(message5SearchCriteria, pageable5);
-                if (message5List.hasNext()) {
+                if (message5List.getSize() > 0) {
                     messageList = findMessageList(message5List.getContent());
                 }
                 break;
@@ -791,7 +791,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable6 = new PageRequest(0, messageCount, sortMessage6);
                 Page<IMMessage6> message6List = message6Repository.findAll(message6SearchCriteria, pageable6);
-                if (message6List.hasNext()) {
+                if (message6List.getSize() > 0) {
                     messageList = findMessageList(message6List.getContent());
                 }
                 break;
@@ -803,7 +803,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable7 = new PageRequest(0, messageCount, sortMessage7);
                 Page<IMMessage7> message7List = message7Repository.findAll(message7SearchCriteria, pageable7);
-                if (message7List.hasNext()) {
+                if (message7List.getSize() > 0) {
                     messageList = findMessageList(message7List.getContent());
                 }
                 break;
@@ -815,7 +815,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable8 = new PageRequest(0, messageCount, sortMessage8);
                 Page<IMMessage8> message8List = message8Repository.findAll(message8SearchCriteria, pageable8);
-                if (message8List.hasNext()) {
+                if (message8List.getSize() > 0) {
                     messageList = findMessageList(message8List.getContent());
                 }
                 break;
@@ -827,7 +827,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable9 = new PageRequest(0, messageCount, sortMessage9);
                 Page<IMMessage9> message9List = message9Repository.findAll(message9SearchCriteria, pageable9);
-                if (message9List.hasNext()) {
+                if (message9List.getSize() > 0) {
                     messageList = findMessageList(message9List.getContent());
                 }
                 break;
@@ -864,7 +864,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable = new PageRequest(0, messageCount, sortMessage);
                 Page<IMGroupMessage0> groupMessage0List =
                         groupMessage0Repository.findAll(groupMessage0SearchCriteria, pageable);
-                if (groupMessage0List.hasNext()) {
+                if (groupMessage0List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage0List.getContent());
                 }
                 break;
@@ -877,7 +877,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable1 = new PageRequest(0, messageCount, sortMessage1);
                 Page<IMGroupMessage1> groupMessage1List =
                         groupMessage1Repository.findAll(groupMessage1SearchCriteria, pageable1);
-                if (groupMessage1List.hasNext()) {
+                if (groupMessage1List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage1List.getContent());
                 }
                 break;
@@ -890,7 +890,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable2 = new PageRequest(0, messageCount, sortMessage2);
                 Page<IMGroupMessage2> groupMessage2List =
                         groupMessage2Repository.findAll(groupMessage2SearchCriteria, pageable2);
-                if (groupMessage2List.hasNext()) {
+                if (groupMessage2List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage2List.getContent());
                 }
                 break;
@@ -903,7 +903,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable3 = new PageRequest(0, messageCount, sortMessage3);
                 Page<IMGroupMessage3> groupMessage3List =
                         groupMessage3Repository.findAll(groupMessage3SearchCriteria, pageable3);
-                if (groupMessage3List.hasNext()) {
+                if (groupMessage3List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage3List.getContent());
                 }
                 break;
@@ -916,7 +916,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable4 = new PageRequest(0, messageCount, sortMessage4);
                 Page<IMGroupMessage4> groupMessage4List =
                         groupMessage4Repository.findAll(groupMessage4SearchCriteria, pageable4);
-                if (groupMessage4List.hasNext()) {
+                if (groupMessage4List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage4List.getContent());
                 }
                 break;
@@ -929,7 +929,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable5 = new PageRequest(0, messageCount, sortMessage5);
                 Page<IMGroupMessage5> groupMessage5List =
                         groupMessage5Repository.findAll(groupMessage5SearchCriteria, pageable5);
-                if (groupMessage5List.hasNext()) {
+                if (groupMessage5List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage5List.getContent());
                 }
                 break;
@@ -942,7 +942,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable6 = new PageRequest(0, messageCount, sortMessage6);
                 Page<IMGroupMessage6> groupMessage6List =
                         groupMessage6Repository.findAll(groupMessage6SearchCriteria, pageable6);
-                if (groupMessage6List.hasNext()) {
+                if (groupMessage6List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage6List.getContent());
                 }
                 break;
@@ -955,7 +955,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable7 = new PageRequest(0, messageCount, sortMessage7);
                 Page<IMGroupMessage7> groupMessage7List =
                         groupMessage7Repository.findAll(groupMessage7SearchCriteria, pageable7);
-                if (groupMessage7List.hasNext()) {
+                if (groupMessage7List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage7List.getContent());
                 }
                 break;
@@ -968,7 +968,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable8 = new PageRequest(0, messageCount, sortMessage8);
                 Page<IMGroupMessage8> groupMessage8List =
                         groupMessage8Repository.findAll(groupMessage8SearchCriteria, pageable8);
-                if (groupMessage8List.hasNext()) {
+                if (groupMessage8List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage8List.getContent());
                 }
                 break;
@@ -981,7 +981,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable9 = new PageRequest(0, messageCount, sortMessage9);
                 Page<IMGroupMessage9> groupMessage9List =
                         groupMessage9Repository.findAll(groupMessage9SearchCriteria, pageable9);
-                if (groupMessage9List.hasNext()) {
+                if (groupMessage9List.getSize() > 0) {
                     messageList = findGroupMessageList(groupMessage9List.getContent());
                 }
                 break;
@@ -1044,7 +1044,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable = new PageRequest(0, 1, sortMessage);
                 Page<IMMessage0> message0List = message0Repository.findAll(message0SearchCriteria, pageable);
-                if (message0List.hasNext()) {
+                if (message0List.getSize() > 0) {
                     messageList = message0List.getContent();
                 }
                 break;
@@ -1055,7 +1055,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
                 Page<IMMessage1> message1List = message1Repository.findAll(message1SearchCriteria, pageable1);
-                if (message1List.hasNext()) {
+                if (message1List.getSize() > 0) {
                     messageList = message1List.getContent();
                 }
                 break;
@@ -1066,7 +1066,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
                 Page<IMMessage2> message2List = message2Repository.findAll(message2SearchCriteria, pageable2);
-                if (message2List.hasNext()) {
+                if (message2List.getSize() > 0) {
                     messageList = message2List.getContent();
                 }
                 break;
@@ -1077,7 +1077,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
                 Page<IMMessage3> message3List = message3Repository.findAll(message3SearchCriteria, pageable3);
-                if (message3List.hasNext()) {
+                if (message3List.getSize() > 0) {
                     messageList = message3List.getContent();
                 }
                 break;
@@ -1088,7 +1088,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
                 Page<IMMessage4> message4List = message4Repository.findAll(message4SearchCriteria, pageable4);
-                if (message4List.hasNext()) {
+                if (message4List.getSize() > 0) {
                     messageList = message4List.getContent();
                 }
                 break;
@@ -1099,7 +1099,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
                 Page<IMMessage5> message5List = message5Repository.findAll(message5SearchCriteria, pageable5);
-                if (message5List.hasNext()) {
+                if (message5List.getSize() > 0) {
                     messageList = message5List.getContent();
                 }
                 break;
@@ -1110,7 +1110,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
                 Page<IMMessage6> message6List = message6Repository.findAll(message6SearchCriteria, pageable6);
-                if (message6List.hasNext()) {
+                if (message6List.getSize() > 0) {
                     messageList = message6List.getContent();
                 }
                 break;
@@ -1121,7 +1121,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
                 Page<IMMessage7> message7List = message7Repository.findAll(message7SearchCriteria, pageable7);
-                if (message7List.hasNext()) {
+                if (message7List.getSize() > 0) {
                     messageList = message7List.getContent();
                 }
                 break;
@@ -1132,7 +1132,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
                 Page<IMMessage8> message8List = message8Repository.findAll(message8SearchCriteria, pageable8);
-                if (message8List.hasNext()) {
+                if (message8List.getSize() > 0) {
                     messageList = message8List.getContent();
                 }
                 break;
@@ -1143,7 +1143,7 @@ public class MessageServiceController implements MessageService {
                 Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
                 Page<IMMessage9> message9List = message9Repository.findAll(message9SearchCriteria, pageable9);
-                if (message9List.hasNext()) {
+                if (message9List.getSize() > 0) {
                     messageList = message9List.getContent();
                 }
                 break;
@@ -1175,7 +1175,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable = new PageRequest(0, 1, sortMessage);
                 Page<IMGroupMessage0> groupMessage0List =
                         groupMessage0Repository.findAll(groupMessage0SearchCriteria, pageable);
-                if (groupMessage0List.hasNext()) {
+                if (groupMessage0List.getSize() > 0) {
                     messageList = groupMessage0List.getContent();
                 }
                 break;
@@ -1187,7 +1187,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
                 Page<IMGroupMessage1> groupMessage1List =
                         groupMessage1Repository.findAll(groupMessage1SearchCriteria, pageable1);
-                if (groupMessage1List.hasNext()) {
+                if (groupMessage1List.getSize() > 0) {
                     messageList = groupMessage1List.getContent();
                 }
                 break;
@@ -1199,7 +1199,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
                 Page<IMGroupMessage2> groupMessage2List =
                         groupMessage2Repository.findAll(groupMessage2SearchCriteria, pageable2);
-                if (groupMessage2List.hasNext()) {
+                if (groupMessage2List.getSize() > 0) {
                     messageList = groupMessage2List.getContent();
                 }
                 break;
@@ -1211,7 +1211,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
                 Page<IMGroupMessage3> groupMessage3List =
                         groupMessage3Repository.findAll(groupMessage3SearchCriteria, pageable3);
-                if (groupMessage3List.hasNext()) {
+                if (groupMessage3List.getSize() > 0) {
                     messageList = groupMessage3List.getContent();
                 }
                 break;
@@ -1223,7 +1223,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
                 Page<IMGroupMessage4> groupMessage4List =
                         groupMessage4Repository.findAll(groupMessage4SearchCriteria, pageable4);
-                if (groupMessage4List.hasNext()) {
+                if (groupMessage4List.getSize() > 0) {
                     messageList = groupMessage4List.getContent();
                 }
                 break;
@@ -1235,7 +1235,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
                 Page<IMGroupMessage5> groupMessage5List =
                         groupMessage5Repository.findAll(groupMessage5SearchCriteria, pageable5);
-                if (groupMessage5List.hasNext()) {
+                if (groupMessage5List.getSize() > 0) {
                     messageList = groupMessage5List.getContent();
                 }
                 break;
@@ -1247,7 +1247,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
                 Page<IMGroupMessage6> groupMessage6List =
                         groupMessage6Repository.findAll(groupMessage6SearchCriteria, pageable6);
-                if (groupMessage6List.hasNext()) {
+                if (groupMessage6List.getSize() > 0) {
                     messageList = groupMessage6List.getContent();
                 }
                 break;
@@ -1259,7 +1259,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
                 Page<IMGroupMessage7> groupMessage7List =
                         groupMessage7Repository.findAll(groupMessage7SearchCriteria, pageable7);
-                if (groupMessage7List.hasNext()) {
+                if (groupMessage7List.getSize() > 0) {
                     messageList = groupMessage7List.getContent();
                 }
                 break;
@@ -1271,7 +1271,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
                 Page<IMGroupMessage8> groupMessage8List =
                         groupMessage8Repository.findAll(groupMessage8SearchCriteria, pageable8);
-                if (groupMessage8List.hasNext()) {
+                if (groupMessage8List.getSize() > 0) {
                     messageList = groupMessage8List.getContent();
                 }
                 break;
@@ -1283,7 +1283,7 @@ public class MessageServiceController implements MessageService {
                 Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
                 Page<IMGroupMessage9> groupMessage9List =
                         groupMessage9Repository.findAll(groupMessage9SearchCriteria, pageable9);
-                if (groupMessage9List.hasNext()) {
+                if (groupMessage9List.getSize() > 0) {
                     messageList = groupMessage9List.getContent();
                 }
                 break;

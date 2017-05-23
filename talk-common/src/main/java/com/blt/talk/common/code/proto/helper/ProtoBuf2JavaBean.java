@@ -22,11 +22,17 @@ import com.google.protobuf.ByteString;
 
 
 /**
+ * 用于处理Protobuf与Model的转换
+ * <br>
+ * 于安卓端移过来
+ * 暂未用到
+ * 
  * @author : yingmu on 15-1-5.
  * @email : yingmu@mogujie.com.
  *
  */
-public class ProtoBuf2JavaBean {
+@Deprecated
+ class ProtoBuf2JavaBean {
 
     public static DepartmentEntity getDepartEntity(IMBaseDefine.DepartInfo departInfo){
         DepartmentEntity departmentEntity = new DepartmentEntity();
