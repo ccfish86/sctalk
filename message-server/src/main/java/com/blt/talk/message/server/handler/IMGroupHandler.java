@@ -25,4 +25,12 @@ public interface IMGroupHandler {
      */
     void normalListReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
+    /**
+     * @param header
+     * @param body
+     * @param ctx
+     * @since  1.0
+     */
+    void groupInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+
 }

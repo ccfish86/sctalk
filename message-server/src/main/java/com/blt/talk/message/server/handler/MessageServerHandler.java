@@ -6,9 +6,8 @@ import org.slf4j.LoggerFactory;
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMBaseDefine;
-import com.blt.talk.message.server.manager.ClientConnectionMap;
+//import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.blt.talk.message.server.manager.HandlerManager;
-import com.google.common.util.concurrent.Service;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.Channel;
@@ -39,15 +38,14 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
     public MessageServerHandler(HandlerManager handlerManager) {
         super();
         this.handlerManager = handlerManager;
-        logger.info(this.toString());
     }
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         super.handlerAdded(ctx);
-        logger.info("channel#handlerAdded");
+        logger.debug("channel#handlerAdded");
         // 保存客户端连接
-        ClientConnectionMap.addClientConnection(ctx);
+        // ClientConnectionMap.addClientConnection(ctx);
     }
 
     /**
@@ -63,10 +61,11 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
         // 2. 已经与远程主机建立的连接，本地客户机主动关闭连接的情况
         // 3. 本地客户机在试图与远程主机建立连接时，遇到类似与connection refused这样的异常，未能连接成功时
         // 而只有当本地客户机已经成功的与远程主机建立连接（connected）时，连接断开的时候才会触发channelDisconnected事件，即对应上述的1和2两种情况。
-        logger.info("channel#handlerRemoved");
+        logger.debug("channel#handlerRemoved");
         super.handlerRemoved(ctx);
-        // 保存客户端连接
-        ClientConnectionMap.removeClientConnection(ctx);
+
+        // 移除客户端连接
+        // ClientConnectionMap.removeClientConnection(ctx);
     }
 
     @Override
@@ -130,7 +129,8 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         // 服务端接收到客户端上线通知
         Channel incoming = ctx.channel();
-        System.out.println("MessageServerHandler:" + incoming.remoteAddress() + "在线");
+        logger.debug("MessageServerHandler:" + incoming.remoteAddress() + "在线");
+        ctx.fireChannelActive();
     }
 
     /**
@@ -143,9 +143,10 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         // 服务端接收到客户端掉线通知
         Channel incoming = ctx.channel();
-        System.out.println("MessageServerHandler:" + incoming.remoteAddress() + "掉线");
+        logger.debug("MessageServerHandler:" + incoming.remoteAddress() + "掉线");
+        handlerManager.offline(ctx);
+        ctx.fireChannelInactive();
     }
-
     /**
      * 当服务端的IO 抛出异常时被调用
      * 

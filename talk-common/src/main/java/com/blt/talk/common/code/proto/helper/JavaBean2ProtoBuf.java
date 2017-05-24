@@ -2,8 +2,8 @@ package com.blt.talk.common.code.proto.helper;
 
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.GroupType;
-import com.blt.talk.common.code.proto.IMBaseDefine.MsgInfo;
 import com.blt.talk.common.model.MessageEntity;
+import com.blt.talk.common.model.entity.DepartmentEntity;
 import com.blt.talk.common.model.entity.GroupEntity;
 import com.blt.talk.common.model.entity.SessionEntity;
 import com.blt.talk.common.model.entity.UnreadEntity;
@@ -53,6 +53,19 @@ public class JavaBean2ProtoBuf {
         return groupBuilder.build();
     }
     
+
+    public static IMBaseDefine.DepartInfo getDepartmentInfo(DepartmentEntity deptInfo){
+        
+        IMBaseDefine.DepartInfo.Builder groupBuilder = IMBaseDefine.DepartInfo.newBuilder();
+        groupBuilder.setDeptId(deptInfo.getId());
+        groupBuilder.setDeptName(deptInfo.getDepartName());
+        groupBuilder.setDeptStatus(IMBaseDefine.DepartmentStatusType.forNumber(deptInfo.getStatus()));
+        groupBuilder.setParentDeptId(deptInfo.getDepartId());
+        groupBuilder.setPriority(deptInfo.getPriority());
+        
+        return groupBuilder.build();
+    }
+    
     public static IMBaseDefine.GroupInfo getGroupInfo(GroupEntity groupInfo){
         
         IMBaseDefine.GroupInfo.Builder groupBuilder = IMBaseDefine.GroupInfo.newBuilder();
@@ -64,8 +77,8 @@ public class JavaBean2ProtoBuf {
         groupBuilder.setGroupCreatorId(groupInfo.getCreatorId());
         groupBuilder.setShieldStatus(groupInfo.getStatus());
         
-        if (groupInfo.getlistGroupMemberIds() != null) {
-            groupBuilder.getGroupMemberListList().addAll(groupInfo.getlistGroupMemberIds());
+        if (groupInfo.getUserList() != null) {
+            groupBuilder.addAllGroupMemberList(groupInfo.getUserList());
         }
 
         return groupBuilder.build();

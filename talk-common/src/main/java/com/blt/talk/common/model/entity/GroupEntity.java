@@ -1,11 +1,6 @@
 package com.blt.talk.common.model.entity;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.apache.commons.lang.StringUtils;
 
 import com.blt.talk.common.constant.DBConstant;
 
@@ -18,7 +13,7 @@ public class GroupEntity extends PeerEntity {
     private long creatorId;
     private int userCnt;
     /** Not-null value. */
-    private String userList;
+    private List<Long> userList;
     private int version;
     private int status;
 
@@ -30,7 +25,7 @@ public class GroupEntity extends PeerEntity {
         this.id = id;
     }
 
-    public GroupEntity(Long id, int peerId, int groupType, String mainName, String avatar, int creatorId, int userCnt, String userList, int version, int status, int created, int updated) {
+    public GroupEntity(Long id, int peerId, int groupType, String mainName, String avatar, int creatorId, int userCnt, int version, int status, int created, int updated) {
         this.id = id;
         this.peerId = peerId;
         this.groupType = groupType;
@@ -38,7 +33,6 @@ public class GroupEntity extends PeerEntity {
         this.avatar = avatar;
         this.creatorId = creatorId;
         this.userCnt = userCnt;
-        this.userList = userList;
         this.version = version;
         this.status = status;
         this.created = created;
@@ -105,13 +99,11 @@ public class GroupEntity extends PeerEntity {
         this.userCnt = userCnt;
     }
 
-    /** Not-null value. */
-    public String getUserList() {
+    public List<Long> getUserList() {
         return userList;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setUserList(String userList) {
+    public void setUserList(List<Long> userList) {
         this.userList = userList;
     }
 
@@ -155,32 +147,4 @@ public class GroupEntity extends PeerEntity {
         return DBConstant.SESSION_TYPE_GROUP;
     }
 
-    /**
-     * yingmu
-     * 获取群组成员的list
-     * -- userList 前后去空格，按照逗号区分， 不检测空的成员(非法)
-     */
-    public Set<Long> getlistGroupMemberIds() {
-        if (userList == null || userList.length() == 0) {
-            return Collections.emptySet();
-        }
-        String[] arrayUserIds = userList.trim().split(",");
-        if (arrayUserIds.length <= 0) {
-            return Collections.emptySet();
-        }
-        /** zhe'g */
-        Set<Long> result = new TreeSet<Long>();
-        for (int index = 0; index < arrayUserIds.length; index++) {
-            long userId = Long.parseLong(arrayUserIds[index]);
-            result.add(userId);
-        }
-        return result;
-    }
-    //todo 入参变为 set【自动去重】
-    // 每次都要转换 性能不是太好，todo
-    public void setlistGroupMemberIds(List<Long> memberList){
-        String userList = StringUtils.join(memberList, ',');
-        setUserList(userList);
-    }
-    // KEEP METHODS END
 }

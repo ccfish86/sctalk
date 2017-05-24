@@ -80,9 +80,9 @@ public class RecentInfo {
                 isForbidden = true;
             }
 
-            ArrayList<Long> list =  new ArrayList<>();
-            list.addAll(groupEntity.getlistGroupMemberIds());
-//
+//            ArrayList<Long> list =  new ArrayList<>();
+//            list.addAll(groupEntity.getUserList());
+
 //            for(Integer userId:list){
 //                UserEntity entity = IMContactManager.instance().findContact(userId);
 //                if(entity!=null){
@@ -94,7 +94,7 @@ public class RecentInfo {
 //            }
 //            avatar = avatarList;
         }
-        //avatar
+
     }
 
     public String getSessionKey() {

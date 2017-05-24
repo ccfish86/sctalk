@@ -61,4 +61,14 @@ public class SysConstant {
 
     //message 每次拉取的条数
     public static final int MSG_CNT_PER_PAGE = 18;
+    
+    // 客户端类型
+    /** 客户端类型-无 */
+    public static int CLIENT_TYPE_FLAG_NONE = 0x00;
+    /** 客户端类型-PC */
+    public static int CLIENT_TYPE_FLAG_PC = 0x01;
+    /** 客户端类型-移动 */
+    public static int CLIENT_TYPE_FLAG_MOBILE = 0x02;
+    /** 客户端类型-全 */
+    public static int CLIENT_TYPE_FLAG_BOTH = 0x03;
 }

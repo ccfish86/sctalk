@@ -32,4 +32,13 @@ public interface GroupService {
      * @since  1.0
      */
     BaseModel<List<Long>> removeMember(GroupRemoveMemberReq newMemberReq);
+    
+    /**
+     * 查询组的属性
+     * @param groupVersionList
+     * @return
+     * @since  1.0
+     */
+    BaseModel<List<GroupEntity>> groupInfoList(List<Long> groupIdList);
+    
 }

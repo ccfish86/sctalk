@@ -7,9 +7,9 @@ package com.blt.talk.message.server.remote;
 import java.util.List;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blt.talk.common.model.BaseModel;
@@ -27,12 +27,12 @@ import com.blt.talk.common.param.GroupRemoveMemberReq;
 public interface GroupService {
 
     /**
-     * 查询组属性
+     * 查询组Version属性
      * @param userId
      * @return
      * @since  1.0
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/group/normalList")
+    @GetMapping(path = "/group/normalList")
     BaseModel<List<GroupEntity>> normalList(@RequestParam("userId") long userId);
     
     /**
@@ -41,7 +41,7 @@ public interface GroupService {
      * @return
      * @since  1.0
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/group/insertNewMember")
+    @PostMapping(path = "/group/insertNewMember")
     BaseModel<List<Integer>> insertNewMember(@RequestBody GroupInsertNewMemberReq newMemberReq);
 
     /**
@@ -50,6 +50,15 @@ public interface GroupService {
      * @return
      * @since  1.0
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/group/removeMember")
+    @PostMapping(path = "/group/removeMember")
     BaseModel<List<Integer>> removeMember(@RequestBody GroupRemoveMemberReq newMemberReq);
+
+    /**
+     * 查询组的属性
+     * @param groupVersionList
+     * @return
+     * @since  1.0
+     */
+    @GetMapping(path = "/group/groupInfoList")
+    BaseModel<List<GroupEntity>> groupInfoList(@RequestParam("groupIdList") List<Long> groupIdList);
 }

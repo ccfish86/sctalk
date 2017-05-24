@@ -3,15 +3,23 @@ package com.blt.talk.message.server.manager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.IMHeader;
+import com.blt.talk.common.code.IMProtoMessage;
+import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.ClientType;
 import com.blt.talk.common.code.proto.IMBaseDefine.GroupCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.LoginCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.OtherCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SwitchServiceCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
+import com.blt.talk.common.code.proto.IMServer;
+import com.blt.talk.message.server.RouterServerConnecter;
 import com.blt.talk.message.server.handler.IMBuddyListHandler;
 import com.blt.talk.message.server.handler.IMGroupHandler;
 import com.blt.talk.message.server.handler.IMLoginHandler;
@@ -46,7 +54,81 @@ public class HandlerManager {
     private IMOtherHandler imOtherHandler;
     @Autowired
     private IMSwitchHandler imSwitchHandler;
+    @Autowired
+    private ApplicationContext applicationContext;
+    
+    
+    /**
+     * 关闭连接时的处理
+     * 
+     * @param ctx
+     * @since  1.0
+     */
+    public void offline(ChannelHandlerContext ctx) {
+        
+        Long handleId = ctx.attr(ClientUser.HANDLE_ID).get();
+        Long userId = ctx.attr(ClientUser.USER_ID).get();
 
+        if (handleId != null) {
+            // 关闭
+        }
+        if (userId == null) {
+            return;
+        }
+        ClientUser clientUser = ClientUserManager.getUserById(userId);
+        if (clientUser != null) {
+            clientUser.delConn(handleId);
+            clientUser.delUnvalidateConn(ctx);
+            
+            // do UserStatusUpdate
+            doUserStatusUpdate(ctx, IMBaseDefine.UserStatType.USER_STATUS_OFFLINE);
+            
+            if (clientUser.isConnEmpty()) {
+                ClientUserManager.removeUser(clientUser);
+            }
+        }
+    }
+    
+    /**
+     * 用户状态变更通知
+     * @param ctx
+     * @param userStatus
+     * @since  1.0
+     */
+    public void doUserStatusUpdate(ChannelHandlerContext ctx, UserStatType userStatus) {
+
+        Long userId = ctx.attr(ClientUser.USER_ID).get();
+        ClientType clientType = ctx.attr(ClientUser.CLIENT_TYPE).get();
+
+        if (userId != null) {
+        
+            // 只有上下线通知才通知LoginServer/RouterServer
+            if (userStatus == UserStatType.USER_STATUS_ONLINE 
+                    || userStatus == UserStatType.USER_STATUS_OFFLINE) {
+//                IMServer.IMUserCntUpdate userCntUpdate = IMServer.IMUserCntUpdate.newBuilder()
+//                        .setUserAction(userStatus == IMBaseDefine.UserStatType.USER_STATUS_ONLINE?
+//                                TalkServerEnums.USER_CNT.INC.ordinal():TalkServerEnums.USER_CNT.DEC.ordinal())
+//                        .setUserId(userId).build();
+//                IMHeader userCntUpdateHeader = new IMHeader();
+//                userCntUpdateHeader.setServiceId((short)ServiceID.SID_OTHER_VALUE);
+//                userCntUpdateHeader.setCommandId((short)OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE);
+//                // > LoginServer
+                
+                IMServer.IMUserStatusUpdate userStatusUpdate = IMServer.IMUserStatusUpdate.newBuilder()
+                        .setUserId(userId).setUserStatus(userStatus.getNumber()).setClientType(clientType).build();
+                IMHeader userStatusUpdateHeader = new IMHeader();
+                userStatusUpdateHeader.setServiceId((short)ServiceID.SID_OTHER_VALUE);
+                userStatusUpdateHeader.setCommandId((short)OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE);
+                
+                // 发送给RouterServer
+                RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
+                routerConnector.send(new IMProtoMessage<MessageLite>(userStatusUpdateHeader, userStatusUpdate));
+            } else {
+                // 不做处理
+            }
+        }
+    }
+    
     /**
      * 处理登录认证
      * 
@@ -228,6 +310,7 @@ public class HandlerManager {
                 imGroupHandler.normalListReq(header, body, ctx);
                 break;
             case GroupCmdID.CID_GROUP_INFO_REQUEST_VALUE:
+                imGroupHandler.groupInfoReq(header, body, ctx);
                 break;
             case GroupCmdID.CID_GROUP_CREATE_REQUEST_VALUE:
                 break;
@@ -321,7 +404,8 @@ public class HandlerManager {
      */
     private boolean hasLogin(ChannelHandlerContext ctx) {
         
-        if (ctx.attr(ClientConnection.USERID).get() != null) {
+        logger.debug("判断用户ID:{}", ctx.attr(ClientUser.USER_ID).get());
+        if (ctx.attr(ClientUser.USER_ID).get() != null) {
             return true;
         }
         return false;

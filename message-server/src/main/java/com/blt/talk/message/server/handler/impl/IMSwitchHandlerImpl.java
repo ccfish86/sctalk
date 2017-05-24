@@ -11,8 +11,8 @@ import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMMessage;
 import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.message.server.handler.IMSwitchHandler;
-import com.blt.talk.message.server.manager.ClientConnection;
-import com.blt.talk.message.server.manager.ClientConnectionMap;
+//import com.blt.talk.message.server.manager.ClientConnection;
+//import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;

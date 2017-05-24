@@ -6,9 +6,13 @@ package com.blt.talk.service.remote.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,6 +47,9 @@ public class GroupServiceController implements GroupService {
     private IMGroupRepository groupRepository;
     @Autowired
     private IMGroupMemberRepository groupMemberRepository;
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+    
 
     @GetMapping(path = "/normalList")
     @Override
@@ -188,6 +195,52 @@ public class GroupServiceController implements GroupService {
 
         groupMemberRes.setData(allGroupUsers);
         return groupMemberRes;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.blt.talk.service.remote.GroupService#groupInfoList(java.util.List)
+     */
+    @Override
+    @GetMapping(path = "/groupInfoList")
+    public BaseModel<List<GroupEntity>> groupInfoList(@RequestParam("groupIdList") List<Long> groupIdList) {
+        
+        SearchCriteria<IMGroup> groupSearchCriteria = new SearchCriteria<>();
+        groupSearchCriteria.add(JpaRestrictions.in("id", groupIdList, false));
+        Sort sort = new Sort(Sort.Direction.DESC, "updated");
+        
+        List<IMGroup> groups = groupRepository.findAll(groupSearchCriteria, sort);
+
+        List<GroupEntity> resData = new ArrayList<>();
+        for (IMGroup group: groups) {
+            GroupEntity groupEntity = new GroupEntity();
+            groupEntity.setId(Long.valueOf(group.getId()));
+            groupEntity.setAvatar(group.getAvatar());
+            groupEntity.setCreated(group.getCreated());
+            groupEntity.setCreatorId(group.getCreator());
+            groupEntity.setGroupType(group.getType());
+            groupEntity.setStatus(group.getStatus());
+            groupEntity.setMainName(group.getName());
+            groupEntity.setVersion(group.getVersion());
+            resData.add(groupEntity);
+            
+            // fillGroupMember
+            String key = "group_member_" + group.getId();
+            HashOperations<String, String, String> groupMapOps = redisTemplate.opsForHash();
+            Map<String, String> groupMemberMap = groupMapOps.entries(key);
+            List<Long> userIds = new ArrayList<>();
+            if (groupMemberMap != null) {
+                for (String memberId : groupMemberMap.keySet()) {
+                    userIds.add(Long.valueOf(memberId));
+                }
+            }
+            groupEntity.setUserList(userIds);
+        }
+        BaseModel<List<GroupEntity>> groupRes = new BaseModel<>();
+        groupRes.setData(resData);
+        
+        return groupRes;
     }
 
 }

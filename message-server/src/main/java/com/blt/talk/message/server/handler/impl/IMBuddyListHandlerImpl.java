@@ -21,12 +21,14 @@ import com.blt.talk.common.code.proto.IMBaseDefine.UserInfo;
 import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
 import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.common.model.entity.DepartmentEntity;
 import com.blt.talk.common.model.entity.SessionEntity;
 import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
 import com.blt.talk.message.server.RouterServerConnecter;
 import com.blt.talk.message.server.handler.IMBuddyListHandler;
 import com.blt.talk.message.server.remote.BuddyListService;
+import com.blt.talk.message.server.remote.DepartmentService;
 import com.blt.talk.message.server.remote.RecentSessionService;
 import com.google.protobuf.MessageLite;
 
@@ -48,8 +50,11 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     private RecentSessionService sessionService;
 
     @Autowired
+    private DepartmentService departmentService;
+
+    @Autowired
     private ApplicationContext applicationContext;
-    
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     /*
@@ -114,40 +119,41 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     @Override
     public void userInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // 获取用户信息
-        IMBuddy.IMUsersInfoReq userInfoReq = (IMBuddy.IMUsersInfoReq)body;
+        IMBuddy.IMUsersInfoReq userInfoReq = (IMBuddy.IMUsersInfoReq) body;
         try {
             if (userInfoReq.getUserIdListList() != null) {
 
                 IMBuddy.IMUsersInfoRsp.Builder userInfoResBuilder = IMBuddy.IMUsersInfoRsp.newBuilder();
                 userInfoResBuilder.setUserId(userInfoReq.getUserId());
-                
+
                 // 查询用户信息
-                BaseModel<List<UserEntity>> userInfoRes = buddyListService.getUserInfoList(userInfoReq.getUserIdListList());
+                BaseModel<List<UserEntity>> userInfoRes =
+                        buddyListService.getUserInfoList(userInfoReq.getUserIdListList());
                 if (userInfoRes.getCode() == 0 && userInfoRes.getData() != null) {
                     List<UserInfo> users = new ArrayList<>();
-                    for(UserEntity userEntity :userInfoRes.getData()) {
+                    for (UserEntity userEntity : userInfoRes.getData()) {
                         users.add(JavaBean2ProtoBuf.getUserInfo(userEntity));
                     }
-                    
+
                     userInfoResBuilder.addAllUserInfoList(users);
                 }
-                
+
                 IMHeader headerRes = header.clone();
-                headerRes.setCommandId((short)BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_RESPONSE_VALUE);
-                ctx.writeAndFlush(new IMProtoMessage<>(headerRes, userInfoResBuilder.buildPartial())); 
+                headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_RESPONSE_VALUE);
+                ctx.writeAndFlush(new IMProtoMessage<>(headerRes, userInfoResBuilder.buildPartial()));
             }
         } catch (Exception e) {
-            
-            logger.error("未读消息处理异常", e); 
-            
+
+            logger.error("未读消息处理异常", e);
+
             IMBuddy.IMUsersInfoRsp.Builder userInfoResBuilder = IMBuddy.IMUsersInfoRsp.newBuilder();
             userInfoResBuilder.setUserId(userInfoReq.getUserId());
-            
+
             IMHeader headerRes = header.clone();
-            headerRes.setCommandId((short)BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_RESPONSE_VALUE);
-            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, userInfoResBuilder.buildPartial())); 
+            headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_RESPONSE_VALUE);
+            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, userInfoResBuilder.buildPartial()));
         }
-        
+
     }
 
     /*
@@ -185,7 +191,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
                     allUsers.add(JavaBean2ProtoBuf.getUserInfo(userInfo));
                 });
             }
-            
+
             IMBuddy.IMAllUserRsp.Builder resBuilder = IMBuddy.IMAllUserRsp.newBuilder();
             resBuilder.setUserId(allUserReq.getUserId());
             resBuilder.setLatestUpdateTime(allUserReq.getLatestUpdateTime());
@@ -215,7 +221,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
      */
     @Override
     public void userStatusReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        
+
         logger.info("Send the users status request to router");
         RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
         routerConnector.send(new IMProtoMessage<>(header, body));
@@ -269,7 +275,35 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
      */
     @Override
     public void departmentReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // TODO Auto-generated method stub
+        IMBuddy.IMDepartmentReq departmentReq = (IMBuddy.IMDepartmentReq) body;
+
+        try {
+            BaseModel<List<DepartmentEntity>> departments = departmentService.changedList(departmentReq.getLatestUpdateTime());
+            if (departments.getCode() == 0) {
+                if (departments.getData() != null){
+                    IMBuddy.IMDepartmentRsp.Builder departmentResBuilder = IMBuddy.IMDepartmentRsp.newBuilder();
+                    List<IMBaseDefine.DepartInfo> depts = new ArrayList<>();
+                    
+                    for (DepartmentEntity department:departments.getData()) {
+                        depts.add(JavaBean2ProtoBuf.getDepartmentInfo(department));
+                    }
+                    
+                    departmentResBuilder.setUserId(departmentReq.getUserId());
+                    if (departments.getData().isEmpty()) {
+                        departmentResBuilder.setLatestUpdateTime(departmentReq.getLatestUpdateTime());
+                    } else {
+                        departmentResBuilder.setLatestUpdateTime(departments.getData().get(departments.getData().size() - 1).getUpdated());
+                    }
+                    departmentResBuilder.addAllDeptList(depts);
+                    
+                    IMHeader resHeader = header.clone();
+                    resHeader.setCommandId((short)BuddyListCmdID.CID_BUDDY_LIST_DEPARTMENT_RESPONSE_VALUE);
+                    ctx.writeAndFlush(new IMProtoMessage<>(resHeader, departmentResBuilder.build()));
+                }
+            }
+        } catch (Exception e) {
+            logger.error("查询部门列表时发生异常", e);
+        }
 
     }
 

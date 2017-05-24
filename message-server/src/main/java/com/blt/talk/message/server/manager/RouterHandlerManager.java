@@ -4,7 +4,6 @@
 
 package com.blt.talk.message.server.manager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,10 +17,10 @@ import org.springframework.stereotype.Component;
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMBaseDefine;
+import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.IMOther;
 import com.blt.talk.common.code.proto.IMServer;
-import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.message.server.MessageServerStarter;
 import com.blt.talk.message.server.RouterServerConnecter;
 import com.google.protobuf.MessageLite;
@@ -48,7 +47,7 @@ public class RouterHandlerManager {
      * 
      * @since  1.0
      */
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 300000)
     public void sendHeartBeat() {
         
         RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
@@ -66,7 +65,7 @@ public class RouterHandlerManager {
      * 
      * @since  1.0
      */
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 600000)
     public void sendUserInfo() {
         
         RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
@@ -74,21 +73,8 @@ public class RouterHandlerManager {
         header.setServiceId((short)IMBaseDefine.ServiceID.SID_OTHER_VALUE);
         header.setCommandId((short)IMBaseDefine.OtherCmdID.CID_OTHER_ONLINE_USER_INFO_VALUE);
         
-        List<IMBaseDefine.ServerUserStat> userStatList = new ArrayList<>();
-        
-        IMBaseDefine.ServerUserStat.Builder userStatBuilder = IMBaseDefine.ServerUserStat.newBuilder();
-        
-        for (ClientConnection client: ClientConnectionMap.allClientMap.values()) {
-            
-            if (client.getUserId() != null) {
-                // 需要对应登录用户的设备类型
-                userStatBuilder.setUserId(client.getUserId())
-                    .setStatus(IMBaseDefine.UserStatType.USER_STATUS_ONLINE).setClientType(IMBaseDefine.ClientType.CLIENT_TYPE_ANDROID);
-                userStatList.add(userStatBuilder.build());
-            }
-        }
-        
-        
+        List<IMBaseDefine.ServerUserStat> userStatList = ClientUserManager.getOnlineUser();
+
         IMServer.IMOnlineUserInfo.Builder userInfoBuilder = IMServer.IMOnlineUserInfo.newBuilder();
         userInfoBuilder.addAllUserStatList(userStatList);
         
@@ -153,9 +139,9 @@ public class RouterHandlerManager {
         // IMBuddy.IMUserStatNotify userStatNotify = (IMBuddy.IMUserStatNotify)body;
         // 通知好友及关联群组的用户在线状况
         // FIXME 原程序为通知当前服务器所有用户
-        for (ClientConnection client :ClientConnectionMap.allClientMap.values()) {
-            client.getCtx().writeAndFlush(new IMProtoMessage<>(header, body));
-        }
+//        for (ClientConnection client :ClientConnectionMap.allClientMap.values()) {
+//            client.getCtx().writeAndFlush(new IMProtoMessage<>(header, body));
+//        }
     }
 
     /**
@@ -166,8 +152,10 @@ public class RouterHandlerManager {
      */
     private void sendUsersStatus(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         IMBuddy.IMUsersStatRsp usersStatRsp = (IMBuddy.IMUsersStatRsp) body;
-        ClientConnection client = ClientConnectionMap.getClientByUserId(usersStatRsp.getUserId());
-        client.getCtx().writeAndFlush(new IMProtoMessage<MessageLite>(header, body));
+        ClientUser client = ClientUserManager.getUserById(usersStatRsp.getUserId());
+        if (client != null) {
+            client.broadcast(new IMProtoMessage<MessageLite>(header, body), ctx);
+        }
     }
 
     /**
@@ -222,10 +210,12 @@ public class RouterHandlerManager {
                     Thread.sleep(5000);
             }
     
+            ClientUserManager.ClientUserConn clientConn = ClientUserManager.getUserConn();
+            
             String ip = routerConnector.getIpadress();
             int port = routerConnector.getPort();
             IMServer.IMMsgServInfo msgServerInfo = IMServer.IMMsgServInfo.newBuilder()
-                    .setHostName(ip).setIp1(ip).setIp2(ip).setPort(port).setCurConnCnt(ClientConnectionMap.allClientMap.size()).setMaxConnCnt(0).build();
+                    .setHostName(ip).setIp1(ip).setIp2(ip).setPort(port).setCurConnCnt(clientConn.getTotalCount()).setMaxConnCnt(0).build();
             
             IMHeader header = new IMHeader();
             header.setServiceId((short)IMBaseDefine.ServiceID.SID_OTHER_VALUE);

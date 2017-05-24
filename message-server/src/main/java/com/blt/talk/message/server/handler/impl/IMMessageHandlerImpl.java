@@ -30,8 +30,10 @@ import com.blt.talk.common.param.SessionAddReq;
 import com.blt.talk.common.param.SessionUpdateReq;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.message.server.handler.IMMessageHandler;
-import com.blt.talk.message.server.manager.ClientConnection;
-import com.blt.talk.message.server.manager.ClientConnectionMap;
+import com.blt.talk.message.server.manager.ClientUser;
+import com.blt.talk.message.server.manager.ClientUserManager;
+//import com.blt.talk.message.server.manager.ClientConnection;
+//import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.blt.talk.message.server.remote.MessageService;
 import com.blt.talk.message.server.remote.RecentSessionService;
 import com.google.protobuf.MessageLite;
@@ -65,11 +67,25 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
     @Override
     public void sendMessage(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
-        // FIXME 限制用户一秒钟发送超20条
-        // 判断是MSG_TYPE是否是单用户
-
+        logger.debug("接收消息，来自{}", ctx.attr(ClientUser.USER_ID).get());
+        
         // 发送消息
         IMMessage.IMMsgData msgdata = (IMMessage.IMMsgData) body;
+        
+        // 消息长度，为空时，忽略
+        if (msgdata.getMsgData().isEmpty()) {
+            logger.debug("空消息，忽略");
+            return;
+        }
+        
+        // FIXME 限制用户一秒钟发送超20条
+        // >
+        
+        // 判断是MSG_TYPE是否是同一用户
+        if (msgdata.getFromUserId() == msgdata.getToSessionId() && CommonUtils.isMessageTypeSinble(msgdata.getMsgType())) {
+            logger.debug("同一用户互发消息，忽略");
+            return;
+        }
 
         // 查询 session对应的peerId
         SessionType sessionType = SessionType.SESSION_TYPE_SINGLE;
@@ -122,9 +138,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 sessionUpdateReq.setUpdateTime(time);
 
                 recentSessionService.updateSession(sessionUpdateReq);
-                
-                 
-                
             } else if (messageType == MsgType.MSG_TYPE_GROUP_AUDIO) {
                 sessionType = SessionType.SESSION_TYPE_GROUP;
 
@@ -172,21 +185,30 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 recentSessionService.updateSession(sessionUpdateReq);
                 msgdata = msgdata.toBuilder().setMsgId(messageIdRes.getData()).build();
 
-                ClientConnection clientConn = ClientConnectionMap.getClientByUserId(msgdata.getToSessionId());
-                if (clientConn != null) {
-
-                    logger.debug("在线消息: from={}， to={}", msgdata.getFromUserId(), msgdata.getToSessionId());
-
-                    // 接收方在线
-                    ChannelHandlerContext toCtx = clientConn.getCtx();
+                ClientUser clientUser = ClientUserManager.getUserById(msgdata.getToSessionId());
+                if(clientUser != null) {
                     IMHeader headerRes = header.clone();
                     headerRes.setCommandId((short) MessageCmdID.CID_MSG_DATA_VALUE);
-                    toCtx.writeAndFlush(new IMProtoMessage<>(headerRes, msgdata));
-                } else {
-
-                    // 处理 离线或路由转发
-                    logger.debug("离线消息");
+                    // 用户在线，发送消息
+                    logger.debug("发送在线消息");
+                    clientUser.broadcast(new IMProtoMessage<>(headerRes, msgdata), ctx);
                 }
+                //FIXME 
+//                ClientConnection clientConn = ClientConnectionMap.getClientByUserId(msgdata.getToSessionId());
+//                if (clientConn != null) {
+//
+//                    logger.debug("在线消息: from={}， to={}", msgdata.getFromUserId(), msgdata.getToSessionId());
+//
+//                    // 接收方在线
+//                    ChannelHandlerContext toCtx = clientConn.getCtx();
+//                    IMHeader headerRes = header.clone();
+//                    headerRes.setCommandId((short) MessageCmdID.CID_MSG_DATA_VALUE);
+//                    toCtx.writeAndFlush(new IMProtoMessage<>(headerRes, msgdata));
+//                } else {
+//
+//                    // 处理 离线或路由转发
+//                    logger.debug("离线消息");
+//                }
 
             } else if (messageType == MsgType.MSG_TYPE_SINGLE_AUDIO) {
 
@@ -239,19 +261,19 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
         userCountReq.setSessionType(msgdata.getSessionType());
         messageService.clearUserCounter(userCountReq);
 
-        ClientConnection clientConn = ClientConnectionMap.getClientByUserId(userId);
-        if (clientConn != null) {
+//        ClientConnection clientConn = ClientConnectionMap.getClientByUserId(userId);
+//        if (clientConn != null) {
 
-            logger.debug("在线消息已读回执: from={}， to={}", msgdata.getUserId(), msgdata.getSessionId());
-
-            // 接收方在线
-            ChannelHandlerContext toCtx = clientConn.getCtx();
-            toCtx.writeAndFlush(new IMProtoMessage<>(header.clone(), msgdata));
-        } else {
-
-            // 处理 离线或路由转发
-            logger.debug("离线消息");
-        }
+//            logger.debug("在线消息已读回执: from={}， to={}", msgdata.getUserId(), msgdata.getSessionId());
+//
+//            // 接收方在线
+//            ChannelHandlerContext toCtx = clientConn.getCtx();
+//            toCtx.writeAndFlush(new IMProtoMessage<>(header.clone(), msgdata));
+//        } else {
+//
+//            // 处理 离线或路由转发
+//            logger.debug("离线消息");
+//        }
 
         IMMessage.IMMsgDataReadNotify.Builder messageReadNotifyBuilder = IMMessage.IMMsgDataReadNotify.newBuilder();
         messageReadNotifyBuilder.setMsgId(msgdata.getMsgId());

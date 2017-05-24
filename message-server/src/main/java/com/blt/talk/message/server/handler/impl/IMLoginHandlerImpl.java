@@ -24,8 +24,10 @@ import com.blt.talk.common.param.LoginReq;
 import com.blt.talk.common.result.LoginCmdResult;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.message.server.handler.IMLoginHandler;
-import com.blt.talk.message.server.manager.ClientConnection;
-import com.blt.talk.message.server.manager.ClientConnectionMap;
+import com.blt.talk.message.server.manager.ClientUser;
+import com.blt.talk.message.server.manager.ClientUserManager;
+//import com.blt.talk.message.server.manager.ClientConnection;
+//import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.blt.talk.message.server.remote.LoginService;
 import com.google.protobuf.MessageLite;
 
@@ -79,13 +81,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
             
             if (userRes.getCode() != LoginCmdResult.SUCCESS.getCode()) {
                 
-                // FIXME 登录失败后，处理
-//              IMValidateRsp res;
-//                res = IMValidateRsp.newBuilder().setUserName(userName).setResultCode(userRes.getCode()).setResultString(userRes.getMsg()).build();
-                
-                IMLoginRes res;
-               
-                res = IMLoginRes.newBuilder().setServerTime(serverTime)
+                IMLoginRes res = IMLoginRes.newBuilder().setServerTime(serverTime)
                         .setOnlineStatus(UserStatType.USER_STATUS_ONLINE)
                         .setResultCode(ResultType.REFUSE_REASON_DB_VALIDATE_FAILED).setResultString(userRes.getMsg()).buildPartial();
                 IMHeader resHeader = header.clone();
@@ -93,24 +89,33 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
                 
                 ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
             } else {
-                IMLoginRes res;
                 IMBaseDefine.UserInfo userInfo = JavaBean2ProtoBuf.getUserInfo(userRes.getData());
-                
-                res = IMLoginRes.newBuilder().setOnlineStatus(UserStatType.USER_STATUS_ONLINE).setServerTime(serverTime).setUserInfo(userInfo)
-                        .setResultCode(ResultType.REFUSE_REASON_NONE).build();
+
+                IMLoginRes res = IMLoginRes.newBuilder().setOnlineStatus(UserStatType.USER_STATUS_ONLINE)
+                        .setServerTime(serverTime).setUserInfo(userInfo).setResultCode(ResultType.REFUSE_REASON_NONE)
+                        .build();
                 
                 IMHeader resHeader = header.clone();
                 resHeader.setCommandId((short)LoginCmdID.CID_LOGIN_RES_USERLOGIN_VALUE);
                 ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
                 
-                //FIXME 登录成功后，其他处理
-                // 查询同一用户的其他Client，踢掉
-                
-                
-                // 更新当前Connection的用户ID
-                ClientConnection clientConn = ClientConnectionMap.getClientConnection(ctx);
-                ClientConnectionMap.registerUserid(userRes.getData().getId(), clientConn.getNetId());
-                clientConn.setUserId(userRes.getData().getId());
+                // 查询同一用户的其他Client
+                ClientUser clientUser = ClientUserManager.getUserById(userRes.getData().getId());
+                if (clientUser == null) {
+                    
+                    logger.debug("登录成功:{}", userRes.getData().getId());
+                    clientUser = new ClientUser(ctx, userRes.getData().getId(), req.getClientType(), UserStatType.USER_STATUS_ONLINE);
+                    clientUser.setLoginName(userRes.getData().getRealName());
+                    clientUser.setNickName(userRes.getData().getMainName());
+                    ClientUserManager.addUserById(userRes.getData().getId(), clientUser);
+                } else {
+                    logger.debug("登录成功，设置参数:{}", userRes.getData().getId());
+                    clientUser.addUnvalidateConn(ctx);
+                    ctx.attr(ClientUser.HANDLE_ID).set(ClientUser.HandleIdGenerator.get());
+                    ctx.attr(ClientUser.USER_ID).set(userRes.getData().getId());
+                    ctx.attr(ClientUser.CLIENT_TYPE).set(req.getClientType());
+                    ctx.attr(ClientUser.STATUS).set(UserStatType.USER_STATUS_ONLINE);
+                }
             }
             
         } catch (Exception e) {
