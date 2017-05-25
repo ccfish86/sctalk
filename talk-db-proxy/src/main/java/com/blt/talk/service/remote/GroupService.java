@@ -1,6 +1,7 @@
 package com.blt.talk.service.remote;
 
 import java.util.List;
+import java.util.Map;
 
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
@@ -40,5 +41,13 @@ public interface GroupService {
      * @since  1.0
      */
     BaseModel<List<GroupEntity>> groupInfoList(List<Long> groupIdList);
+
+    /**
+     * 查询组的属性
+     * @param groupVersionList
+     * @return
+     * @since  1.0
+     */
+    BaseModel<List<GroupEntity>> groupInfoList(Map<String, Integer> groupIdList);
     
 }

@@ -184,5 +184,21 @@ public class CommonUtils {
         }
         return false;
     }
+    /**
+     * @param messageType
+     * @return
+     * @since  1.0
+     */
+    public static boolean isGroup(MsgType messageType) {
+        return MsgType.MSG_TYPE_GROUP_TEXT == messageType || MsgType.MSG_TYPE_GROUP_AUDIO == messageType;
+    }
+    /**
+     * @param messageType
+     * @return
+     * @since  1.0
+     */
+    public static boolean isSingle(MsgType messageType) {
+        return MsgType.MSG_TYPE_SINGLE_TEXT == messageType || MsgType.MSG_TYPE_SINGLE_AUDIO == messageType;
+    }
     
 }

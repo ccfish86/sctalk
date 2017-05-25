@@ -8,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.blt.talk.common.code.IMHeader;
+import com.google.protobuf.MessageLite;
+
 /**
  * Handler处理日志
  * 
@@ -34,15 +37,31 @@ public class LogAspect {
         // LOG.debug("logPointcut " + joinPoint + "\t");
         long start = System.currentTimeMillis();
         try {
-            Object result = joinPoint.proceed();
-            long end = System.currentTimeMillis();
-            logger.info("++Execute [{}]\tUse time : {}ms!", joinPoint.getSignature(), end - start);
-            return result;
+            logger.debug("[start] {}#{}", joinPoint.getTarget().getClass().getSimpleName(), joinPoint.getSignature().getName());
 
+            // 输出参数
+            Object[] objs = joinPoint.getArgs();
+            for (Object obj : objs) {
+
+                if (obj == null) {
+                    continue;
+                }
+                if (obj instanceof IMHeader) {
+                    IMHeader header = (IMHeader)obj;
+                    logger.debug("[param.header] serviceId:{}, commandId:{}", header.getServiceId(), header.getCommandId());
+                } else if (obj instanceof MessageLite) {
+                    logger.debug("[param.body] :{}", obj);
+                } else {
+                    logger.debug("[param.other] :{}", obj);
+                }
+            }
+            Object result = joinPoint.proceed();
+            return result;
         } catch (Throwable e) {
-            long end = System.currentTimeMillis();
-            logger.info("++Execute [{}]\tUse time : {}ms!  with exception : {}", joinPoint.getSignature(), end - start, e.getMessage());
             throw e;
+        } finally {
+            long end = System.currentTimeMillis();
+            logger.debug("[end] {}ms  {}#{}",  end - start, joinPoint.getTarget().getClass().getSimpleName(), joinPoint.getSignature().getName());
         }
 
     }

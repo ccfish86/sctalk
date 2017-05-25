@@ -106,7 +106,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     @Override
     public void statusNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-
+        logger.warn("++TODO +++++");
     }
 
     /*
@@ -166,7 +166,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     @Override
     public void removeSessionReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-
+        logger.warn("++TODO +++++");
     }
 
     /*
@@ -237,7 +237,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     @Override
     public void changeAvaterReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-
+        logger.warn("++TODO +++++");
     }
 
     /*
@@ -250,7 +250,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     @Override
     public void pcLoginStatusNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-
+        logger.warn("++TODO +++++");
     }
 
     /*
@@ -317,7 +317,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     @Override
     public void avatarChangedNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-
+        logger.warn("++TODO +++++");
     }
 
     /*
@@ -373,7 +373,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     @Override
     public void signInfoChangedNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-
+        logger.warn("++TODO +++++");
     }
 
 }

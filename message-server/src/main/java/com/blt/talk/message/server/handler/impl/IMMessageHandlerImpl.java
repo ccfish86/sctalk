@@ -10,6 +10,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.IMHeader;
@@ -19,23 +20,26 @@ import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MsgType;
 import com.blt.talk.common.code.proto.IMBaseDefine.SessionType;
 import com.blt.talk.common.code.proto.IMMessage;
+import com.blt.talk.common.code.proto.IMMessage.IMMsgData;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
+import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.MessageEntity;
+import com.blt.talk.common.model.entity.GroupEntity;
 import com.blt.talk.common.model.entity.UnreadEntity;
 import com.blt.talk.common.param.ClearUserCountReq;
 import com.blt.talk.common.param.GroupMessageSendReq;
 import com.blt.talk.common.param.MessageSendReq;
-import com.blt.talk.common.param.SessionAddReq;
-import com.blt.talk.common.param.SessionUpdateReq;
+import com.blt.talk.common.result.GroupCmdResult;
 import com.blt.talk.common.util.CommonUtils;
+import com.blt.talk.message.server.RouterServerConnecter;
 import com.blt.talk.message.server.handler.IMMessageHandler;
 import com.blt.talk.message.server.manager.ClientUser;
 import com.blt.talk.message.server.manager.ClientUserManager;
+import com.blt.talk.message.server.remote.GroupService;
 //import com.blt.talk.message.server.manager.ClientConnection;
 //import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.blt.talk.message.server.remote.MessageService;
-import com.blt.talk.message.server.remote.RecentSessionService;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -53,9 +57,11 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private RecentSessionService recentSessionService;
-    @Autowired
     private MessageService messageService;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private ApplicationContext applicationContext;
 
     /*
      * (non-Javadoc)
@@ -99,26 +105,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             MsgType messageType = msgdata.getMsgType();
             if (messageType == MsgType.MSG_TYPE_GROUP_TEXT) {
 
-                long sessionId = 0;
-                sessionType = SessionType.SESSION_TYPE_GROUP;
-
-                // 群组文本
-                BaseModel<Long> sessionIdRes = recentSessionService.getSessionId(msgdata.getFromUserId(),
-                        msgdata.getToSessionId(), IMBaseDefine.SessionType.SESSION_TYPE_GROUP_VALUE, false);
-
-                if (sessionIdRes.getCode() == 0 && sessionIdRes.getData() != null) {
-                    sessionId = sessionIdRes.getData();
-                } else {
-                    SessionAddReq sessionReq = new SessionAddReq();
-                    sessionReq.setUserId(msgdata.getFromUserId());
-                    sessionReq.setType(IMBaseDefine.SessionType.SESSION_TYPE_GROUP_VALUE);
-                    sessionReq.setPeerId(msgdata.getToSessionId());
-
-                    BaseModel<Long> sessionAddRes = recentSessionService.addSession(sessionReq);
-
-                    sessionId = sessionAddRes.getData();
-                }
-
                 // 发送消息
                 // - sendMessage to group
                 GroupMessageSendReq messageReq = new GroupMessageSendReq();
@@ -131,40 +117,12 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 BaseModel<Long> messageIdRes =  messageService.sendMessage(messageReq);
 
                 msgdata = msgdata.toBuilder().setMsgId(messageIdRes.getData()).build();
-                
-                // 更新Session
-                SessionUpdateReq sessionUpdateReq = new SessionUpdateReq();
-                sessionUpdateReq.setSessionId(sessionId);
-                sessionUpdateReq.setUpdateTime(time);
 
-                recentSessionService.updateSession(sessionUpdateReq);
             } else if (messageType == MsgType.MSG_TYPE_GROUP_AUDIO) {
                 sessionType = SessionType.SESSION_TYPE_GROUP;
 
                 // 群组语音
             } else if (messageType == MsgType.MSG_TYPE_SINGLE_TEXT) {
-
-                long sessionId = 0;
-
-                // 个人文本
-                BaseModel<Long> sessionIdRes = recentSessionService.getSessionId(msgdata.getFromUserId(),
-                        msgdata.getToSessionId(), IMBaseDefine.SessionType.SESSION_TYPE_SINGLE_VALUE, false);
-
-                if (sessionIdRes.getCode() == 0 && sessionIdRes.getData() != null) {
-                    sessionId = sessionIdRes.getData();
-                } else {
-                    SessionAddReq sessionReq = new SessionAddReq();
-                    sessionReq.setUserId(msgdata.getFromUserId());
-                    sessionReq.setType(IMBaseDefine.SessionType.SESSION_TYPE_SINGLE_VALUE);
-                    sessionReq.setPeerId(msgdata.getToSessionId());
-
-                    BaseModel<Long> sessionAddRes = recentSessionService.addSession(sessionReq);
-
-                    sessionId = sessionAddRes.getData();
-                }
-
-                // 发送消息
-                // - sendMessage to single
 
                 // sendMessage(nFromId, nToId, nMsgType, nCreateTime, nMsgId,
                 // (string&)msg.msg_data())
@@ -176,13 +134,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 messageReq.setMsgContent(msgdata.getMsgData().toStringUtf8());
 
                 BaseModel<Integer> messageIdRes = messageService.sendMessage(messageReq);
-
-                // 更新Session
-                SessionUpdateReq sessionUpdateReq = new SessionUpdateReq();
-                sessionUpdateReq.setSessionId(sessionId);
-                sessionUpdateReq.setUpdateTime(time);
-
-                recentSessionService.updateSession(sessionUpdateReq);
                 msgdata = msgdata.toBuilder().setMsgId(messageIdRes.getData()).build();
 
                 ClientUser clientUser = ClientUserManager.getUserById(msgdata.getToSessionId());
@@ -193,22 +144,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                     logger.debug("发送在线消息");
                     clientUser.broadcast(new IMProtoMessage<>(headerRes, msgdata), ctx);
                 }
-                //FIXME 
-//                ClientConnection clientConn = ClientConnectionMap.getClientByUserId(msgdata.getToSessionId());
-//                if (clientConn != null) {
-//
-//                    logger.debug("在线消息: from={}， to={}", msgdata.getFromUserId(), msgdata.getToSessionId());
-//
-//                    // 接收方在线
-//                    ChannelHandlerContext toCtx = clientConn.getCtx();
-//                    IMHeader headerRes = header.clone();
-//                    headerRes.setCommandId((short) MessageCmdID.CID_MSG_DATA_VALUE);
-//                    toCtx.writeAndFlush(new IMProtoMessage<>(headerRes, msgdata));
-//                } else {
-//
-//                    // 处理 离线或路由转发
-//                    logger.debug("离线消息");
-//                }
 
             } else if (messageType == MsgType.MSG_TYPE_SINGLE_AUDIO) {
 
@@ -218,27 +153,143 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 // 暂不支持
                 logger.warn("暂不支持的消息类型");
             }
+            
+            // 处理完消息保存后
+            // CDBServConn::_HandleMsgData(CImPdu *pPdu)
+            if (CommonUtils.isGroup(messageType)) {
+                handleGroupMessage(header, msgdata, ctx);
+            } else if (CommonUtils.isSingle(messageType)) {
+                handleSingleMessage(header, msgdata, ctx);
+            } else {
+                // 铁轨
+            }
 
         } catch (Exception e) {
             logger.error("消息发送失败", e);
         } finally {
 
-            // 消息送达，接收反馈
-            IMMessage.IMMsgDataAck.Builder messageDataAckBuilder = IMMessage.IMMsgDataAck.newBuilder();
-            messageDataAckBuilder.setMsgId(msgdata.getMsgId());
-            messageDataAckBuilder.setUserId(msgdata.getFromUserId());
-            messageDataAckBuilder.setSessionId(msgdata.getToSessionId());
-            messageDataAckBuilder.setSessionType(sessionType);
-
-            IMHeader headerRes = header.clone();
-            headerRes.setCommandId((short) MessageCmdID.CID_MSG_DATA_ACK_VALUE);
-            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageDataAckBuilder.build()));
+//            // 消息送达，接收反馈
+//            IMMessage.IMMsgDataAck.Builder messageDataAckBuilder = IMMessage.IMMsgDataAck.newBuilder();
+//            messageDataAckBuilder.setMsgId(msgdata.getMsgId());
+//            messageDataAckBuilder.setUserId(msgdata.getFromUserId());
+//            messageDataAckBuilder.setSessionId(msgdata.getToSessionId());
+//            messageDataAckBuilder.setSessionType(sessionType);
+//
+//            IMHeader headerRes = header.clone();
+//            headerRes.setCommandId((short) MessageCmdID.CID_MSG_DATA_ACK_VALUE);
+//            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageDataAckBuilder.build()));
         }
     }
 
-    // 发送群消息
-    protected void sendMessage(int fromId, int toGroupId, IMBaseDefine.MsgType msgType, int createTime, int messageId,
-            String msgContent) {
+    /**
+     * @param header
+     * @param msgdata
+     * @since  1.0
+     */
+    private void handleSingleMessage(IMHeader header, IMMsgData msgdata, ChannelHandlerContext ctx) {
+        if (msgdata.getMsgId() == DBConstant.INVALIAD_VALUE) {
+            logger.warn("Write message to db failed, {}->{}.", msgdata.getFromUserId(), msgdata.getToSessionId());
+            return ;
+        }
+
+        logger.debug("Single message id={}, {}->{}", msgdata.getMsgId(), msgdata.getFromUserId(), msgdata.getToSessionId());
+        
+        // 消息送达，接收反馈
+        IMMessage.IMMsgDataAck.Builder messageDataAckBuilder = IMMessage.IMMsgDataAck.newBuilder();
+        messageDataAckBuilder.setMsgId(msgdata.getMsgId());
+        messageDataAckBuilder.setUserId(msgdata.getFromUserId());
+        messageDataAckBuilder.setSessionId(msgdata.getToSessionId());
+        messageDataAckBuilder.setSessionType(SessionType.SESSION_TYPE_SINGLE);
+
+        IMHeader headerRes = header.clone();
+        headerRes.setCommandId((short) MessageCmdID.CID_MSG_DATA_ACK_VALUE);
+        ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageDataAckBuilder.build()));
+        
+        // 广播
+        RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
+        if (routerConnector != null) {
+            routerConnector.send(new IMProtoMessage<>(header, msgdata), true);
+        }
+        
+        // 消息发送
+        IMProtoMessage<MessageLite> message = new IMProtoMessage<>(header, msgdata);
+
+        ClientUser fromClientUser = ClientUserManager.getUserById(msgdata.getFromUserId());
+        ClientUser toClientUser = ClientUserManager.getUserById(msgdata.getToSessionId());
+        if (fromClientUser != null) {
+            fromClientUser.broadcast(message, ctx);
+        }
+        if (toClientUser != null) {
+            toClientUser.broadcast(message, null);
+        }
+
+        // FIXME > 消息推送相关
+        // CID_OTHER_GET_DEVICE_TOKEN_REQ - CID_OTHER_GET_DEVICE_TOKEN_RES
+    }
+
+    /**
+     * @param header
+     * @param msgdata
+     * @since  1.0
+     */
+    private void handleGroupMessage(IMHeader header, IMMsgData msgdata, ChannelHandlerContext ctx) {
+        
+        if (msgdata.getMsgId() == DBConstant.INVALIAD_VALUE) {
+            logger.warn("Write group message to db failed, {}->{}.", msgdata.getFromUserId(), msgdata.getToSessionId());
+            return ;
+        }
+        logger.debug("Group message id={}, {}->{}", msgdata.getMsgId(), msgdata.getFromUserId(), msgdata.getToSessionId());
+        
+        // 消息送达，接收反馈
+        IMMessage.IMMsgDataAck.Builder messageDataAckBuilder = IMMessage.IMMsgDataAck.newBuilder();
+        messageDataAckBuilder.setMsgId(msgdata.getMsgId());
+        messageDataAckBuilder.setUserId(msgdata.getFromUserId());
+        messageDataAckBuilder.setSessionId(msgdata.getToSessionId());
+        messageDataAckBuilder.setSessionType(SessionType.SESSION_TYPE_GROUP);
+
+        IMHeader headerRes = header.clone();
+        headerRes.setCommandId((short) MessageCmdID.CID_MSG_DATA_ACK_VALUE);
+        ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageDataAckBuilder.build()));
+        
+        // 广播
+        RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
+        if (routerConnector != null) {
+            routerConnector.send(new IMProtoMessage<>(header, msgdata), true);
+        }
+        
+        // 服务器没有群的信息，向DB服务器请求群信息，并带上消息作为附件，返回时在发送该消息给其他群成员
+        // 查询群员，然后推送消息
+        List<Long> groupIdList = new ArrayList<>();
+        groupIdList.add(msgdata.getToSessionId());
+        BaseModel<List<GroupEntity>> groupListRes = groupService.groupInfoList(groupIdList);
+        if (groupListRes.getCode() == GroupCmdResult.SUCCESS.getCode()) {
+            if(groupListRes.getData() != null && !groupListRes.getData().isEmpty()) {
+                List<Long> memberList = groupListRes.getData().get(0).getUserList();
+                
+                if (memberList.contains(msgdata.getFromUserId())) {
+                    //用户在群中
+                    IMProtoMessage<MessageLite> message = new IMProtoMessage<>(header, msgdata);
+                    for (long userId : memberList) {
+                        ClientUser clientUser = ClientUserManager.getUserById(userId);
+                        if (clientUser == null) {
+                            continue;
+                        }
+                        if (userId == msgdata.getFromUserId()) {
+                            clientUser.broadcast(message, ctx);
+                        } else {
+                            clientUser.broadcast(message, null);
+                        }
+                    }
+                }
+            }
+            
+            // FIXME > 群消息推送相关
+            // CID_OTHER_GET_SHIELD_REQ - CID_OTHER_GET_SHIELD_RSP
+            // 获取一个群的推送设置
+            
+            // CID_OTHER_GET_DEVICE_TOKEN_REQ - CID_OTHER_GET_DEVICE_TOKEN_RSP
+            // push
+        }
 
     }
 

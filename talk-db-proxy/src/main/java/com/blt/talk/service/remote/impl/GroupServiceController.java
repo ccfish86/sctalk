@@ -243,4 +243,54 @@ public class GroupServiceController implements GroupService {
         return groupRes;
     }
 
+    @Override
+    @PostMapping(path = "/infoList")
+    public BaseModel<List<GroupEntity>> groupInfoList(@RequestBody Map<String, Integer> groupIdList) {
+        
+        List<Long> groupIds = new ArrayList<>();
+        for (String id: groupIdList.keySet()) {
+            groupIds.add(Long.valueOf(id));
+        }
+        
+        SearchCriteria<IMGroup> groupSearchCriteria = new SearchCriteria<>();
+        groupSearchCriteria.add(JpaRestrictions.in("id", groupIds, false));
+        Sort sort = new Sort(Sort.Direction.DESC, "updated");
+        
+        List<IMGroup> groups = groupRepository.findAll(groupSearchCriteria, sort);
+
+        List<GroupEntity> resData = new ArrayList<>();
+        for (IMGroup group: groups) {
+            
+            int version = groupIdList.get(String.valueOf(group.getId()));
+            if (version < group.getVersion()) {
+                
+                GroupEntity groupEntity = new GroupEntity();
+                groupEntity.setId(Long.valueOf(group.getId()));
+                groupEntity.setAvatar(group.getAvatar());
+                groupEntity.setCreated(group.getCreated());
+                groupEntity.setCreatorId(group.getCreator());
+                groupEntity.setGroupType(group.getType());
+                groupEntity.setStatus(group.getStatus());
+                groupEntity.setMainName(group.getName());
+                groupEntity.setVersion(group.getVersion());
+                resData.add(groupEntity);
+                
+                // fillGroupMember
+                String key = "group_member_" + group.getId();
+                HashOperations<String, String, String> groupMapOps = redisTemplate.opsForHash();
+                Map<String, String> groupMemberMap = groupMapOps.entries(key);
+                List<Long> userIds = new ArrayList<>();
+                if (groupMemberMap != null) {
+                    for (String memberId : groupMemberMap.keySet()) {
+                        userIds.add(Long.valueOf(memberId));
+                    }
+                }
+                groupEntity.setUserList(userIds);
+            }
+        }
+        BaseModel<List<GroupEntity>> groupRes = new BaseModel<>();
+        groupRes.setData(resData);
+        
+        return groupRes;
+    }
 }

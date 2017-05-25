@@ -158,9 +158,9 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         // super.exceptionCaught(ctx, cause);
         Channel incoming = ctx.channel();
-        System.out.println("MessageServerHandler:" + incoming.remoteAddress() + "异常");
+        logger.debug("MessageServerHandler异常:{}", incoming.remoteAddress());
+
         // 异常出现就关闭连接
-        cause.printStackTrace();
-        ctx.close();
+        ctx.fireExceptionCaught(cause).close();
     }
 }

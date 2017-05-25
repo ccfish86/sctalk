@@ -21,6 +21,7 @@ import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.IMOther;
 import com.blt.talk.common.code.proto.IMServer;
+import com.blt.talk.common.constant.SysConstant;
 import com.blt.talk.message.server.MessageServerStarter;
 import com.blt.talk.message.server.RouterServerConnecter;
 import com.google.protobuf.MessageLite;
@@ -136,12 +137,8 @@ public class RouterHandlerManager {
      * @since  1.0
      */
     private void sendStatusNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // IMBuddy.IMUserStatNotify userStatNotify = (IMBuddy.IMUserStatNotify)body;
         // 通知好友及关联群组的用户在线状况
-        // FIXME 原程序为通知当前服务器所有用户
-//        for (ClientConnection client :ClientConnectionMap.allClientMap.values()) {
-//            client.getCtx().writeAndFlush(new IMProtoMessage<>(header, body));
-//        }
+        ClientUserManager.broadCast(new IMProtoMessage<>(header, body), SysConstant.CLIENT_TYPE_FLAG_PC);
     }
 
     /**
@@ -166,8 +163,12 @@ public class RouterHandlerManager {
      * @since  1.0
      */
     public void doMessage(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
-        // TODO Auto-generated method stub
-        
+        logger.debug("RouterHandleManager#doMessage");
+        switch (commandId) {
+            default:
+                logger.warn("Unsupport command id {}", commandId);
+                break;
+        }
     }
 
     /**
@@ -178,8 +179,12 @@ public class RouterHandlerManager {
      * @since  1.0
      */
     public void doOther(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
-        // TODO Auto-generated method stub
-        
+        logger.debug("RouterHandleManager#doOther");
+        switch (commandId) {
+            default:
+                logger.warn("Unsupport command id {}", commandId);
+                break;
+        }        
     }
 
     /**
@@ -190,8 +195,12 @@ public class RouterHandlerManager {
      * @since  1.0
      */
     public void doSwitch(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
-        // TODO Auto-generated method stub
-        
+        logger.debug("RouterHandleManager#doSwitch");
+        switch (commandId) {
+            default:
+                logger.warn("Unsupport command id {}", commandId);
+                break;
+        }        
     }
 
     /**

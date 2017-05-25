@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blt.talk.common.code.proto.IMBaseDefine;
+import com.blt.talk.common.code.proto.IMBaseDefine.SessionType;
+import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.MessageEntity;
 import com.blt.talk.common.model.entity.UnreadEntity;
@@ -37,6 +39,7 @@ import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.common.util.SecurityUtils;
 import com.blt.talk.service.internal.RelationShipService;
 import com.blt.talk.service.internal.SequenceService;
+import com.blt.talk.service.internal.SessionService;
 import com.blt.talk.service.jpa.entity.IMGroup;
 import com.blt.talk.service.jpa.entity.IMGroupMember;
 import com.blt.talk.service.jpa.entity.IMGroupMessage0;
@@ -155,6 +158,9 @@ public class MessageServiceController implements MessageService {
     @Autowired
     private RelationShipService relationShipService;
 
+    @Autowired
+    private SessionService sessionService;
+    
     /*
      * (non-Javadoc)
      * 
@@ -215,6 +221,16 @@ public class MessageServiceController implements MessageService {
             default:
                 break;
         }
+        
+        // 更新Session
+        long sessionId = sessionService.getSessionId(messageSendReq.getUserId(), messageSendReq.getGroupId(),
+                SessionType.SESSION_TYPE_GROUP_VALUE, false);
+        if (sessionId == DBConstant.INVALIAD_VALUE) {
+            sessionId = sessionService.addSession(messageSendReq.getUserId(), messageSendReq.getGroupId(),
+                    SessionType.SESSION_TYPE_GROUP_VALUE);
+        }
+        
+        sessionService.update(sessionId, messageSendReq.getCreateTime());
 
         // 更新最后消息时间
         IMGroup group = groupRepository.findOne(messageSendReq.getGroupId());
@@ -301,6 +317,16 @@ public class MessageServiceController implements MessageService {
             default:
                 break;
         }
+        
+        // 更新Session
+        long sessionId = sessionService.getSessionId(messageSendReq.getUserId(), messageSendReq.getToId(),
+                SessionType.SESSION_TYPE_SINGLE_VALUE, false);
+        if (sessionId == DBConstant.INVALIAD_VALUE) {
+            sessionId = sessionService.addSession(messageSendReq.getUserId(), messageSendReq.getToId(),
+                    SessionType.SESSION_TYPE_SINGLE_VALUE);
+        }
+        
+        sessionService.update(sessionId, messageSendReq.getCreateTime());
 
         // 计数
         String groupKey = "unread_" + messageSendReq.getToId();

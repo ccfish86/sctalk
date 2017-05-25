@@ -5,7 +5,9 @@
 package com.blt.talk.message.server.handler.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,9 +112,9 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
 
         try {
 
-            List<Long> groupIdList = new ArrayList<>();
+            Map<String, Integer> groupIdList = new HashMap<>();
             for (IMBaseDefine.GroupVersionInfo groupVersion:req.getGroupVersionListList()) {
-                groupIdList.add(groupVersion.getGroupId());
+                groupIdList.put(String.valueOf(groupVersion.getGroupId()), groupVersion.getVersion());
             }
             
             BaseModel<List<GroupEntity>> groupListRes = groupService.groupInfoList(groupIdList);
@@ -135,16 +137,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
                 if (groupListRes.getData() != null) {
                     List<IMBaseDefine.GroupInfo> groupInfoList = new ArrayList<>();
                     for (GroupEntity groupEntity: groupListRes.getData()) {
-                        
-                        // 处理旧数据
-                        for (IMBaseDefine.GroupVersionInfo groupVersion:req.getGroupVersionListList()) {
-                            // groupIdList.add(groupVersion.getGroupId());
-                            if (groupVersion.getGroupId() == groupEntity.getId() 
-                                    && groupVersion.getVersion() < groupEntity.getVersion()) {
-                                groupInfoList.add(JavaBean2ProtoBuf.getGroupInfo(groupEntity));
-                                break;
-                            }
-                        }
+                        groupInfoList.add(JavaBean2ProtoBuf.getGroupInfo(groupEntity));
                     }
                     groupResBuilder.addAllGroupInfoList(groupInfoList);
                 }

@@ -110,8 +110,9 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
                     ClientUserManager.addUserById(userRes.getData().getId(), clientUser);
                 } else {
                     logger.debug("登录成功，设置参数:{}", userRes.getData().getId());
-                    clientUser.addUnvalidateConn(ctx);
-                    ctx.attr(ClientUser.HANDLE_ID).set(ClientUser.HandleIdGenerator.get());
+                    long handle = ClientUser.HandleIdGenerator.get();
+                    clientUser.addConn(handle, ctx);
+                    ctx.attr(ClientUser.HANDLE_ID).set(handle);
                     ctx.attr(ClientUser.USER_ID).set(userRes.getData().getId());
                     ctx.attr(ClientUser.CLIENT_TYPE).set(req.getClientType());
                     ctx.attr(ClientUser.STATUS).set(UserStatType.USER_STATUS_ONLINE);
@@ -139,7 +140,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     @Override
     public void logOut(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-        
+        logger.warn("++TODO +++++");
     }
 
     /* (non-Javadoc)
@@ -148,7 +149,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     @Override
     public void kickUser(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-        
+        logger.warn("++TODO +++++");
     }
 
     /* (non-Javadoc)
@@ -157,7 +158,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     @Override
     public void deviceToken(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-        
+        logger.warn("++TODO +++++");
     }
 
     /* (non-Javadoc)
@@ -166,7 +167,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     @Override
     public void kickPcClient(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-        
+        logger.warn("++TODO +++++");
     }
 
     /* (non-Javadoc)
@@ -175,7 +176,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     @Override
     public void pushShield(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-        
+        logger.warn("++TODO +++++");
     }
 
     /* (non-Javadoc)
@@ -184,7 +185,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     @Override
     public void queryPushShield(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
-        
+        logger.warn("++TODO +++++");
     }
 
 }

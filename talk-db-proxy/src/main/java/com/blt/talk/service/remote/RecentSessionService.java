@@ -19,8 +19,8 @@ import com.blt.talk.common.param.SessionUpdateReq;
  */
 public interface RecentSessionService {
     BaseModel<List<SessionEntity>> getRecentSession(long userId, int lastUpdateTime);
-    BaseModel<Long> getSessionId(long userId, long peerId, int type, boolean isAll);
-    BaseModel<Long> addSession(SessionAddReq sessionReq);
-    BaseModel<?> updateSession(SessionUpdateReq sessionReq);
-    BaseModel<?> removeSession(long sessionId);
+//    BaseModel<Long> getSessionId(long userId, long peerId, int type, boolean isAll);
+//    BaseModel<Long> addSession(SessionAddReq sessionReq);
+//    BaseModel<?> updateSession(SessionUpdateReq sessionReq);
+//    BaseModel<?> removeSession(long sessionId);
 }

@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicLong;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
@@ -40,6 +41,7 @@ import io.netty.util.AttributeKey;
 public class ClientUser {
 
     public static final AtomicLong HandleIdGenerator = new AtomicLong(1);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private long userId;
     private String loginName;
@@ -74,9 +76,10 @@ public class ClientUser {
      */
     public ClientUser(ChannelHandlerContext ctx, long userId, ClientType clientType, UserStatType statType) {
         this();
+        long handle = HandleIdGenerator.get();
         this.userId = userId;
-        this.addUnvalidateConn(ctx);
-        ctx.attr(HANDLE_ID).set(HandleIdGenerator.get());
+        this.connMap.put(handle, ctx);
+        ctx.attr(HANDLE_ID).set(handle);
         ctx.attr(USER_ID).set(userId);
         ctx.attr(CLIENT_TYPE).set(clientType);
         ctx.attr(STATUS).set(statType);
@@ -129,6 +132,7 @@ public class ClientUser {
     public void broadcast(IMProtoMessage<MessageLite> message, ChannelHandlerContext fromCtx) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx) {
+                logger.debug("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
             }
         }
@@ -137,6 +141,7 @@ public class ClientUser {
     public void broadcastWithOutMobile(IMProtoMessage<MessageLite> message, ChannelHandlerContext fromCtx) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx && CommonUtils.isPc(conn.attr(CLIENT_TYPE).get())) {
+                logger.debug("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
             }
         }
@@ -145,6 +150,7 @@ public class ClientUser {
     public void broadcastToMobile(IMProtoMessage<MessageLite> message, ChannelHandlerContext fromCtx) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx && CommonUtils.isMobile(conn.attr(CLIENT_TYPE).get())) {
+                logger.debug("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
             }
         }
@@ -153,6 +159,7 @@ public class ClientUser {
     public void broadcaseMessage(IMProtoMessage<MessageLite> message, long messageId, ChannelHandlerContext fromCtx, long fromId) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx) {
+                logger.debug("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
                 // conn AddToSendList
             }
@@ -162,6 +169,7 @@ public class ClientUser {
     public void broadcastData(ByteBuf message, int len,  ChannelHandlerContext fromCtx) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx) {
+                logger.debug("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
             }
         }

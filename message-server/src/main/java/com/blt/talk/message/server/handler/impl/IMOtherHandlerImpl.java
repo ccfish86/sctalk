@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
-import com.blt.talk.common.code.proto.IMOther;
 import com.blt.talk.message.server.handler.IMOtherHandler;
 import com.google.protobuf.MessageLite;
 
@@ -23,18 +22,13 @@ import io.netty.channel.ChannelHandlerContext;
 @Component
 public class IMOtherHandlerImpl implements IMOtherHandler {
 
-//    @Autowired
-//    private RestTemplate restTemplate;
-    
     /* (non-Javadoc)
      * @see com.blt.talk.message.server.handler.IMOtherHandler#hearBeat(com.blt.talk.common.code.proto.Header, com.google.protobuf.MessageLite, io.netty.channel.ChannelHandlerContext)
      */
     @Override
     public void hearBeat(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // 心跳处理
-//        IMOther.IMHeartBeat res = IMOther.IMHeartBeat.newBuilder()
-//                .build();
-//        ctx.writeAndFlush(new IMProtoMessage<>(header.clone(), res));
+        // 响应
+        ctx.writeAndFlush(new IMProtoMessage<>(header, body));
     }
 
 }

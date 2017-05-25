@@ -5,9 +5,11 @@
 package com.blt.talk.message.server.remote;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,4 +63,14 @@ public interface GroupService {
      */
     @GetMapping(path = "/group/groupInfoList")
     BaseModel<List<GroupEntity>> groupInfoList(@RequestParam("groupIdList") List<Long> groupIdList);
+    
+    /**
+     * 查询组的属性
+     * @param groupVersionList
+     * @return
+     * @since  1.0
+     */
+    @PostMapping(path = "/group/infoList")
+    BaseModel<List<GroupEntity>> groupInfoList(@RequestBody Map<String, Integer> groupIdList);
+    
 }
