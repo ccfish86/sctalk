@@ -33,7 +33,7 @@ public class IMGroup implements Serializable {
     private int created;
 
     @Column(nullable = false)
-    private int creator;
+    private Long creator;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,7 +75,7 @@ public class IMGroup implements Serializable {
         return this.created;
     }
 
-    public int getCreator() {
+    public Long getCreator() {
         return this.creator;
     }
 
@@ -119,7 +119,7 @@ public class IMGroup implements Serializable {
         this.created = created;
     }
 
-    public void setCreator(int creator) {
+    public void setCreator(Long creator) {
         this.creator = creator;
     }
 

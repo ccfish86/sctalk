@@ -62,16 +62,16 @@ public class DBConstant {
      * 1: shield  0: not shield
      * */
 
-    public static final int  GROUP_STATUS_ONLINE = 0;
-    public static final int  GROUP_STATUS_SHIELD = 1;
+    public static final byte  GROUP_STATUS_ONLINE = 0;
+    public static final byte  GROUP_STATUS_SHIELD = 1;
 
     /**group change Type*/
-    public static final int  GROUP_MODIFY_TYPE_ADD= 0;
-    public static final int  GROUP_MODIFY_TYPE_DEL =1;
+    public static final byte  GROUP_MODIFY_TYPE_ADD= 0;
+    public static final byte  GROUP_MODIFY_TYPE_DEL =1;
 
     /**depart status Type*/
-    public static final int  DEPT_STATUS_OK= 0;
-    public static final int  DEPT_STATUS_DELETE =1;
+    public static final byte  DEPT_STATUS_OK= 0;
+    public static final byte  DEPT_STATUS_DELETE =1;
 
     /** 无效的ID值 */
     public static final long INVALIAD_VALUE = 0L;

@@ -102,10 +102,11 @@ public class SessionServiceImpl implements SessionService {
         byte status = 1;
         int time = CommonUtils.currentTimeSeconds();
         IMRecentSession session = recentSessionRepository.findOne(sessionId);
-        session.setStatus(status);
-        session.setUpdated(time);
-
-        recentSessionRepository.save(session);
+        if (session != null) {
+            session.setStatus(status);
+            session.setUpdated(time);
+            recentSessionRepository.save(session);
+        }
     }
 
     /* (non-Javadoc)

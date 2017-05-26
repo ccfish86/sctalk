@@ -13,7 +13,8 @@ package com.blt.talk.common.result;
 public enum GroupCmdResult implements ResultEnum {
 
     SUCCESS(0, "成功"),
-    LIST_NORMAL_FAILD(1, "查询失败");
+    LIST_NORMAL_FAILD(1, "查询失败"),
+    PARAM_ERROR(2, "参数不正");
 
     private int code;
     private String message;

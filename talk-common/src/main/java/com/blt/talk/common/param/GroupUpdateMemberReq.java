@@ -6,17 +6,37 @@ package com.blt.talk.common.param;
 
 import java.util.List;
 
+import com.blt.talk.common.code.proto.IMBaseDefine;
+
 /**
  * 
  * @author 袁贵
  * @version 1.0
  * @since 1.0
  */
-public class GroupInsertNewMemberReq {
+public class GroupUpdateMemberReq {
 
+    private long userId;
+    
+    private IMBaseDefine.GroupModifyType updType;
+    
     private long groupId;
 
     private List<Long> userIds;
+
+    /**
+     * @return the userId
+     */
+    public long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     /**
      * @return the groupId
@@ -30,6 +50,20 @@ public class GroupInsertNewMemberReq {
      */
     public void setGroupId(long groupId) {
         this.groupId = groupId;
+    }
+
+    /**
+     * @return the updType
+     */
+    public IMBaseDefine.GroupModifyType getUpdType() {
+        return updType;
+    }
+
+    /**
+     * @param updType the updType to set
+     */
+    public void setUpdType(IMBaseDefine.GroupModifyType updType) {
+        this.updType = updType;
     }
 
     /**
