@@ -41,7 +41,7 @@ public class TalkLoginController {
             data.setPriorIP(server.getIp());
             data.setBackupIP(server.getIp());
             
-            data.setMsfsPrior("192.168.10.48");
+            data.setMsfsPrior("http://192.168.10.74:8081");
             data.setMsfsBackup("192.168.10.48");
             
             data.setPort(server.getPort());
