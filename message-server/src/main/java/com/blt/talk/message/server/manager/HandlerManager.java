@@ -258,7 +258,7 @@ public class HandlerManager {
                 imMessageHandler.sendMessage(header, body, ctx);
                 break;
             case MessageCmdID.CID_MSG_DATA_ACK_VALUE:
-                // imMessageHandler.readMessage(header, body, ctx);
+                imMessageHandler.clientMsgDataAck(header, body, ctx);
                 break;
             case MessageCmdID.CID_MSG_READ_ACK_VALUE:
                 imMessageHandler.readMessage(header, body, ctx);

@@ -156,5 +156,12 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
             ctx.write(new IMProtoMessage<>(resHeader, resBuilder.build()));
         }
     }
+	@Override
+	public void createGroupReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+	}
+	@Override
+	public void changeMemberReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
+	
+	}
 }

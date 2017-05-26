@@ -65,4 +65,11 @@ public interface IMMessageHandler {
      */
     void getByMessageId(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
+    /**
+     * @param header
+     * @param body
+     * @param ctx
+     * @since  1.0
+     */
+    void clientMsgDataAck(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 }

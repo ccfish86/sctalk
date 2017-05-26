@@ -32,5 +32,24 @@ public interface IMGroupHandler {
      * @since  1.0
      */
     void groupInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+    
+    
+    /**
+     * @param header
+     * @param body
+     * @param ctx
+     * @since  1.0
+     */
+    void createGroupReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+    
+    /**
+     * 修改组成员
+     * @param header
+     * @param body
+     * @param ctx
+     * @since  1.0
+     */
+    void changeMemberReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+    
 
 }

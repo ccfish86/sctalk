@@ -117,7 +117,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 BaseModel<Long> messageIdRes =  messageService.sendMessage(messageReq);
 
                 msgdata = msgdata.toBuilder().setMsgId(messageIdRes.getData()).build();
-
             } else if (messageType == MsgType.MSG_TYPE_GROUP_AUDIO) {
                 sessionType = SessionType.SESSION_TYPE_GROUP;
 
@@ -135,19 +134,10 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
 
                 BaseModel<Integer> messageIdRes = messageService.sendMessage(messageReq);
                 msgdata = msgdata.toBuilder().setMsgId(messageIdRes.getData()).build();
-
-                ClientUser clientUser = ClientUserManager.getUserById(msgdata.getToSessionId());
-                if(clientUser != null) {
-                    IMHeader headerRes = header.clone();
-                    headerRes.setCommandId((short) MessageCmdID.CID_MSG_DATA_VALUE);
-                    // 用户在线，发送消息
-                    logger.debug("发送在线消息");
-                    clientUser.broadcast(new IMProtoMessage<>(headerRes, msgdata), ctx);
-                }
-
             } else if (messageType == MsgType.MSG_TYPE_SINGLE_AUDIO) {
 
                 // 个人语音
+                
             } else {
 
                 // 暂不支持
@@ -589,5 +579,19 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageResBuilder.buildPartial()));
         }
         
+    }
+
+    /* (non-Javadoc)
+     * @see com.blt.talk.message.server.handler.IMMessageHandler#clientMsgDataAck(com.blt.talk.common.code.IMHeader, com.google.protobuf.MessageLite, io.netty.channel.ChannelHandlerContext)
+     */
+    @Override
+    public void clientMsgDataAck(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+        
+        IMMessage.IMMsgDataAck msgDataAck = (IMMessage.IMMsgDataAck) body;
+        if (msgDataAck.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_SINGLE) {
+            // TODO DelFromSendList(msg_id, session_id);
+            logger.warn("+++ TODO +++");
+            // ctx- conn > DelFromSendList
+        }
     }
 }
