@@ -12,6 +12,7 @@ import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.DepartmentEntity;
 
 /**
+ * 部门相关业务处理
  * 
  * @author 袁贵
  * @version 1.0

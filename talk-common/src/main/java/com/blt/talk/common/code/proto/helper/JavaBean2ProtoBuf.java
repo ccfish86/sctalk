@@ -91,6 +91,7 @@ public class JavaBean2ProtoBuf {
     public static IMBaseDefine.ContactSessionInfo getContactSessionInfo(SessionEntity sessionInfo){
         
         IMBaseDefine.ContactSessionInfo.Builder sessionInfoBuilder = IMBaseDefine.ContactSessionInfo.newBuilder();
+        sessionInfoBuilder.setLatestMsgFromUserId(sessionInfo.getTalkId());
         sessionInfoBuilder.setLatestMsgType(IMBaseDefine.MsgType.forNumber(sessionInfo.getLatestMsgType()));
         sessionInfoBuilder.setSessionType(IMBaseDefine.SessionType.forNumber(sessionInfo.getPeerType()));
         sessionInfoBuilder.setSessionId(sessionInfo.getPeerId());

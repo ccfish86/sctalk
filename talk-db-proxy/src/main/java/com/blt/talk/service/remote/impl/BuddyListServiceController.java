@@ -27,6 +27,7 @@ import com.blt.talk.service.jpa.util.SearchCriteria;
 import com.blt.talk.service.remote.BuddyListService;
 
 /**
+ * 通信录相关业务处理
  * 
  * @author 袁贵
  * @version 1.0

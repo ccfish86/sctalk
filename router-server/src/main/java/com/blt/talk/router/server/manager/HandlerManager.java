@@ -148,7 +148,9 @@ public class HandlerManager {
             case OtherCmdID.CID_OTHER_MSG_SERV_INFO_VALUE:
                 imOtherHandler.updateMessageServer(header, body, ctx);
                 break;
-                
+            case OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE:
+                imOtherHandler.updateUserCnt(header, body, ctx);
+                break;
             default:
                 logger.warn("Unsupport command id {}", commandId);
                 break;

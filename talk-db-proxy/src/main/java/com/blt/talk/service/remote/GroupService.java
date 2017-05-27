@@ -7,6 +7,13 @@ import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
 import com.blt.talk.common.param.GroupUpdateMemberReq;
 
+/**
+ * Group相关业务处理
+ * 
+ * @author 袁贵
+ * @version 1.0
+ * @since  1.0
+ */
 public interface GroupService {
 
     /**
@@ -17,22 +24,6 @@ public interface GroupService {
      */
     BaseModel<List<GroupEntity>> normalList(long userId);
 
-//    /**
-//     * 追加新成员，并显示最新的用户
-//     * @param newMemberReq
-//     * @return
-//     * @since  1.0
-//     */
-//    BaseModel<List<Long>> insertNewMember(GroupUpdateMemberReq newMemberReq);
-//
-//    /**
-//     * 删除成员，并显示最新的用户
-//     * @param newMemberReq
-//     * @return
-//     * @since  1.0
-//     */
-//    BaseModel<List<Long>> removeMember(GroupUpdateMemberReq newMemberReq);
-    
     /**
      * 查询组的属性
      * @param groupVersionList

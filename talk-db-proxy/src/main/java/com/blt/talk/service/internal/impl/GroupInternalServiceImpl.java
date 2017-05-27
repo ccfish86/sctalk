@@ -20,8 +20,10 @@ import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.service.internal.GroupInternalService;
 import com.blt.talk.service.internal.SessionService;
+import com.blt.talk.service.jpa.entity.IMGroup;
 import com.blt.talk.service.jpa.entity.IMGroupMember;
 import com.blt.talk.service.jpa.repository.IMGroupMemberRepository;
+import com.blt.talk.service.jpa.repository.IMGroupRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
 
@@ -36,7 +38,8 @@ public class GroupInternalServiceImpl implements GroupInternalService {
 
     @Autowired
     private IMGroupMemberRepository groupMemberRepository;
-    
+    @Autowired
+    private IMGroupRepository groupRepository;
     @Autowired
     private SessionService sessionService;
 
@@ -78,8 +81,9 @@ public class GroupInternalServiceImpl implements GroupInternalService {
             });
         }
 
+        int incMemberCnt = 0;
         // 追加
-        userIdForInsert.forEach(member -> {
+        for (Long member: userIdForInsert) {
             IMGroupMember groupMember = new IMGroupMember();
             groupMember.setGroupId(groupId);
             groupMember.setStatus(DBConstant.GROUP_MODIFY_TYPE_ADD);
@@ -87,7 +91,9 @@ public class GroupInternalServiceImpl implements GroupInternalService {
             groupMember.setCreated(time);
             groupMember.setUpdated(time);
             groupMembers.add(groupMember);
-        });
+            
+            incMemberCnt++;
+        }
 
         groupMemberRepository.save(groupMembers);
 
@@ -96,6 +102,15 @@ public class GroupInternalServiceImpl implements GroupInternalService {
         groupMemeberCriteria.add(JpaRestrictions.eq("status", DBConstant.GROUP_MODIFY_TYPE_ADD, false));
         List<IMGroupMember> allGroupMembers = groupMemberRepository.findAll(groupMemeberCriteria);
 
+        // 更新件数 & 版本
+        // 更新IMGroup版本
+        IMGroup group = groupRepository.findOne(groupId);
+        group.setVersion(group.getVersion() + 1);
+        if (incMemberCnt > 0) {
+            group.setUserCnt(group.getUserCnt() + incMemberCnt);
+        }
+        group.setUpdated(CommonUtils.currentTimeSeconds());
+        groupRepository.save(group);
         // Redis组
         Map<String, String> memberHash = new HashMap<>();
         
@@ -144,6 +159,12 @@ public class GroupInternalServiceImpl implements GroupInternalService {
         allGroupMembers.forEach(member -> {
             allGroupUsers.add(member.getUserId());
         });
+        
+        // 更新版本
+        IMGroup group = groupRepository.findOne(groupId);
+        group.setVersion(group.getVersion() + 1);
+        group.setUpdated(CommonUtils.currentTimeSeconds());
+        groupRepository.save(group);
         
         // 从Redis里删除成员
         // 从IMCurrentSession里删除会话

@@ -171,4 +171,16 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
         serverInfo.setUserCount(messageServerInfo.getCurConnCnt());
         MessageServerManager.insert(netId, serverInfo);
     }
+
+    /* (non-Javadoc)
+     * @see com.blt.talk.router.server.handler.IMOtherHandler#updateUserCnt(com.blt.talk.common.code.IMHeader, com.google.protobuf.MessageLite, io.netty.channel.ChannelHandlerContext)
+     */
+    @Override
+    public void updateUserCnt(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+        IMServer.IMUserCntUpdate userCntUpdate = (IMServer.IMUserCntUpdate) body;
+        
+        // TODO Message-server用户数更新
+        
+        
+    }
 }

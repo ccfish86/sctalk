@@ -144,6 +144,10 @@ public class RouterServerRunner implements CommandLineRunner {
                 IMServer.IMOnlineUserInfo::parseFrom, IMServer.IMOnlineUserInfo.class);
         ProtobufParseMap.register(ServiceID.SID_OTHER_VALUE, OtherCmdID.CID_OTHER_USER_STATUS_UPDATE_VALUE,
                 IMServer.IMUserStatusUpdate::parseFrom, IMServer.IMUserStatusUpdate.class);
+        // CID_OTHER_USER_CNT_UPDATE
+        ProtobufParseMap.register(ServiceID.SID_OTHER_VALUE, OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE,
+                IMServer.IMUserCntUpdate::parseFrom, IMServer.IMUserCntUpdate.class);
+        
         ProtobufParseMap.register(ServiceID.SID_OTHER_VALUE, OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE,
                 IMServer.IMServerKickUser::parseFrom, IMServer.IMServerKickUser.class);
         ProtobufParseMap.register(ServiceID.SID_OTHER_VALUE, OtherCmdID.CID_OTHER_MSG_SERV_INFO_VALUE,

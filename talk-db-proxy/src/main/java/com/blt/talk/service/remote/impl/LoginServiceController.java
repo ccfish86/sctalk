@@ -4,7 +4,6 @@
 
 package com.blt.talk.service.remote.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -27,6 +26,7 @@ import com.blt.talk.service.jpa.util.SearchCriteria;
 import com.blt.talk.service.remote.LoginService;
 
 /**
+ * 登录相关业务处理
  * 
  * @author 袁贵
  * @version 1.0
@@ -54,8 +54,6 @@ public class LoginServiceController implements LoginService {
 
         BaseModel<UserEntity> userRes = new BaseModel<>();
         
-        //List<IMUser> users = userRepository.findByName(param.getName());
-        
         // 改为：用户名或手机号皆可登录
         SearchCriteria<IMUser> userSearchCriteria = new SearchCriteria<>();
         userSearchCriteria.add(JpaRestrictions.or(JpaRestrictions.eq("name", param.getName(), false),
@@ -64,6 +62,7 @@ public class LoginServiceController implements LoginService {
         List<IMUser> users = userRepository.findAll(userSearchCriteria);
         
         if (users.isEmpty()) {
+            logger.debug("用户{}登录失败", param.getName());
             return userRes.setResult(LoginCmdResult.LOGIN_NOUSER);
         }
 
