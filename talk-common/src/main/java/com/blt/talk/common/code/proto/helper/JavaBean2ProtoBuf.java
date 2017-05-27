@@ -1,5 +1,7 @@
 package com.blt.talk.common.code.proto.helper;
 
+import org.bouncycastle.util.encoders.Base64;
+
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.GroupType;
 import com.blt.talk.common.model.MessageEntity;
@@ -8,6 +10,7 @@ import com.blt.talk.common.model.entity.GroupEntity;
 import com.blt.talk.common.model.entity.SessionEntity;
 import com.blt.talk.common.model.entity.UnreadEntity;
 import com.blt.talk.common.model.entity.UserEntity;
+import com.blt.talk.common.util.CommonUtils;
 import com.google.protobuf.ByteString;
 
 /**
@@ -120,8 +123,12 @@ public class JavaBean2ProtoBuf {
         messageBuilder.setFromSessionId(message.getFromId());
         messageBuilder.setMsgType(IMBaseDefine.MsgType.forNumber(message.getMsgType()));
         messageBuilder.setCreateTime(message.getCreated());
-        messageBuilder.setMsgData(ByteString.copyFromUtf8(message.getContent()));
         
+        if (CommonUtils.isAudio(message.getMsgType())) {
+            messageBuilder.setMsgData(ByteString.copyFrom(Base64.decode(message.getContent())));
+        } else {
+            messageBuilder.setMsgData(ByteString.copyFromUtf8(message.getContent()));
+        }
         return messageBuilder.build();
     }
 }

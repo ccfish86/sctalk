@@ -17,7 +17,21 @@
         <version>1.5.3.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
-
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>nexus</name>
+            <url>http://192.168.10.32:8081/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -70,6 +84,11 @@
             <groupId>com.blt.talk</groupId>
             <artifactId>talk-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.blt</groupId>
+            <artifactId>blt-fastdfs</artifactId>
+            <version>1.1.0-RELEASE</version>
         </dependency>
     </dependencies>
 

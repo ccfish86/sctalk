@@ -5,7 +5,6 @@
 package com.blt.talk.service.remote.impl;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +37,7 @@ import com.blt.talk.common.param.GroupMessageSendReq;
 import com.blt.talk.common.param.MessageSendReq;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.common.util.SecurityUtils;
+import com.blt.talk.service.internal.AudioInternalService;
 import com.blt.talk.service.internal.RelationShipService;
 import com.blt.talk.service.internal.SequenceService;
 import com.blt.talk.service.internal.SessionService;
@@ -160,6 +161,8 @@ public class MessageServiceController implements MessageService {
 
     @Autowired
     private SessionService sessionService;
+    @Autowired
+    private AudioInternalService audioInternalService; 
     
     /*
      * (non-Javadoc)
@@ -175,11 +178,19 @@ public class MessageServiceController implements MessageService {
         byte type = (byte) messageSendReq.getMsgType().getNumber();
 
         final long msgId = sequenceService.addAndGetLong("group_message_id_" + messageSendReq.getGroupId(), 1);
-
+        String content;
+        if (messageSendReq.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_GROUP_AUDIO) {
+            
+            long audioId = audioInternalService.saveAudioInfo(messageSendReq.getUserId(), messageSendReq.getGroupId(),
+                    messageSendReq.getCreateTime(), messageSendReq.getContent());
+            content = String.valueOf(audioId);
+        } else {
+            content = messageSendReq.getMsgContent();
+        }
         IMGroupMessageEntity groupMessageEntity = IMGroupMessageEntity.getInstance(messageSendReq.getGroupId());
         groupMessageEntity.setUserId(messageSendReq.getUserId());
         groupMessageEntity.setGroupId(messageSendReq.getGroupId());
-        groupMessageEntity.setContent(messageSendReq.getMsgContent());
+        groupMessageEntity.setContent(content);
         groupMessageEntity.setCreated(messageSendReq.getCreateTime());
         groupMessageEntity.setMsgId(msgId);
         groupMessageEntity.setType(type);
@@ -271,10 +282,19 @@ public class MessageServiceController implements MessageService {
                 relationShipService.getRelationId(messageSendReq.getUserId(), messageSendReq.getToId(), true);
         Long msgId = sequenceService.addAndGetLong("relation_message_id_" + relateId, 1);
 
+        String content;
+        if (messageSendReq.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO) {
+            long audioId = audioInternalService.saveAudioInfo(messageSendReq.getUserId(), messageSendReq.getToId(),
+                    messageSendReq.getCreateTime(), messageSendReq.getContent());
+            content = String.valueOf(audioId);
+        } else {
+            content = messageSendReq.getMsgContent();
+        }
+        
         IMMessageEntity messageEntity = IMMessageEntity.getInstance(relateId);
         messageEntity.setUserId(messageSendReq.getUserId());
         messageEntity.setToId(messageSendReq.getToId());
-        messageEntity.setContent(messageSendReq.getMsgContent());
+        messageEntity.setContent(content);
         messageEntity.setCreated(messageSendReq.getCreateTime());
         messageEntity.setMsgId(msgId);
         messageEntity.setRelateId(relateId);
@@ -492,7 +512,7 @@ public class MessageServiceController implements MessageService {
                 } else if (lastMessage.getType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE) {
                     // "[语音]"加密后的字符串
                     byte[] content = SecurityUtils.getInstance().EncryptMsg("[语音]");
-                    unreadEntity.setLatestMsgData(Base64.getEncoder().encodeToString(content));
+                    unreadEntity.setLatestMsgData(Base64Utils.encodeToString(content));
                 } else {
                     // 其他
                     unreadEntity.setLatestMsgData(lastMessage.getContent());
@@ -675,7 +695,7 @@ public class MessageServiceController implements MessageService {
                         } else if (lastMessage.getType() == IMBaseDefine.MsgType.MSG_TYPE_GROUP_AUDIO_VALUE) {
                             // "[语音]"加密后的字符串
                             byte[] content = SecurityUtils.getInstance().EncryptMsg("[语音]");
-                            unreadEntity.setLatestMsgData(Base64.getEncoder().encodeToString(content));
+                            unreadEntity.setLatestMsgData(Base64Utils.encodeToString(content));
                         } else {
                             // 其他
                             unreadEntity.setLatestMsgData(lastMessage.getContent());
@@ -860,6 +880,17 @@ public class MessageServiceController implements MessageService {
             default:
                 break;
         }
+        
+        // 查询语音
+        if (messageList!= null) {
+            for (MessageEntity msgEntity : messageList) {
+                if (msgEntity.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE) {
+                    // 语音Base64
+                    byte[] audioData = audioInternalService.readAudioInfo(Long.valueOf(msgEntity.getContent()));
+                    msgEntity.setContent(Base64Utils.encodeToString(audioData));
+                }
+            }
+        }
 
         BaseModel<List<MessageEntity>> messageListRes = new BaseModel<>();
         messageListRes.setData(messageList);
@@ -1014,6 +1045,18 @@ public class MessageServiceController implements MessageService {
             default:
                 break;
         }
+
+        // 查询语音
+        if (messageList!= null) {
+            for (MessageEntity msgEntity : messageList) {
+                if (msgEntity.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE) {
+                    // 语音Base64
+                    byte[] audioData = audioInternalService.readAudioInfo(Long.valueOf(msgEntity.getContent()));
+                    msgEntity.setContent(Base64Utils.encodeToString(audioData));
+                }
+            }
+        }
+        
         BaseModel<List<MessageEntity>> messageListRes = new BaseModel<>();
         messageListRes.setData(messageList);
         return messageListRes;

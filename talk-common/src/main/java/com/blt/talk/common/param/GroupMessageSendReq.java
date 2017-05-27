@@ -18,7 +18,11 @@ public class GroupMessageSendReq {
     private long groupId;
     private IMBaseDefine.MsgType msgType;
     private int createTime;
+    @Deprecated
     private String msgContent;
+    /** 用于替代msgContent,以支持语音 */
+    private byte[] content;
+    
     /**
      * @return the userId
      */
@@ -78,6 +82,18 @@ public class GroupMessageSendReq {
      */
     public void setMsgContent(String msgContent) {
         this.msgContent = msgContent;
+    }
+    /**
+     * @return the content
+     */
+    public byte[] getContent() {
+        return content;
+    }
+    /**
+     * @param content the content to set
+     */
+    public void setContent(byte[] content) {
+        this.content = content;
     }
     
 }
