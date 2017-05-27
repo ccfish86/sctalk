@@ -93,10 +93,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             return;
         }
 
-        // 查询 session对应的peerId
-        SessionType sessionType = SessionType.SESSION_TYPE_SINGLE;
-
-        // FIXME 这里要把sessionId改为peerId，同时判断是个人信息还是群信息
+        // 同时判断是个人信息还是群信息，以区分处理
         // MessageContent#sendMessage
         try {
 
@@ -118,10 +115,26 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
 
                 msgdata = msgdata.toBuilder().setMsgId(messageIdRes.getData()).build();
             } else if (messageType == MsgType.MSG_TYPE_GROUP_AUDIO) {
-                sessionType = SessionType.SESSION_TYPE_GROUP;
 
+                // 发送消息
+                // - sendMessage to group
+                GroupMessageSendReq messageReq = new GroupMessageSendReq();
+                messageReq.setUserId(msgdata.getFromUserId());
+                messageReq.setGroupId(msgdata.getToSessionId());
+                messageReq.setCreateTime(time);
+                messageReq.setMsgType(messageType);
+                messageReq.setContent(msgdata.getMsgData().toByteArray());
+
+                BaseModel<Long> messageIdRes =  messageService.sendMessage(messageReq);
+
+                msgdata = msgdata.toBuilder().setMsgId(messageIdRes.getData()).build();
                 // 群组语音
             } else if (messageType == MsgType.MSG_TYPE_SINGLE_TEXT) {
+                
+                if (msgdata.getFromUserId() == msgdata.getToSessionId()) {
+                    logger.warn("不要跟自己聊");
+                    return;
+                }
 
                 // sendMessage(nFromId, nToId, nMsgType, nCreateTime, nMsgId,
                 // (string&)msg.msg_data())
@@ -132,12 +145,20 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 messageReq.setMsgType(messageType);
                 messageReq.setMsgContent(msgdata.getMsgData().toStringUtf8());
 
-                BaseModel<Integer> messageIdRes = messageService.sendMessage(messageReq);
+                BaseModel<Long> messageIdRes = messageService.sendMessage(messageReq);
                 msgdata = msgdata.toBuilder().setMsgId(messageIdRes.getData()).build();
             } else if (messageType == MsgType.MSG_TYPE_SINGLE_AUDIO) {
-
-                // 个人语音
                 
+                MessageSendReq messageReq = new MessageSendReq();
+                messageReq.setUserId(msgdata.getFromUserId());
+                messageReq.setToId(msgdata.getToSessionId());
+                messageReq.setCreateTime(time);
+                messageReq.setMsgType(messageType);
+                messageReq.setContent(msgdata.getMsgData().toByteArray());
+                
+                // 个人语音
+                BaseModel<Long> messageIdRes = messageService.sendMessage(messageReq);
+                msgdata = msgdata.toBuilder().setMsgId(messageIdRes.getData()).build();
             } else {
 
                 // 暂不支持
@@ -403,8 +424,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
         IMMessage.IMGetMsgListReq messageListReq = (IMMessage.IMGetMsgListReq) body;
 
         BaseModel<List<MessageEntity>> messageListRes = null;
-        
-        logger.debug("Command[777]> UserId:{},SessionId:{},MsgIdBegin:{},MsgCnt:{}", messageListReq.getUserId(), messageListReq.getSessionId(), messageListReq.getMsgIdBegin(), messageListReq.getMsgCnt());
         
         try {
             if (messageListReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_SINGLE) {

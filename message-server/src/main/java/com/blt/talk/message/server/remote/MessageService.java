@@ -36,7 +36,7 @@ public interface MessageService {
      * @since  1.0
      */
     @PostMapping(path = "/message/message/add")
-    BaseModel<Integer> sendMessage(MessageSendReq messageSendReq);
+    BaseModel<Long> sendMessage(MessageSendReq messageSendReq);
     
     /**
      * 保存消息并返回消息ID

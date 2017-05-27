@@ -33,6 +33,25 @@ public interface IMGroupHandler {
      */
     void groupInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
     
+//    /**
+//     * 
+//     * @param header
+//     * @param body
+//     * @param ctx
+//     * @since 1.0
+//     */
+//    void groupCreateReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+    
+//    
+//    /**
+//     * 
+//     * @param header
+//     * @param body
+//     * @param ctx
+//     * @since 1.0
+//     */
+//    void groupChangeMemberReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+//    
     
     /**
      * @param header
@@ -51,5 +70,13 @@ public interface IMGroupHandler {
      */
     void changeMemberReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
     
+    /**
+     * 
+     * @param header
+     * @param body
+     * @param ctx
+     * @since  1.0
+     */
+    void groupShieldReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
 }

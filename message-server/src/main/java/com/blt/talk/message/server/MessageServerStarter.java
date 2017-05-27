@@ -75,9 +75,13 @@ public class MessageServerStarter {
     public void destroy() {
 
         // FIXME 处理资源关闭，后期需要对应：
-        // 1. 通知在线用户[服务器即将关闭]
-        // 2. 关闭现有的连接，关闭对应的线程
-        future.channel().close();
+        if (future != null && future.channel() != null) {
+            // 1. 通知在线用户[服务器即将关闭]
+            // 2. 关闭现有的连接，关闭对应的线程
+            if (future.channel().isOpen()) {
+                future.channel().close();
+            }
+        }
         logger.info("closed");
     }
 

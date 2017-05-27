@@ -313,13 +313,25 @@ public class HandlerManager {
                 imGroupHandler.groupInfoReq(header, body, ctx);
                 break;
             case GroupCmdID.CID_GROUP_CREATE_REQUEST_VALUE:
+//            	imGroupHandler.groupCreateReq(header, body, ctx);
+                imGroupHandler.createGroupReq(header, body, ctx);
                 break;
             case GroupCmdID.CID_GROUP_CHANGE_MEMBER_REQUEST_VALUE:
+//            	imGroupHandler.groupChangeMemberReq(header, body, ctx);
+                imGroupHandler.changeMemberReq(header, body, ctx);
                 break;
             case GroupCmdID.CID_GROUP_SHIELD_GROUP_REQUEST_VALUE:
+            	imGroupHandler.groupShieldReq(header, body, ctx);
                 break;
+//            case GroupCmdID.CID_GROUP_CHANGE_MEMBER_NOTIFY_VALUE:
+//            	//imGroupHandler.
+//                break;
             case GroupCmdID.CID_GROUP_CHANGE_MEMBER_NOTIFY_VALUE:
                 break;
+//            case GroupCmdID.CID_GROUP_SHIELD_GROUP_REQUEST_VALUE:
+//                break;
+//            case GroupCmdID.CID_GROUP_CHANGE_MEMBER_NOTIFY_VALUE:
+//                break;
             default:
                 logger.warn("Unsupport command id {}", commandId);
                 break;
