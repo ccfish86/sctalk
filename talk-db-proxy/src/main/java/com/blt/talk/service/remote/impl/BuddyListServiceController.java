@@ -65,13 +65,14 @@ public class BuddyListServiceController implements BuddyListService {
             @RequestParam("updateTime") int lastUpdateTime) {
         SearchCriteria<IMUser> userSearchCriteria = new SearchCriteria<>();
         userSearchCriteria.add(JpaRestrictions.ne("status", DBConstant.USER_STATUS_LEAVE, false));
+        userSearchCriteria.add(JpaRestrictions.gt("updated", lastUpdateTime, false));
 
         List<IMUser> users = userRepository.findAll(userSearchCriteria);
 
         List<UserEntity> userInfoList = new ArrayList<>();
         for (IMUser user : users) {
             UserEntity userEntity = new UserEntity();
-            userEntity.setId(Long.valueOf(user.getId()));
+            userEntity.setId(user.getId());
             userEntity.setMainName(user.getNick());
             userEntity.setAvatar(user.getAvatar());
             userEntity.setCreated(user.getCreated());
@@ -111,7 +112,7 @@ public class BuddyListServiceController implements BuddyListService {
         List<UserEntity> userInfoList = new ArrayList<>();
         for (IMUser user : users) {
             UserEntity userEntity = new UserEntity();
-            userEntity.setId(Long.valueOf(user.getId()));
+            userEntity.setId(user.getId());
             userEntity.setMainName(user.getNick());
             userEntity.setAvatar(user.getAvatar());
             userEntity.setCreated(user.getCreated());

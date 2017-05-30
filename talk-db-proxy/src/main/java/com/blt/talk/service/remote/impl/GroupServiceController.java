@@ -59,6 +59,7 @@ public class GroupServiceController implements GroupService {
         BaseModel<List<GroupEntity>> groupRes = new BaseModel<>();
         List<IMGroup> groups = groupRepository.findByUserId(userId);
         if (groups.isEmpty()) {
+            groupRes.setData(new ArrayList<>());
             return groupRes;
         }
 
@@ -66,7 +67,7 @@ public class GroupServiceController implements GroupService {
         groupRes.setData(resData);
         groups.forEach(group -> {
             GroupEntity groupEntity = new GroupEntity();
-            groupEntity.setId(Long.valueOf(group.getId()));
+            groupEntity.setId(group.getId());
             groupEntity.setAvatar(group.getAvatar());
             groupEntity.setCreated(group.getCreated());
             groupEntity.setCreatorId(group.getCreator());
@@ -98,7 +99,7 @@ public class GroupServiceController implements GroupService {
         List<GroupEntity> resData = new ArrayList<>();
         for (IMGroup group: groups) {
             GroupEntity groupEntity = new GroupEntity();
-            groupEntity.setId(Long.valueOf(group.getId()));
+            groupEntity.setId(group.getId());
             groupEntity.setAvatar(group.getAvatar());
             groupEntity.setCreated(group.getCreated());
             groupEntity.setCreatorId(group.getCreator());
@@ -148,7 +149,7 @@ public class GroupServiceController implements GroupService {
             if (version < group.getVersion()) {
                 
                 GroupEntity groupEntity = new GroupEntity();
-                groupEntity.setId(Long.valueOf(group.getId()));
+                groupEntity.setId(group.getId());
                 groupEntity.setAvatar(group.getAvatar());
                 groupEntity.setCreated(group.getCreated());
                 groupEntity.setCreatorId(group.getCreator());

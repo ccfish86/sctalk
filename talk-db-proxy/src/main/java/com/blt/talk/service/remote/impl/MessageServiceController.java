@@ -384,6 +384,7 @@ public class MessageServiceController implements MessageService {
             // 查询
             UnreadEntity unreadEntity = new UnreadEntity();
             unreadEntity.setPeerId(fromUserId);
+            unreadEntity.setLaststMsgId(fromUserId);
             unreadEntity.setSessionType(IMBaseDefine.SessionType.SESSION_TYPE_SINGLE_VALUE);
             unreadEntity.setUnReadCnt(Integer.valueOf(uread.getValue()));
 

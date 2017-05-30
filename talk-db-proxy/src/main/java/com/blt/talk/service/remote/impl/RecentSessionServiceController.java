@@ -62,12 +62,12 @@ public class RecentSessionServiceController implements RecentSessionService {
 
                 SessionEntity recentInfo = new SessionEntity();
                 recentInfo.setId(recentSession.getId());
+                recentInfo.setPeerId(recentSession.getPeerId());
                 recentInfo.setPeerType(recentSession.getType());
                 recentInfo.setTalkId(recentSession.getUserId());
                 recentInfo.setLatestMsgType(recentSession.getType());
                 recentInfo.setCreated(recentSession.getCreated());
                 recentInfo.setUpdated(recentSession.getUpdated());
-                recentInfo.setPeerId(recentSession.getPeerId());
                 recentInfoList.add(recentInfo);
             });
         }

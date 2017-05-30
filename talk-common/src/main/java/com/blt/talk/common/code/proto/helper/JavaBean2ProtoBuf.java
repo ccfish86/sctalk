@@ -50,7 +50,7 @@ public class JavaBean2ProtoBuf {
     public static IMBaseDefine.GroupVersionInfo getGroupVersionInfo(GroupEntity groupInfo){
         
         IMBaseDefine.GroupVersionInfo.Builder groupBuilder = IMBaseDefine.GroupVersionInfo.newBuilder();
-        groupBuilder.setGroupId(groupInfo.getId().intValue());
+        groupBuilder.setGroupId(groupInfo.getId());
         groupBuilder.setVersion(groupInfo.getVersion());
         
         return groupBuilder.build();
@@ -72,7 +72,7 @@ public class JavaBean2ProtoBuf {
     public static IMBaseDefine.GroupInfo getGroupInfo(GroupEntity groupInfo){
         
         IMBaseDefine.GroupInfo.Builder groupBuilder = IMBaseDefine.GroupInfo.newBuilder();
-        groupBuilder.setGroupId(groupInfo.getId().intValue());
+        groupBuilder.setGroupId(groupInfo.getId());
         groupBuilder.setGroupName(groupInfo.getMainName());
         groupBuilder.setGroupType(GroupType.forNumber(groupInfo.getGroupType()));
         groupBuilder.setGroupAvatar(groupInfo.getAvatar());
@@ -103,7 +103,7 @@ public class JavaBean2ProtoBuf {
     public static IMBaseDefine.UnreadInfo getUnreadInfo(UnreadEntity unreadEntity) {
         IMBaseDefine.UnreadInfo.Builder unreadBuilder = IMBaseDefine.UnreadInfo.newBuilder();
         unreadBuilder.setLatestMsgId(unreadEntity.getLaststMsgId());
-        unreadBuilder.setLatestMsgFromUserId(unreadEntity.getPeerId());
+        unreadBuilder.setLatestMsgFromUserId(unreadEntity.getLatestMsgFromUserId());
         unreadBuilder.setLatestMsgType(IMBaseDefine.MsgType.forNumber(unreadEntity.getLaststMsgType()));
         unreadBuilder.setLatestMsgData(ByteString.copyFromUtf8(unreadEntity.getLatestMsgData()));
         unreadBuilder.setSessionId(unreadEntity.getPeerId());

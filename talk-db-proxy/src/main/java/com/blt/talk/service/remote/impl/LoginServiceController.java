@@ -75,7 +75,7 @@ public class LoginServiceController implements LoginService {
         if (passwordEncoder.matches(param.getPassword(), user.getPassword())) {
             // 密码正确
             UserEntity userEntity = new UserEntity();
-            userEntity.setId(Long.valueOf(user.getId()));
+            userEntity.setId(user.getId());
             userEntity.setMainName(user.getNick());
             userEntity.setAvatar(user.getAvatar());
             userEntity.setCreated(user.getCreated());

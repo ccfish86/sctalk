@@ -31,7 +31,7 @@ import com.blt.talk.service.remote.DepartmentService;
  */
 @RestController
 @RequestMapping("/department")
-public class DepartmentServiceImpl implements DepartmentService {
+public class DepartmentServiceController implements DepartmentService {
 
     @Autowired
     private IMDepartRepository departRepository;

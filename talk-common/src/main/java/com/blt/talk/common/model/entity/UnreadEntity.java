@@ -15,6 +15,7 @@ public class UnreadEntity {
     private int unReadCnt;
     private long laststMsgId;
     private int laststMsgType;
+    private long latestMsgFromUserId;
     private String latestMsgData;
     private boolean isForbidden = false;
 
@@ -70,6 +71,20 @@ public class UnreadEntity {
      */
     public void setLaststMsgType(int laststMsgType) {
         this.laststMsgType = laststMsgType;
+    }
+
+    /**
+     * @return the latestMsgFromUserId
+     */
+    public long getLatestMsgFromUserId() {
+        return latestMsgFromUserId;
+    }
+
+    /**
+     * @param latestMsgFromUserId the latestMsgFromUserId to set
+     */
+    public void setLatestMsgFromUserId(long latestMsgFromUserId) {
+        this.latestMsgFromUserId = latestMsgFromUserId;
     }
 
     public String getLatestMsgData() {
