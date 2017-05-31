@@ -186,15 +186,19 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
                     buddyListService.getAllUser(allUserReq.getUserId(), allUserReq.getLatestUpdateTime());
 
             List<IMBaseDefine.UserInfo> allUsers = new ArrayList<>();
+            
+            // 最后更新时间
+            int lastestTime = allUserReq.getLatestUpdateTime();
             if (contackSessionRes.getData() != null) {
-                contackSessionRes.getData().forEach(userInfo -> {
+                for (UserEntity userInfo : contackSessionRes.getData()) {
+                    lastestTime = Integer.max(lastestTime, userInfo.getUpdated());
                     allUsers.add(JavaBean2ProtoBuf.getUserInfo(userInfo));
-                });
+                }
             }
 
             IMBuddy.IMAllUserRsp.Builder resBuilder = IMBuddy.IMAllUserRsp.newBuilder();
             resBuilder.setUserId(allUserReq.getUserId());
-            resBuilder.setLatestUpdateTime(allUserReq.getLatestUpdateTime());
+            resBuilder.setLatestUpdateTime(lastestTime);
 
             resBuilder.addAllUserList(allUsers);
             IMHeader resHeader = header.clone();
