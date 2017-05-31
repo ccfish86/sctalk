@@ -13,6 +13,7 @@ import java.util.Set;
 
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
+import com.blt.talk.common.util.CommonUtils;
 
 /**
  * 
@@ -83,6 +84,19 @@ public final class UserClientInfoManager {
                 }
             }
             return status;
+        }
+        /**
+         * @return
+         * @since  1.0
+         */
+        public boolean isPCClientLogin() {
+
+            for (IMBaseDefine.ClientType clientType: clientTypes) {
+                if (CommonUtils.isPc(clientType)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
     

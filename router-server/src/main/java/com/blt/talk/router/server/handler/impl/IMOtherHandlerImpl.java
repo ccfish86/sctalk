@@ -4,19 +4,28 @@
 
 package com.blt.talk.router.server.handler.impl;
 
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.IMHeader;
+import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMBaseDefine;
+import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.OtherCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat;
+import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
+import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.IMServer;
+import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.router.server.handler.IMOtherHandler;
 import com.blt.talk.router.server.manager.ClientConnection;
 import com.blt.talk.router.server.manager.ClientConnectionMap;
 import com.blt.talk.router.server.manager.MessageServerManager;
 import com.blt.talk.router.server.manager.UserClientInfoManager;
+import com.blt.talk.router.server.manager.UserClientInfoManager.UserClientInfo;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -100,7 +109,56 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
         
         //FIXME
         // 用于通知客户端,同一用户在pc端的登录情况
-        // 暂时 不对外发布PC版
+        UserClientInfo clientInfo = UserClientInfoManager.getUserInfo(userStatusUpdate.getUserId());
+        if (clientInfo != null) {
+            
+            IMServer.IMServerPCLoginStatusNotify.Builder pcLoginStatusNotify = IMServer.IMServerPCLoginStatusNotify.newBuilder();
+            pcLoginStatusNotify.setUserId(userStatusUpdate.getUserId());
+            pcLoginStatusNotify.setLoginStatus(userStatusUpdate.getUserStatus());
+            
+            IMHeader notifyHeader = new IMHeader();
+            notifyHeader.setServiceId((short)ServiceID.SID_OTHER_VALUE);
+            notifyHeader.setCommandId((short)OtherCmdID.CID_OTHER_LOGIN_STATUS_NOTIFY_VALUE);
+            
+            if (userStatusUpdate.getUserStatus() == IMBaseDefine.UserStatType.USER_STATUS_OFFLINE_VALUE) {
+                // pc端下线且无pc端存在，则给msg_server发送一个通知
+                if (CommonUtils.isPc(userStatusUpdate.getClientType()) && !clientInfo.isPCClientLogin()) {
+                    broadcastMsg(notifyHeader, pcLoginStatusNotify.build());
+                }
+            } else {
+                if (clientInfo.isPCClientLogin()) {
+                    broadcastMsg(notifyHeader, pcLoginStatusNotify.build());
+                }
+            }
+            
+        }
+        
+        //状态更新的是pc client端，则通知给所有其他人
+        if (CommonUtils.isPc(userStatusUpdate.getClientType())) {
+            IMBaseDefine.UserStat.Builder userStat = IMBaseDefine.UserStat.newBuilder();
+            userStat.setUserId(userStatusUpdate.getUserId());
+            userStat.setStatus(IMBaseDefine.UserStatType.forNumber(userStatusUpdate.getUserStatus()));
+            IMBuddy.IMUserStatNotify.Builder userStatNotify = IMBuddy.IMUserStatNotify.newBuilder();
+            userStatNotify.setUserStat(userStat);
+            
+            IMHeader notifyHeader = new IMHeader();
+            notifyHeader.setServiceId((short)ServiceID.SID_BUDDY_LIST_VALUE);
+            notifyHeader.setCommandId((short)BuddyListCmdID.CID_BUDDY_LIST_STATUS_NOTIFY_VALUE);
+            
+            if (clientInfo != null) {
+
+                // 如果是pc客户端离线，但是仍然存在pc客户端，则不发送离线通知
+                // 此种情况一般是pc客户端多点登录时引起
+                if (userStatusUpdate.getUserStatus() == IMBaseDefine.UserStatType.USER_STATUS_OFFLINE_VALUE) {
+                    // 不发送离线通知
+                } else {
+                    broadcastMsg(notifyHeader, userStatNotify.build());
+                }
+            } else {
+                // 该用户不存在了，则表示是离线状态
+                broadcastMsg(notifyHeader, userStatNotify.build());
+            }
+        }
         
     }
 
@@ -182,5 +240,17 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
         // TODO Message-server用户数更新
         
         
+    }
+    
+    protected void broadcastMsg(IMHeader header, MessageLite body) {
+
+        Collection<ClientConnection> clientConnections = ClientConnectionMap.getAllClient();
+        
+        if (!clientConnections.isEmpty()) {
+            for (ClientConnection conn : clientConnections) {
+                // BroadcastMsg
+                conn.getCtx().writeAndFlush(new IMProtoMessage<MessageLite>(header, body));
+            }
+        }
     }
 }
