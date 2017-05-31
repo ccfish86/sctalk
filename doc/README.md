@@ -10,3 +10,4 @@
 
 其他事项：
 * doc/protoc_3.2.7z文件为Netty4.0兼容的protobuf命令行工具
+* 3rd_jar/下为用到的第三方包，[blt-fastdfs]为非官方fastdfs的client包，并优化修改过。
