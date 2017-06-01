@@ -52,12 +52,7 @@ public class AudioInternalServiceImpl implements AudioInternalService {
             return DBConstant.INVALIAD_VALUE;
         }
 
-        // int costTime = CByteStream::ReadUint32((uchar_t*)pAudioData);
-        //        uint32_t CByteStream::ReadUint32(uchar_t *buf)
-        //        {
-        //            uint32_t data = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];
-        //            return data;
-        //        }
+        // 录音长度
         int costTime = CommonUtils.byteArray2int(Arrays.copyOf(content, 4));
         
         // 上传文件
@@ -82,7 +77,7 @@ public class AudioInternalServiceImpl implements AudioInternalService {
 
             return audio.getId();
         } catch (Exception e) {
-            logger.warn("图片上传失败！", e);
+            logger.warn("语音上传失败！", e);
         }
         
         return DBConstant.INVALIAD_VALUE;
@@ -106,7 +101,7 @@ public class AudioInternalServiceImpl implements AudioInternalService {
 
             return audioFile.getFiledata();
         } catch (Exception e) {
-            logger.warn("图片上传失败！", e);
+            logger.warn("语音读取失败！", e);
         }
         
         return null;

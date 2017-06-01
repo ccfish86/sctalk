@@ -175,7 +175,6 @@ public class MessageServiceController implements MessageService {
     @Override
     public BaseModel<Long> sendMessage(@RequestBody GroupMessageSendReq messageSendReq) {
 
-        byte status = 0;
         byte type = (byte) messageSendReq.getMsgType().getNumber();
 
         final long msgId = sequenceService.addAndGetLong("group_message_id_" + messageSendReq.getGroupId(), 1);
@@ -195,7 +194,7 @@ public class MessageServiceController implements MessageService {
         groupMessageEntity.setCreated(messageSendReq.getCreateTime());
         groupMessageEntity.setMsgId(msgId);
         groupMessageEntity.setType(type);
-        groupMessageEntity.setStatus(status);
+        groupMessageEntity.setStatus(DBConstant.DELETE_STATUS_OK);
         groupMessageEntity.setUpdated(messageSendReq.getCreateTime());
 
         Long splt = messageSendReq.getGroupId() % 10;
@@ -275,7 +274,6 @@ public class MessageServiceController implements MessageService {
     @Override
     public BaseModel<Long> sendMessage(@RequestBody MessageSendReq messageSendReq) {
 
-        byte status = 0;
         byte type = (byte) messageSendReq.getMsgType().getNumber();
 
         // 处理relation_id
@@ -300,7 +298,7 @@ public class MessageServiceController implements MessageService {
         messageEntity.setMsgId(msgId);
         messageEntity.setRelateId(relateId);
         messageEntity.setType(type);
-        messageEntity.setStatus(status);
+        messageEntity.setStatus(DBConstant.DELETE_STATUS_OK);
         messageEntity.setUpdated(messageSendReq.getCreateTime());
 
         Long splt = relateId % 10;

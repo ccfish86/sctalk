@@ -36,7 +36,6 @@ public class SessionServiceImpl implements SessionService {
      */
     @Override
     public long addSession(long userId, long peerId, int type) {
-        byte status = 0;
         int time = CommonUtils.currentTimeSeconds();
 
         // 查询已有数据
@@ -51,7 +50,7 @@ public class SessionServiceImpl implements SessionService {
         IMRecentSession recentSession;
         if (!recentSessions.isEmpty()) {
             recentSession = recentSessions.get(0);
-            recentSession.setStatus(status);
+            recentSession.setStatus(DBConstant.DELETE_STATUS_OK);
             recentSession.setUpdated(time);
         } else {
 
@@ -60,7 +59,7 @@ public class SessionServiceImpl implements SessionService {
             recentSession.setUserId(userId);
             recentSession.setPeerId(peerId);
             recentSession.setType(sesstionType);
-            recentSession.setStatus(status);
+            recentSession.setStatus(DBConstant.DELETE_STATUS_OK);
             recentSession.setCreated(time);
             recentSession.setUpdated(time);
         }
@@ -100,11 +99,10 @@ public class SessionServiceImpl implements SessionService {
      */
     @Override
     public void remove(long sessionId) {
-        byte status = 1;
         int time = CommonUtils.currentTimeSeconds();
         IMRecentSession session = recentSessionRepository.findOne(sessionId);
         if (session != null) {
-            session.setStatus(status);
+            session.setStatus(DBConstant.DELETE_STATUS_DELETE);
             session.setUpdated(time);
             recentSessionRepository.save(session);
         }

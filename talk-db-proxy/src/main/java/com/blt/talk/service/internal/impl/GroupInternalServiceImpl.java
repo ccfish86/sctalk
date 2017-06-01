@@ -77,7 +77,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
                 return true;
             }).collect(Collectors.toList());
             groupMembers.forEach(groupMember -> {
-                groupMember.setStatus(DBConstant.GROUP_MODIFY_TYPE_ADD);
+                groupMember.setStatus(DBConstant.DELETE_STATUS_OK);
                 groupMember.setUpdated(time);
             });
         }
@@ -87,7 +87,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
         for (Long member: userIdForInsert) {
             IMGroupMember groupMember = new IMGroupMember();
             groupMember.setGroupId(groupId);
-            groupMember.setStatus(DBConstant.GROUP_MODIFY_TYPE_ADD);
+            groupMember.setStatus(DBConstant.DELETE_STATUS_OK);
             groupMember.setUserId(member);
             groupMember.setCreated(time);
             groupMember.setUpdated(time);
@@ -100,7 +100,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
 
         groupMemeberCriteria = new SearchCriteria<>();
         groupMemeberCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-        groupMemeberCriteria.add(JpaRestrictions.eq("status", DBConstant.GROUP_MODIFY_TYPE_ADD, false));
+        groupMemeberCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
         List<IMGroupMember> allGroupMembers = groupMemberRepository.findAll(groupMemeberCriteria);
 
         // 更新件数 & 版本
@@ -146,14 +146,14 @@ public class GroupInternalServiceImpl implements GroupInternalService {
 
         // 更新为删除状态
         groupMembers.forEach(memeber -> {
-            memeber.setStatus(DBConstant.GROUP_MODIFY_TYPE_DEL);
+            memeber.setStatus(DBConstant.DELETE_STATUS_DELETE);
             memeber.setUpdated(time);
         });
         groupMemberRepository.save(groupMembers);
 
         groupMemeberCriteria = new SearchCriteria<>();
         groupMemeberCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-        groupMemeberCriteria.add(JpaRestrictions.eq("status", DBConstant.GROUP_MODIFY_TYPE_ADD, false));
+        groupMemeberCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
         List<IMGroupMember> allGroupMembers = groupMemberRepository.findAll(groupMemeberCriteria);
 
         List<Long> allGroupUsers = new ArrayList<>();
