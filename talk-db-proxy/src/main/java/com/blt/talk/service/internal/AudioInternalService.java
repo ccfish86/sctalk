@@ -1,16 +1,13 @@
 /*
- * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.service.internal;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.blt.talk.service.jpa.entity.IMAudio;
-
 /**
+ * 语音处理Service
  * 
  * @author 袁贵
  * @version 1.0
@@ -39,8 +36,8 @@ public interface AudioInternalService {
     
     /**
      * 读音频
-     * @param audioIds
-     * @return
+     * @param audioIds 语音ID
+     * @return 语音数据
      * @since  1.0
      */
     List<byte[]> readAudios(List<Long> audioIds);

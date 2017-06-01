@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.service.internal.impl;
@@ -15,6 +15,9 @@ import com.blt.talk.service.jpa.entity.IMRelationShip;
 import com.blt.talk.service.jpa.repository.IMRelationShipRepository;
 
 /**
+ * 用户之前关系Sevice
+ * <br>
+ * 用户关系，依据两个用户ID生成，用来分表存储消息用
  * 
  * @author 袁贵
  * @version 1.0

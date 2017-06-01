@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.service.internal.impl;
@@ -19,6 +19,7 @@ import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
 
 /**
+ * 会话(Session)相关处理
  * 
  * @author 袁贵
  * @version 1.0

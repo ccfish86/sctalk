@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.service.jpa.repository;
@@ -13,6 +13,7 @@ import org.springframework.data.repository.query.Param;
 import com.blt.talk.service.jpa.entity.IMUser;
 
 /**
+ * im_message表对应JPARepository
  * 
  * @author 袁贵
  * @version 1.0

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.service.internal.impl;
@@ -28,6 +28,7 @@ import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
 
 /**
+ * 群相关处理
  * 
  * @author 袁贵
  * @version 1.0
@@ -169,7 +170,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
         // 从Redis里删除成员
         // 从IMCurrentSession里删除会话
         String key = "group_member_" + groupId;
-        HashOperations<String, Long, Integer> groupMemberHash = redisTemplate.opsForHash();
+        HashOperations<String, String, String> groupMemberHash = redisTemplate.opsForHash();
         // CGroupModel#removeSession(nGroupId, setUserId);
         for (Long member: members) {
             groupMemberHash.delete(key, member.toString());
@@ -184,5 +185,18 @@ public class GroupInternalServiceImpl implements GroupInternalService {
     @Override
     public boolean isValidate(long groupId) {
         return redisTemplate.hasKey("group_member_" + groupId);
+    }
+
+    /* (non-Javadoc)
+     * @see com.blt.talk.service.internal.GroupInternalService#isValidate(long, long)
+     */
+    @Override
+    public boolean isValidate(long groupId, long userId) {
+        
+        if (redisTemplate.hasKey("group_member_" + groupId)) {
+            HashOperations<String, String, String> groupMemberHash = redisTemplate.opsForHash();
+            groupMemberHash.hasKey("group_member_" + groupId, String.valueOf(userId));
+        }
+        return false;
     }
 }

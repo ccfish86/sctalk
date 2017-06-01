@@ -1,3 +1,6 @@
+/*
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
+ */
 package com.blt.talk.service.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -31,18 +34,17 @@ public class LogAspect {
 
     @Around("logPointcut()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        // LOG.debug("logPointcut " + joinPoint + "\t");
         long start = System.currentTimeMillis();
         try {
-            Object result = joinPoint.proceed();
-            long end = System.currentTimeMillis();
-            logger.info("++Execute [{}]\tUse time : {}ms!", joinPoint.getSignature(), end - start);
-            return result;
+            logger.debug("[start] {}#{}", joinPoint.getTarget().getClass().getSimpleName(), joinPoint.getSignature().getName());
 
+            Object result = joinPoint.proceed();
+            return result;
         } catch (Throwable e) {
-            long end = System.currentTimeMillis();
-            logger.info("++Execute [{}]\tUse time : {}ms!  with exception : {}", joinPoint.getSignature(), end - start, e.getMessage());
             throw e;
+        } finally {
+            long end = System.currentTimeMillis();
+            logger.debug("[end] {}ms  {}#{}",  end - start, joinPoint.getTarget().getClass().getSimpleName(), joinPoint.getSignature().getName());
         }
 
     }

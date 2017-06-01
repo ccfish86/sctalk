@@ -13,12 +13,16 @@ import org.springframework.data.jpa.domain.Specification;
 /**
  * 定义一个查询条件容器
  * 
- * @param <T>
- * @author YuanGui
+ * @param <T> 对应的实体类型
+ * @author 袁贵
+ * @version 1.0
+ * @since  1.0
  */
 public class SearchCriteria<T> implements Specification<T> {
+    
     private List<Criterion> criterions = new ArrayList<Criterion>();
 
+    @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         if (!criterions.isEmpty()) {
             List<Predicate> predicates = new ArrayList<Predicate>();
@@ -36,9 +40,7 @@ public class SearchCriteria<T> implements Specification<T> {
     /**
      * 增加简单条件表达式
      * 
-     * @Methods Name add
-     * @Create In 2012-2-8 By lee
-     * @param expression0 void
+     * @param criterion 条件表达式
      */
     public void add(Criterion criterion) {
         if (criterion != null) {

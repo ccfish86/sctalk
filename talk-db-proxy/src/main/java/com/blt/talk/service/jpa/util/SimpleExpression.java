@@ -11,8 +11,10 @@ import org.springframework.util.StringUtils;
 
 /**
  * 简单条件表达式
- * @author yuangui
- *
+ * 
+ * @author 袁贵
+ * @version 1.0
+ * @since  1.0
  */
 public class SimpleExpression implements Criterion {
 
