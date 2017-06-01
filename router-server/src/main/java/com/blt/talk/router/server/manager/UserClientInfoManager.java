@@ -77,8 +77,7 @@ public final class UserClientInfoManager {
         public UserStatType getStatus() {
             IMBaseDefine.UserStatType status = IMBaseDefine.UserStatType.USER_STATUS_OFFLINE;
             for (IMBaseDefine.ClientType clientType: clientTypes) {
-                if (clientType == IMBaseDefine.ClientType.CLIENT_TYPE_ANDROID 
-                        || clientType == IMBaseDefine.ClientType.CLIENT_TYPE_IOS) {
+                if (CommonUtils.isPc(clientType)) {
                     status = IMBaseDefine.UserStatType.USER_STATUS_ONLINE;
                     break;
                 }
