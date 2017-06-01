@@ -728,10 +728,8 @@ public class MessageServiceController implements MessageService {
             hashOptions.delete("unread_" + userCountReq.getUserId(), String.valueOf(userCountReq.getPeerId()));
         } else if (userCountReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_GROUP) {
             // Clear Group msg Counter
-            String groupKey = userCountReq.getUserId() + "_im_group_msg";
-            Map<String, String> userMsgCountMap = hashOptions.entries(groupKey);
             String userGroupKey = userCountReq.getUserId() + userCountReq.getPeerId() + "_im_user_group";
-            hashOptions.putAll(userGroupKey, userMsgCountMap);
+            hashOptions.delete(userGroupKey);
         } else {
             logger.warn("参数不正: SessionType={}", userCountReq.getSessionType());
         }
