@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.router.server.handler;
@@ -10,6 +10,7 @@ import com.google.protobuf.MessageLite;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
+ * 通信录处理
  * 
  * @author 袁贵
  * @version 1.0
@@ -19,6 +20,10 @@ public interface IMBuddyListHandler {
 
 
     /**
+     * 用户在线状态请求
+     * <br>
+     * 仅PC端
+     * 
      * @param header
      * @param body
      * @param ctx

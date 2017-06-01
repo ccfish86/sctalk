@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
+ */
+
 package com.blt.talk.router.server.manager;
 
 import java.util.concurrent.atomic.AtomicLong;

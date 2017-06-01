@@ -1,5 +1,5 @@
 /*
-	 * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+	 * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.router.server.channel;
@@ -20,6 +20,7 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 /**
+ * 消息通道初始化类
  * 
  * @author 袁贵
  * @version 1.0
@@ -35,6 +36,7 @@ public class NettyRouterServerInitializer extends ChannelInitializer<SocketChann
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
 
+        // 手动处理数据包的长度
         pipeline.addLast("framer", new LengthFieldBasedFrameDecoder(400 * 1024, 0, 4, -4, 0));
         pipeline.addLast("decoder", new PacketDecoder());
         pipeline.addLast("encoder", new PacketEncoder());

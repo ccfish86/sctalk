@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.router.server.handler;
@@ -21,6 +21,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
+ * 处理处理MessageServer与RouterServer之间的连接和通信
  * 
  * @author 袁贵
  * @version 1.0

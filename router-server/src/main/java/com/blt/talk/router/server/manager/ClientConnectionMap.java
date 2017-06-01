@@ -1,3 +1,6 @@
+/*
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
+ */
 package com.blt.talk.router.server.manager;
 
 import java.util.Collection;
@@ -22,6 +25,12 @@ public class ClientConnectionMap {
     // 保存一个gateway上所有的客户端连接
     private static ConcurrentHashMap<Long, ClientConnection> allClientMap = new ConcurrentHashMap<>();
 
+    /**
+     * 获取连接（MessageServer-RouterServer）
+     * @param ctx Netty连接通道
+     * @return 连接
+     * @since  1.0
+     */
     public static ClientConnection getClientConnection(ChannelHandlerContext ctx) {
         Long netId = ctx.attr(ClientConnection.NETID).get();
 
@@ -34,6 +43,12 @@ public class ClientConnectionMap {
         return null;
     }
 
+    /**
+     * 获取连接（MessageServer-RouterServer）
+     * @param netId 连接ID
+     * @return 连接（MessageServer-RouterServer）
+     * @since  1.0
+     */
     public static ClientConnection getClientConnection(long netId) {
         ClientConnection conn = allClientMap.get(netId);
         if (conn != null)
@@ -44,19 +59,29 @@ public class ClientConnectionMap {
         return null;
     }
 
-    public static void addClientConnection(ChannelHandlerContext c) {
+    /**
+     * 追加连接
+     * @param ctx Netty连接通道
+     * @since  1.0
+     */
+    public static void addClientConnection(ChannelHandlerContext ctx) {
         // fixme 之后重复登录需要踢掉原来的连接
-        ClientConnection conn = new ClientConnection(c);
+        ClientConnection conn = new ClientConnection(ctx);
 
         if (ClientConnectionMap.allClientMap.putIfAbsent(conn.getNetId(), conn) != null) {
             logger.error("Duplicated netid");
         }
     }
 
+    /**
+     * 删除连接（MessageServer-RouterServer）
+     * @param c
+     * @since  1.0
+     */
     public static void removeClientConnection(ChannelHandlerContext c) {
         ClientConnection conn = getClientConnection(c);
         long netid = conn.getNetId();
-        logger.info("Client disconnected, netid: {}", netid);
+        logger.debug("Client disconnected, netid: {}", netid);
     }
 
     public static Collection<ClientConnection> getAllClient() {

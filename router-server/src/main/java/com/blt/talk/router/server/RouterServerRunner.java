@@ -1,5 +1,5 @@
 /*
- * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.router.server;
@@ -65,6 +65,11 @@ public class RouterServerRunner implements CommandLineRunner {
     @Value("${talk.router.port}")
     private int port = 8900;
 
+    /**
+     * 在服务销毁时的处理
+     * 
+     * @since  1.0
+     */
     @PreDestroy
     public void destroy() {
 

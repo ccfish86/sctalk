@@ -1,10 +1,11 @@
 /*
- * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
 package com.blt.talk.router.server.model;
 
 /**
+ * 登录结果
  * 
  * @author 袁贵
  * @version 1.0
@@ -12,10 +13,15 @@ package com.blt.talk.router.server.model;
  */
 public final class LoginResponse {
 
+    /** 消息服务器IP */
     private String priorIP;
+    /** 消息服务器备用IP */
     private String backupIP;
+    /** 文件服务器IP上传地址 */
     private String msfsPrior;
+    /** 文件服务器备用上传地址 */
     private String msfsBackup;
+    /** 消息服务器端口号 */
     private Integer port;
 
     private String discovery;

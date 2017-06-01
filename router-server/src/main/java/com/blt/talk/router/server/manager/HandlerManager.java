@@ -1,3 +1,6 @@
+/*
+ * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
+ */
 package com.blt.talk.router.server.manager;
 
 import java.util.Collection;
@@ -20,8 +23,13 @@ import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
 
+
 /**
- * Created by Dell on 2016/3/4.
+ * 由消息服务器过来的Message根据ServiceId和CommandId分别进行处理
+ * 
+ * @author 袁贵
+ * @version 1.0
+ * @since  1.0
  */
 @Component
 public class HandlerManager {
@@ -34,15 +42,18 @@ public class HandlerManager {
     private IMOtherHandler imOtherHandler;
 
     /**
-     * @param ctx
-     * @param commandId
-     * @param header
-     * @param body
+     * 登录相关处理
+     * <br>
+     * RouterServer暂时无相关功能
+     * 
+     * @param ctx 连接（MessageServer-RouterServer）
+     * @param commandId 操作类型ID
+     * @param header 消息头
+     * @param body 消息体
      * @throws Exception
      * @since 1.0
      */
     public void doLogin(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) throws Exception {
-        logger.info("doLogin");
         switch (commandId) {
             default:
                 logger.warn("Unsupport command id {}", commandId);
@@ -51,15 +62,16 @@ public class HandlerManager {
     }
 
     /**
-     * @param ctx
-     * @param commandId
-     * @param header
-     * @param body
+     * 通讯录相关处理
+     * 
+     * @param ctx 连接（MessageServer-RouterServer）
+     * @param commandId 操作类型ID
+     * @param header 消息头
+     * @param body 消息体
      * @since 1.0
      */
     public void doBuddyList(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
 
-        logger.info("doBuddyList");
         switch (commandId) {
             case BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_REQUEST_VALUE:
                 imBuddyListHandler.userStatusReq(header, body, ctx);
@@ -77,15 +89,14 @@ public class HandlerManager {
     }
 
     /**
-     * @param ctx
-     * @param commandId
-     * @param header
-     * @param body
+     * @param ctx 连接（MessageServer-RouterServer）
+     * @param commandId 操作类型ID
+     * @param header 消息头
+     * @param body 消息体
      * @since 1.0
      */
     public void doMessage(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
 
-        logger.info("doMessage");
         switch (commandId) {
             case MessageCmdID.CID_MSG_DATA_VALUE:
                 broadcastMsg(header, body, ctx);
@@ -101,15 +112,14 @@ public class HandlerManager {
 
 
     /**
-     * @param ctx
-     * @param commandId
-     * @param header
-     * @param body
+     * @param ctx 连接（MessageServer-RouterServer）
+     * @param commandId 操作类型ID
+     * @param header 消息头
+     * @param body 消息体
      * @since 1.0
      */
     public void doGroup(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
 
-        logger.info("doGroup");
         switch (commandId) {
             case GroupCmdID.CID_GROUP_CHANGE_MEMBER_NOTIFY_VALUE:
                 broadcastMsg(header, body, ctx);
@@ -121,14 +131,15 @@ public class HandlerManager {
     }
 
     /**
-     * @param ctx
-     * @param commandId
-     * @param header
-     * @param body
+     * Other业务处理
+     * 
+     * @param ctx 连接（MessageServer-RouterServer）
+     * @param commandId 操作类型ID
+     * @param header 消息头
+     * @param body 消息体
      * @since 1.0
      */
     public void doOther(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
-        logger.info("doOther");
         switch (commandId) {
             case OtherCmdID.CID_OTHER_HEARTBEAT_VALUE:
                 imOtherHandler.hearBeat(header, body, ctx);
@@ -148,7 +159,7 @@ public class HandlerManager {
             case OtherCmdID.CID_OTHER_MSG_SERV_INFO_VALUE:
                 imOtherHandler.updateMessageServer(header, body, ctx);
                 break;
-            case OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE:
+            case OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE: //todo
                 imOtherHandler.updateUserCnt(header, body, ctx);
                 break;
             default:
@@ -158,14 +169,17 @@ public class HandlerManager {
     }
 
     /**
-     * @param ctx
-     * @param commandId
-     * @param header
-     * @param body
+     * Switch相关处理
+     * <br>
+     * 如用户之间的动作同步（如：正在输入...）
+     * 
+     * @param ctx 连接（MessageServer-RouterServer）
+     * @param commandId 操作类型ID
+     * @param header 消息头
+     * @param body 消息体
      * @since  1.0
      */
     public void doSwitch(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
-        logger.info("doSwitch");
         switch (commandId) {
             case SwitchServiceCmdID.CID_SWITCH_P2P_CMD_VALUE:
                 broadcastMsg(header, body, ctx);
@@ -176,6 +190,13 @@ public class HandlerManager {
         }
     }
     
+    /**
+     * 广播MessageServer
+     * 
+     * @param header 消息头
+     * @param body 消息体
+     * @since  1.0
+     */
     protected void broadcastMsg(IMHeader header, MessageLite body) {
 
         Collection<ClientConnection> clientConnections = ClientConnectionMap.getAllClient();
@@ -188,6 +209,16 @@ public class HandlerManager {
         }
     }
 
+    /**
+     * 广播MessageServer
+     * <br>
+     * 由一个MessageServer过来的消息，向其他MessageServer进行转发
+     * 
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接（MessageServer-RouterServer）
+     * @since  1.0
+     */
     protected void broadcastMsg(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
         Collection<ClientConnection> clientConnections = ClientConnectionMap.getAllClient();
