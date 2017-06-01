@@ -253,9 +253,7 @@ public class MessageServiceController implements MessageService {
         HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
         hashOptions.increment(groupKey, "count", 1);
 
-        String userkey = messageSendReq.getUserId() + "_" + messageSendReq.getGroupId() + "_im_user_group";
-        Map<String, String> groupCountInfo = hashOptions.entries(groupKey);
-        hashOptions.putAll(userkey, groupCountInfo);
+        hashOptions.increment(groupKey, String.valueOf(messageSendReq.getUserId()), 1);
 
         return new BaseModel<Long>() {
             {
@@ -546,11 +544,12 @@ public class MessageServiceController implements MessageService {
         HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
         if (!groupList.isEmpty()) {
             for (IMGroupMember group : groupList) {
-                String groupCount = hashOptions.get(group.getGroupId() + "_im_group_msg", "count");
+                String key = group.getGroupId() + "_im_group_msg";
+                String groupCount = hashOptions.get(key, "count");
                 if (groupCount == null) {
                     continue;
                 }
-                String userCount = hashOptions.get(userId + "_" + group.getGroupId() + "_im_user_group", "count");
+                String userCount = hashOptions.get(key, String.valueOf(userId));
                 Integer unreadCount = userCount != null ? Integer.valueOf(groupCount) - Integer.valueOf(userCount)
                         : Integer.valueOf(groupCount);
                 if (unreadCount > 0) {
@@ -728,10 +727,9 @@ public class MessageServiceController implements MessageService {
             hashOptions.delete("unread_" + userCountReq.getUserId(), String.valueOf(userCountReq.getPeerId()));
         } else if (userCountReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_GROUP) {
             // Clear Group msg Counter
-            String groupKey = userCountReq.getUserId() + "_im_group_msg";
-            Map<String, String> userMsgCountMap = hashOptions.entries(groupKey);
-            String userGroupKey = userCountReq.getUserId() + userCountReq.getPeerId() + "_im_user_group";
-            hashOptions.putAll(userGroupKey, userMsgCountMap);
+            String groupKey = userCountReq.getPeerId() + "_im_group_msg";
+            String countValue = hashOptions.get(groupKey, "count");
+            hashOptions.put(groupKey, String.valueOf(userCountReq.getUserId()), countValue);
         } else {
             logger.warn("参数不正: SessionType={}", userCountReq.getSessionType());
         }
