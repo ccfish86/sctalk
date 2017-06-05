@@ -72,4 +72,15 @@ public interface IMMessageHandler {
      * @since  1.0
      */
     void clientMsgDataAck(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+    
+    
+    /**
+     * 
+     * @param header
+     * @param body
+     * @param ctx
+     * @since 1.0
+     */
+	void clientTimeReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+
 }

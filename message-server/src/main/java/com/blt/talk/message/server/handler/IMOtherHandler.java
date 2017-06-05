@@ -24,5 +24,19 @@ public interface IMOtherHandler {
      * @since  1.0
      */
     void hearBeat(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+    
+    /**
+     * 
+     * @param header
+     * @param body
+     * @param ctx
+     * @since 1.0
+     */
+    void StopReceivePacket(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
+    
+    
+   
+    
+    
 
 }

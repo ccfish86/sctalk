@@ -7,14 +7,14 @@ package com.blt.talk.message.server.remote;
 import java.util.List;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.DepartmentEntity;
 
 /**
+ * 部门业务远程调用Service
  * 
  * @author 袁贵
  * @version 1.0
@@ -29,6 +29,6 @@ public interface DepartmentService {
      * @return
      * @since  1.0
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/department/changedList")
+    @GetMapping(path = "/department/changedList")
     BaseModel<List<DepartmentEntity>> changedList(@RequestParam("lastTime") int lastTime);
 }

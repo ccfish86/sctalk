@@ -17,6 +17,7 @@ import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
 
 /**
+ * 通讯录业务远程调用Service
  * 
  * @author 袁贵
  * @version 1.0
@@ -33,5 +34,11 @@ public interface BuddyListService {
 
     @GetMapping(path = "/buddyList/userInfo")
     BaseModel<List<UserEntity>> getUserInfoList(@RequestParam("userId") List<Long> userIdListList);
+    
+    @GetMapping(path = "/buddyList/removeSession")
+    BaseModel<?> getRemoveSession(@RequestParam("userId") long userId);
+    
+    @GetMapping(path = "/buddyList/changeAvatar")
+    BaseModel<?> getChangeAvatar(@RequestParam("userId") long userId);
 
 }

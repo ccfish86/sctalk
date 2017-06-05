@@ -10,23 +10,27 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
+import com.blt.talk.common.code.proto.IMBaseDefine.SessionType;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserInfo;
 import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
+import com.blt.talk.common.constant.SysConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.DepartmentEntity;
 import com.blt.talk.common.model.entity.SessionEntity;
 import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
-import com.blt.talk.message.server.RouterServerConnecter;
 import com.blt.talk.message.server.handler.IMBuddyListHandler;
+import com.blt.talk.message.server.handler.RouterHandler;
+import com.blt.talk.message.server.manager.ClientUser;
+import com.blt.talk.message.server.manager.ClientUserManager;
 import com.blt.talk.message.server.remote.BuddyListService;
 import com.blt.talk.message.server.remote.DepartmentService;
 import com.blt.talk.message.server.remote.RecentSessionService;
@@ -53,7 +57,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     private DepartmentService departmentService;
 
     @Autowired
-    private ApplicationContext applicationContext;
+    private RouterHandler routerHandler;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -94,19 +98,6 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
 
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
         }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.blt.talk.message.server.handler.IMBuddyListHandler#statusNotify(com.blt.talk.common.code.
-     * proto.Header, com.google.protobuf.MessageLite, io.netty.channel.ChannelHandlerContext)
-     */
-    @Override
-    public void statusNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // TODO Auto-generated method stub
-        logger.warn("++TODO +++++");
     }
 
     /*
@@ -165,8 +156,67 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
      */
     @Override
     public void removeSessionReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // TODO Auto-generated method stub
-        logger.warn("++TODO +++++");
+
+        // 
+        IMBuddy.IMRemoveSessionReq removeSessionReq = (IMBuddy.IMRemoveSessionReq) body;
+        IMBuddy.IMRemoveSessionRsp removeSessionRsp = null;
+        IMHeader headerRes = null;
+        try {
+        	
+                // 
+                BaseModel<?> removeSessionRes =
+                        buddyListService.getRemoveSession(removeSessionReq.getUserId());
+                if (removeSessionRes.getCode() == 0 && removeSessionRes.getData() != null) {
+                	removeSessionRsp = IMBuddy.IMRemoveSessionRsp.newBuilder()
+                             .setUserId(removeSessionReq.getUserId())
+                             .setSessionId(removeSessionReq.getUserId())
+                             .setSessionType(removeSessionReq.getSessionType())
+                             .setResultCode(0)
+                             .build();
+                } else {
+                	removeSessionRsp = IMBuddy.IMRemoveSessionRsp.newBuilder()
+                            .setUserId(removeSessionReq.getUserId())
+                            .setResultCode(1)
+                            .build();
+                }
+
+                headerRes = header.clone();
+                headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_RES_VALUE);
+                ctx.writeAndFlush(new IMProtoMessage<>(headerRes, removeSessionRsp));
+                
+                //如果session类型为single则发送CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY通知        
+                if (removeSessionReq.getSessionType() == SessionType.SESSION_TYPE_SINGLE){
+                	
+                	IMBuddy.IMRemoveSessionNotify removeSessionNotify = IMBuddy.IMRemoveSessionNotify.newBuilder()
+	                         .setUserId(removeSessionReq.getUserId())
+	                         .setSessionId(removeSessionReq.getSessionId())
+	                         .setSessionType(removeSessionReq.getSessionType())
+	                         .build();
+                   IMHeader removeSessionNotifyHeader = new IMHeader();
+                   removeSessionNotifyHeader.setServiceId((short)ServiceID.SID_BUDDY_LIST_VALUE);
+                   removeSessionNotifyHeader.setCommandId((short)BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE);
+
+                   IMProtoMessage<MessageLite>  removeSessionNotifyMsg = new IMProtoMessage<>(removeSessionNotifyHeader, removeSessionNotify);
+
+                   //是否需要广播给用户自身?跟下面的广播是否重复？
+                   ClientUserManager.broadCast(removeSessionNotifyMsg, SysConstant.CLIENT_TYPE_FLAG_BOTH);
+                   routerHandler.send(removeSessionNotifyHeader, removeSessionNotify);
+                }
+
+        } catch (Exception e) {
+
+            logger.error("移除会话异常", e);
+
+            removeSessionRsp = IMBuddy.IMRemoveSessionRsp.newBuilder()
+                    .setUserId(removeSessionReq.getUserId())
+                    .setResultCode(1)
+                    .build();
+
+            headerRes = header.clone();
+            headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_RES_VALUE);
+            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, removeSessionRsp));
+        }
+    
     }
 
     /*
@@ -227,8 +277,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
     public void userStatusReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
         logger.info("Send the users status request to router");
-        RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
-        routerConnector.send(new IMProtoMessage<>(header, body));
+        routerHandler.send(header, body);
     }
 
     /*
@@ -240,34 +289,51 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
      */
     @Override
     public void changeAvaterReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // TODO Auto-generated method stub
-        logger.warn("++TODO +++++");
-    }
+    	// 
+    	IMBuddy.IMChangeAvatarReq changeAvatarReq = (IMBuddy.IMChangeAvatarReq) body;
+        IMBuddy.IMChangeAvatarRsp changeAvatarRsp = null;
+        IMHeader headerRes = null;
+        try {
+        	
+                //  头像更新
+                BaseModel<?> changeAvatarRes =
+                        buddyListService.getChangeAvatar(changeAvatarReq.getUserId());
+                if (changeAvatarRes.getCode() == 0 && changeAvatarRes.getData() != null) {
+                	changeAvatarRsp = IMBuddy.IMChangeAvatarRsp.newBuilder()
+                             .setUserId(changeAvatarReq.getUserId())
+                             .setResultCode(0)
+                             .build();
+                } else {
+                	changeAvatarRsp = IMBuddy.IMChangeAvatarRsp.newBuilder()
+                			.setUserId(changeAvatarReq.getUserId())
+                            .setResultCode(1)
+                            .build();
+                }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.message.server.handler.IMBuddyListHandler#pcLoginStatusNotify(com.blt.talk.
-     * common.code.proto.Header, com.google.protobuf.MessageLite,
-     * io.netty.channel.ChannelHandlerContext)
-     */
-    @Override
-    public void pcLoginStatusNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // TODO Auto-generated method stub
-        logger.warn("++TODO +++++");
-    }
+                headerRes = header.clone();
+                headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE_VALUE);
+                ctx.writeAndFlush(new IMProtoMessage<>(headerRes, changeAvatarRsp));
+          
+                // 头像更新广播
+//                //  routerHandler
+//                IMHeader notifyHeader = new IMHeader();
+//                notifyHeader.setServiceId((short)ServiceID.SID_BUDDY_LIST_VALUE);
+//                notifyHeader.setCommandId((short)BuddyListCmdID.CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY_VALUE);
+//                IMBuddy.IMAvatarChangedNotify.Builder notifyBody = IMBuddy.IMAvatarChangedNotify.newBuilder();
+//                notifyBody.setChangedUserId(changeAvatarReq.getUserId());
+//                notifyBody.setAvatarUrl(changeAvatarReq.getAvatarUrl());
+//                routerHandler.send(notifyHeader, notifyBody.build());
+        } catch (Exception e) {
+            logger.error("更新头像异常", e);
+            changeAvatarRsp = IMBuddy.IMChangeAvatarRsp.newBuilder()
+                    .setUserId(changeAvatarReq.getUserId())
+                    .setResultCode(1)
+                    .build();
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.message.server.handler.IMBuddyListHandler#removeSessionNotify(com.blt.talk.
-     * common.code.proto.Header, com.google.protobuf.MessageLite,
-     * io.netty.channel.ChannelHandlerContext)
-     */
-    @Override
-    public void removeSessionNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // TODO Auto-generated method stub
-
+            headerRes = header.clone();
+            headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE_VALUE);
+            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, changeAvatarRsp));
+        }
     }
 
     /*
@@ -288,16 +354,14 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
                     IMBuddy.IMDepartmentRsp.Builder departmentResBuilder = IMBuddy.IMDepartmentRsp.newBuilder();
                     List<IMBaseDefine.DepartInfo> depts = new ArrayList<>();
                     
+                    int latestUpdateTime = departmentReq.getLatestUpdateTime();
                     for (DepartmentEntity department:departments.getData()) {
+                        latestUpdateTime = Integer.max(latestUpdateTime, department.getUpdated());
                         depts.add(JavaBean2ProtoBuf.getDepartmentInfo(department));
                     }
                     
                     departmentResBuilder.setUserId(departmentReq.getUserId());
-                    if (departments.getData().isEmpty()) {
-                        departmentResBuilder.setLatestUpdateTime(departmentReq.getLatestUpdateTime());
-                    } else {
-                        departmentResBuilder.setLatestUpdateTime(departments.getData().get(departments.getData().size() - 1).getUpdated());
-                    }
+                    departmentResBuilder.setLatestUpdateTime(latestUpdateTime);
                     departmentResBuilder.addAllDeptList(depts);
                     
                     IMHeader resHeader = header.clone();
@@ -309,19 +373,6 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
             logger.error("查询部门列表时发生异常", e);
         }
 
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.message.server.handler.IMBuddyListHandler#avatarChangedNotify(com.blt.talk.
-     * common.code.proto.Header, com.google.protobuf.MessageLite,
-     * io.netty.channel.ChannelHandlerContext)
-     */
-    @Override
-    public void avatarChangedNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // TODO Auto-generated method stub
-        logger.warn("++TODO +++++");
     }
 
     /*
@@ -351,9 +402,16 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
 
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
 
-            // FIXME 通知群和好友
+            // 通知群和好友
             // BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY
-
+            // 广播
+            IMHeader notifyHeader = new IMHeader();
+            notifyHeader.setServiceId((short)ServiceID.SID_BUDDY_LIST_VALUE);
+            notifyHeader.setCommandId((short)BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE);
+            IMBuddy.IMSignInfoChangedNotify.Builder notifyBody = IMBuddy.IMSignInfoChangedNotify.newBuilder();
+            notifyBody.setChangedUserId(changeSignReq.getUserId());
+            notifyBody.setSignInfo(changeSignReq.getSignInfo());
+            routerHandler.send(notifyHeader, notifyBody.build());
         } catch (Exception e) {
             logger.error("服务器端异常", e);
             IMBuddy.IMChangeSignInfoRsp res =
@@ -364,20 +422,6 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
 
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
         }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.blt.talk.message.server.handler.IMBuddyListHandler#signInfoChangedNotify(com.blt.talk.
-     * common.code.proto.Header, com.google.protobuf.MessageLite,
-     * io.netty.channel.ChannelHandlerContext)
-     */
-    @Override
-    public void signInfoChangedNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        // TODO Auto-generated method stub
-        logger.warn("++TODO +++++");
     }
 
 }

@@ -31,4 +31,11 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
         ctx.writeAndFlush(new IMProtoMessage<>(header, body));
     }
 
+    
+	@Override
+	public void StopReceivePacket(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

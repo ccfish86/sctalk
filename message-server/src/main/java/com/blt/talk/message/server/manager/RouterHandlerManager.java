@@ -19,17 +19,23 @@ import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.FileCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.GroupCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.OtherCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.SwitchServiceCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
 import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.IMBuddy.IMPCLoginStatusNotify;
+import com.blt.talk.common.code.proto.IMFile;
+import com.blt.talk.common.code.proto.IMGroup.IMGroupChangeMemberNotify;
 import com.blt.talk.common.code.proto.IMMessage.IMMsgData;
 import com.blt.talk.common.code.proto.IMMessage.IMMsgDataReadNotify;
 import com.blt.talk.common.code.proto.IMOther;
 import com.blt.talk.common.code.proto.IMServer;
 import com.blt.talk.common.code.proto.IMServer.IMServerKickUser;
 import com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify;
+import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.common.constant.SysConstant;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.message.server.MessageServerStarter;
@@ -77,7 +83,7 @@ public class RouterHandlerManager {
 	 * 
 	 * @since 1.0
 	 */
-	@Scheduled(fixedRate = 600000)
+	@Scheduled(fixedRate = 60000)
 	public void sendUserInfo() {
 
 		RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
@@ -126,20 +132,55 @@ public class RouterHandlerManager {
 		// break;
 		// case BuddyListCmdID.CID_BUDDY_LIST_PC_LOGIN_STATUS_NOTIFY_VALUE:
 		// break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE:
-		// break;
+		 case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE: //todebug
+			 removeSessionNotify(header, body, ctx);
+		 break;
 		// case BuddyListCmdID.CID_BUDDY_LIST_DEPARTMENT_REQUEST_VALUE:
 		// break;
 		// case BuddyListCmdID.CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY_VALUE:
 		// break;
 		// case BuddyListCmdID.CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST_VALUE:
 		// break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE:
-		// break;
+		 case BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE: //todebug
+			  signInfoChangedNotify(header, body, ctx);
+		 break;
 		default:
 			logger.warn("Unsupport command id {}", commandId);
 			break;
 		}
+	}
+
+	/**
+	 * 
+	 * @param header
+	 * @param body
+	 * @param ctx
+	 * @since 1.0
+	 */
+	private void signInfoChangedNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+		//IMBuddy.IMSignInfoChangedNotify signInfoChangedNotify = (IMBuddy.IMSignInfoChangedNotify) body;
+		
+		//这样处理是否合理，需要检查？
+		ClientUserManager.broadCast(new IMProtoMessage<>(header, body), SysConstant.CLIENT_TYPE_FLAG_BOTH);
+		
+	}
+
+	/**
+	 * 
+	 * @param header
+	 * @param body
+	 * @param ctx
+	 * @since 1.0
+	 */
+	private void removeSessionNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+		IMBuddy.IMRemoveSessionNotify removeSessionNotify = (IMBuddy.IMRemoveSessionNotify) body;
+		ClientUser clientUser = ClientUserManager.getUserById(removeSessionNotify.getUserId()) ;
+		
+		//这样处理是否合理，需要检查？
+		if (clientUser != null){
+			clientUser.broadcast(new IMProtoMessage<>(header, body), null);
+		}
+		
 	}
 
 	/**
@@ -207,10 +248,10 @@ public class RouterHandlerManager {
 		case OtherCmdID.CID_OTHER_LOGIN_STATUS_NOTIFY_VALUE:
 			HandlePCLoginStatusNotify(header,body, ctx);
 			break;
-		case OtherCmdID.CID_OTHER_HEARTBEAT_VALUE:
-
+		case OtherCmdID.CID_OTHER_HEARTBEAT_VALUE://无需实现
+			break;			
+		case OtherCmdID.CID_OTHER_ROLE_SET_VALUE://目前不需要实现			
 			break;
-
 		default:
 			logger.warn("Unsupport command id {}", commandId);
 			break;
@@ -227,10 +268,38 @@ public class RouterHandlerManager {
 	public void doSwitch(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
 		logger.debug("RouterHandleManager#doSwitch");
 		switch (commandId) {
+		case SwitchServiceCmdID.CID_SWITCH_P2P_CMD_VALUE://todebug
+			switchP2p(header, body, ctx);
 		default:
 			logger.warn("Unsupport command id {}", commandId);
 			break;
 		}
+	}
+
+	
+	/**
+	 * 
+	 * @param header
+	 * @param body
+	 * @param ctx
+	 * @since 1.0
+	 */
+	private void switchP2p(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+		
+		IMSwitchService.IMP2PCmdMsg switchP2p = (IMSwitchService.IMP2PCmdMsg) body;
+		
+		ClientUser fromUser = ClientUserManager.getUserById(switchP2p.getFromUserId());
+		ClientUser toUser = ClientUserManager.getUserById(switchP2p.getToUserId());
+		
+		//这样处理是否合理，需要检查？
+		if(fromUser != null){
+			fromUser.broadcast(new IMProtoMessage<MessageLite>(header, body), null);
+		}
+		
+		if(toUser != null){
+			toUser.broadcast(new IMProtoMessage<MessageLite>(header, body), null);
+		}			
+		
 	}
 
 	/**
@@ -243,10 +312,40 @@ public class RouterHandlerManager {
 	public void doGroup(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
 		logger.debug("RouterHandleManager#doSwitch");
 		switch (commandId) {
+		case GroupCmdID.CID_GROUP_CHANGE_MEMBER_NOTIFY_VALUE://todebug
+			groupChangeMemberNotify(header, body, ctx);
+			break;
 		default:
 			logger.warn("Unsupport command id {}", commandId);
 			break;
 		}
+	}
+
+	/**
+	 * 
+	 * @param header
+	 * @param body
+	 * @param ctx
+	 * @since 1.0
+	 */
+	private void groupChangeMemberNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+		IMGroupChangeMemberNotify groupChangeMemberNotify = (IMGroupChangeMemberNotify)body;
+		ClientUser clientUser = null;
+		
+		for( long chgUserId : groupChangeMemberNotify.getChgUserIdListList()){
+			clientUser = ClientUserManager.getUserById(chgUserId);
+			if (clientUser != null){
+				clientUser.broadcast(new IMProtoMessage<MessageLite>(header, body), null);
+			}
+		}
+		
+		for( long curUserId : groupChangeMemberNotify.getCurUserIdListList()){
+			clientUser = ClientUserManager.getUserById(curUserId);
+			if (clientUser != null){
+				clientUser.broadcast(new IMProtoMessage<MessageLite>(header, body), null);
+			}
+		}		
+		
 	}
 
 	/**
@@ -259,10 +358,31 @@ public class RouterHandlerManager {
 	public void doFile(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
 		logger.debug("RouterHandleManager#doSwitch");
 		switch (commandId) {
+		case FileCmdID.CID_FILE_NOTIFY_VALUE://todebug
+			fileNotify(header, body, ctx);
+			break;
 		default:
 			logger.warn("Unsupport command id {}", commandId);
 			break;
 		}
+	}
+
+	/**
+	 * @param header
+	 * @param body
+	 * @param ctx
+	 * @since 1.0
+	 */
+	private void fileNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+		IMFile.IMFileNotify fileNotify = (IMFile.IMFileNotify) body;
+		
+		ClientUser clientUser = ClientUserManager.getUserById(fileNotify.getToUserId());
+		
+		if (clientUser != null){
+			clientUser.broadcast(new IMProtoMessage<MessageLite>(header, body), null);
+		}
+		
+		
 	}
 
 	/**

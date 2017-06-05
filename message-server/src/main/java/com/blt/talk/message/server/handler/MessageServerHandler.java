@@ -62,10 +62,8 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
         // 3. 本地客户机在试图与远程主机建立连接时，遇到类似与connection refused这样的异常，未能连接成功时
         // 而只有当本地客户机已经成功的与远程主机建立连接（connected）时，连接断开的时候才会触发channelDisconnected事件，即对应上述的1和2两种情况。
         logger.debug("channel#handlerRemoved");
+        handlerManager.remove(ctx);
         super.handlerRemoved(ctx);
-
-        // 移除客户端连接
-        // ClientConnectionMap.removeClientConnection(ctx);
     }
 
     @Override
@@ -98,12 +96,9 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
             case IMBaseDefine.ServiceID.SID_OTHER_VALUE:
                 handlerManager.doOther(ctx, header.getCommandId(), header, message.getBody());
                 break;
-                // fixme other
-                // UnKnown Protocol commandId: service=2,command=528
-                // UnKnown Protocol commandId: service=2,command=520
-                // UnKnown Protocol commandId: service=4,command=1025
-                // UnKnown Protocol commandId: service=2,command=513
-                // UnKnown Protocol commandId: service=2,command=522
+            case IMBaseDefine.ServiceID.SID_FILE_VALUE:
+                handlerManager.doFile(ctx, header.getCommandId(), header, message.getBody());
+                break;
             case IMBaseDefine.ServiceID.SID_SWITCH_SERVICE_VALUE:
                 handlerManager.doSwitch(ctx, header.getCommandId(), header, message.getBody());
                 break;
@@ -130,6 +125,7 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
         // 服务端接收到客户端上线通知
         Channel incoming = ctx.channel();
         logger.debug("MessageServerHandler:" + incoming.remoteAddress() + "在线");
+        handlerManager.online(ctx);
         ctx.fireChannelActive();
     }
 

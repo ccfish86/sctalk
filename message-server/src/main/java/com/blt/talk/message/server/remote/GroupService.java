@@ -18,6 +18,7 @@ import com.blt.talk.common.model.entity.GroupEntity;
 import com.blt.talk.common.param.GroupUpdateMemberReq;
 
 /**
+ * 群组业务远程调用Service
  * 
  * @author 袁贵
  * @version 1.0

@@ -40,7 +40,7 @@ import io.netty.util.AttributeKey;
  */
 public class ClientUser {
 
-    public static final AtomicLong HandleIdGenerator = new AtomicLong(1);
+    public static final AtomicLong HandleIdGenerator = new AtomicLong();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private long userId;
@@ -76,7 +76,7 @@ public class ClientUser {
      */
     public ClientUser(ChannelHandlerContext ctx, long userId, ClientType clientType, UserStatType statType) {
         this();
-        long handle = HandleIdGenerator.get();
+        long handle = HandleIdGenerator.incrementAndGet();
         this.userId = userId;
         this.connMap.put(handle, ctx);
         ctx.attr(HANDLE_ID).set(handle);
@@ -111,7 +111,7 @@ public class ClientUser {
     }
     
     public void delUnvalidateConn(ChannelHandlerContext conn) {
-        unValidateConnSet.add(conn);
+        unValidateConnSet.remove(conn);
     }
     
     public void validateMsgConn(long handle, ChannelHandlerContext conn) {
@@ -134,8 +134,10 @@ public class ClientUser {
             if (conn != fromCtx) {
                 logger.debug("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
+                // conn > AddToSendList
             }
         }
+        
     }
 
     public void broadcastWithOutMobile(IMProtoMessage<MessageLite> message, ChannelHandlerContext fromCtx) {

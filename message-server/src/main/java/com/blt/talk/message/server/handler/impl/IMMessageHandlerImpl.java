@@ -18,6 +18,7 @@ import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MsgType;
+import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SessionType;
 import com.blt.talk.common.code.proto.IMMessage;
 import com.blt.talk.common.code.proto.IMMessage.IMMsgData;
@@ -613,4 +614,39 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             // ctx- conn > DelFromSendList
         }
     }
+
+	@Override
+	public void clientTimeReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+		
+		 //IMMessage.IMClientTimeReq clientTimeReq = (IMMessage.IMClientTimeReq) body;
+
+		 IMMessage.IMClientTimeRsp clientTimeRsp = null;
+		 
+		 IMHeader headerRes = null;
+		 
+		 try {
+			 //获取系统时间，单位为秒
+			 long time = System.currentTimeMillis() / 1000 ;
+			 clientTimeRsp = IMMessage.IMClientTimeRsp.newBuilder()
+					               .setServerTime((int)time)
+					               .build();
+			 
+			 headerRes = header.clone();
+			 headerRes.setServiceId((short)ServiceID.SID_MSG_VALUE);
+			 headerRes.setCommandId((short)MessageCmdID.CID_MSG_TIME_RESPONSE_VALUE);
+			 
+			 ctx.writeAndFlush(new IMProtoMessage<>(headerRes, clientTimeRsp ));			 
+			 
+		 } catch(Exception e){
+			
+			 logger.error("获取系统时间异常", e);
+			 headerRes = header.clone();
+			 headerRes.setServiceId((short)ServiceID.SID_MSG_VALUE);
+			 headerRes.setCommandId((short)MessageCmdID.CID_MSG_TIME_RESPONSE_VALUE);
+			 
+			 ctx.writeAndFlush(new IMProtoMessage<>(headerRes, clientTimeRsp ));
+		 }
+		 
+		
+	}
 }
