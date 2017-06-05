@@ -31,6 +31,7 @@ import com.blt.talk.service.jpa.entity.IMGroup;
 import com.blt.talk.service.jpa.repository.IMGroupRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
+import com.blt.talk.service.redis.RedisKeys;
 import com.blt.talk.service.remote.GroupService;
 
 /**
@@ -110,12 +111,17 @@ public class GroupServiceController implements GroupService {
             resData.add(groupEntity);
             
             // fillGroupMember
-            String key = "group_member_" + group.getId();
+            String key = RedisKeys.concat(RedisKeys.GROUP_INFO, group.getId());
             HashOperations<String, String, String> groupMapOps = redisTemplate.opsForHash();
             Map<String, String> groupMemberMap = groupMapOps.entries(key);
             List<Long> userIds = new ArrayList<>();
             if (groupMemberMap != null) {
                 for (String memberId : groupMemberMap.keySet()) {
+                    if (memberId.equals(RedisKeys.COUNT) 
+                            || memberId.equals(RedisKeys.GROUP_MESSAGE_ID)) {
+                        // Message件数
+                        continue;
+                    }
                     userIds.add(Long.valueOf(memberId));
                 }
             }
@@ -160,12 +166,17 @@ public class GroupServiceController implements GroupService {
                 resData.add(groupEntity);
                 
                 // fillGroupMember
-                String key = "group_member_" + group.getId();
+                String key = RedisKeys.concat(RedisKeys.GROUP_INFO, group.getId());
                 HashOperations<String, String, String> groupMapOps = redisTemplate.opsForHash();
                 Map<String, String> groupMemberMap = groupMapOps.entries(key);
                 List<Long> userIds = new ArrayList<>();
                 if (groupMemberMap != null) {
                     for (String memberId : groupMemberMap.keySet()) {
+                        if (memberId.equals(RedisKeys.COUNT) 
+                                || memberId.equals(RedisKeys.GROUP_MESSAGE_ID)) {
+                            // Message件数
+                            continue;
+                        }
                         userIds.add(Long.valueOf(memberId));
                     }
                 }

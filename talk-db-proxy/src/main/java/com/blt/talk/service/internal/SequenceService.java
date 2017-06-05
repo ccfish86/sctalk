@@ -34,16 +34,16 @@ public interface SequenceService {
      * @since  1.0
      */
     public Long addAndGetLong(String key, int step);
-    /**
-     * 自增Long值
-     * <br>
-     * 存储于Map中，用于处理同一组相似的ID自增
-     * 
-     * @param key Redis键
-     * @param hkey Map的Key
-     * @param step 自增量
-     * @return 自增后的值
-     * @since  1.0
-     */
-    public Long addAndGetLongMap(String key, String hkey, int step);
+//    /**
+//     * 自增Long值
+//     * <br>
+//     * 存储于Map中，用于处理同一组相似的ID自增
+//     * 
+//     * @param key Redis键
+//     * @param hkey Map的Key
+//     * @param step 自增量
+//     * @return 自增后的值
+//     * @since  1.0
+//     */
+//    public Long addAndGetLongMap(String key, String hkey, int step);
 }

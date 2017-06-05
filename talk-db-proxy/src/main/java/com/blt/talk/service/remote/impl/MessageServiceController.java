@@ -16,7 +16,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +41,6 @@ import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.common.util.SecurityUtils;
 import com.blt.talk.service.internal.AudioInternalService;
 import com.blt.talk.service.internal.RelationShipService;
-import com.blt.talk.service.internal.SequenceService;
 import com.blt.talk.service.internal.SessionService;
 import com.blt.talk.service.jpa.entity.IMGroup;
 import com.blt.talk.service.jpa.entity.IMGroupMember;
@@ -89,6 +90,7 @@ import com.blt.talk.service.jpa.repository.IMMessage8Repository;
 import com.blt.talk.service.jpa.repository.IMMessage9Repository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
+import com.blt.talk.service.redis.RedisKeys;
 import com.blt.talk.service.remote.MessageService;
 
 /**
@@ -149,14 +151,9 @@ public class MessageServiceController implements MessageService {
     @Autowired
     private IMGroupMessage9Repository groupMessage9Repository;
 
-    // @Autowired
-    // private IMRelationShipRepository relationShipRepository;
-
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    @Autowired
-    private SequenceService sequenceService;
     @Autowired
     private RelationShipService relationShipService;
 
@@ -177,7 +174,11 @@ public class MessageServiceController implements MessageService {
 
         byte type = (byte) messageSendReq.getMsgType().getNumber();
 
-        final long msgId = sequenceService.addAndGetLong("group_message_id_" + messageSendReq.getGroupId(), 1);
+        // 存储群消息（ID自增，计数）
+        final String groupKey = RedisKeys.concat(RedisKeys.GROUP_INFO, messageSendReq.getGroupId());
+
+        final HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
+        final long msgId = hashOptions.increment(groupKey, RedisKeys.GROUP_MESSAGE_ID, 1);
         String content;
         if (messageSendReq.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_GROUP_AUDIO) {
             
@@ -249,11 +250,11 @@ public class MessageServiceController implements MessageService {
         groupRepository.save(group);
 
         // 计数
-        String groupKey = messageSendReq.getGroupId() + "_im_group_msg";
-        HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
-        hashOptions.increment(groupKey, "count", 1);
-
-        hashOptions.increment(groupKey, String.valueOf(messageSendReq.getUserId()), 1);
+        hashOptions.increment(groupKey, RedisKeys.COUNT, 1);
+        
+        // 未读消息
+        final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, messageSendReq.getUserId());
+        hashOptions.increment(userKey, RedisKeys.concat(RedisKeys.GROUP_UNREAD, messageSendReq.getGroupId()), 1);
 
         return new BaseModel<Long>() {
             {
@@ -273,11 +274,15 @@ public class MessageServiceController implements MessageService {
     public BaseModel<Long> sendMessage(@RequestBody MessageSendReq messageSendReq) {
 
         byte type = (byte) messageSendReq.getMsgType().getNumber();
-
+        
         // 处理relation_id
-        Long relateId =
+        final Long relateId =
                 relationShipService.getRelationId(messageSendReq.getUserId(), messageSendReq.getToId(), true);
-        Long msgId = sequenceService.addAndGetLong("relation_message_id_" + relateId, 1);
+        
+        // 保存关系信息（消息ID，）
+        final HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
+        final String relKey = RedisKeys.concat(RedisKeys.RELATION_INFO, relateId % 10000);
+        Long msgId = hashOptions.increment(relKey, String.valueOf(relateId), 1);
 
         String content;
         if (messageSendReq.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO) {
@@ -346,9 +351,10 @@ public class MessageServiceController implements MessageService {
         sessionService.update(sessionId, messageSendReq.getCreateTime());
 
         // 计数
-        String groupKey = "unread_" + messageSendReq.getToId();
-        HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
-        hashOptions.increment(groupKey, String.valueOf(messageSendReq.getUserId()), 1);
+        // 存储用户信息及未读信息
+        final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, messageSendReq.getToId());
+
+        hashOptions.increment(userKey, RedisKeys.concat(RedisKeys.USER_UNREAD, messageSendReq.getUserId()), 1);
 
         BaseModel<Long> messageIdRes = new BaseModel<>();
         messageIdRes.setData(msgId);
@@ -367,12 +373,14 @@ public class MessageServiceController implements MessageService {
         List<UnreadEntity> unreadList = new ArrayList<>();
 
         // 查询未读件数
-        String unreadKey = "unread_" + userId;
+        final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userId);
+        // String unreadKey = "unread_" + userId;
+        ScanOptions scanOptions = RedisKeys.getStartOptions(RedisKeys.USER_UNREAD);
         HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
-        Map<String, String> mapUnread = hashOptions.entries(unreadKey);
+        Cursor<Map.Entry<String, String>> mapUnread = hashOptions.scan(userKey, scanOptions);
 
-        for (Entry<String, String> uread : mapUnread.entrySet()) {
-
+        while (mapUnread.hasNext()) {
+            Entry<String, String> uread = mapUnread.next();
             Long fromUserId = Long.valueOf(uread.getKey());
 
             Long relateId = relationShipService.getRelationId(userId, fromUserId, false);
@@ -544,14 +552,20 @@ public class MessageServiceController implements MessageService {
         HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
         if (!groupList.isEmpty()) {
             for (IMGroupMember group : groupList) {
-                String key = group.getGroupId() + "_im_group_msg";
-                String groupCount = hashOptions.get(key, "count");
+                
+                final String groupKey = RedisKeys.concat(RedisKeys.GROUP_INFO, group.getGroupId());
+                final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userId);
+
+                // FIXME 这儿可能出了个死锁
+                String groupCount = hashOptions.get(groupKey, RedisKeys.COUNT);
                 if (groupCount == null) {
                     continue;
                 }
-                String userCount = hashOptions.get(key, String.valueOf(userId));
+                String userCount =  hashOptions.get(userKey, RedisKeys.concat(RedisKeys.GROUP_UNREAD, group));
+                
                 Integer unreadCount = userCount != null ? Integer.valueOf(groupCount) - Integer.valueOf(userCount)
                         : Integer.valueOf(groupCount);
+                
                 if (unreadCount > 0) {
 
                     // 取最后一条记录的消息
@@ -724,12 +738,15 @@ public class MessageServiceController implements MessageService {
 
         if (userCountReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_SINGLE) {
             // Clear P2P msg Counter
-            hashOptions.delete("unread_" + userCountReq.getUserId(), String.valueOf(userCountReq.getPeerId()));
+            final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userCountReq.getUserId());
+            hashOptions.delete(userKey, RedisKeys.concat(RedisKeys.USER_UNREAD, userCountReq.getPeerId()));
         } else if (userCountReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_GROUP) {
             // Clear Group msg Counter
-            String groupKey = userCountReq.getPeerId() + "_im_group_msg";
-            String countValue = hashOptions.get(groupKey, "count");
-            hashOptions.put(groupKey, String.valueOf(userCountReq.getUserId()), countValue);
+            final String groupKey = RedisKeys.concat(RedisKeys.GROUP_INFO, userCountReq.getPeerId());
+            final String countValue = hashOptions.get(groupKey, RedisKeys.COUNT);
+
+            final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userCountReq.getUserId());
+            hashOptions.put(userKey, RedisKeys.concat(RedisKeys.GROUP_UNREAD, userCountReq.getPeerId()), countValue);
         } else {
             logger.warn("参数不正: SessionType={}", userCountReq.getSessionType());
         }

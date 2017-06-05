@@ -26,6 +26,7 @@ import com.blt.talk.service.jpa.repository.IMGroupMemberRepository;
 import com.blt.talk.service.jpa.repository.IMGroupRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
+import com.blt.talk.service.redis.RedisKeys;
 
 /**
  * 群相关处理
@@ -116,13 +117,19 @@ public class GroupInternalServiceImpl implements GroupInternalService {
         Map<String, String> memberHash = new HashMap<>();
         
         List<Long> allGroupUsers = new ArrayList<>();
+        String key = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId);
+        String unreadKey = RedisKeys.concat(RedisKeys.GROUP_UNREAD, groupId);
+        HashOperations<String, String, String> groupMemberHash = redisTemplate.opsForHash();
+        String msgCount = groupMemberHash.get(key, RedisKeys.COUNT);
         allGroupMembers.forEach(member -> {
             memberHash.put(member.getUserId().toString(), String.valueOf(member.getUpdated()));
             allGroupUsers.add(member.getUserId());
+            
+            // 更新未读计数
+            String userKey = RedisKeys.concat(RedisKeys.USER_INFO, member.getUserId());
+            groupMemberHash.put(userKey, unreadKey, msgCount);
         });
         
-        String key = "group_member_" + groupId;
-        HashOperations<String, String, String> groupMemberHash = redisTemplate.opsForHash();
         groupMemberHash.putAll(key, memberHash);
 
         // 返回新成员
@@ -169,7 +176,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
         
         // 从Redis里删除成员
         // 从IMCurrentSession里删除会话
-        String key = "group_member_" + groupId;
+        String key = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId);
         HashOperations<String, String, String> groupMemberHash = redisTemplate.opsForHash();
         // CGroupModel#removeSession(nGroupId, setUserId);
         for (Long member: members) {
@@ -184,7 +191,8 @@ public class GroupInternalServiceImpl implements GroupInternalService {
 
     @Override
     public boolean isValidate(long groupId) {
-        return redisTemplate.hasKey("group_member_" + groupId);
+        String key = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId);
+        return redisTemplate.hasKey(key);
     }
 
     /* (non-Javadoc)
@@ -192,10 +200,11 @@ public class GroupInternalServiceImpl implements GroupInternalService {
      */
     @Override
     public boolean isValidate(long groupId, long userId) {
-        
-        if (redisTemplate.hasKey("group_member_" + groupId)) {
+
+        String key = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId);
+        if (redisTemplate.hasKey(key)) {
             HashOperations<String, String, String> groupMemberHash = redisTemplate.opsForHash();
-            groupMemberHash.hasKey("group_member_" + groupId, String.valueOf(userId));
+            groupMemberHash.hasKey(key, String.valueOf(userId));
         }
         return false;
     }

@@ -9,20 +9,28 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.blt.talk.common.code.proto.IMBaseDefine.ClientType;
 import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.LoginReq;
+import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.result.LoginCmdResult;
 import com.blt.talk.service.jpa.entity.IMUser;
 import com.blt.talk.service.jpa.repository.IMUserRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
+import com.blt.talk.service.redis.RedisKeys;
 import com.blt.talk.service.remote.LoginService;
 
 /**
@@ -40,6 +48,9 @@ public class LoginServiceController implements LoginService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private StringRedisTemplate redisTemplate;
     
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -100,6 +111,49 @@ public class LoginServiceController implements LoginService {
             return userRes.setResult(LoginCmdResult.LOGIN_NOUSER);
         }
         return userRes;
+    }
+
+    /* (non-Javadoc)
+     * @see com.blt.talk.service.remote.LoginService#setDeviceToken(com.blt.talk.common.param.UserToken)
+     */
+    @Override
+    @RequestMapping(method = RequestMethod.POST, value = "/login/setdeviceToken")
+    public BaseModel<?> setDeviceToken(@RequestBody UserToken param) {
+
+        // 存储> Redis: RedisKeys(user_info_${user_id}/token)
+        HashOperations<String, String, String> opsHash = redisTemplate.opsForHash();
+        String key = RedisKeys.concat(RedisKeys.USER_INFO, param.getUserId());
+        // 取用户ID对应的现有Token值
+        String oldToken = opsHash.get(key, RedisKeys.USER_TOKEN);
+        
+        if (StringUtils.isEmpty(param.getUserToken())) {
+            opsHash.delete(key, RedisKeys.USER_TOKEN);
+        } else {
+            if (ClientType.CLIENT_TYPE_IOS == param.getClientType()) {
+                opsHash.put(key, RedisKeys.USER_TOKEN, "ios:" + param.getUserToken());
+            } else if (ClientType.CLIENT_TYPE_ANDROID == param.getClientType()) {
+                opsHash.put(key, RedisKeys.USER_TOKEN, "android:" + param.getUserToken());
+            } else {
+                opsHash.put(key, RedisKeys.USER_TOKEN, param.getUserToken());
+            }
+
+            // 设置TOKEN对应的新的用户ID
+            int tokenHash = param.getUserToken().hashCode();
+            opsHash.put(RedisKeys.concat(RedisKeys.TOKEN_USER, tokenHash), param.getUserToken(), String.valueOf(param.getUserId()));
+        }
+        
+        // 清除旧Token对应的用户ID
+        if (!StringUtils.isEmpty(oldToken)) {
+            int index = oldToken.indexOf(":");
+            String oldTokenPureVal = oldToken.substring(index + 1);
+            
+            if (!StringUtils.isEmpty(oldTokenPureVal)) {
+                int tokenHash = oldTokenPureVal.hashCode();
+                opsHash.delete(RedisKeys.concat(RedisKeys.TOKEN_USER, tokenHash), oldTokenPureVal);
+            }
+        }
+        
+        return new BaseModel<>();
     }
 
 }
