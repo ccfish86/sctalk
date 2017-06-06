@@ -5,12 +5,14 @@
 package com.blt.talk.service.remote.impl;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,6 +66,16 @@ public class LoginServiceController implements LoginService {
     public BaseModel<UserEntity> login(@RequestBody LoginReq param) {
 
         BaseModel<UserEntity> userRes = new BaseModel<>();
+        String key = RedisKeys.concat(RedisKeys.USER_LOGIN_FAILD, param.getName());
+        ValueOperations<String, String> faildCountOps = redisTemplate.opsForValue();
+        String faildCount = faildCountOps.get(key);
+        int faild = 0;
+        if (!StringUtils.isEmpty(faildCount)) {
+            faild = Integer.parseInt(faildCount);
+        }
+        if (faild > 5) {
+            return userRes.setResult(LoginCmdResult.LOGIN_PASSWORD_LOCK);
+        }
         
         // 改为：用户名或手机号皆可登录
         SearchCriteria<IMUser> userSearchCriteria = new SearchCriteria<>();
@@ -78,10 +90,6 @@ public class LoginServiceController implements LoginService {
         }
 
         IMUser user = users.get(0);
-
-        // if (user.getStatus() == 0) {
-        // 判断用户状态
-        // }
 
         if (passwordEncoder.matches(param.getPassword(), user.getPassword())) {
             // 密码正确
@@ -103,11 +111,13 @@ public class LoginServiceController implements LoginService {
             userRes.setData(userEntity);
 
             // 如果登陆成功，则清除错误尝试限制
-
+            if (faild > 0) {
+                redisTemplate.delete(key);
+            }
         } else {
 
             // 密码错误，记录一次登陆失败
-            
+            faildCountOps.set(key, String.valueOf(++faild), 30, TimeUnit.MINUTES);
             return userRes.setResult(LoginCmdResult.LOGIN_NOUSER);
         }
         return userRes;

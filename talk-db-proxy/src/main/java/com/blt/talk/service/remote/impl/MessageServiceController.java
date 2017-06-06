@@ -561,7 +561,8 @@ public class MessageServiceController implements MessageService {
                 if (groupCount == null) {
                     continue;
                 }
-                String userCount =  hashOptions.get(userKey, RedisKeys.concat(RedisKeys.GROUP_UNREAD, group));
+                String userCount =
+                        hashOptions.get(userKey, RedisKeys.concat(RedisKeys.GROUP_UNREAD, group.getGroupId()));
                 
                 Integer unreadCount = userCount != null ? Integer.valueOf(groupCount) - Integer.valueOf(userCount)
                         : Integer.valueOf(groupCount);

@@ -19,6 +19,8 @@ public abstract class RedisKeys {
 
     /** 用户信息(Map) */
     public static String USER_INFO = "usr";
+    /** 用户临时信息-密码错误 */
+    public static String USER_LOGIN_FAILD = "ulf";
     
     /** 用户信息：用户未读 */
     public static String USER_UNREAD = "unr";
