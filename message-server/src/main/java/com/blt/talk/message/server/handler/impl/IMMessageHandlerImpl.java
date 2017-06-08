@@ -73,9 +73,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
      */
     @Override
     public void sendMessage(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-
-        logger.debug("接收消息，来自{}", ctx.attr(ClientUser.USER_ID).get());
-        
+       
         // 发送消息
         IMMessage.IMMsgData msgdata = (IMMessage.IMMsgData) body;
         
@@ -173,27 +171,19 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             } else if (CommonUtils.isSingle(messageType)) {
                 handleSingleMessage(header, msgdata, ctx);
             } else {
-                // 铁轨
+                // 忽略
             }
 
         } catch (Exception e) {
             logger.error("消息发送失败", e);
         } finally {
-
-//            // 消息送达，接收反馈
-//            IMMessage.IMMsgDataAck.Builder messageDataAckBuilder = IMMessage.IMMsgDataAck.newBuilder();
-//            messageDataAckBuilder.setMsgId(msgdata.getMsgId());
-//            messageDataAckBuilder.setUserId(msgdata.getFromUserId());
-//            messageDataAckBuilder.setSessionId(msgdata.getToSessionId());
-//            messageDataAckBuilder.setSessionType(sessionType);
-//
-//            IMHeader headerRes = header.clone();
-//            headerRes.setCommandId((short) MessageCmdID.CID_MSG_DATA_ACK_VALUE);
-//            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageDataAckBuilder.build()));
+            // 消息送达，接收反馈(已分别处理过)
         }
     }
 
     /**
+     * 处理私消息
+     * 
      * @param header
      * @param msgdata
      * @since  1.0
@@ -203,8 +193,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             logger.warn("Write message to db failed, {}->{}.", msgdata.getFromUserId(), msgdata.getToSessionId());
             return ;
         }
-
-        logger.debug("Single message id={}, {}->{}", msgdata.getMsgId(), msgdata.getFromUserId(), msgdata.getToSessionId());
         
         // 消息送达，接收反馈
         IMMessage.IMMsgDataAck.Builder messageDataAckBuilder = IMMessage.IMMsgDataAck.newBuilder();
@@ -240,6 +228,8 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
     }
 
     /**
+     * 处理群消息发送
+     * 
      * @param header
      * @param msgdata
      * @since  1.0
@@ -250,7 +240,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             logger.warn("Write group message to db failed, {}->{}.", msgdata.getFromUserId(), msgdata.getToSessionId());
             return ;
         }
-        logger.debug("Group message id={}, {}->{}", msgdata.getMsgId(), msgdata.getFromUserId(), msgdata.getToSessionId());
         
         // 消息送达，接收反馈
         IMMessage.IMMsgDataAck.Builder messageDataAckBuilder = IMMessage.IMMsgDataAck.newBuilder();
@@ -323,20 +312,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
         userCountReq.setPeerId(msgdata.getSessionId());
         userCountReq.setSessionType(msgdata.getSessionType());
         messageService.clearUserCounter(userCountReq);
-
-//        ClientConnection clientConn = ClientConnectionMap.getClientByUserId(userId);
-//        if (clientConn != null) {
-
-//            logger.debug("在线消息已读回执: from={}， to={}", msgdata.getUserId(), msgdata.getSessionId());
-//
-//            // 接收方在线
-//            ChannelHandlerContext toCtx = clientConn.getCtx();
-//            toCtx.writeAndFlush(new IMProtoMessage<>(header.clone(), msgdata));
-//        } else {
-//
-//            // 处理 离线或路由转发
-//            logger.debug("离线消息");
-//        }
 
         IMMessage.IMMsgDataReadNotify.Builder messageReadNotifyBuilder = IMMessage.IMMsgDataReadNotify.newBuilder();
         messageReadNotifyBuilder.setMsgId(msgdata.getMsgId());
@@ -441,7 +416,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 return;
             }
             
-            logger.debug("Command[777]" + messageListRes.getData());
             if (messageListRes!= null && messageListRes.getCode() == 0 && messageListRes.getData() != null) {
 
                 List<IMBaseDefine.MsgInfo> messageList = new ArrayList<>();
@@ -566,7 +540,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 return;
             }
             
-            if (messageListRes!= null && messageListRes.getCode() == 0 && messageListRes.getData() != null) {
+            if (messageListRes != null && messageListRes.getCode() == 0 && messageListRes.getData() != null) {
                 IMMessage.IMGetMsgByIdRsp.Builder messageListResBuilder = IMMessage.IMGetMsgByIdRsp.newBuilder();
                 messageListResBuilder.setUserId(getMsgByIdReq.getUserId());
                 messageListResBuilder.setSessionId(getMsgByIdReq.getSessionId());
@@ -580,7 +554,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 
                 IMHeader headerRes = header.clone();
                 headerRes.setCommandId((short) MessageCmdID.CID_MSG_GET_BY_MSG_ID_RES_VALUE);
-
                 ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageListResBuilder.build()));
             }
             
@@ -615,38 +588,34 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
         }
     }
 
-	@Override
-	public void clientTimeReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-		
-		 //IMMessage.IMClientTimeReq clientTimeReq = (IMMessage.IMClientTimeReq) body;
+    @Override
+    public void clientTimeReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
-		 IMMessage.IMClientTimeRsp clientTimeRsp = null;
-		 
-		 IMHeader headerRes = null;
-		 
-		 try {
-			 //获取系统时间，单位为秒
-			 long time = System.currentTimeMillis() / 1000 ;
-			 clientTimeRsp = IMMessage.IMClientTimeRsp.newBuilder()
-					               .setServerTime((int)time)
-					               .build();
-			 
-			 headerRes = header.clone();
-			 headerRes.setServiceId((short)ServiceID.SID_MSG_VALUE);
-			 headerRes.setCommandId((short)MessageCmdID.CID_MSG_TIME_RESPONSE_VALUE);
-			 
-			 ctx.writeAndFlush(new IMProtoMessage<>(headerRes, clientTimeRsp ));			 
-			 
-		 } catch(Exception e){
-			
-			 logger.error("获取系统时间异常", e);
-			 headerRes = header.clone();
-			 headerRes.setServiceId((short)ServiceID.SID_MSG_VALUE);
-			 headerRes.setCommandId((short)MessageCmdID.CID_MSG_TIME_RESPONSE_VALUE);
-			 
-			 ctx.writeAndFlush(new IMProtoMessage<>(headerRes, clientTimeRsp ));
-		 }
-		 
-		
-	}
+        // IMMessage.IMClientTimeReq clientTimeReq = (IMMessage.IMClientTimeReq) body;
+
+        IMMessage.IMClientTimeRsp clientTimeRsp = null;
+
+        IMHeader headerRes = null;
+
+        try {
+            // 获取系统时间，单位为秒
+            long time = CommonUtils.currentTimeSeconds();
+            clientTimeRsp = IMMessage.IMClientTimeRsp.newBuilder().setServerTime((int) time).build();
+
+            headerRes = header.clone();
+            headerRes.setServiceId((short) ServiceID.SID_MSG_VALUE);
+            headerRes.setCommandId((short) MessageCmdID.CID_MSG_TIME_RESPONSE_VALUE);
+
+            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, clientTimeRsp));
+
+        } catch (Exception e) {
+
+            logger.error("获取系统时间异常", e);
+            headerRes = header.clone();
+            headerRes.setServiceId((short) ServiceID.SID_MSG_VALUE);
+            headerRes.setCommandId((short) MessageCmdID.CID_MSG_TIME_RESPONSE_VALUE);
+
+            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, clientTimeRsp));
+        }
+    }
 }

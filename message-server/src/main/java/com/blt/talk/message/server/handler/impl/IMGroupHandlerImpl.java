@@ -4,7 +4,6 @@
 
 package com.blt.talk.message.server.handler.impl;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +27,11 @@ import com.blt.talk.common.code.proto.IMGroup.IMNormalGroupListRsp;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
+import com.blt.talk.common.param.GroupPushReq;
 import com.blt.talk.common.param.GroupUpdateMemberReq;
 import com.blt.talk.common.result.GroupCmdResult;
 import com.blt.talk.message.server.handler.IMGroupHandler;
 import com.blt.talk.message.server.remote.GroupService;
-import com.google.protobuf.ByteString;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -170,8 +169,14 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
         IMGroup.IMGroupShieldReq req = (IMGroup.IMGroupShieldReq) body;
 
         try {
-
-            BaseModel<Integer> groupShieldRes = groupService.groupShieldStatus(req.getUserId());
+            
+            // 设置群消息免打扰
+            // BaseModel<Integer> groupShieldRes = groupService.getGroupPush(req.getGroupId(), req.getUserId());
+            GroupPushReq groupPushReq = new GroupPushReq();
+            groupPushReq.setGroupId(req.getGroupId());
+            groupPushReq.setUserId(req.getUserId());
+            groupPushReq.setShieldStatus(req.getShieldStatus());
+            BaseModel<Integer> groupShieldRes = groupService.setGroupPush(groupPushReq);
 
             // 远程查询数据库成功，并且获取到数据
             if (groupShieldRes.getCode() == GroupCmdResult.SUCCESS.getCode() && groupShieldRes.getData() != null) {
@@ -185,16 +190,14 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
                 ctx.writeAndFlush(new IMProtoMessage<>(resHeader, groupShieldBody));
 
             } else {
-                logger.error("获取群组免打扰状态失败");
+                logger.warn("设置群组免打扰状态失败");
                 IMHeader resHeader = header.clone();
                 resHeader.setCommandId((short) GroupCmdID.CID_GROUP_SHIELD_GROUP_RESPONSE_VALUE);
 
                 IMGroup.IMGroupShieldRsp groupShieldBody =
                         IMGroup.IMGroupShieldRsp.newBuilder().setUserId(req.getUserId()).setGroupId(req.getGroupId())
-                                .setAttachData(ByteString.copyFrom("获取群组免打扰状态失败", Charset.forName("UTF-8"))) // 异常或获取值失败时，发送的信息
-                                .build();
+                                .setResultCode(groupShieldRes.getCode()).build();
                 ctx.writeAndFlush(new IMProtoMessage<>(resHeader, groupShieldBody));
-
             }
 
 
@@ -206,8 +209,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
 
             IMGroup.IMGroupShieldRsp groupShieldBody =
                     IMGroup.IMGroupShieldRsp.newBuilder().setUserId(req.getUserId()).setGroupId(req.getGroupId())
-                            .setAttachData(ByteString.copyFrom("获取群组免打扰状态失败", Charset.forName("UTF-8"))) // 异常或获取值失败时，发送的信息
-                            .build();
+                            .setResultCode(1).build();
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, groupShieldBody));
         }
 

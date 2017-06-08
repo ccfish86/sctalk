@@ -54,7 +54,7 @@ public class HandlerManager {
      * @since 1.0
      */
     public void doLogin(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) throws Exception {
-        switch (commandId) {
+        switch (commandId) { //无消息处理
             default:
                 logger.warn("Unsupport command id {}", commandId);
                 break;
@@ -141,7 +141,7 @@ public class HandlerManager {
      */
     public void doOther(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
         switch (commandId) {
-            case OtherCmdID.CID_OTHER_HEARTBEAT_VALUE:
+            case OtherCmdID.CID_OTHER_HEARTBEAT_VALUE: //todo? 是否需要实现？
                 imOtherHandler.hearBeat(header, body, ctx);
                 break;
             case OtherCmdID.CID_OTHER_ROLE_SET_VALUE:
@@ -156,10 +156,10 @@ public class HandlerManager {
             case OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE:
                 broadcastMsg(header, body, ctx);
                 break;
-            case OtherCmdID.CID_OTHER_MSG_SERV_INFO_VALUE:
+            case OtherCmdID.CID_OTHER_MSG_SERV_INFO_VALUE: //MSG服务器的状态，teamtalk中放在login_server中处理，这里放在route服务器中处理
                 imOtherHandler.updateMessageServer(header, body, ctx);
                 break;
-            case OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE: //todo
+            case OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE: //todebug
                 imOtherHandler.updateUserCnt(header, body, ctx);
                 break;
             default:

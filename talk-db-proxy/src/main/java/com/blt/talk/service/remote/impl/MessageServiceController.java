@@ -175,10 +175,10 @@ public class MessageServiceController implements MessageService {
         byte type = (byte) messageSendReq.getMsgType().getNumber();
 
         // 存储群消息（ID自增，计数）
-        final String groupKey = RedisKeys.concat(RedisKeys.GROUP_INFO, messageSendReq.getGroupId());
+        final String groupSetKey = RedisKeys.concat(RedisKeys.GROUP_INFO, messageSendReq.getGroupId(), RedisKeys.SETTING_INFO);
 
         final HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
-        final long msgId = hashOptions.increment(groupKey, RedisKeys.GROUP_MESSAGE_ID, 1);
+        final long msgId = hashOptions.increment(groupSetKey, RedisKeys.GROUP_MESSAGE_ID, 1);
         String content;
         if (messageSendReq.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_GROUP_AUDIO) {
             
@@ -250,7 +250,7 @@ public class MessageServiceController implements MessageService {
         groupRepository.save(group);
 
         // 计数
-        hashOptions.increment(groupKey, RedisKeys.COUNT, 1);
+        hashOptions.increment(groupSetKey, RedisKeys.COUNT, 1);
         
         // 未读消息
         final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, messageSendReq.getUserId());
@@ -397,7 +397,7 @@ public class MessageServiceController implements MessageService {
             switch (splt.intValue()) {
                 case 0:
                     SearchCriteria<IMMessage0> message0SearchCriteria = new SearchCriteria<>();
-                    message0SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message0SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable = new PageRequest(0, 1, sortMessage);
@@ -409,7 +409,7 @@ public class MessageServiceController implements MessageService {
                 case 1:
                     SearchCriteria<IMMessage1> message1SearchCriteria = new SearchCriteria<>();
                     message1SearchCriteria.add(JpaRestrictions.eq("toId", userId, false));
-                    message1SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message1SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
@@ -420,7 +420,7 @@ public class MessageServiceController implements MessageService {
                     break;
                 case 2:
                     SearchCriteria<IMMessage2> message2SearchCriteria = new SearchCriteria<>();
-                    message2SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message2SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
@@ -431,7 +431,7 @@ public class MessageServiceController implements MessageService {
                     break;
                 case 3:
                     SearchCriteria<IMMessage3> message3SearchCriteria = new SearchCriteria<>();
-                    message3SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message3SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
@@ -442,7 +442,7 @@ public class MessageServiceController implements MessageService {
                     break;
                 case 4:
                     SearchCriteria<IMMessage4> message4SearchCriteria = new SearchCriteria<>();
-                    message4SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message4SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
@@ -453,7 +453,7 @@ public class MessageServiceController implements MessageService {
                     break;
                 case 5:
                     SearchCriteria<IMMessage5> message5SearchCriteria = new SearchCriteria<>();
-                    message5SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message5SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
@@ -464,7 +464,7 @@ public class MessageServiceController implements MessageService {
                     break;
                 case 6:
                     SearchCriteria<IMMessage6> message6SearchCriteria = new SearchCriteria<>();
-                    message6SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message6SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
@@ -475,7 +475,7 @@ public class MessageServiceController implements MessageService {
                     break;
                 case 7:
                     SearchCriteria<IMMessage7> message7SearchCriteria = new SearchCriteria<>();
-                    message7SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message7SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
@@ -486,7 +486,7 @@ public class MessageServiceController implements MessageService {
                     break;
                 case 8:
                     SearchCriteria<IMMessage8> message8SearchCriteria = new SearchCriteria<>();
-                    message8SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message8SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
@@ -497,7 +497,7 @@ public class MessageServiceController implements MessageService {
                     break;
                 case 9:
                     SearchCriteria<IMMessage9> message9SearchCriteria = new SearchCriteria<>();
-                    message9SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                    message9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                     message9SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                     Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
                     Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
@@ -543,7 +543,7 @@ public class MessageServiceController implements MessageService {
         // 查询GroupID
         SearchCriteria<IMGroupMember> groupMemberSearchCriteria = new SearchCriteria<>();
         groupMemberSearchCriteria.add(JpaRestrictions.eq("userId", userId, false));
-        groupMemberSearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+        groupMemberSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
         Sort sort = new Sort(Sort.Direction.DESC, "updated", "id");
         List<IMGroupMember> groupList = groupMemberRepository.findAll(groupMemberSearchCriteria, sort);
 
@@ -553,11 +553,11 @@ public class MessageServiceController implements MessageService {
         if (!groupList.isEmpty()) {
             for (IMGroupMember group : groupList) {
                 
-                final String groupKey = RedisKeys.concat(RedisKeys.GROUP_INFO, group.getGroupId());
+                final String groupSetKey = RedisKeys.concat(RedisKeys.GROUP_INFO, group.getGroupId(), RedisKeys.SETTING_INFO);
                 final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userId);
 
-                // FIXME 这儿可能出了个死锁
-                String groupCount = hashOptions.get(groupKey, RedisKeys.COUNT);
+                // 取群消息数和用户已读数
+                String groupCount = hashOptions.get(groupSetKey, RedisKeys.COUNT);
                 if (groupCount == null) {
                     continue;
                 }
@@ -576,7 +576,7 @@ public class MessageServiceController implements MessageService {
                         case 0:
                             SearchCriteria<IMGroupMessage0> groupMessage0SearchCriteria = new SearchCriteria<>();
                             groupMessage0SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage0SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable = new PageRequest(0, 1, sortMessage);
                             Page<IMGroupMessage0> groupMessage0List =
@@ -588,7 +588,7 @@ public class MessageServiceController implements MessageService {
                         case 1:
                             SearchCriteria<IMGroupMessage1> groupMessage1SearchCriteria = new SearchCriteria<>();
                             groupMessage1SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage1SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
                             Page<IMGroupMessage1> groupMessage1List =
@@ -600,7 +600,7 @@ public class MessageServiceController implements MessageService {
                         case 2:
                             SearchCriteria<IMGroupMessage2> groupMessage2SearchCriteria = new SearchCriteria<>();
                             groupMessage2SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage2SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
                             Page<IMGroupMessage2> groupMessage2List =
@@ -612,7 +612,7 @@ public class MessageServiceController implements MessageService {
                         case 3:
                             SearchCriteria<IMGroupMessage3> groupMessage3SearchCriteria = new SearchCriteria<>();
                             groupMessage3SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage3SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
                             Page<IMGroupMessage3> groupMessage3List =
@@ -624,7 +624,7 @@ public class MessageServiceController implements MessageService {
                         case 4:
                             SearchCriteria<IMGroupMessage4> groupMessage4SearchCriteria = new SearchCriteria<>();
                             groupMessage4SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage4SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
                             Page<IMGroupMessage4> groupMessage4List =
@@ -636,7 +636,7 @@ public class MessageServiceController implements MessageService {
                         case 5:
                             SearchCriteria<IMGroupMessage5> groupMessage5SearchCriteria = new SearchCriteria<>();
                             groupMessage5SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage5SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
                             Page<IMGroupMessage5> groupMessage5List =
@@ -648,7 +648,7 @@ public class MessageServiceController implements MessageService {
                         case 6:
                             SearchCriteria<IMGroupMessage6> groupMessage6SearchCriteria = new SearchCriteria<>();
                             groupMessage6SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage6SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
                             Page<IMGroupMessage6> groupMessage6List =
@@ -660,7 +660,7 @@ public class MessageServiceController implements MessageService {
                         case 7:
                             SearchCriteria<IMGroupMessage7> groupMessage7SearchCriteria = new SearchCriteria<>();
                             groupMessage7SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage7SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
                             Page<IMGroupMessage7> groupMessage7List =
@@ -672,7 +672,7 @@ public class MessageServiceController implements MessageService {
                         case 8:
                             SearchCriteria<IMGroupMessage8> groupMessage8SearchCriteria = new SearchCriteria<>();
                             groupMessage8SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage8SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
                             Page<IMGroupMessage8> groupMessage8List =
@@ -684,7 +684,7 @@ public class MessageServiceController implements MessageService {
                         case 9:
                             SearchCriteria<IMGroupMessage9> groupMessage9SearchCriteria = new SearchCriteria<>();
                             groupMessage9SearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
-                            groupMessage9SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                            groupMessage9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                             Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
                             Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
                             Page<IMGroupMessage9> groupMessage9List =
@@ -743,8 +743,8 @@ public class MessageServiceController implements MessageService {
             hashOptions.delete(userKey, RedisKeys.concat(RedisKeys.USER_UNREAD, userCountReq.getPeerId()));
         } else if (userCountReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_GROUP) {
             // Clear Group msg Counter
-            final String groupKey = RedisKeys.concat(RedisKeys.GROUP_INFO, userCountReq.getPeerId());
-            final String countValue = hashOptions.get(groupKey, RedisKeys.COUNT);
+            final String groupSetKey = RedisKeys.concat(RedisKeys.GROUP_INFO, userCountReq.getPeerId(), RedisKeys.SETTING_INFO);
+            final String countValue = hashOptions.get(groupSetKey, RedisKeys.COUNT);
 
             final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userCountReq.getUserId());
             hashOptions.put(userKey, RedisKeys.concat(RedisKeys.GROUP_UNREAD, userCountReq.getPeerId()), countValue);
@@ -775,7 +775,7 @@ public class MessageServiceController implements MessageService {
         switch (splt.intValue()) {
             case 0:
                 SearchCriteria<IMMessage0> message0SearchCriteria = new SearchCriteria<>();
-                message0SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message0SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message0SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
@@ -787,7 +787,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 1:
                 SearchCriteria<IMMessage1> message1SearchCriteria = new SearchCriteria<>();
-                message1SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message1SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message1SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -799,7 +799,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 2:
                 SearchCriteria<IMMessage2> message2SearchCriteria = new SearchCriteria<>();
-                message2SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message2SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message2SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -811,7 +811,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 3:
                 SearchCriteria<IMMessage3> message3SearchCriteria = new SearchCriteria<>();
-                message3SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message3SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message3SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -823,7 +823,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 4:
                 SearchCriteria<IMMessage4> message4SearchCriteria = new SearchCriteria<>();
-                message4SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message4SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message4SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -835,7 +835,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 5:
                 SearchCriteria<IMMessage5> message5SearchCriteria = new SearchCriteria<>();
-                message5SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message5SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message5SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -847,7 +847,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 6:
                 SearchCriteria<IMMessage6> message6SearchCriteria = new SearchCriteria<>();
-                message6SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message6SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message6SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -859,7 +859,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 7:
                 SearchCriteria<IMMessage7> message7SearchCriteria = new SearchCriteria<>();
-                message7SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message7SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message7SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -871,7 +871,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 8:
                 SearchCriteria<IMMessage8> message8SearchCriteria = new SearchCriteria<>();
-                message8SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message8SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message8SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -883,7 +883,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 9:
                 SearchCriteria<IMMessage9> message9SearchCriteria = new SearchCriteria<>();
-                message9SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message9SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message9SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -931,7 +931,7 @@ public class MessageServiceController implements MessageService {
             case 0:
                 SearchCriteria<IMGroupMessage0> groupMessage0SearchCriteria = new SearchCriteria<>();
                 groupMessage0SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage0SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage0SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable = new PageRequest(0, messageCount, sortMessage);
@@ -944,7 +944,7 @@ public class MessageServiceController implements MessageService {
             case 1:
                 SearchCriteria<IMGroupMessage1> groupMessage1SearchCriteria = new SearchCriteria<>();
                 groupMessage1SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage1SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage1SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable1 = new PageRequest(0, messageCount, sortMessage1);
@@ -957,7 +957,7 @@ public class MessageServiceController implements MessageService {
             case 2:
                 SearchCriteria<IMGroupMessage2> groupMessage2SearchCriteria = new SearchCriteria<>();
                 groupMessage2SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage2SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage2SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable2 = new PageRequest(0, messageCount, sortMessage2);
@@ -970,7 +970,7 @@ public class MessageServiceController implements MessageService {
             case 3:
                 SearchCriteria<IMGroupMessage3> groupMessage3SearchCriteria = new SearchCriteria<>();
                 groupMessage3SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage3SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage3SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable3 = new PageRequest(0, messageCount, sortMessage3);
@@ -983,7 +983,7 @@ public class MessageServiceController implements MessageService {
             case 4:
                 SearchCriteria<IMGroupMessage4> groupMessage4SearchCriteria = new SearchCriteria<>();
                 groupMessage4SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage4SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage4SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable4 = new PageRequest(0, messageCount, sortMessage4);
@@ -996,7 +996,7 @@ public class MessageServiceController implements MessageService {
             case 5:
                 SearchCriteria<IMGroupMessage5> groupMessage5SearchCriteria = new SearchCriteria<>();
                 groupMessage5SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage5SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage5SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable5 = new PageRequest(0, messageCount, sortMessage5);
@@ -1009,7 +1009,7 @@ public class MessageServiceController implements MessageService {
             case 6:
                 SearchCriteria<IMGroupMessage6> groupMessage6SearchCriteria = new SearchCriteria<>();
                 groupMessage6SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage6SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage6SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable6 = new PageRequest(0, messageCount, sortMessage6);
@@ -1022,7 +1022,7 @@ public class MessageServiceController implements MessageService {
             case 7:
                 SearchCriteria<IMGroupMessage7> groupMessage7SearchCriteria = new SearchCriteria<>();
                 groupMessage7SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage7SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage7SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable7 = new PageRequest(0, messageCount, sortMessage7);
@@ -1035,7 +1035,7 @@ public class MessageServiceController implements MessageService {
             case 8:
                 SearchCriteria<IMGroupMessage8> groupMessage8SearchCriteria = new SearchCriteria<>();
                 groupMessage8SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage8SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage8SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable8 = new PageRequest(0, messageCount, sortMessage8);
@@ -1048,7 +1048,7 @@ public class MessageServiceController implements MessageService {
             case 9:
                 SearchCriteria<IMGroupMessage9> groupMessage9SearchCriteria = new SearchCriteria<>();
                 groupMessage9SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage9SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 groupMessage9SearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
                 Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable9 = new PageRequest(0, messageCount, sortMessage9);
@@ -1124,7 +1124,7 @@ public class MessageServiceController implements MessageService {
         switch (splt.intValue()) {
             case 0:
                 SearchCriteria<IMMessage0> message0SearchCriteria = new SearchCriteria<>();
-                message0SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message0SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable = new PageRequest(0, 1, sortMessage);
@@ -1135,7 +1135,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 1:
                 SearchCriteria<IMMessage1> message1SearchCriteria = new SearchCriteria<>();
-                message1SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message1SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
@@ -1146,7 +1146,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 2:
                 SearchCriteria<IMMessage2> message2SearchCriteria = new SearchCriteria<>();
-                message2SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message2SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
@@ -1157,7 +1157,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 3:
                 SearchCriteria<IMMessage3> message3SearchCriteria = new SearchCriteria<>();
-                message3SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message3SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
@@ -1168,7 +1168,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 4:
                 SearchCriteria<IMMessage4> message4SearchCriteria = new SearchCriteria<>();
-                message4SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message4SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
@@ -1179,7 +1179,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 5:
                 SearchCriteria<IMMessage5> message5SearchCriteria = new SearchCriteria<>();
-                message5SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message5SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
@@ -1190,7 +1190,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 6:
                 SearchCriteria<IMMessage6> message6SearchCriteria = new SearchCriteria<>();
-                message6SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message6SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
@@ -1201,7 +1201,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 7:
                 SearchCriteria<IMMessage7> message7SearchCriteria = new SearchCriteria<>();
-                message7SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message7SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
@@ -1212,7 +1212,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 8:
                 SearchCriteria<IMMessage8> message8SearchCriteria = new SearchCriteria<>();
-                message8SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message8SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
@@ -1223,7 +1223,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 9:
                 SearchCriteria<IMMessage9> message9SearchCriteria = new SearchCriteria<>();
-                message9SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message9SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
@@ -1255,7 +1255,7 @@ public class MessageServiceController implements MessageService {
             case 0:
                 SearchCriteria<IMGroupMessage0> groupMessage0SearchCriteria = new SearchCriteria<>();
                 groupMessage0SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage0SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable = new PageRequest(0, 1, sortMessage);
                 Page<IMGroupMessage0> groupMessage0List =
@@ -1267,7 +1267,7 @@ public class MessageServiceController implements MessageService {
             case 1:
                 SearchCriteria<IMGroupMessage1> groupMessage1SearchCriteria = new SearchCriteria<>();
                 groupMessage1SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage1SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
                 Page<IMGroupMessage1> groupMessage1List =
@@ -1279,7 +1279,7 @@ public class MessageServiceController implements MessageService {
             case 2:
                 SearchCriteria<IMGroupMessage2> groupMessage2SearchCriteria = new SearchCriteria<>();
                 groupMessage2SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage2SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
                 Page<IMGroupMessage2> groupMessage2List =
@@ -1291,7 +1291,7 @@ public class MessageServiceController implements MessageService {
             case 3:
                 SearchCriteria<IMGroupMessage3> groupMessage3SearchCriteria = new SearchCriteria<>();
                 groupMessage3SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage3SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
                 Page<IMGroupMessage3> groupMessage3List =
@@ -1303,7 +1303,7 @@ public class MessageServiceController implements MessageService {
             case 4:
                 SearchCriteria<IMGroupMessage4> groupMessage4SearchCriteria = new SearchCriteria<>();
                 groupMessage4SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage4SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
                 Page<IMGroupMessage4> groupMessage4List =
@@ -1315,7 +1315,7 @@ public class MessageServiceController implements MessageService {
             case 5:
                 SearchCriteria<IMGroupMessage5> groupMessage5SearchCriteria = new SearchCriteria<>();
                 groupMessage5SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage5SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
                 Page<IMGroupMessage5> groupMessage5List =
@@ -1327,7 +1327,7 @@ public class MessageServiceController implements MessageService {
             case 6:
                 SearchCriteria<IMGroupMessage6> groupMessage6SearchCriteria = new SearchCriteria<>();
                 groupMessage6SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage6SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
                 Page<IMGroupMessage6> groupMessage6List =
@@ -1339,7 +1339,7 @@ public class MessageServiceController implements MessageService {
             case 7:
                 SearchCriteria<IMGroupMessage7> groupMessage7SearchCriteria = new SearchCriteria<>();
                 groupMessage7SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage7SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
                 Page<IMGroupMessage7> groupMessage7List =
@@ -1351,7 +1351,7 @@ public class MessageServiceController implements MessageService {
             case 8:
                 SearchCriteria<IMGroupMessage8> groupMessage8SearchCriteria = new SearchCriteria<>();
                 groupMessage8SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage8SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
                 Page<IMGroupMessage8> groupMessage8List =
@@ -1363,7 +1363,7 @@ public class MessageServiceController implements MessageService {
             case 9:
                 SearchCriteria<IMGroupMessage9> groupMessage9SearchCriteria = new SearchCriteria<>();
                 groupMessage9SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
-                groupMessage9SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
                 Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
                 Page<IMGroupMessage9> groupMessage9List =
@@ -1398,7 +1398,7 @@ public class MessageServiceController implements MessageService {
         switch (splt.intValue()) {
             case 0:
                 SearchCriteria<IMMessage0> message0SearchCriteria = new SearchCriteria<>();
-                message0SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message0SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message0SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1409,7 +1409,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 1:
                 SearchCriteria<IMMessage1> message1SearchCriteria = new SearchCriteria<>();
-                message1SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message1SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message1SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1420,7 +1420,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 2:
                 SearchCriteria<IMMessage2> message2SearchCriteria = new SearchCriteria<>();
-                message2SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message2SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message2SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1431,7 +1431,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 3:
                 SearchCriteria<IMMessage3> message3SearchCriteria = new SearchCriteria<>();
-                message3SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message3SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message3SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1442,7 +1442,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 4:
                 SearchCriteria<IMMessage4> message4SearchCriteria = new SearchCriteria<>();
-                message4SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message4SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message4SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1453,7 +1453,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 5:
                 SearchCriteria<IMMessage5> message5SearchCriteria = new SearchCriteria<>();
-                message5SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message5SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message5SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1464,7 +1464,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 6:
                 SearchCriteria<IMMessage6> message6SearchCriteria = new SearchCriteria<>();
-                message6SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message6SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message6SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1475,7 +1475,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 7:
                 SearchCriteria<IMMessage7> message7SearchCriteria = new SearchCriteria<>();
-                message7SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message7SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message7SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1486,7 +1486,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 8:
                 SearchCriteria<IMMessage8> message8SearchCriteria = new SearchCriteria<>();
-                message8SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message8SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message8SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1497,7 +1497,7 @@ public class MessageServiceController implements MessageService {
                 break;
             case 9:
                 SearchCriteria<IMMessage9> message9SearchCriteria = new SearchCriteria<>();
-                message9SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                message9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 message9SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
                 message9SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
                 Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
@@ -1529,7 +1529,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage0> groupMessage0SearchCriteria = new SearchCriteria<>();
                 groupMessage0SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage0SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage0SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage0> groupMessage0List =
                         groupMessage0Repository.findAll(groupMessage0SearchCriteria, sortMessage);
@@ -1541,7 +1541,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage1> groupMessage1SearchCriteria = new SearchCriteria<>();
                 groupMessage1SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage1SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage1SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage1> groupMessage1List =
                         groupMessage1Repository.findAll(groupMessage1SearchCriteria, sortMessage1);
@@ -1553,7 +1553,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage2> groupMessage2SearchCriteria = new SearchCriteria<>();
                 groupMessage2SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage2SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage2SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage2> groupMessage2List =
                         groupMessage2Repository.findAll(groupMessage2SearchCriteria, sortMessage2);
@@ -1565,7 +1565,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage3> groupMessage3SearchCriteria = new SearchCriteria<>();
                 groupMessage3SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage3SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage3SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage3> groupMessage3List =
                         groupMessage3Repository.findAll(groupMessage3SearchCriteria, sortMessage3);
@@ -1577,7 +1577,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage4> groupMessage4SearchCriteria = new SearchCriteria<>();
                 groupMessage4SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage4SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage4SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage4> groupMessage4List =
                         groupMessage4Repository.findAll(groupMessage4SearchCriteria, sortMessage4);
@@ -1589,7 +1589,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage5> groupMessage5SearchCriteria = new SearchCriteria<>();
                 groupMessage5SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage5SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage5SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage5> groupMessage5List =
                         groupMessage5Repository.findAll(groupMessage5SearchCriteria, sortMessage5);
@@ -1601,7 +1601,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage6> groupMessage6SearchCriteria = new SearchCriteria<>();
                 groupMessage6SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage6SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage6SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage6> groupMessage6List =
                         groupMessage6Repository.findAll(groupMessage6SearchCriteria, sortMessage6);
@@ -1613,7 +1613,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage7> groupMessage7SearchCriteria = new SearchCriteria<>();
                 groupMessage7SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage7SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage7SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage7> groupMessage7List =
                         groupMessage7Repository.findAll(groupMessage7SearchCriteria, sortMessage7);
@@ -1625,7 +1625,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage8> groupMessage8SearchCriteria = new SearchCriteria<>();
                 groupMessage8SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage8SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage8SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage8> groupMessage8List =
                         groupMessage8Repository.findAll(groupMessage8SearchCriteria, sortMessage8);
@@ -1637,7 +1637,7 @@ public class MessageServiceController implements MessageService {
                 SearchCriteria<IMGroupMessage9> groupMessage9SearchCriteria = new SearchCriteria<>();
                 groupMessage9SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
                 groupMessage9SearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-                groupMessage9SearchCriteria.add(JpaRestrictions.eq("status", 0, false));
+                groupMessage9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
                 Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
                 List<IMGroupMessage9> groupMessage9List =
                         groupMessage9Repository.findAll(groupMessage9SearchCriteria, sortMessage9);

@@ -30,11 +30,13 @@ public abstract class RedisKeys {
     /** 用户信息：用户Token */
     public static String USER_TOKEN = "tkn";
 
-    /** Token信息[rel_${token.hashCode}] */
+    /** Token信息[tkn_${token.hashCode}] */
     public static String TOKEN_USER = "tkn";
     
-    /** 群组消息(Map)[group_${gruop_id}]-存储群组消息数 count，用户已读消息数 */
+    /** 群组消息(Map)[grp_${gruop_id}]-用户信息 */
     public static String GROUP_INFO = "grp";
+    /** 群组消息：设置（存储用户及群的设置） */
+    public static String SETTING_INFO = "set";
     
     /** 群组消息:件数（hkey, 用于在Map中）[count] -计数用*/
     public static String COUNT = "cnt";

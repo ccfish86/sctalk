@@ -118,6 +118,17 @@ public class ClientUser {
         this.addConn(handle, conn);
         this.delUnvalidateConn(conn);
     }
+
+    /**
+     * 设置为无效连接
+     * @param handle
+     * @param conn
+     * @since  1.0
+     */
+    public void unValidateMsgConn(long handle, ChannelHandlerContext conn) {
+        this.delConn(handle);
+        this.addUnvalidateConn(conn);
+    }
     
     public UserConn getUserConn() {
         int count = 0;

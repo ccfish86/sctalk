@@ -270,15 +270,6 @@ public class HandlerManager {
             case GroupCmdID.CID_GROUP_SHIELD_GROUP_REQUEST_VALUE://todebug
             	imGroupHandler.groupShieldReq(header, body, ctx);
                 break;
-//            case GroupCmdID.CID_GROUP_CHANGE_MEMBER_NOTIFY_VALUE:
-//            	//imGroupHandler.
-//                break;
-            case GroupCmdID.CID_GROUP_CHANGE_MEMBER_NOTIFY_VALUE: //不在这里处理，可以删除
-                break;
-//            case GroupCmdID.CID_GROUP_SHIELD_GROUP_REQUEST_VALUE:
-//                break;
-//            case GroupCmdID.CID_GROUP_CHANGE_MEMBER_NOTIFY_VALUE:
-//                break;
             default:
                 logger.warn("Unsupport command id {}", commandId);
                 break;
@@ -303,30 +294,30 @@ public class HandlerManager {
             case OtherCmdID.CID_OTHER_STOP_RECV_PACKET_VALUE: //不需要实现？
             	imOtherHandler.StopReceivePacket(header, body, ctx);
                 break;
-            case OtherCmdID.CID_OTHER_VALIDATE_REQ_VALUE: //采用REST调用，已不需要？
-                break;
-            case OtherCmdID.CID_OTHER_GET_DEVICE_TOKEN_REQ_VALUE: //采用REST调用，已不需要？
-                break;
-            case OtherCmdID.CID_OTHER_ROLE_SET_VALUE: //设置route服务器的主从，是否还需要？
-                break;
-            case OtherCmdID.CID_OTHER_ONLINE_USER_INFO_VALUE: //已在Route中实现
-                break;
-            case OtherCmdID.CID_OTHER_USER_STATUS_UPDATE_VALUE: //在login，logout和关闭连接时调用， 不在这里调用
-                break;
-            case OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE: //在login，logout和关闭连接时调用， 不在这里调用
-                break;
-            case OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE://踢出同客户端类型的用户，在login时调用，不在这里调用
-                break;
-            case OtherCmdID.CID_OTHER_LOGIN_STATUS_NOTIFY_VALUE://不需要在这里实现，在route中实现
-                break;
-            case OtherCmdID.CID_OTHER_PUSH_TO_USER_REQ_VALUE://不需要在这里实现，在push服务器中实现
-                break;
-            case OtherCmdID.CID_OTHER_GET_SHIELD_REQ_VALUE://不需要在这里实现
-                break;
-            case OtherCmdID.CID_OTHER_FILE_TRANSFER_REQ_VALUE://不需要在这里实现
-                break;
-            case OtherCmdID.CID_OTHER_FILE_SERVER_IP_REQ_VALUE://不需要在这里实现，在file服务器中处理
-                break;
+//            case OtherCmdID.CID_OTHER_VALIDATE_REQ_VALUE: //采用REST调用，已不需要？
+//                break;
+//            case OtherCmdID.CID_OTHER_GET_DEVICE_TOKEN_REQ_VALUE: //采用REST调用，已不需要？
+//                break;
+//            case OtherCmdID.CID_OTHER_ROLE_SET_VALUE: //设置route服务器的主从，是否还需要？
+//                break;
+//            case OtherCmdID.CID_OTHER_ONLINE_USER_INFO_VALUE: //已在Route中实现
+//                break;
+//            case OtherCmdID.CID_OTHER_USER_STATUS_UPDATE_VALUE: //在login，logout和关闭连接时调用， 不在这里调用
+//                break;
+//            case OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE: //在login，logout和关闭连接时调用， 不在这里调用
+//                break;
+//            case OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE://踢出同客户端类型的用户，在login时调用，不在这里调用
+//                break;
+//            case OtherCmdID.CID_OTHER_LOGIN_STATUS_NOTIFY_VALUE://不需要在这里实现，在route中实现
+//                break;
+//            case OtherCmdID.CID_OTHER_PUSH_TO_USER_REQ_VALUE://不需要在这里实现，在push服务器中实现
+//                break;
+//            case OtherCmdID.CID_OTHER_GET_SHIELD_REQ_VALUE://不需要在这里实现
+//                break;
+//            case OtherCmdID.CID_OTHER_FILE_TRANSFER_REQ_VALUE://不需要在这里实现
+//                break;
+//            case OtherCmdID.CID_OTHER_FILE_SERVER_IP_REQ_VALUE://不需要在这里实现，在file服务器中处理
+//                break;
             default:
                 logger.warn("Unsupport command id {}", commandId);
                 break;
@@ -405,8 +396,7 @@ public class HandlerManager {
         
         ClientUser clientUser = ClientUserManager.getUserById(userId);
         if (clientUser != null) {
-            clientUser.delConn(handleId);
-            clientUser.delUnvalidateConn(ctx);
+            clientUser.unValidateMsgConn(handleId, ctx);
             
             if (clientUser.isConnEmpty()) {
                 ClientUserManager.removeUser(clientUser);
@@ -436,11 +426,7 @@ public class HandlerManager {
         
         ClientUser clientUser = ClientUserManager.getUserById(userId);
         if (clientUser != null) {
-            clientUser.delConn(handleId);
-            clientUser.addUnvalidateConn(ctx);
-            
-            // do UserStatusUpdate
-//            doUserStatusUpdate(ctx, IMBaseDefine.UserStatType.USER_STATUS_OFFLINE);
+            clientUser.unValidateMsgConn(handleId, ctx);
         }
     }
 
@@ -468,9 +454,6 @@ public class HandlerManager {
         ClientUser clientUser = ClientUserManager.getUserById(userId);
         if (clientUser != null) {
             clientUser.validateMsgConn(handleId, ctx);
-            
-//            // do UserStatusUpdate
-//            doUserStatusUpdate(ctx, IMBaseDefine.UserStatType.USER_STATUS_ONLINE);
         }
     }
     
@@ -485,7 +468,6 @@ public class HandlerManager {
      */
     private boolean hasLogin(ChannelHandlerContext ctx) {
         
-        logger.debug("判断用户ID:{}", ctx.attr(ClientUser.USER_ID).get());
         if (ctx.attr(ClientUser.USER_ID).get() != null) {
             return true;
         }

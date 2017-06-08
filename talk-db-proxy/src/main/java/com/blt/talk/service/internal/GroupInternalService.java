@@ -6,6 +6,8 @@ package com.blt.talk.service.internal;
 
 import java.util.List;
 
+import com.blt.talk.common.model.entity.ShieldStatusEntity;
+
 /**
  * 
  * @author 袁贵
@@ -56,4 +58,24 @@ public interface GroupInternalService {
      * @since  1.0
      */
     boolean isValidate(long groupId, long userId);
+    
+    /**
+     * 查询屏蔽状态
+     * 
+     * @param groupId 群ID
+     * @param userIdList 用户ID列表
+     * @return 用户屏蔽状态
+     * @since  1.0
+     */
+    List<ShieldStatusEntity> getGroupPush(long groupId, List<String> userIdList);
+    
+    /**
+     * 设置群组信息推送，屏蔽或者取消屏蔽
+     * 
+     * @param groupId 群ID
+     * @param userId 用户ID
+     * @param shieldStatus 是否屏蔽
+     * @since  1.0
+     */
+    void setGroupPush(long groupId, long userId, int shieldStatus);
 }

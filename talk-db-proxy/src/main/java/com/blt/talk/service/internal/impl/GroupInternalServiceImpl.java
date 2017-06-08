@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.constant.DBConstant;
+import com.blt.talk.common.model.entity.ShieldStatusEntity;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.service.internal.GroupInternalService;
 import com.blt.talk.service.internal.SessionService;
@@ -118,17 +119,18 @@ public class GroupInternalServiceImpl implements GroupInternalService {
         
         List<Long> allGroupUsers = new ArrayList<>();
         String key = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId);
+        String setKey = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId, RedisKeys.SETTING_INFO);
         String unreadKey = RedisKeys.concat(RedisKeys.GROUP_UNREAD, groupId);
         HashOperations<String, String, String> groupMemberHash = redisTemplate.opsForHash();
-        String msgCount = groupMemberHash.get(key, RedisKeys.COUNT);
-        allGroupMembers.forEach(member -> {
+        String msgCount = groupMemberHash.get(setKey, RedisKeys.COUNT);
+        for (IMGroupMember member: allGroupMembers) {
             memberHash.put(member.getUserId().toString(), String.valueOf(member.getUpdated()));
             allGroupUsers.add(member.getUserId());
             
             // 更新未读计数
             String userKey = RedisKeys.concat(RedisKeys.USER_INFO, member.getUserId());
-            groupMemberHash.put(userKey, unreadKey, msgCount);
-        });
+            groupMemberHash.put(userKey, unreadKey, msgCount == null? "0": msgCount);
+        }
         
         groupMemberHash.putAll(key, memberHash);
 
@@ -207,5 +209,38 @@ public class GroupInternalServiceImpl implements GroupInternalService {
             groupMemberHash.hasKey(key, String.valueOf(userId));
         }
         return false;
+    }
+
+    /* (non-Javadoc)
+     * @see com.blt.talk.service.internal.GroupInternalService#getGroupPush(long, java.util.List)
+     */
+    @Override
+    public List<ShieldStatusEntity> getGroupPush(long groupId, List<String> userIdList) {
+        final String groupSetKey = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId, RedisKeys.SETTING_INFO); 
+        HashOperations<String, String, String> groupMapOps = redisTemplate.opsForHash();
+        List<String> statusList = groupMapOps.multiGet(groupSetKey, userIdList);
+        
+        List<ShieldStatusEntity> shieldStatusList = new ArrayList<>();
+        for (int i = 0; i < userIdList.size(); i++) {
+            String status = statusList.get(i);
+            String userId = userIdList.get(i);
+            ShieldStatusEntity shieldStatus = new ShieldStatusEntity();
+            shieldStatus.setGroupId(groupId);
+            shieldStatus.setUserId(Long.valueOf(userId));
+            shieldStatus.setShieldStatus(status == null?DBConstant.GROUP_STATUS_ONLINE: DBConstant.GROUP_STATUS_SHIELD);
+            shieldStatusList.add(shieldStatus);
+        }
+        
+        return shieldStatusList;
+    }
+
+    /* (non-Javadoc)
+     * @see com.blt.talk.service.internal.GroupInternalService#setGroupPush(long, long, int)
+     */
+    @Override
+    public void setGroupPush(long groupId, long userId, int shieldStatus) {
+        final String groupSetKey = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId, RedisKeys.SETTING_INFO); 
+        HashOperations<String, String, String> groupMapOps = redisTemplate.opsForHash();
+        groupMapOps.put(groupSetKey, String.valueOf(userId), String.valueOf(shieldStatus));
     }
 }

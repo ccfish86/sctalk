@@ -23,6 +23,8 @@ import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
+import com.blt.talk.common.model.entity.ShieldStatusEntity;
+import com.blt.talk.common.param.GroupPushReq;
 import com.blt.talk.common.param.GroupUpdateMemberReq;
 import com.blt.talk.common.result.GroupCmdResult;
 import com.blt.talk.common.util.CommonUtils;
@@ -117,11 +119,6 @@ public class GroupServiceController implements GroupService {
             List<Long> userIds = new ArrayList<>();
             if (groupMemberMap != null) {
                 for (String memberId : groupMemberMap.keySet()) {
-                    if (memberId.equals(RedisKeys.COUNT) 
-                            || memberId.equals(RedisKeys.GROUP_MESSAGE_ID)) {
-                        // Message件数
-                        continue;
-                    }
                     userIds.add(Long.valueOf(memberId));
                 }
             }
@@ -172,11 +169,6 @@ public class GroupServiceController implements GroupService {
                 List<Long> userIds = new ArrayList<>();
                 if (groupMemberMap != null) {
                     for (String memberId : groupMemberMap.keySet()) {
-                        if (memberId.equals(RedisKeys.COUNT) 
-                                || memberId.equals(RedisKeys.GROUP_MESSAGE_ID)) {
-                            // Message件数
-                            continue;
-                        }
                         userIds.add(Long.valueOf(memberId));
                     }
                 }
@@ -248,5 +240,39 @@ public class GroupServiceController implements GroupService {
         BaseModel<List<Long>> changeRsp = new BaseModel<>();
         changeRsp.setData(members);
         return changeRsp;
+    }
+    
+    /**
+     * 获取一个群的推送设置
+     * @param groupId 群ID
+     * @param userId 用户ID
+     * @return
+     * @since  1.0
+     */
+    @Override
+    @GetMapping(path = "/group/pushStatus")
+    public BaseModel<Integer> getGroupPush(@RequestParam("groupId") long groupId, @RequestParam("userId") long userId) {
+        
+        List<String> userIdList = new ArrayList<>();
+        userIdList.add(String.valueOf(userId));
+        
+        List<ShieldStatusEntity> shieldStatusList = groupInternalService.getGroupPush(groupId, userIdList);
+        BaseModel<Integer> shieldStatus = new BaseModel<Integer>();
+        shieldStatus.setData(shieldStatusList.get(0).getShieldStatus());
+        return shieldStatus;
+    }
+
+    /**
+     * 设置群组信息推送，屏蔽或者取消屏蔽
+     * @param groupPushReq
+     * @return
+     * @since  1.0
+     */
+    @Override
+    @PostMapping(path = "/group/updatePushStatus")
+    public BaseModel<Integer> setGroupPush(@RequestBody GroupPushReq groupPushReq) {
+        
+        groupInternalService.setGroupPush(groupPushReq.getGroupId(), groupPushReq.getUserId(), groupPushReq.getShieldStatus());
+        return new BaseModel<Integer>();
     }
 }

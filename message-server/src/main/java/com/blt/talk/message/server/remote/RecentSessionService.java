@@ -25,13 +25,5 @@ public interface RecentSessionService {
 
     @GetMapping(path = "/session/recentSession")
     BaseModel<List<SessionEntity>> getRecentSession(@RequestParam("userId") long userId, @RequestParam("updateTime") int lastUpdateTime);
-//    @GetMapping(path = "/session/sessionId")
-//    BaseModel<Long> getSessionId(@RequestParam("userId") long userId, @RequestParam("peerId") long peerId,
-//            @RequestParam("type") int type, @RequestParam("isAll") boolean isAll);
-//    @PostMapping(path = "/session/addSession")
-//    BaseModel<Long> addSession(@RequestBody SessionAddReq sessionReq);
-//    @PostMapping(path = "/session/updateSession")
-//    BaseModel<?> updateSession(@RequestBody SessionUpdateReq sessionReq);
-//    @DeleteMapping(path = "/session/removeSession")
-//    BaseModel<?> removeSession(@RequestParam("sessionId") int sessionId);
+
 }

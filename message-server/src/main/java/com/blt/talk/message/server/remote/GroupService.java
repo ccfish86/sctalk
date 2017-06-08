@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
+import com.blt.talk.common.param.GroupPushReq;
 import com.blt.talk.common.param.GroupUpdateMemberReq;
 
 /**
@@ -36,25 +37,6 @@ public interface GroupService {
     @GetMapping(path = "/group/normalList")
     BaseModel<List<GroupEntity>> normalList(@RequestParam("userId") long userId);
     
-    // 合并至【更改群员】
-//    /**
-//     * 追加新成员，并显示最新的用户
-//     * @param newMemberReq
-//     * @return
-//     * @since  1.0
-//     */
-//    @PostMapping(path = "/group/insertNewMember")
-//    BaseModel<List<Integer>> insertNewMember(@RequestBody GroupUpdateMemberReq newMemberReq);
-//
-//    /**
-//     * 删除成员，并显示最新的用户
-//     * @param newMemberReq
-//     * @return
-//     * @since  1.0
-//     */
-//    @PostMapping(path = "/group/removeMember")
-//    BaseModel<List<Integer>> removeMember(@RequestBody GroupUpdateMemberReq newMemberReq);
-
     /**
      * 查询组的属性
      * @param groupVersionList
@@ -92,10 +74,21 @@ public interface GroupService {
     BaseModel<List<Long>> changeGroupMember(@RequestBody GroupUpdateMemberReq groupMember);
 
     /**
-     * @param userId
+     * 获取一个群的推送设置
+     * @param groupId 群ID
+     * @param userId 用户ID
      * @return
      * @since  1.0
      */
-    @PostMapping(path = "/group/groupShieldStatus")
-    BaseModel<Integer> groupShieldStatus(long userId);
+    @GetMapping(path = "/group/pushStatus")
+    public BaseModel<Integer> getGroupPush(@RequestParam("groupId") long groupId, @RequestParam("userId") long userId);
+
+    /**
+     * 设置群组信息推送，屏蔽或者取消屏蔽
+     * @param groupPushReq
+     * @return
+     * @since  1.0
+     */
+    @PostMapping(path = "/group/updatePushStatus")
+    BaseModel<Integer> setGroupPush(@RequestBody GroupPushReq groupPushReq);
 }

@@ -17,6 +17,7 @@ import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.OtherCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
+import com.blt.talk.common.constant.TalkServerEnums;
 import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.IMServer;
 import com.blt.talk.common.util.CommonUtils;
@@ -238,8 +239,20 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
     public void updateUserCnt(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         IMServer.IMUserCntUpdate userCntUpdate = (IMServer.IMUserCntUpdate) body;
         
-        // TODO Message-server用户数更新
+        int userAction = userCntUpdate.getUserAction();
+        UserClientInfo userClientInfo = UserClientInfoManager.getUserInfo(userCntUpdate.getUserId());
         
+        //以下处理是否正确，需要验证？
+        Long netId = ctx.attr(ClientConnection.NETID).get();
+        
+        if (userAction == TalkServerEnums.USER_CNT.DEC.ordinal()){
+        	userClientInfo.removeRouteConn(netId);
+        }
+        
+        if (userAction == TalkServerEnums.USER_CNT.INC.ordinal()){
+        	userClientInfo.addRouteConn(netId);
+        }
+         
         
     }
     

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
+import com.blt.talk.common.param.GroupPushReq;
 import com.blt.talk.common.param.GroupUpdateMemberReq;
 
 /**
@@ -55,4 +56,21 @@ public interface GroupService {
      * @since  1.0
      */
     BaseModel<List<Long>> changeGroupMember(GroupUpdateMemberReq groupMember);
+    
+    /**
+     * 获取一个群的推送设置
+     * @param groupId 群ID
+     * @param userId 用户ID
+     * @return 用户的群推送设置
+     * @since  1.0
+     */
+    BaseModel<Integer> getGroupPush(long groupId, long userId);
+
+    /**
+     * 设置群组信息推送，屏蔽或者取消屏蔽
+     * @param groupPushReq 
+     * @return
+     * @since  1.0
+     */
+    BaseModel<Integer> setGroupPush(GroupPushReq groupPushReq);
 }
