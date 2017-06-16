@@ -78,8 +78,9 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
         IMMessage.IMMsgData msgdata = (IMMessage.IMMsgData) body;
         
         // 获取用户ID/并更>FromUserId
+        // 更新：消息时间
         long userId = super.getUserId(ctx);
-        msgdata = msgdata.toBuilder().setFromUserId(userId).build();
+        msgdata = msgdata.toBuilder().setFromUserId(userId).setCreateTime(CommonUtils.currentTimeSeconds()).build();
         
         // 消息长度，为空时，忽略
         if (msgdata.getMsgData().isEmpty()) {
