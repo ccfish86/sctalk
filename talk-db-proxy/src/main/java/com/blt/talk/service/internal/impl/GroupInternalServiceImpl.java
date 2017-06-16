@@ -120,7 +120,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
         List<Long> allGroupUsers = new ArrayList<>();
         String key = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId);
         String setKey = RedisKeys.concat(RedisKeys.GROUP_INFO, groupId, RedisKeys.SETTING_INFO);
-        String unreadKey = RedisKeys.concat(RedisKeys.GROUP_UNREAD, groupId);
+        String unreadGroupIdKey = String.valueOf(groupId);
         HashOperations<String, String, String> groupMemberHash = redisTemplate.opsForHash();
         String msgCount = groupMemberHash.get(setKey, RedisKeys.COUNT);
         for (IMGroupMember member: allGroupMembers) {
@@ -128,8 +128,8 @@ public class GroupInternalServiceImpl implements GroupInternalService {
             allGroupUsers.add(member.getUserId());
             
             // 更新未读计数
-            String userKey = RedisKeys.concat(RedisKeys.USER_INFO, member.getUserId());
-            groupMemberHash.put(userKey, unreadKey, msgCount == null? "0": msgCount);
+            String userUnreadKey = RedisKeys.concat(RedisKeys.GROUP_UNREAD, member.getUserId());
+            groupMemberHash.put(userUnreadKey, unreadGroupIdKey, msgCount == null? "0": msgCount);
         }
         
         groupMemberHash.putAll(key, memberHash);

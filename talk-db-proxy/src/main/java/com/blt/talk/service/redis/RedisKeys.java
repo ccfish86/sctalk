@@ -22,10 +22,10 @@ public abstract class RedisKeys {
     /** 用户临时信息-密码错误 */
     public static String USER_LOGIN_FAILD = "ulf";
     
-    /** 用户信息：用户未读 */
-    public static String USER_UNREAD = "unr";
-    /** 用户信息：群未读 */
-    public static String GROUP_UNREAD = "gunr";
+    /** 用户信息-用户未读 */
+    public static String USER_UNREAD = "usr_unr";
+    /** 用户信息-群未读 */
+    public static String GROUP_UNREAD = "usr_gunr";
     
     /** 用户信息：用户Token */
     public static String USER_TOKEN = "tkn";

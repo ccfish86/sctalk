@@ -16,9 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -253,8 +251,8 @@ public class MessageServiceController implements MessageService {
         hashOptions.increment(groupSetKey, RedisKeys.COUNT, 1);
         
         // 未读消息
-        final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, messageSendReq.getUserId());
-        hashOptions.increment(userKey, RedisKeys.concat(RedisKeys.GROUP_UNREAD, messageSendReq.getGroupId()), 1);
+        final String userUnreadKey = RedisKeys.concat(RedisKeys.GROUP_UNREAD, messageSendReq.getUserId());
+        hashOptions.increment(userUnreadKey, String.valueOf(messageSendReq.getGroupId()), 1);
 
         return new BaseModel<Long>() {
             {
@@ -352,9 +350,8 @@ public class MessageServiceController implements MessageService {
 
         // 计数
         // 存储用户信息及未读信息
-        final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, messageSendReq.getToId());
-
-        hashOptions.increment(userKey, RedisKeys.concat(RedisKeys.USER_UNREAD, messageSendReq.getUserId()), 1);
+        final String useUreadrKey = RedisKeys.concat(RedisKeys.USER_UNREAD, messageSendReq.getToId());
+        hashOptions.increment(useUreadrKey, String.valueOf(messageSendReq.getUserId()), 1);
 
         BaseModel<Long> messageIdRes = new BaseModel<>();
         messageIdRes.setData(msgId);
@@ -373,16 +370,14 @@ public class MessageServiceController implements MessageService {
         List<UnreadEntity> unreadList = new ArrayList<>();
 
         // 查询未读件数
-        final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userId);
+        final String userUnreadKey = RedisKeys.concat(RedisKeys.USER_UNREAD, userId);
         // String unreadKey = "unread_" + userId;
-        ScanOptions scanOptions = RedisKeys.getStartOptions(RedisKeys.USER_UNREAD);
         HashOperations<String, String, String> hashOptions = redisTemplate.opsForHash();
-        Cursor<Map.Entry<String, String>> mapUnread = hashOptions.scan(userKey, scanOptions);
+        Map<String, String> mapUnread = hashOptions.entries(userUnreadKey);
 
-        while (mapUnread.hasNext()) {
-            Entry<String, String> uread = mapUnread.next();
+        for (Entry<String, String> uread : mapUnread.entrySet()) {
+            
             Long fromUserId = Long.valueOf(uread.getKey());
-
             Long relateId = relationShipService.getRelationId(userId, fromUserId, false);
 
             // 查询
@@ -554,15 +549,15 @@ public class MessageServiceController implements MessageService {
             for (IMGroupMember group : groupList) {
                 
                 final String groupSetKey = RedisKeys.concat(RedisKeys.GROUP_INFO, group.getGroupId(), RedisKeys.SETTING_INFO);
-                final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userId);
-
+                final String userUnreadKey = RedisKeys.concat(RedisKeys.GROUP_UNREAD, userId);
+                
                 // 取群消息数和用户已读数
                 String groupCount = hashOptions.get(groupSetKey, RedisKeys.COUNT);
                 if (groupCount == null) {
                     continue;
                 }
                 String userCount =
-                        hashOptions.get(userKey, RedisKeys.concat(RedisKeys.GROUP_UNREAD, group.getGroupId()));
+                        hashOptions.get(userUnreadKey, String.valueOf(group.getGroupId()));
                 
                 Integer unreadCount = userCount != null ? Integer.valueOf(groupCount) - Integer.valueOf(userCount)
                         : Integer.valueOf(groupCount);
@@ -739,15 +734,15 @@ public class MessageServiceController implements MessageService {
 
         if (userCountReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_SINGLE) {
             // Clear P2P msg Counter
-            final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userCountReq.getUserId());
-            hashOptions.delete(userKey, RedisKeys.concat(RedisKeys.USER_UNREAD, userCountReq.getPeerId()));
+            final String userKey = RedisKeys.concat(RedisKeys.USER_UNREAD, userCountReq.getUserId());
+            hashOptions.delete(userKey, String.valueOf(userCountReq.getPeerId()));
         } else if (userCountReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_GROUP) {
             // Clear Group msg Counter
             final String groupSetKey = RedisKeys.concat(RedisKeys.GROUP_INFO, userCountReq.getPeerId(), RedisKeys.SETTING_INFO);
             final String countValue = hashOptions.get(groupSetKey, RedisKeys.COUNT);
 
-            final String userKey = RedisKeys.concat(RedisKeys.USER_INFO, userCountReq.getUserId());
-            hashOptions.put(userKey, RedisKeys.concat(RedisKeys.GROUP_UNREAD, userCountReq.getPeerId()), countValue);
+            final String userUnreadKey = RedisKeys.concat(RedisKeys.GROUP_UNREAD, userCountReq.getUserId());
+            hashOptions.put(userUnreadKey, String.valueOf(userCountReq.getPeerId()), countValue);
         } else {
             logger.warn("参数不正: SessionType={}", userCountReq.getSessionType());
         }
