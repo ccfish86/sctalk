@@ -45,9 +45,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @since 1.0
  */
 @Component
-public class IMGroupHandlerImpl implements IMGroupHandler {
-
-
+public class IMGroupHandlerImpl extends AbstractUserHandlerImpl implements IMGroupHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -65,6 +63,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
     public void normalListReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
         IMNormalGroupListReq req = (IMNormalGroupListReq) body;
+        long userId = super.getUserId(ctx);
 
         try {
             BaseModel<List<GroupEntity>> groupListRes = groupService.normalList(req.getUserId());
@@ -74,7 +73,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
                 IMHeader resHeader = header.clone();
                 resHeader.setCommandId((short) GroupCmdID.CID_GROUP_NORMAL_LIST_RESPONSE_VALUE);
 
-                IMNormalGroupListRsp res = IMNormalGroupListRsp.newBuilder().setUserId(req.getUserId()).build();
+                IMNormalGroupListRsp res = IMNormalGroupListRsp.newBuilder().setUserId(userId).build();
                 ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
             } else {
 
@@ -82,7 +81,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
                 resHeader.setCommandId((short) GroupCmdID.CID_GROUP_NORMAL_LIST_RESPONSE_VALUE);
 
                 IMNormalGroupListRsp.Builder groupResBuilder = IMNormalGroupListRsp.newBuilder();
-                groupResBuilder.setUserId(req.getUserId());
+                groupResBuilder.setUserId(userId);
                 if (groupListRes.getData() != null) {
                     List<IMBaseDefine.GroupVersionInfo> groupList = new ArrayList<>();
                     groupListRes.getData().forEach(groupEntity -> {
@@ -96,7 +95,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
             logger.error("服务器端异常", e);
             IMNormalGroupListRsp res;
 
-            res = IMNormalGroupListRsp.newBuilder().setUserId(req.getUserId()).buildPartial();
+            res = IMNormalGroupListRsp.newBuilder().setUserId(userId).buildPartial();
             IMHeader resHeader = header.clone();
             resHeader.setCommandId((short) GroupCmdID.CID_GROUP_NORMAL_LIST_RESPONSE_VALUE);
 
@@ -115,6 +114,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
     public void groupInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
         IMGroup.IMGroupInfoListReq req = (IMGroup.IMGroupInfoListReq) body;
+        long userId = super.getUserId(ctx);
 
         try {
 
@@ -131,7 +131,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
                 resHeader.setCommandId((short) GroupCmdID.CID_GROUP_INFO_RESPONSE_VALUE);
 
                 IMGroup.IMGroupInfoListRsp.Builder resBuilder = IMGroup.IMGroupInfoListRsp.newBuilder();
-                resBuilder.setUserId(req.getUserId());
+                resBuilder.setUserId(userId);
                 ctx.writeAndFlush(new IMProtoMessage<>(resHeader, resBuilder.build()));
             } else {
 
@@ -139,7 +139,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
                 resHeader.setCommandId((short) GroupCmdID.CID_GROUP_INFO_RESPONSE_VALUE);
 
                 IMGroup.IMGroupInfoListRsp.Builder groupResBuilder = IMGroup.IMGroupInfoListRsp.newBuilder();
-                groupResBuilder.setUserId(req.getUserId());
+                groupResBuilder.setUserId(userId);
                 if (groupListRes.getData() != null) {
                     List<IMBaseDefine.GroupInfo> groupInfoList = new ArrayList<>();
                     for (GroupEntity groupEntity : groupListRes.getData()) {
@@ -158,7 +158,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
             resHeader.setCommandId((short) GroupCmdID.CID_GROUP_INFO_RESPONSE_VALUE);
 
             IMGroup.IMGroupInfoListRsp.Builder resBuilder = IMGroup.IMGroupInfoListRsp.newBuilder();
-            resBuilder.setUserId(req.getUserId());
+            resBuilder.setUserId(userId);
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, resBuilder.build()));
         }
     }
@@ -167,6 +167,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
     public void groupShieldReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
         IMGroup.IMGroupShieldReq req = (IMGroup.IMGroupShieldReq) body;
+        long userId = super.getUserId(ctx);
 
         try {
             
@@ -174,7 +175,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
             // BaseModel<Integer> groupShieldRes = groupService.getGroupPush(req.getGroupId(), req.getUserId());
             GroupPushReq groupPushReq = new GroupPushReq();
             groupPushReq.setGroupId(req.getGroupId());
-            groupPushReq.setUserId(req.getUserId());
+            groupPushReq.setUserId(userId);
             groupPushReq.setShieldStatus(req.getShieldStatus());
             BaseModel<Integer> groupShieldRes = groupService.setGroupPush(groupPushReq);
 
@@ -184,7 +185,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
                 resHeader.setCommandId((short) GroupCmdID.CID_GROUP_SHIELD_GROUP_RESPONSE_VALUE);
 
                 IMGroup.IMGroupShieldRsp groupShieldBody =
-                        IMGroup.IMGroupShieldRsp.newBuilder().setUserId(req.getUserId()).setGroupId(req.getGroupId())
+                        IMGroup.IMGroupShieldRsp.newBuilder().setUserId(userId).setGroupId(req.getGroupId())
                                 .setResultCode(groupShieldRes.getData()).build();
 
                 ctx.writeAndFlush(new IMProtoMessage<>(resHeader, groupShieldBody));
@@ -195,7 +196,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
                 resHeader.setCommandId((short) GroupCmdID.CID_GROUP_SHIELD_GROUP_RESPONSE_VALUE);
 
                 IMGroup.IMGroupShieldRsp groupShieldBody =
-                        IMGroup.IMGroupShieldRsp.newBuilder().setUserId(req.getUserId()).setGroupId(req.getGroupId())
+                        IMGroup.IMGroupShieldRsp.newBuilder().setUserId(userId).setGroupId(req.getGroupId())
                                 .setResultCode(groupShieldRes.getCode()).build();
                 ctx.writeAndFlush(new IMProtoMessage<>(resHeader, groupShieldBody));
             }
@@ -208,141 +209,11 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
             resHeader.setCommandId((short) GroupCmdID.CID_GROUP_SHIELD_GROUP_RESPONSE_VALUE);
 
             IMGroup.IMGroupShieldRsp groupShieldBody =
-                    IMGroup.IMGroupShieldRsp.newBuilder().setUserId(req.getUserId()).setGroupId(req.getGroupId())
+                    IMGroup.IMGroupShieldRsp.newBuilder().setUserId(userId).setGroupId(req.getGroupId())
                             .setResultCode(1).build();
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, groupShieldBody));
         }
-
-
     }
-
-    // @Override
-    // public void groupCreateReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-    //
-    // IMGroup.IMGroupCreateReq req = (IMGroup.IMGroupCreateReq) body;
-    //
-    // try {
-    //
-    // GroupEntity createGroupInfo = new GroupEntity();
-    // createGroupInfo.setMainName(req.getGroupName());
-    // createGroupInfo.setAvatar(req.getGroupAvatar());
-    // createGroupInfo.setCreatorId(req.getUserId());
-    // createGroupInfo.setGroupType(req.getGroupType().getNumber());
-    // createGroupInfo.setStatus(1);
-    // createGroupInfo.setVersion(3);
-    //
-    //
-    //
-    // BaseModel<GroupEntity> groupCreateRes = groupService.groupCreateReq(createGroupInfo);
-    //
-    // //远程查询数据库成功，并且获取到数据
-    // if (groupCreateRes.getCode() == GroupCmdResult.SUCCESS.getCode()) {
-    // IMHeader resHeader = header.clone();
-    // resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CREATE_RESPONSE_VALUE);
-    //
-    // IMGroup.IMGroupCreateRsp groupCreateBody = IMGroup.IMGroupCreateRsp.newBuilder()
-    // .setUserId(req.getUserId())
-    // .addAllUserIdList(groupCreateRes.getData().getUserList())
-    // .setGroupId(groupCreateRes.getData().getId())
-    // .setGroupName(groupCreateRes.getData().getMainName())
-    // .setResultCode(groupCreateRes.getCode())
-    // .build();
-    //
-    // logger.debug("addAllUserIdList {}", groupCreateBody);
-    //
-    // ctx.write(new IMProtoMessage<>(resHeader, groupCreateBody));
-    //
-    // } else {
-    //
-    // logger.error("创建群组失败");
-    // IMHeader resHeader = header.clone();
-    // resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CREATE_RESPONSE_VALUE);
-    //
-    // IMGroup.IMGroupCreateRsp groupCreateBody = IMGroup.IMGroupCreateRsp.newBuilder()
-    // .setResultCode(GroupCmdResult.LIST_NORMAL_FAILD.getCode())
-    // .setAttachData(ByteString.copyFrom("创建群组失败", Charset.forName("UTF-8"))) //异常或获取值失败时，发送的信息
-    // .build();
-    // ctx.write(new IMProtoMessage<>(resHeader, groupCreateBody));
-    //
-    // }
-    //
-    //
-    // } catch (Exception e) {
-    //
-    // logger.error("服务器端异常", e);
-    // IMHeader resHeader = header.clone();
-    // resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CREATE_RESPONSE_VALUE);
-    //
-    // IMGroup.IMGroupCreateRsp groupCreateBody = IMGroup.IMGroupCreateRsp.newBuilder()
-    // .setResultCode(GroupCmdResult.LIST_NORMAL_FAILD.getCode())
-    // .setAttachData(ByteString.copyFrom("创建群组失败", Charset.forName("UTF-8"))) //异常或获取值失败时，发送的信息
-    // .build();
-    // ctx.write(new IMProtoMessage<>(resHeader, groupCreateBody));
-    // }
-    //
-    //
-    // }
-
-    // @Override
-    // public void groupChangeMemberReq(IMHeader header, MessageLite body, ChannelHandlerContext
-    // ctx) {
-    //
-    // IMGroup.IMGroupChangeMemberReq req = (IMGroup.IMGroupChangeMemberReq) body;
-    //
-    // try {
-    //
-    // GroupEntity groupChangeMember = new GroupEntity();
-    // groupChangeMember.setId(req.getGroupId());
-    // groupChangeMember.setCreatorId(req.getUserId());
-    // groupChangeMember.setUserList(req.getMemberIdListList());
-    //
-    // BaseModel<GroupEntity> groupChangeRes = groupService.groupChangeMemberReq(groupChangeMember);
-    //
-    // //远程查询数据库成功，并且获取到数据
-    // if (groupChangeRes.getCode() == GroupCmdResult.SUCCESS.getCode()) {
-    // IMHeader resHeader = header.clone();
-    // resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CHANGE_MEMBER_RESPONSE_VALUE);
-    //
-    // //到底需要填什么，可能根据业务需要
-    // IMGroup.IMGroupCreateRsp groupChangeMemberBody = IMGroup.IMGroupCreateRsp.newBuilder()
-    // .addAllUserIdList(groupChangeRes.getData().getUserList())
-    // .setGroupId(groupChangeRes.getData().getId())
-    // .setGroupName(groupChangeRes.getData().getMainName())
-    // .setResultCode(groupChangeRes.getCode())
-    // .build();
-    //
-    // logger.debug("addAllUserIdList {}", groupChangeMemberBody);
-    //
-    // ctx.write(new IMProtoMessage<>(resHeader, groupChangeMemberBody));
-    //
-    // } else {
-    // logger.error("更新组用户失败");
-    // IMHeader resHeader = header.clone();
-    // resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CHANGE_MEMBER_RESPONSE_VALUE);
-    //
-    // IMGroup.IMGroupCreateRsp groupChangeMemberBody = IMGroup.IMGroupCreateRsp.newBuilder()
-    // .setResultCode(GroupCmdResult.LIST_NORMAL_FAILD.getCode())
-    // .setAttachData(ByteString.copyFrom("更新组用户失败", Charset.forName("UTF-8"))) //异常或获取值失败时，发送的信息
-    // .build();
-    // ctx.write(new IMProtoMessage<>(resHeader, groupChangeMemberBody));
-    // }
-    //
-    //
-    // } catch (Exception e) {
-    //
-    // logger.error("服务器端异常", e);
-    // IMHeader resHeader = header.clone();
-    // resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CHANGE_MEMBER_RESPONSE_VALUE);
-    //
-    // IMGroup.IMGroupCreateRsp groupChangeMemberBody = IMGroup.IMGroupCreateRsp.newBuilder()
-    // .setResultCode(GroupCmdResult.LIST_NORMAL_FAILD.getCode())
-    // .setAttachData(ByteString.copyFrom("更新组用户失败", Charset.forName("UTF-8"))) //异常或获取值失败时，发送的信息
-    // .build();
-    // ctx.write(new IMProtoMessage<>(resHeader, groupChangeMemberBody));
-    // }
-    //
-    //
-    // }
 
     /*
      * (non-Javadoc)
@@ -353,9 +224,10 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
      */
     @Override
     public void createGroupReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+        
         IMGroupCreateReq msg = (IMGroupCreateReq) body;
+        long userId = super.getUserId(ctx);
 
-        long reqUserId = msg.getUserId();
         String groupName = msg.getGroupName();
         GroupType groupType = msg.getGroupType();
         if (groupType == IMBaseDefine.GroupType.GROUP_TYPE_NORMAL) {
@@ -375,7 +247,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
             IMHeader resHeader = header.clone();
             resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CREATE_RESPONSE_VALUE);
             IMGroup.IMGroupCreateRsp.Builder rspBuilder = IMGroup.IMGroupCreateRsp.newBuilder();
-            rspBuilder.setUserId(reqUserId);
+            rspBuilder.setUserId(userId);
             rspBuilder.setGroupName(groupName);
             rspBuilder.setGroupId(groupCreateRsp.getData());
             rspBuilder.addAllUserIdList(msg.getMemberIdListList());
@@ -387,7 +259,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
             IMHeader resHeader = header.clone();
             resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CREATE_RESPONSE_VALUE);
             IMGroup.IMGroupCreateRsp.Builder rspBuilder = IMGroup.IMGroupCreateRsp.newBuilder();
-            rspBuilder.setUserId(reqUserId);
+            rspBuilder.setUserId(userId);
             rspBuilder.setGroupName(groupName);
             rspBuilder.setResultCode(1);
 
@@ -406,10 +278,11 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
     public void changeMemberReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
         IMGroupChangeMemberReq msg = (IMGroupChangeMemberReq) body;
+        long userId = super.getUserId(ctx);
 
         GroupUpdateMemberReq updateReq = new GroupUpdateMemberReq();
         updateReq.setGroupId(msg.getGroupId());
-        updateReq.setUserId(msg.getUserId());
+        updateReq.setUserId(userId);
         updateReq.setUpdType(msg.getChangeType());
         updateReq.setUserIds(msg.getMemberIdListList());
 
@@ -419,7 +292,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
             IMHeader resHeader = header.clone();
             resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CHANGE_MEMBER_RESPONSE_VALUE);
             IMGroup.IMGroupChangeMemberRsp.Builder rspBuilder = IMGroup.IMGroupChangeMemberRsp.newBuilder();
-            rspBuilder.setUserId(msg.getUserId());
+            rspBuilder.setUserId(userId);
             rspBuilder.setGroupId(msg.getGroupId());
             rspBuilder.setChangeType(msg.getChangeType());
             rspBuilder.setResultCode(groupUpdateRsp.getCode());
@@ -433,7 +306,7 @@ public class IMGroupHandlerImpl implements IMGroupHandler {
             IMHeader resHeader = header.clone();
             resHeader.setCommandId((short) GroupCmdID.CID_GROUP_CHANGE_MEMBER_RESPONSE_VALUE);
             IMGroup.IMGroupChangeMemberRsp.Builder rspBuilder = IMGroup.IMGroupChangeMemberRsp.newBuilder();
-            rspBuilder.setUserId(msg.getUserId());
+            rspBuilder.setUserId(userId);
             rspBuilder.setGroupId(msg.getGroupId());
             rspBuilder.setChangeType(msg.getChangeType());
             rspBuilder.setResultCode(1);

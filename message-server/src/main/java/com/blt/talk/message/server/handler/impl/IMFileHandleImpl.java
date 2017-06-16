@@ -22,7 +22,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @since  1.0
  */
 @Component
-public class IMFileHandleImpl implements IMFileHandle {
+public class IMFileHandleImpl extends AbstractUserHandlerImpl implements IMFileHandle {
 
     /* (non-Javadoc)
      * @see com.blt.talk.message.server.handler.IMFileHandle#fileReq(com.blt.talk.common.code.IMHeader, com.google.protobuf.MessageLite, io.netty.channel.ChannelHandlerContext)
@@ -40,11 +40,12 @@ public class IMFileHandleImpl implements IMFileHandle {
     public void hasOfflineReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         
         IMFile.IMFileHasOfflineReq hasOfflineReq = (IMFile.IMFileHasOfflineReq)body;
+        long userId = super.getUserId(ctx);
         
         // TODO 处理离线文件
         
         IMFile.IMFileHasOfflineRsp.Builder rspBuilder = IMFile.IMFileHasOfflineRsp.newBuilder();
-        rspBuilder.setUserId(hasOfflineReq.getUserId());
+        rspBuilder.setUserId(userId);
         
         IMHeader resHeader = header.clone();
         resHeader.setCommandId((short)IMBaseDefine.FileCmdID.CID_FILE_HAS_OFFLINE_RES_VALUE);
@@ -57,6 +58,7 @@ public class IMFileHandleImpl implements IMFileHandle {
     @Override
     public void addOfflineReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
+        long userId = super.getUserId(ctx);
         
     }
 
@@ -66,6 +68,7 @@ public class IMFileHandleImpl implements IMFileHandle {
     @Override
     public void delOfflineReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // TODO Auto-generated method stub
+        long userId = super.getUserId(ctx);
         
     }
 

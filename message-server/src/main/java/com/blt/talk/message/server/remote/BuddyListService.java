@@ -34,9 +34,10 @@ public interface BuddyListService {
 
     @GetMapping(path = "/buddyList/userInfo")
     BaseModel<List<UserEntity>> getUserInfoList(@RequestParam("userId") List<Long> userIdListList);
-    
+
+    // FIXME
     @GetMapping(path = "/buddyList/removeSession")
-    BaseModel<?> getRemoveSession(@RequestParam("userId") long userId);
+    BaseModel<?> removeSession(@RequestParam("userId") long userId);
     
     @GetMapping(path = "/buddyList/changeAvatar")
     BaseModel<?> getChangeAvatar(@RequestParam("userId") long userId);

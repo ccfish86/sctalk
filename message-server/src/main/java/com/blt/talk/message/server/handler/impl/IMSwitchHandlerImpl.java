@@ -28,7 +28,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @since  1.0
  */
 @Component
-public class IMSwitchHandlerImpl implements IMSwitchHandler {
+public class IMSwitchHandlerImpl extends AbstractUserHandlerImpl implements IMSwitchHandler {
 
     @Autowired
     private RouterHandler routerHandler;
@@ -46,11 +46,15 @@ public class IMSwitchHandlerImpl implements IMSwitchHandler {
 //        if (clientConn != null) {
 //            clientConn.getCtx().writeAndFlush(new IMProtoMessage<IMSwitchService.IMP2PCmdMsg>(header.clone(), p2pCmdMsg));
 //        }
-        
+        IMSwitchService.IMP2PCmdMsg p2pCmdMsg = (IMSwitchService.IMP2PCmdMsg)body;
+        // 设置用户的ID
+        long userId = super.getUserId(ctx);
+        p2pCmdMsg = p2pCmdMsg.toBuilder().setFromUserId(userId).build();
+
         IMProtoMessage<MessageLite>  swithP2pMsg = new IMProtoMessage<MessageLite>(header, body);
     	
-    	long toId = ((IMSwitchService.IMP2PCmdMsg)body).getToUserId();
-        long fromId =  ((IMSwitchService.IMP2PCmdMsg)body).getFromUserId();
+    	long toId = p2pCmdMsg.getToUserId();
+        long fromId =  p2pCmdMsg.getFromUserId();
 
     	ClientUser toClientUser = ClientUserManager.getUserById(toId);
     	

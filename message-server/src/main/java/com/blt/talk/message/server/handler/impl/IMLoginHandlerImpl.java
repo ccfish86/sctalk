@@ -58,7 +58,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @since 1.0
  */
 @Component
-public class IMLoginHandlerImpl implements IMLoginHandler {
+public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLoginHandler {
     
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
@@ -175,13 +175,14 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     public void logOut(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
     	
     	IMLogoutReq logoutReq = (IMLogoutReq) body;
+    	long userId = super.getUserId(ctx);
     	
     	IMHeader resHeader = null;
     	IMLogoutRsp logoutRsp = null;
     	try {
     		
         	UserToken userToken = new UserToken();
-    		userToken.setUserId(ctx.attr(ClientUser.USER_ID).get());
+    		userToken.setUserId(userId);
     		userToken.setUserToken("");
         	
     		//先发给给数据库
@@ -205,12 +206,12 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
 				
 				@Override
 				public void operationComplete(ChannelFuture future) throws Exception {
-					ClientUser clientUser = ClientUserManager.getUserById(ctx.attr(ClientUser.USER_ID).get());
+					ClientUser clientUser = ClientUserManager.getUserById(userId);
 	                if (clientUser == null) {
 	                    
-	                    logger.debug("用户没有登录过:{}", ctx.attr(ClientUser.USER_ID).get());
+	                    logger.debug("用户没有登录过:{}", userId);
 	                } else {
-	                    logger.debug("用户已登录过，设置参数:{}", ctx.attr(ClientUser.USER_ID).get());
+	                    logger.debug("用户已登录过，设置参数:{}", userId);
 	                    
 	                     for (ChannelHandlerContext chc :clientUser.getUnValidateConnSet() ){
 	                    	 if (chc == ctx){
@@ -223,7 +224,6 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
 	                    	 if ( chc == ctx){
 	                    		 long handle = chc.attr(ClientUser.HANDLE_ID).get();
 	                    		 clientUser.getConnMap().remove(handle);
-	                    		 
 	                    	 }
 	                     }
 	                    	
@@ -259,6 +259,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     public void deviceToken(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
     	
     	IMDeviceTokenReq deviceTokenReq = (IMDeviceTokenReq) body;
+    	long userId = super.getUserId(ctx);
     	
     	IMHeader resHeader = null;
     	IMDeviceTokenRsp deviceTokenRsp = null;
@@ -266,7 +267,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     	try {   	
     		
     		deviceTokenRsp = IMDeviceTokenRsp.newBuilder()
-    				            .setUserId(deviceTokenReq.getUserId())
+    				            .setUserId(userId)
     				            .build();    	
     		
     		resHeader = header.clone();
@@ -276,7 +277,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
 
     		// 保存用户Token
             UserToken userToken = new UserToken();
-            userToken.setUserId(deviceTokenReq.getUserId());
+            userToken.setUserId(userId);
             userToken.setClientType(deviceTokenReq.getClientType());
             userToken.setUserToken(deviceTokenReq.getDeviceTokenBytes().toStringUtf8());
             
@@ -297,13 +298,13 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     @Override
     public void kickPcClient(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
     	IMKickPCClientReq kickPCClientReq = (IMKickPCClientReq)body;
-    	
+    	long userId = super.getUserId(ctx);
     	IMHeader resHeader = null;
     	IMKickPCClientRsp kickPCClientRsp = null;
     	
     	try{
     		KickUserReq kickUserReq = new KickUserReq();
-    		kickUserReq.setUserId(kickPCClientReq.getUserId());
+    		kickUserReq.setUserId(userId);
     		kickUserReq.setUserType(IMBaseDefine.ClientType.CLIENT_TYPE_MAC);
     		kickUserReq.setKickReasonType(KickReasonType.KICK_REASON_MOBILE_KICK);
     		
@@ -312,7 +313,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     		
     		kickPCClientRsp = IMKickPCClientRsp.newBuilder()
     		          .setResultCode(0)
-    		          .setUserId(kickPCClientReq.getUserId())
+    		          .setUserId(userId)
     		          .build();
     		 		
     		resHeader = header.clone();
@@ -332,7 +333,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     @Override
     public void pushShield(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         IMPushShieldReq pushShieldReq = (IMPushShieldReq) body;
-    	
+        long userId = super.getUserId(ctx);
     	IMHeader resHeader = null;
     	IMPushShieldRsp pushShieldRsp = null;
     	
@@ -340,7 +341,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     		BaseModel<Long> pushShieldRes  = loginService.pushShield(pushShieldReq.getUserId());
     		
     		pushShieldRsp = IMPushShieldRsp.newBuilder()
-    				            .setUserId(pushShieldReq.getUserId())
+    				            .setUserId(userId)
     				            .setResultCode(pushShieldRes.getCode())
     				            .build();    
     		resHeader = header.clone();
@@ -361,6 +362,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     @Override
     public void queryPushShield(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
     	IMQueryPushShieldReq queryPushShieldReq = (IMQueryPushShieldReq) body;
+        long userId = super.getUserId(ctx);
     	
     	IMHeader resHeader = null;
         IMQueryPushShieldRsp queryPushShieldRsp = null;
@@ -369,7 +371,7 @@ public class IMLoginHandlerImpl implements IMLoginHandler {
     		BaseModel<Long> queryPushShieldRes  = loginService.pushShield(queryPushShieldReq.getUserId());
     		
     		queryPushShieldRsp = IMQueryPushShieldRsp.newBuilder()
-    				            .setUserId(queryPushShieldReq.getUserId())
+    				            .setUserId(userId)
     				            .setShieldStatus(queryPushShieldRes.getData().intValue())
     				            .setResultCode(queryPushShieldRes.getCode())
     				            .build();    

@@ -53,7 +53,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @since 1.0
  */
 @Component
-public class IMMessageHandlerImpl implements IMMessageHandler {
+public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMMessageHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -76,6 +76,10 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
        
         // 发送消息
         IMMessage.IMMsgData msgdata = (IMMessage.IMMsgData) body;
+        
+        // 获取用户ID/并更>FromUserId
+        long userId = super.getUserId(ctx);
+        msgdata = msgdata.toBuilder().setFromUserId(userId).build();
         
         // 消息长度，为空时，忽略
         if (msgdata.getMsgData().isEmpty()) {
@@ -193,7 +197,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             logger.warn("Write message to db failed, {}->{}.", msgdata.getFromUserId(), msgdata.getToSessionId());
             return ;
         }
-        
         // 消息送达，接收反馈
         IMMessage.IMMsgDataAck.Builder messageDataAckBuilder = IMMessage.IMMsgDataAck.newBuilder();
         messageDataAckBuilder.setMsgId(msgdata.getMsgId());
@@ -305,7 +308,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
     public void readMessage(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         // 消息已读回执
         IMMessage.IMMsgDataReadAck msgdata = (IMMessage.IMMsgDataReadAck) body;
-        long userId = msgdata.getUserId();
+        long userId = super.getUserId(ctx);
 
         ClearUserCountReq userCountReq = new ClearUserCountReq();
         userCountReq.setUserId(userId);
@@ -334,15 +337,15 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
     @Override
     public void getUnreadCount(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
         IMMessage.IMUnreadMsgCntReq unreadCountReq = (IMMessage.IMUnreadMsgCntReq) body;
-
+        long userId = super.getUserId(ctx);
 
         try {
             // 查询群组未读信息
             BaseModel<List<UnreadEntity>> groupUnreadRes =
-                    messageService.getUnreadGroupMsgCount(unreadCountReq.getUserId());
+                    messageService.getUnreadGroupMsgCount(userId);
 
             // 查询私聊未读信息
-            BaseModel<List<UnreadEntity>> unreadRes = messageService.getUnreadMsgCount(unreadCountReq.getUserId());
+            BaseModel<List<UnreadEntity>> unreadRes = messageService.getUnreadMsgCount(userId);
 
             List<IMBaseDefine.UnreadInfo> unreadInfos = new ArrayList<>();
 
@@ -364,7 +367,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
 
             IMMessage.IMUnreadMsgCntRsp.Builder unreadCountResBuilder = IMMessage.IMUnreadMsgCntRsp.newBuilder();
             unreadCountResBuilder.setTotalCnt(unreadInfos.size());
-            unreadCountResBuilder.setUserId(unreadCountReq.getUserId());
+            unreadCountResBuilder.setUserId(userId);
             unreadCountResBuilder.addAllUnreadinfoList(unreadInfos);
 
             IMHeader headerRes = header.clone();
@@ -376,7 +379,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             logger.error("未读消息处理异常", e);
 
             IMMessage.IMUnreadMsgCntRsp.Builder unreadCountResBuilder = IMMessage.IMUnreadMsgCntRsp.newBuilder();
-            unreadCountResBuilder.setUserId(unreadCountReq.getUserId());
+            unreadCountResBuilder.setUserId(userId);
             unreadCountResBuilder.setTotalCnt(0);
 
             IMHeader headerRes = header.clone();
@@ -398,17 +401,17 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
     public void getMessageList(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
         IMMessage.IMGetMsgListReq messageListReq = (IMMessage.IMGetMsgListReq) body;
-
+        long userId = super.getUserId(ctx);
         BaseModel<List<MessageEntity>> messageListRes = null;
         
         try {
             if (messageListReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_SINGLE) {
                 // 获取个人消息
-                messageListRes = messageService.getMessageList(messageListReq.getUserId(), messageListReq.getSessionId(),
+                messageListRes = messageService.getMessageList(userId, messageListReq.getSessionId(),
                         messageListReq.getMsgIdBegin(), messageListReq.getMsgCnt());
             } else if (messageListReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_GROUP) {
                 // 获取群消息
-                messageListRes = messageService.getGroupMessageList(messageListReq.getUserId(), messageListReq.getSessionId(),
+                messageListRes = messageService.getGroupMessageList(userId, messageListReq.getSessionId(),
                         messageListReq.getMsgIdBegin(), messageListReq.getMsgCnt());
             } else {
                 // 错误的类型
@@ -425,7 +428,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 }
                 
                 IMMessage.IMGetMsgListRsp.Builder messageListResBuilder = IMMessage.IMGetMsgListRsp.newBuilder();
-                messageListResBuilder.setUserId(messageListReq.getUserId());
+                messageListResBuilder.setUserId(userId);
                 messageListResBuilder.setMsgIdBegin(messageListReq.getMsgIdBegin());
                 messageListResBuilder.setSessionId(messageListReq.getSessionId());
                 messageListResBuilder.setSessionType(messageListReq.getSessionType());
@@ -439,7 +442,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
                 ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageListResBuilder.build()));
             } else {
                 IMMessage.IMGetMsgListRsp.Builder messageListResBuilder = IMMessage.IMGetMsgListRsp.newBuilder();
-                messageListResBuilder.setUserId(messageListReq.getUserId());
+                messageListResBuilder.setUserId(userId);
                 messageListResBuilder.setMsgIdBegin(messageListReq.getMsgIdBegin());
                 messageListResBuilder.setSessionId(messageListReq.getSessionId());
                 messageListResBuilder.setSessionType(messageListReq.getSessionType());
@@ -456,7 +459,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             logger.error("消息列表处理异常", e);
 
             IMMessage.IMGetMsgListRsp.Builder messageListResBuilder = IMMessage.IMGetMsgListRsp.newBuilder();
-            messageListResBuilder.setUserId(messageListReq.getUserId());
+            messageListResBuilder.setUserId(userId);
             messageListResBuilder.setMsgIdBegin(messageListReq.getMsgIdBegin());
             messageListResBuilder.setSessionId(messageListReq.getSessionId());
             messageListResBuilder.setSessionType(messageListReq.getSessionType());
@@ -475,15 +478,18 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
      */
     @Override
     public void getLatestMessageId(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-        IMMessage.IMGetLatestMsgIdReq latestMsgIdReq = (IMMessage.IMGetLatestMsgIdReq)body;
+        
+        IMMessage.IMGetLatestMsgIdReq latestMsgIdReq = (IMMessage.IMGetLatestMsgIdReq) body;
+        long userId = super.getUserId(ctx);
+
         try{
             BaseModel<Long> latestMsgIdRes = null;
             if (latestMsgIdReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_SINGLE) {
                 // 获取个人消息
-                latestMsgIdRes = messageService.getLatestMessageId(latestMsgIdReq.getUserId(), latestMsgIdReq.getSessionId());
+                latestMsgIdRes = messageService.getLatestMessageId(userId, latestMsgIdReq.getSessionId());
             } else if (latestMsgIdReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_GROUP) {
                 // 获取群消息
-                latestMsgIdRes = messageService.getLatestGroupMessageId(latestMsgIdReq.getUserId(), latestMsgIdReq.getSessionId());
+                latestMsgIdRes = messageService.getLatestGroupMessageId(userId, latestMsgIdReq.getSessionId());
             } else {
                 // 错误的类型
                 logger.warn("错误的参数:SessionType=", latestMsgIdReq.getSessionType());
@@ -493,7 +499,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             if (latestMsgIdRes!= null && latestMsgIdRes.getCode() == 0 && latestMsgIdRes.getData() != null) {
                 IMMessage.IMGetLatestMsgIdRsp.Builder messageListResBuilder = IMMessage.IMGetLatestMsgIdRsp.newBuilder();
                 messageListResBuilder.setLatestMsgId(latestMsgIdRes.getData());
-                messageListResBuilder.setUserId(latestMsgIdReq.getUserId());
+                messageListResBuilder.setUserId(userId);
                 messageListResBuilder.setSessionId(latestMsgIdReq.getSessionId());
                 messageListResBuilder.setSessionType(latestMsgIdReq.getSessionType());
                 
@@ -509,7 +515,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
 
             IMMessage.IMGetLatestMsgIdRsp.Builder messageListResBuilder = IMMessage.IMGetLatestMsgIdRsp.newBuilder();
             // messageListResBuilder.setLatestMsgId(value);
-            messageListResBuilder.setUserId(latestMsgIdReq.getUserId());
+            messageListResBuilder.setUserId(userId);
             messageListResBuilder.setSessionId(latestMsgIdReq.getSessionId());
             messageListResBuilder.setSessionType(latestMsgIdReq.getSessionType());
             
@@ -525,15 +531,18 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
      */
     @Override
     public void getByMessageId(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+        
         IMMessage.IMGetMsgByIdReq getMsgByIdReq = (IMMessage.IMGetMsgByIdReq) body;
+        long userId = super.getUserId(ctx);
+
         try{
             BaseModel<List<MessageEntity>> messageListRes = null;
             if (getMsgByIdReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_SINGLE) {
                 // 获取个人消息
-                messageListRes = messageService.getMessageById(getMsgByIdReq.getUserId(), getMsgByIdReq.getSessionId(), getMsgByIdReq.getMsgIdListList());
+                messageListRes = messageService.getMessageById(userId, getMsgByIdReq.getSessionId(), getMsgByIdReq.getMsgIdListList());
             } else if (getMsgByIdReq.getSessionType() == IMBaseDefine.SessionType.SESSION_TYPE_GROUP) {
                 // 获取群消息
-                messageListRes = messageService.getGroupMessageById(getMsgByIdReq.getUserId(), getMsgByIdReq.getSessionId(), getMsgByIdReq.getMsgIdListList());
+                messageListRes = messageService.getGroupMessageById(userId, getMsgByIdReq.getSessionId(), getMsgByIdReq.getMsgIdListList());
             } else {
                 // 错误的类型
                 logger.warn("错误的参数:SessionType=", getMsgByIdReq.getSessionType());
@@ -542,7 +551,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             
             if (messageListRes != null && messageListRes.getCode() == 0 && messageListRes.getData() != null) {
                 IMMessage.IMGetMsgByIdRsp.Builder messageListResBuilder = IMMessage.IMGetMsgByIdRsp.newBuilder();
-                messageListResBuilder.setUserId(getMsgByIdReq.getUserId());
+                messageListResBuilder.setUserId(userId);
                 messageListResBuilder.setSessionId(getMsgByIdReq.getSessionId());
                 messageListResBuilder.setSessionType(getMsgByIdReq.getSessionType());
                 
@@ -562,7 +571,7 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
             logger.error("消息ID处理异常", e);
 
             IMMessage.IMGetMsgByIdRsp.Builder messageResBuilder = IMMessage.IMGetMsgByIdRsp.newBuilder();
-            messageResBuilder.setUserId(getMsgByIdReq.getUserId());
+            messageResBuilder.setUserId(userId);
             messageResBuilder.setSessionId(getMsgByIdReq.getSessionId());
             messageResBuilder.setSessionType(getMsgByIdReq.getSessionType());
             
@@ -594,7 +603,6 @@ public class IMMessageHandlerImpl implements IMMessageHandler {
         // IMMessage.IMClientTimeReq clientTimeReq = (IMMessage.IMClientTimeReq) body;
 
         IMMessage.IMClientTimeRsp clientTimeRsp = null;
-
         IMHeader headerRes = null;
 
         try {
