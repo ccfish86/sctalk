@@ -245,14 +245,25 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
         //以下处理是否正确，需要验证？
         Long netId = ctx.attr(ClientConnection.NETID).get();
         
-        if (userAction == TalkServerEnums.USER_CNT.DEC.ordinal()){
-        	userClientInfo.removeRouteConn(netId);
+        if (userClientInfo != null) {
+            if (userAction == TalkServerEnums.USER_CNT.DEC.ordinal()){
+                userClientInfo.removeRouteConn(netId);
+                if (userClientInfo.getRouteConnCount() == 0) {
+                    UserClientInfoManager.erase(userCntUpdate.getUserId());
+                }
+            }
+            
+            if (userAction == TalkServerEnums.USER_CNT.INC.ordinal()){
+                userClientInfo.addRouteConn(netId);
+            }
+        } else {
+            if (userAction == TalkServerEnums.USER_CNT.INC.ordinal()) {
+                userClientInfo = new UserClientInfoManager.UserClientInfo();
+                userClientInfo.addRouteConn(netId);
+                
+                UserClientInfoManager.insert(userCntUpdate.getUserId(), userClientInfo);
+            }
         }
-        
-        if (userAction == TalkServerEnums.USER_CNT.INC.ordinal()){
-        	userClientInfo.addRouteConn(netId);
-        }
-         
         
     }
     
