@@ -146,7 +146,7 @@ public class CommonUtil {
             return null;
         }
         Pattern p = Pattern.compile(
-                "[http]+[://]+[0-9A-Za-z:/[-]_#[?][=][.][&]]*",
+                "https?://[0-9A-Za-z:/[-]_#[?][=][.][&]]*",
                 Pattern.CASE_INSENSITIVE);
         Matcher matcher = p.matcher(text);
         if (matcher.find()) {
