@@ -4,6 +4,7 @@
 
 package com.blt.talk.message.server.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //import org.apache.sshd.client.session.ClientUserAuthService;
@@ -37,9 +38,13 @@ import com.blt.talk.common.code.proto.IMServer.IMServerKickUser;
 import com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify;
 import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.common.constant.SysConstant;
+import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.common.model.entity.GroupEntity;
+import com.blt.talk.common.result.GroupCmdResult;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.message.server.MessageServerStarter;
 import com.blt.talk.message.server.RouterServerConnecter;
+import com.blt.talk.message.server.remote.GroupService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.MessageLite;
 
@@ -220,10 +225,10 @@ public class RouterHandlerManager {
 		switch (commandId) {
 
 		case MessageCmdID.CID_MSG_READ_NOTIFY_VALUE:
-			HandleMsgReadNotify(header,body, ctx);
+			handleMsgReadNotify(header,body, ctx);
 			break;
 		case MessageCmdID.CID_MSG_DATA_VALUE:
-			HandlePCLoginStatusNotify(header,body, ctx);
+		    handleMsgData(header,body, ctx);
 			break;
 
 		default:
@@ -243,10 +248,10 @@ public class RouterHandlerManager {
 		logger.debug("RouterHandleManager#doOther");
 		switch (commandId) {
 		case OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE:
-			HandleKickUser(body, ctx);
+			handleKickUser(body, ctx);
 			break;
 		case OtherCmdID.CID_OTHER_LOGIN_STATUS_NOTIFY_VALUE:
-			HandlePCLoginStatusNotify(header,body, ctx);
+			handlePCLoginStatusNotify(header,body, ctx);
 			break;
 		case OtherCmdID.CID_OTHER_HEARTBEAT_VALUE://无需实现
 			break;			
@@ -419,40 +424,29 @@ public class RouterHandlerManager {
 	}
 
 	/**
-	 * 发送当前踢人消息 HandleKickUser
+	 * 发送当前踢人消息 handleKickUser
 	 * 
 	 * @param MessageLite
 	 * @param ChannelHandlerContext
 	 * @since 1.0 李春生
 	 */
-	@Async
-	public void HandleKickUser(MessageLite body, ChannelHandlerContext ctx) {
-		IMServerKickUser kickUser = null;
-		try {
-		
-				// 转换body中的数据,判断是否是真正的kickUser消息,如果是,则进行下面的操作,不是抛出异常
-				kickUser = IMServerKickUser.parseFrom(body.toByteString());
-		
-				if(kickUser==null)
-				{
-					return;
-				}
-			long userId = kickUser.getUserId();
-			int clientType = kickUser.getClientType().getNumber();
-			int reason = kickUser.getReason();
-			logger.info("HandleKickUser, userId={}, clientType={}, reason={}", userId, clientType, reason);
+    private void handleKickUser(MessageLite body, ChannelHandlerContext ctx) {
 
-			ClientUser clientUser = ClientUserManager.getUserById(userId);
-			if (clientUser != null) {
-				// 踢掉用户,根据ClientType进行判断
-				clientUser.kickSameClientType(clientType, reason, null);
 
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        // 转换body中的数据,判断是否是真正的kickUser消息,如果是,则进行下面的操作,不是抛出异常
+        IMServerKickUser kickUser = (IMServerKickUser) body;
 
-	}
+        long userId = kickUser.getUserId();
+        int clientType = kickUser.getClientType().getNumber();
+        int reason = kickUser.getReason();
+        logger.debug("HandleKickUser, userId={}, clientType={}, reason={}", userId, clientType, reason);
+
+        ClientUser clientUser = ClientUserManager.getUserById(userId);
+        if (clientUser != null) {
+            // 踢掉用户,根据ClientType进行判断
+            clientUser.kickSameClientType(clientType, reason, null);
+        }
+    }
 
 	/**
 	 * PC登陆状态消息
@@ -462,22 +456,13 @@ public class RouterHandlerManager {
 	 * @throws InvalidProtocolBufferException 
 	 * @since 1.0 李春生
 	 */
-	@Async
-	public void HandlePCLoginStatusNotify(IMHeader header,MessageLite body, ChannelHandlerContext ctx)  {
+	private void handlePCLoginStatusNotify(IMHeader header,MessageLite body, ChannelHandlerContext ctx)  {
 
-		IMServerPCLoginStatusNotify msg = null;
-
-		try {
-			msg = IMServerPCLoginStatusNotify.parseFrom(body.toByteString());
-		} catch (InvalidProtocolBufferException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
+		IMServerPCLoginStatusNotify msg = (IMServerPCLoginStatusNotify) body;
 	
 		long userId = msg.getUserId();
 		int loginStatus = msg.getLoginStatus();
-		logger.info("HandlePCLoginStatusNotify, user_id={}, login_status={}", userId, loginStatus);
+		logger.debug("HandlePCLoginStatusNotify, user_id={}, login_status={}", userId, loginStatus);
 
 		ClientUser pUser = ClientUserManager.getUserById(userId);
 		if (pUser != null) {
@@ -508,31 +493,19 @@ public class RouterHandlerManager {
 	 * @param ChannelHandlerContext
 	 * @throws InvalidProtocolBufferException 
 	 * @since 1.0
-	 * 李春生
+	 * @author 李春生
 	 */
-	@Async
-	public void HandleMsgReadNotify(IMHeader header,MessageLite body, ChannelHandlerContext ctx)  {
+	private void handleMsgReadNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx)  {
 
-		 IMMsgDataReadNotify msg=null;	
-		try {
-			msg = IMMsgDataReadNotify.parseFrom(body.toByteString());
-		} catch (InvalidProtocolBufferException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
-			
-		    long reqId = msg.getUserId();
-		    long sessionId = msg.getSessionId();
-		    long msgId = msg.getMsgId();
-		    long sessionType = msg.getSessionId();
+		 IMMsgDataReadNotify msg = (IMMsgDataReadNotify) body;	
 
-		    ClientUser pUser =ClientUserManager.getUserById(reqId);
-		    if (pUser!=null)
-		    {
-		    
-		        pUser.broadcast(new IMProtoMessage<MessageLite>(header, msg), null);
-		    }
+        long reqId = msg.getUserId();
+
+        ClientUser pUser = ClientUserManager.getUserById(reqId);
+        if (pUser != null) {
+
+            pUser.broadcast(new IMProtoMessage<MessageLite>(header, msg), null);
+        }
 		    
 	}
 
@@ -541,51 +514,93 @@ public class RouterHandlerManager {
 	 * 
 	 * @param MessageLite
 	 * @param ChannelHandlerContext
-	 * @since 1.0 李春生
+	 * @since 1.0 
+	 * @author 袁贵
 	 */
-	@Async
-	public void HandleMsgData(IMHeader header,MessageLite body, ChannelHandlerContext ctx) {
+	private void handleMsgData(IMHeader header,MessageLite body, ChannelHandlerContext ctx) {
 
-		   IMMsgData msg=null;
-		
-				try {
-					msg = IMMsgData.parseFrom(body.toByteString());
-				} catch (InvalidProtocolBufferException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return;
-				}
-		
-			if(CommonUtils.isGroup(msg.getMsgType()))
-			{
-				//IMGroupHandler groupHandler=new .
-				return;
-			}
-//			if (isGroup(msg.getMsgType()){
-////					MsgType.MSG_TYPE_GROUP_AUDIO==msg.getMsgType()  || MsgType.MSG_TYPE_GROUP_TEXT==msg.getMsgType()  ){
-//				  s_group_chat->HandleGroupMessageBroadcast(pPdu);
-//				  return;
-//			}
-		
-			long fromUserId = msg.getFromUserId();
-			long toUserId = msg.getToSessionId();
-			long msgId = msg.getMsgId();
-			
-//			log("HandleMsgData, %u->%u, msg_id=%u. ", from_user_id, to_user_id, msg_id);
-			 // 消息发送
-		
-	        IMProtoMessage<MessageLite> message = new IMProtoMessage<>(header, msg);
+//	    IM::Message::IMMsgData msg;
+//	    CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+//	    if (CHECK_MSG_TYPE_GROUP(msg.msg_type())) {
+//	        s_group_chat->HandleGroupMessageBroadcast(pPdu);
+//	        return;
+//	    }
+//	    uint32_t from_user_id = msg.from_user_id();
+//	    uint32_t to_user_id = msg.to_session_id();
+//	    uint32_t msg_id = msg.msg_id();
+//	    log("HandleMsgData, %u->%u, msg_id=%u. ", from_user_id, to_user_id, msg_id);
+//	    
+//	    
+//	    CImUser* pFromImUser = CImUserManager::GetInstance()->GetImUserById(from_user_id);
+//	    if (pFromImUser)
+//	    {
+//	        pFromImUser->BroadcastClientMsgData(pPdu, msg_id, NULL, from_user_id);
+//	    }
+//	    
+//	    CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_user_id);
+//	    if (pToImUser)
+//	    {
+//	        pToImUser->BroadcastClientMsgData(pPdu, msg_id, NULL, from_user_id);
+//	    }
+        IMMsgData msg = (IMMsgData) body;
 
-	        ClientUser fromClientUser = ClientUserManager.getUserById(fromUserId);
-	        ClientUser toClientUser = ClientUserManager.getUserById(toUserId);
-	        if (fromClientUser != null) {
-	            fromClientUser.broadcast(message, null);
-	        }
-	        if (toClientUser != null) {
-	            toClientUser.broadcast(message, null);
-	        }
+        if (CommonUtils.isGroup(msg.getMsgType())) {
+            // 团队消息
+            handleGroupMessageBroadcast(header, msg);
+            return;
+        }
 
-	       
-			
-	}
+        long fromUserId = msg.getFromUserId();
+        long toUserId = msg.getToSessionId();
+
+        IMProtoMessage<MessageLite> message = new IMProtoMessage<>(header, msg);
+
+        ClientUser fromClientUser = ClientUserManager.getUserById(fromUserId);
+        ClientUser toClientUser = ClientUserManager.getUserById(toUserId);
+        if (fromClientUser != null) {
+            // 应该不会再把消息发送至最初的发出设备
+            fromClientUser.broadcast(message, null);
+        }
+        if (toClientUser != null) {
+            // 应该不会再把消息发送至最初的发出设备
+            toClientUser.broadcast(message, null);
+        }
+    }
+
+    /**
+     * 群消息发送
+     * 
+     * @param header
+     * @param msgdata
+     * @since 1.0
+     */
+    private void handleGroupMessageBroadcast(IMHeader header, IMMsgData msgdata) {
+        
+        GroupService groupService = applicationContext.getBean(GroupService.class);
+        
+        // 服务器没有群的信息，向DB服务器请求群信息，并带上消息作为附件，返回时在发送该消息给其他群成员
+        // 查询群员，然后推送消息
+        List<Long> groupIdList = new ArrayList<>();
+        groupIdList.add(msgdata.getToSessionId());
+        BaseModel<List<GroupEntity>> groupListRes = groupService.groupInfoList(groupIdList);
+        if (groupListRes.getCode() == GroupCmdResult.SUCCESS.getCode()) {
+            if(groupListRes.getData() != null && !groupListRes.getData().isEmpty()) {
+                List<Long> memberList = groupListRes.getData().get(0).getUserList();
+                
+                if (memberList.contains(msgdata.getFromUserId())) {
+                    //用户在群中
+                    IMProtoMessage<MessageLite> message = new IMProtoMessage<>(header, msgdata);
+                    for (long userId : memberList) {
+                        ClientUser clientUser = ClientUserManager.getUserById(userId);
+                        if (clientUser == null) {
+                            continue;
+                        }
+                        
+                        clientUser.broadcast(message, null);
+                    }
+                }
+            }
+        }
+    
+    }
 }
