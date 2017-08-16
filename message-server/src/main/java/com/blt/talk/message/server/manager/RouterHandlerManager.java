@@ -519,29 +519,6 @@ public class RouterHandlerManager {
 	 */
 	private void handleMsgData(IMHeader header,MessageLite body, ChannelHandlerContext ctx) {
 
-//	    IM::Message::IMMsgData msg;
-//	    CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
-//	    if (CHECK_MSG_TYPE_GROUP(msg.msg_type())) {
-//	        s_group_chat->HandleGroupMessageBroadcast(pPdu);
-//	        return;
-//	    }
-//	    uint32_t from_user_id = msg.from_user_id();
-//	    uint32_t to_user_id = msg.to_session_id();
-//	    uint32_t msg_id = msg.msg_id();
-//	    log("HandleMsgData, %u->%u, msg_id=%u. ", from_user_id, to_user_id, msg_id);
-//	    
-//	    
-//	    CImUser* pFromImUser = CImUserManager::GetInstance()->GetImUserById(from_user_id);
-//	    if (pFromImUser)
-//	    {
-//	        pFromImUser->BroadcastClientMsgData(pPdu, msg_id, NULL, from_user_id);
-//	    }
-//	    
-//	    CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_user_id);
-//	    if (pToImUser)
-//	    {
-//	        pToImUser->BroadcastClientMsgData(pPdu, msg_id, NULL, from_user_id);
-//	    }
         IMMsgData msg = (IMMsgData) body;
 
         if (CommonUtils.isGroup(msg.getMsgType())) {
