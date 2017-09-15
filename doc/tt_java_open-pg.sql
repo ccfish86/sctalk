@@ -46,8 +46,8 @@ CREATE TABLE im_admin (
     uname character varying(40) NOT NULL,
     pwd character varying(256) NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL
+    created integer DEFAULT 0 NOT NULL,
+    updated integer DEFAULT 0 NOT NULL
 );
 
 
@@ -143,7 +143,7 @@ CREATE TABLE im_audio (
     path character varying(255),
     size bigint DEFAULT 0 NOT NULL,
     duration bigint DEFAULT 0 NOT NULL,
-    created bigint NOT NULL
+    created integer NOT NULL
 );
 
 
@@ -247,8 +247,8 @@ CREATE TABLE im_depart (
     priority bigint DEFAULT 0 NOT NULL,
     parent_id bigint NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    created bigint NOT NULL,
-    updated bigint NOT NULL
+    created integer NOT NULL,
+    updated integer NOT NULL
 );
 
 
@@ -352,8 +352,8 @@ CREATE TABLE im_discovery (
     item_url character varying(64) NOT NULL,
     item_priority bigint NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    created bigint NOT NULL,
-    updated bigint NOT NULL
+    created integer NOT NULL,
+    updated integer NOT NULL
 );
 
 
@@ -437,8 +437,8 @@ CREATE TABLE im_group (
     status smallint DEFAULT 1::numeric NOT NULL,
     version bigint DEFAULT 1::numeric NOT NULL,
     last_chated bigint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -577,8 +577,8 @@ CREATE TABLE im_group_member (
     group_id bigint NOT NULL,
     user_id bigint NOT NULL,
     status smallint DEFAULT 1::numeric NOT NULL,
-    created bigint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL
+    created integer DEFAULT 0 NOT NULL,
+    updated integer DEFAULT 0 NOT NULL
 );
 
 
@@ -675,8 +675,8 @@ CREATE TABLE im_group_message_0 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -800,8 +800,8 @@ CREATE TABLE im_group_message_1 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -925,8 +925,8 @@ CREATE TABLE im_group_message_2 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1050,8 +1050,8 @@ CREATE TABLE im_group_message_3 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1175,8 +1175,8 @@ CREATE TABLE im_group_message_4 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1300,8 +1300,8 @@ CREATE TABLE im_group_message_5 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1425,8 +1425,8 @@ CREATE TABLE im_group_message_6 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1550,8 +1550,8 @@ CREATE TABLE im_group_message_7 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1675,8 +1675,8 @@ CREATE TABLE im_group_message_8 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1800,8 +1800,8 @@ CREATE TABLE im_group_message_9 (
     content character varying(4096) NOT NULL,
     type smallint DEFAULT 2::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL,
-    created bigint DEFAULT 0 NOT NULL
+    updated integer DEFAULT 0 NOT NULL,
+    created integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1926,8 +1926,8 @@ CREATE TABLE im_message_0 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -2061,8 +2061,8 @@ CREATE TABLE im_message_1 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -2196,8 +2196,8 @@ CREATE TABLE im_message_2 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -2331,8 +2331,8 @@ CREATE TABLE im_message_3 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -2466,8 +2466,8 @@ CREATE TABLE im_message_4 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -2601,8 +2601,8 @@ CREATE TABLE im_message_5 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -2736,8 +2736,8 @@ CREATE TABLE im_message_6 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -2871,8 +2871,8 @@ CREATE TABLE im_message_7 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -3006,8 +3006,8 @@ CREATE TABLE im_message_8 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -3141,8 +3141,8 @@ CREATE TABLE im_message_9 (
     content character varying(4096),
     type smallint DEFAULT 1::numeric NOT NULL,
     status smallint DEFAULT 0 NOT NULL,
-    updated bigint NOT NULL,
-    created bigint NOT NULL
+    updated integer NOT NULL,
+    created integer NOT NULL
 );
 
 
@@ -3273,8 +3273,8 @@ CREATE TABLE im_recent_session (
     peer_id bigint NOT NULL,
     type smallint DEFAULT 0,
     status smallint DEFAULT 0,
-    created bigint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL
+    created integer DEFAULT 0 NOT NULL,
+    updated integer DEFAULT 0 NOT NULL
 );
 
 
@@ -3377,8 +3377,8 @@ CREATE TABLE im_relation_ship (
     small_id bigint NOT NULL,
     big_id bigint NOT NULL,
     status smallint DEFAULT 0,
-    created bigint DEFAULT 0 NOT NULL,
-    updated bigint DEFAULT 0 NOT NULL
+    created integer DEFAULT 0 NOT NULL,
+    updated integer DEFAULT 0 NOT NULL
 );
 
 
@@ -3480,8 +3480,8 @@ CREATE TABLE im_user (
     avatar character varying(255),
     depart_id bigint NOT NULL,
     status smallint DEFAULT 0,
-    created bigint NOT NULL,
-    updated bigint NOT NULL,
+    created integer NOT NULL,
+    updated integer NOT NULL,
     push_shield_status smallint DEFAULT 0 NOT NULL,
     sign_info character varying(128) NOT NULL
 );
