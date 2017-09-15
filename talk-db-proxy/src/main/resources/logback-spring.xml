@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <logger name="com.blt.talk.service" level="DEBUG" />
+    <logger name="com.google.protobuf" level="INFO" />
+    <logger name="io.netty" level="INFO"></logger>
+
+    <logger name="javax.activation" level="WARN" />
+    <logger name="javax.mail" level="WARN" />
+    <logger name="javax.xml.bind" level="WARN" />
+    <logger name="ch.qos.logback" level="WARN" />
+    <logger name="com.codahale.metrics" level="WARN" />
+    <logger name="com.netflix" level="INFO" />
+    <logger name="org.hibernate.validator" level="WARN" />
+    <logger name="org.hibernate" level="WARN" />
+    <logger name="org.springframework" level="WARN" />
+    <logger name="org.springframework.web" level="INFO" />
+    <logger name="org.springframework.security" level="WARN" />
+    <logger name="org.springframework.cache" level="WARN" />
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <root level="WARN">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>
