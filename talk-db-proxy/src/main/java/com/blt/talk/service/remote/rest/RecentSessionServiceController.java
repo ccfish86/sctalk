@@ -2,7 +2,7 @@
  * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
-package com.blt.talk.service.remote.impl;
+package com.blt.talk.service.remote.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,6 @@ import com.blt.talk.service.jpa.entity.IMRecentSession;
 import com.blt.talk.service.jpa.repository.IMRecentSessionRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
-import com.blt.talk.service.remote.RecentSessionService;
 
 /**
  * 会话业务处理
@@ -34,12 +33,18 @@ import com.blt.talk.service.remote.RecentSessionService;
  */
 @RestController
 @RequestMapping("/session")
-public class RecentSessionServiceController implements RecentSessionService {
+public class RecentSessionServiceController {
 
     @Autowired
     private IMRecentSessionRepository recentSessionRepository;
 
-    @Override
+    /**
+     * 查询最新会话
+     * @param userId 用户ID
+     * @param lastUpdateTime 最后更新时间
+     * @return 会话列表
+     * @since  1.0
+     */
     @GetMapping(path = "/recentSession")
     public BaseModel<List<SessionEntity>> getRecentSession(@RequestParam("userId") long userId,
             @RequestParam("updateTime") int lastUpdateTime) {

@@ -2,7 +2,7 @@
  * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
-package com.blt.talk.service.remote.impl;
+package com.blt.talk.service.remote.rest;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +33,6 @@ import com.blt.talk.service.jpa.repository.IMUserRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
 import com.blt.talk.service.redis.RedisKeys;
-import com.blt.talk.service.remote.LoginService;
 
 /**
  * 登录相关业务处理
@@ -43,7 +42,7 @@ import com.blt.talk.service.remote.LoginService;
  * @since 1.0
  */
 @RestController
-public class LoginServiceController implements LoginService {
+public class LoginServiceController {
 
     @Autowired
     private IMUserRepository userRepository;
@@ -56,12 +55,12 @@ public class LoginServiceController implements LoginService {
     
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.LoginService#login(org.springframework.ui.ModelMap)
+    /**
+     * 登录
+     * @param param 用户名或手机号phone
+     * @return 登录成功后返回用户基本信息
+     * @since  1.0
      */
-    @Override
     @PostMapping(path = "/login")
     public BaseModel<UserEntity> login(@RequestBody LoginReq param) {
 
@@ -123,10 +122,15 @@ public class LoginServiceController implements LoginService {
         return userRes;
     }
 
-    /* (non-Javadoc)
-     * @see com.blt.talk.service.remote.LoginService#setDeviceToken(com.blt.talk.common.param.UserToken)
+    /**
+     * 设置用户Token
+     * <br>
+     * 用于推送等场合
+     * 
+     * @param param 用户Token
+     * @return 设置结果
+     * @since  1.0
      */
-    @Override
     @RequestMapping(method = RequestMethod.POST, value = "/login/setdeviceToken")
     public BaseModel<?> setDeviceToken(@RequestBody UserToken param) {
 

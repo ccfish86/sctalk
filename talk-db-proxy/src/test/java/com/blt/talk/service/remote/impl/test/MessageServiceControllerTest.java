@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.MessageEntity;
-import com.blt.talk.service.remote.MessageService;
+import com.blt.talk.service.remote.rest.MessageServiceController;
 
 /**
  * 
@@ -27,7 +27,7 @@ import com.blt.talk.service.remote.MessageService;
 public class MessageServiceControllerTest {
 
     @Autowired
-    MessageService messageService;
+    MessageServiceController messageService;
     
     @Test
     public void testGetMessageList() {

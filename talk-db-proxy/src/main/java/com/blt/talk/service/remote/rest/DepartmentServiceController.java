@@ -2,7 +2,7 @@
  * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
-package com.blt.talk.service.remote.impl;
+package com.blt.talk.service.remote.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,6 @@ import com.blt.talk.service.jpa.entity.IMDepart;
 import com.blt.talk.service.jpa.repository.IMDepartRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
-import com.blt.talk.service.remote.DepartmentService;
 
 /**
  * 部门相关业务处理
@@ -31,15 +30,17 @@ import com.blt.talk.service.remote.DepartmentService;
  */
 @RestController
 @RequestMapping("/department")
-public class DepartmentServiceController implements DepartmentService {
+public class DepartmentServiceController {
 
     @Autowired
     private IMDepartRepository departRepository;
-    
-    /* (non-Javadoc)
-     * @see com.blt.talk.service.remote.DepartmentService#normalList(int)
+
+    /**
+     * 部门列表查询
+     * @param lastTime 更新时间
+     * @return
+     * @since  1.0
      */
-    @Override
     @GetMapping(path = "/changedList")
     public BaseModel<List<DepartmentEntity>> changedList(@RequestParam("lastTime") int lastTime) {
         

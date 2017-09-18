@@ -2,7 +2,7 @@
  * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
-package com.blt.talk.service.remote.impl;
+package com.blt.talk.service.remote.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,6 @@ import com.blt.talk.service.jpa.repository.IMGroupRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
 import com.blt.talk.service.redis.RedisKeys;
-import com.blt.talk.service.remote.GroupService;
 
 /**
  * Group相关业务处理
@@ -45,7 +44,7 @@ import com.blt.talk.service.remote.GroupService;
  */
 @RestController
 @RequestMapping("/group")
-public class GroupServiceController implements GroupService {
+public class GroupServiceController {
 
     @Autowired
     private IMGroupRepository groupRepository;
@@ -54,9 +53,14 @@ public class GroupServiceController implements GroupService {
     
     @Autowired
     private GroupInternalService groupInternalService;
-
+    
+    /**
+     * 查询组信息
+     * @param userId
+     * @return
+     * @since  1.0
+     */
     @GetMapping(path = "/normalList")
-    @Override
     public BaseModel<List<GroupEntity>> normalList(@RequestParam("userId") long userId) {
 
         BaseModel<List<GroupEntity>> groupRes = new BaseModel<>();
@@ -84,12 +88,12 @@ public class GroupServiceController implements GroupService {
         return groupRes;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.remote.GroupService#groupInfoList(java.util.List)
+    /**
+     * 查询组的属性
+     * @param groupVersionList
+     * @return 查询结果:群资料（版本）
+     * @since  1.0
      */
-    @Override
     @GetMapping(path = "/groupInfoList")
     public BaseModel<List<GroupEntity>> groupInfoList(@RequestParam("groupIdList") List<Long> groupIdList) {
         
@@ -130,7 +134,12 @@ public class GroupServiceController implements GroupService {
         return groupRes;
     }
 
-    @Override
+    /**
+     * 查询组的属性
+     * @param groupVersionList
+     * @return 查询结果:群资料
+     * @since  1.0
+     */
     @PostMapping(path = "/infoList")
     public BaseModel<List<GroupEntity>> groupInfoList(@RequestBody Map<String, Integer> groupIdList) {
         
@@ -181,10 +190,12 @@ public class GroupServiceController implements GroupService {
         return groupRes;
     }
 
-    /* (non-Javadoc)
-     * @see com.blt.talk.service.remote.GroupService#createGroup(com.blt.talk.common.model.entity.GroupEntity)
+    /**
+     * 创建群组
+     * @param groupEntity 群资料
+     * @return 创建结果:新群的ID
+     * @since  1.0
      */
-    @Override
     @PostMapping(path = "/createGroup")
     public BaseModel<Long> createGroup(@RequestBody GroupEntity groupEntity) {
 
@@ -249,7 +260,6 @@ public class GroupServiceController implements GroupService {
      * @return
      * @since  1.0
      */
-    @Override
     @GetMapping(path = "/group/pushStatus")
     public BaseModel<Integer> getGroupPush(@RequestParam("groupId") long groupId, @RequestParam("userId") long userId) {
         
@@ -268,7 +278,6 @@ public class GroupServiceController implements GroupService {
      * @return
      * @since  1.0
      */
-    @Override
     @PostMapping(path = "/group/updatePushStatus")
     public BaseModel<Integer> setGroupPush(@RequestBody GroupPushReq groupPushReq) {
         

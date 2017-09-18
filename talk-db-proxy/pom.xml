@@ -21,7 +21,7 @@
         <repository>
             <id>nexus</id>
             <name>nexus</name>
-            <url>http://192.168.10.32:8081/nexus/content/groups/public/</url>
+            <url>http://192.168.10.9/repository/maven-public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

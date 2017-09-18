@@ -2,7 +2,7 @@
  * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
-package com.blt.talk.service.remote.impl;
+package com.blt.talk.service.remote.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +89,6 @@ import com.blt.talk.service.jpa.repository.IMMessage9Repository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
 import com.blt.talk.service.redis.RedisKeys;
-import com.blt.talk.service.remote.MessageService;
 
 /**
  * 消息相关业务处理
@@ -100,7 +99,7 @@ import com.blt.talk.service.remote.MessageService;
  */
 @RestController
 @RequestMapping("/message")
-public class MessageServiceController implements MessageService {
+public class MessageServiceController {
 
     @Autowired
     private IMGroupRepository groupRepository;
@@ -159,15 +158,14 @@ public class MessageServiceController implements MessageService {
     private SessionService sessionService;
     @Autowired
     private AudioInternalService audioInternalService; 
-    
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.MessageService#sendMessage(com.blt.talk.common.param.
-     * GroupMessageSendReq)
+
+    /**
+     * 发送消息（群组消息 ）
+     * @param messageSendReq 群组消息
+     * @return 消息ID
+     * @since  1.0
      */
     @PostMapping(path = "/groupMessage/add")
-    @Override
     public BaseModel<Long> sendMessage(@RequestBody GroupMessageSendReq messageSendReq) {
 
         byte type = (byte) messageSendReq.getMsgType().getNumber();
@@ -261,14 +259,13 @@ public class MessageServiceController implements MessageService {
         };
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.MessageService#sendMessage(com.blt.talk.common.param.
-     * MessageSendReq)
+    /**
+     * 发送个人消息
+     * @param messageSendReq 消息内容
+     * @return 消息ID
+     * @since  1.0
      */
     @PostMapping(path = "/message/add")
-    @Override
     public BaseModel<Long> sendMessage(@RequestBody MessageSendReq messageSendReq) {
 
         byte type = (byte) messageSendReq.getMsgType().getNumber();
@@ -357,14 +354,14 @@ public class MessageServiceController implements MessageService {
         messageIdRes.setData(msgId);
         return messageIdRes;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.MessageService#getUnreadMsgCount(int)
+    
+    /**
+     * 取未读消息
+     * @param userId 用户ID
+     * @return 未读消息列表
+     * @since  1.0
      */
     @GetMapping(path = "/message/unreadCount")
-    @Override
     public BaseModel<List<UnreadEntity>> getUnreadMsgCount(@RequestParam("userId") long userId) {
 
         List<UnreadEntity> unreadList = new ArrayList<>();
@@ -526,13 +523,13 @@ public class MessageServiceController implements MessageService {
         return unreadRes;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.MessageService#getUnreadGroupMsgCount(int)
+    /**
+     * 取未读消息（群组）
+     * @param userId 用户ID
+     * @return 未读消息列表
+     * @since  1.0
      */
     @GetMapping(path = "/groupMessage/unreadCount")
-    @Override
     public BaseModel<List<UnreadEntity>> getUnreadGroupMsgCount(@RequestParam("userId") long userId) {
         // 查询GroupID
         SearchCriteria<IMGroupMember> groupMemberSearchCriteria = new SearchCriteria<>();
@@ -720,13 +717,12 @@ public class MessageServiceController implements MessageService {
         return unreadRes;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.MessageService#clearUserCounter(com.blt.talk.common.param.
-     * ClearUserCountReq)
+    /**
+     * 消息用户计数
+     * @param userCountReq 会话信息
+     * @return 更新结果
+     * @since  1.0
      */
-    @Override
     @PostMapping("/clearUserCounter")
     public BaseModel<?> clearUserCounter(@RequestBody ClearUserCountReq userCountReq) {
 
@@ -749,12 +745,15 @@ public class MessageServiceController implements MessageService {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.MessageService#getMessageList(int, int, int, int)
+    /**
+     * 取消息内容列表
+     * @param userId 用户ID
+     * @param toId 对方ID
+     * @param messageId 消息ID（查询起始）
+     * @param messageCount 消息数
+     * @return 消息内容列表
+     * @since  1.0
      */
-    @Override
     @GetMapping("/message/messageList")
     public BaseModel<List<MessageEntity>> getMessageList(@RequestParam("userId") long userId,
             @RequestParam("toId") long toId, @RequestParam("messageId") long messageId,
@@ -908,12 +907,15 @@ public class MessageServiceController implements MessageService {
         return messageListRes;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.MessageService#getGroupMessageList(int, int, int, int)
+    /**
+     * 取消息内容列表(群组)
+     * @param userId 用户ID
+     * @param toId 对方ID
+     * @param messageId 消息ID（查询起始）
+     * @param messageCount 消息数
+     * @return 消息内容列表
+     * @since  1.0
      */
-    @Override
     @GetMapping("/groupMessage/messageList")
     public BaseModel<List<MessageEntity>> getGroupMessageList(@RequestParam("userId") long userId,
             @RequestParam("groupId") long groupId, @RequestParam("messageId") long messageId,
@@ -1106,7 +1108,13 @@ public class MessageServiceController implements MessageService {
         return resultList;
     }
 
-    @Override
+    /**
+     * 取最后一个消息ID
+     * @param userId 用户不D
+     * @param toId 对方ID
+     * @return 消息ID
+     * @since  1.0
+     */
     @GetMapping(path = "/message/latestId")
     public BaseModel<Long> getLatestMessageId(@RequestParam("userId") long userId, @RequestParam("toId") long toId) {
         Long relateId = relationShipService.getRelationId(userId, toId, false);
@@ -1239,7 +1247,13 @@ public class MessageServiceController implements MessageService {
         return messageIdRes;
     }
 
-    @Override
+    /**
+     * 取最后一个消息ID
+     * @param userId 用户不D
+     * @param toId 对方ID
+     * @return 消息ID
+     * @since  1.0
+     */
     @GetMapping(path = "/groupMessage/latestId")
     public BaseModel<Long> getLatestGroupMessageId(@RequestParam("userId") long userId,
             @RequestParam("groupId") long groupId) {
@@ -1379,7 +1393,14 @@ public class MessageServiceController implements MessageService {
         return messageIdRes;
     }
 
-    @Override
+    /**
+     * 根据ID查取消息内容列表
+     * @param userId 用户ID
+     * @param toId 对方ID
+     * @param msgIdList 消息ID列表
+     * @return 消息内容列表
+     * @since  1.0
+     */
     @GetMapping(path = "/message/byId")
     public BaseModel<List<MessageEntity>> getMessageById(@RequestParam("userId") long userId, @RequestParam("toId") long toId,
             @RequestParam("messageId") List<Long> msgIdList) {
@@ -1511,7 +1532,14 @@ public class MessageServiceController implements MessageService {
         return messageListRes;
     }
 
-    @Override
+    /**
+     * 根据ID查取消息内容列表(群组)
+     * @param userId 用户ID
+     * @param toId 对方ID
+     * @param msgIdList 消息ID列表
+     * @return 消息内容列表
+     * @since  1.0
+     */
     @GetMapping(path = "/groupMessage/byId")
     public BaseModel<List<MessageEntity>> getGroupMessageById(@RequestParam("userId") long userId, @RequestParam("groupId") long groupId,
             @RequestParam("messageId") List<Long> msgIdList) {

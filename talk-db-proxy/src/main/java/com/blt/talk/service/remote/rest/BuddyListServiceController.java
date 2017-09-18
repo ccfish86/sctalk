@@ -2,7 +2,7 @@
  * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
-package com.blt.talk.service.remote.impl;
+package com.blt.talk.service.remote.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,6 @@ import com.blt.talk.service.jpa.entity.IMUser;
 import com.blt.talk.service.jpa.repository.IMUserRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
 import com.blt.talk.service.jpa.util.SearchCriteria;
-import com.blt.talk.service.remote.BuddyListService;
 
 /**
  * 通信录相关业务处理
@@ -35,12 +34,17 @@ import com.blt.talk.service.remote.BuddyListService;
  */
 @RestController
 @RequestMapping("/buddyList")
-public class BuddyListServiceController implements BuddyListService {
+public class BuddyListServiceController {
 
     @Autowired
     private IMUserRepository userRepository;
 
-    @Override
+    /**
+     * 更新用户签名
+     * @param signInfo 签名
+     * @return 更新结果
+     * @since  1.0
+     */
     @PostMapping(path = "/updateUserSignInfo")
     public BaseModel<?> updateUserSignInfo(@RequestBody final BuddyListUserSignInfoReq signInfo) {
 
@@ -54,12 +58,13 @@ public class BuddyListServiceController implements BuddyListService {
         return new BaseModel<String>();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.BuddyListService#getAllUser(int, int)
+    /**
+     * 查询所有用户
+     * @param userId
+     * @param lastUpdateTime
+     * @return
+     * @since  1.0
      */
-    @Override
     @GetMapping(path = "/allUser")
     public BaseModel<List<UserEntity>> getAllUser(@RequestParam("userId") long userId,
             @RequestParam("updateTime") int lastUpdateTime) {
@@ -94,12 +99,12 @@ public class BuddyListServiceController implements BuddyListService {
         return userInfoRes;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.blt.talk.service.service.BuddyListService#getUserInfoList(java.util.List)
+    /**
+     * 查询用户信息
+     * @param userIdListList
+     * @return
+     * @since  1.0
      */
-    @Override
     @GetMapping(path = "/userInfo")
     public BaseModel<List<UserEntity>> getUserInfoList(@RequestParam("userId") List<Long> userIdListList) {
 
