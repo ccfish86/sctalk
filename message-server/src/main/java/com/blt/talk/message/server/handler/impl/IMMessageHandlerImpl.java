@@ -341,28 +341,18 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
         long userId = super.getUserId(ctx);
 
         try {
-            // 查询群组未读信息
-            BaseModel<List<UnreadEntity>> groupUnreadRes =
-                    messageService.getUnreadGroupMsgCount(userId);
 
-            // 查询私聊未读信息
-            BaseModel<List<UnreadEntity>> unreadRes = messageService.getUnreadMsgCount(userId);
-
+            // 未读信息
+            BaseModel<List<UnreadEntity>> userMessage=messageService.getAllUnreadMsgCount(userId);
+            
             List<IMBaseDefine.UnreadInfo> unreadInfos = new ArrayList<>();
-
-            if (groupUnreadRes.getCode() == 0) {
-                if (groupUnreadRes.getData() != null) {
-
-                    for (UnreadEntity unreadEntity : groupUnreadRes.getData()) {
+            if (userMessage.getCode() == 0) {
+                if (userMessage.getData() != null) {
+                
+                    for (UnreadEntity unreadEntity : userMessage.getData()) {
                         unreadInfos.add(JavaBean2ProtoBuf.getUnreadInfo(unreadEntity));
-                    }
-                }
-            }
-            if (unreadRes.getCode() == 0) {
-                if (unreadRes.getData() != null) {
-                    for (UnreadEntity unreadEntity : unreadRes.getData()) {
-                        unreadInfos.add(JavaBean2ProtoBuf.getUnreadInfo(unreadEntity));
-                    }
+                    }                
+                    
                 }
             }
 

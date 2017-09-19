@@ -47,12 +47,9 @@ public interface MessageService {
      */
     @PostMapping(path = "/message/groupMessage/add")
     BaseModel<Long> sendMessage(GroupMessageSendReq messageSendReq);
-
-    @GetMapping(path = "/message/message/unreadCount")
-    BaseModel<List<UnreadEntity>> getUnreadMsgCount(@RequestParam("userId") long userId);
     
-    @GetMapping(path = "/message/groupMessage/unreadCount")
-    BaseModel<List<UnreadEntity>> getUnreadGroupMsgCount(@RequestParam("userId")long userId);
+    @GetMapping(path = "/message/allUnreadCount")
+    BaseModel<List<UnreadEntity>> getAllUnreadMsgCount(@RequestParam("userId") long userId);
     
     @PostMapping(path = "/message/clearUserCounter")
     BaseModel<?> clearUserCounter(@RequestBody ClearUserCountReq userCountReq);
