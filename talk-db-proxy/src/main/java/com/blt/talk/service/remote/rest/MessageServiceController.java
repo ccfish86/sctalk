@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -166,6 +167,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @PostMapping(path = "/groupMessage/add")
+    @Transactional
     public BaseModel<Long> sendMessage(@RequestBody GroupMessageSendReq messageSendReq) {
 
         byte type = (byte) messageSendReq.getMsgType().getNumber();
@@ -266,6 +268,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @PostMapping(path = "/message/add")
+    @Transactional
     public BaseModel<Long> sendMessage(@RequestBody MessageSendReq messageSendReq) {
 
         byte type = (byte) messageSendReq.getMsgType().getNumber();
@@ -362,6 +365,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @GetMapping(path = "/message/unreadCount")
+    @Transactional
     public BaseModel<List<UnreadEntity>> getUnreadMsgCount(@RequestParam("userId") long userId) {
 
         List<UnreadEntity> unreadList = new ArrayList<>();
@@ -530,6 +534,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @GetMapping(path = "/groupMessage/unreadCount")
+    @Transactional
     public BaseModel<List<UnreadEntity>> getUnreadGroupMsgCount(@RequestParam("userId") long userId) {
         // 查询GroupID
         SearchCriteria<IMGroupMember> groupMemberSearchCriteria = new SearchCriteria<>();
@@ -755,6 +760,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @GetMapping("/message/messageList")
+    @Transactional
     public BaseModel<List<MessageEntity>> getMessageList(@RequestParam("userId") long userId,
             @RequestParam("toId") long toId, @RequestParam("messageId") long messageId,
             @RequestParam("messageCount") int messageCount) {
@@ -917,6 +923,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @GetMapping("/groupMessage/messageList")
+    @Transactional
     public BaseModel<List<MessageEntity>> getGroupMessageList(@RequestParam("userId") long userId,
             @RequestParam("groupId") long groupId, @RequestParam("messageId") long messageId,
             @RequestParam("messageCount") int messageCount) {
@@ -1116,6 +1123,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @GetMapping(path = "/message/latestId")
+    @Transactional
     public BaseModel<Long> getLatestMessageId(@RequestParam("userId") long userId, @RequestParam("toId") long toId) {
         Long relateId = relationShipService.getRelationId(userId, toId, false);
 
@@ -1255,6 +1263,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @GetMapping(path = "/groupMessage/latestId")
+    @Transactional
     public BaseModel<Long> getLatestGroupMessageId(@RequestParam("userId") long userId,
             @RequestParam("groupId") long groupId) {
         Long splt = groupId % 10;
@@ -1402,6 +1411,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @GetMapping(path = "/message/byId")
+    @Transactional
     public BaseModel<List<MessageEntity>> getMessageById(@RequestParam("userId") long userId, @RequestParam("toId") long toId,
             @RequestParam("messageId") List<Long> msgIdList) {
         Long relateId = relationShipService.getRelationId(userId, toId, false);
@@ -1541,6 +1551,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @GetMapping(path = "/groupMessage/byId")
+    @Transactional
     public BaseModel<List<MessageEntity>> getGroupMessageById(@RequestParam("userId") long userId, @RequestParam("groupId") long groupId,
             @RequestParam("messageId") List<Long> msgIdList) {
         

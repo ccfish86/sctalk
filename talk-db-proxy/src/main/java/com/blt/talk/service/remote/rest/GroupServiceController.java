@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -197,6 +198,7 @@ public class GroupServiceController {
      * @since  1.0
      */
     @PostMapping(path = "/createGroup")
+    @Transactional
     public BaseModel<Long> createGroup(@RequestBody GroupEntity groupEntity) {
 
         List<Long> userList = groupEntity.getUserList();
