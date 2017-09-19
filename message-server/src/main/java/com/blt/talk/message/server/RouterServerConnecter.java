@@ -15,13 +15,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.IMProtoMessage;
+import com.blt.talk.message.server.config.RouterServerConfig;
 import com.google.protobuf.MessageLite;
 
 import io.netty.bootstrap.Bootstrap;
@@ -45,11 +45,8 @@ public class RouterServerConnecter  {
     
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Value("${talk.router.ip}")
-    private String ipadress;
-
-    @Value("${talk.router.port:900}")
-    private int port = 900;
+    @Autowired
+    private RouterServerConfig routerServerConfig;
 
     private Bootstrap bootstrap;
     
@@ -90,10 +87,10 @@ public class RouterServerConnecter  {
             }
             synchronized(bootstrap) {
                 if ((null == channel || (null != channel && !channel.isOpen()))
-                        && null != this.ipadress && this.port > 0) {
+                        && null != this.routerServerConfig.getIp() && this.routerServerConfig.getPort() > 0) {
                     logger.debug( "连接Router服务");
                     this.future = bootstrap.connect(new InetSocketAddress(
-                            ipadress, port));
+                            this.routerServerConfig.getIp(), this.routerServerConfig.getPort()));
                     this.channel = future.channel();
                 }
             }

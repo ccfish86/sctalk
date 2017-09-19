@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -35,6 +34,7 @@ import com.blt.talk.common.code.proto.IMMessage;
 import com.blt.talk.common.code.proto.IMOther;
 import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.message.server.channel.NettyChatServerInitializer;
+import com.blt.talk.message.server.config.MessageServerConfig;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -64,12 +64,15 @@ public class MessageServerStarter {
     private ServerBootstrap sBootstrap;
     private ChannelFuture future;
 
-    @Value("${talk.message.ip}")
-    private String ipadress;
-    @Value("${talk.message.port:8901}")
-    private int port = 8901;
+    @Autowired
+    private MessageServerConfig messageServerConfig;
     
     private boolean started = false;
+    
+    /** IP */
+    private String ipadress;
+    /** 端口号 */
+    private int port;
 
     @PreDestroy
     public void destroy() {
@@ -118,7 +121,7 @@ public class MessageServerStarter {
 
             
             // 绑定端口,开始接收进来的连接
-            future = sBootstrap.bind(ipadress, port).sync();
+            future = sBootstrap.bind(messageServerConfig.getIp(), messageServerConfig.getPort()).sync();
 
             // 获取绑定的端口号
             if (future.channel().localAddress() instanceof InetSocketAddress ) {
