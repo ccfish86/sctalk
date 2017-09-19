@@ -73,8 +73,10 @@ public class RouterServerRunner implements CommandLineRunner {
         // FIXME 处理资源关闭，后期需要对应：
         // 1. 通知在线用户[服务器即将关闭]
         // 2. 关闭现有的连接，关闭对应的线程
-        future.channel().close();
-        logger.info("closed");
+        if (future != null) {
+            future.channel().close();
+            logger.info("closed");
+        }
     }
 
     @Override
