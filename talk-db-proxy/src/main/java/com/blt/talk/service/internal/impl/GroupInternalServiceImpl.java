@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.constant.DBConstant;
@@ -53,6 +54,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
      * @see com.blt.talk.service.internal.GroupInternalService#insertNewMember(long, long, java.util.List)
      */
     @Override
+    @Transactional
     public List<Long> insertNewMember(long userId, long groupId, List<Long> members) {
 
         // 追加更新群组成员
@@ -142,6 +144,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
      * @see com.blt.talk.service.internal.GroupInternalService#removeMember(long, long, java.util.List)
      */
     @Override
+    @Transactional
     public List<Long> removeMember(long userId, long groupId, List<Long> members) {
 
         int time = CommonUtils.currentTimeSeconds();

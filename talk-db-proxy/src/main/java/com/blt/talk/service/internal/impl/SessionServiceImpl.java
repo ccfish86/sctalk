@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.util.CommonUtils;
@@ -35,6 +36,7 @@ public class SessionServiceImpl implements SessionService {
      * @see com.blt.talk.service.internal.SessionService#addSession(long, long, int)
      */
     @Override
+    @Transactional
     public long addSession(long userId, long peerId, int type) {
         int time = CommonUtils.currentTimeSeconds();
 
@@ -73,6 +75,7 @@ public class SessionServiceImpl implements SessionService {
      * @see com.blt.talk.service.internal.SessionService#getSessionId(long, long, int, boolean)
      */
     @Override
+    @Transactional(readOnly = true)
     public long getSessionId(long userId, long peerId, int type, boolean isAll) {
         byte status = 0;
 
@@ -98,6 +101,7 @@ public class SessionServiceImpl implements SessionService {
      * @see com.blt.talk.service.internal.SessionService#remove(long)
      */
     @Override
+    @Transactional
     public void remove(long sessionId) {
         int time = CommonUtils.currentTimeSeconds();
         IMRecentSession session = recentSessionRepository.findOne(sessionId);
@@ -112,6 +116,7 @@ public class SessionServiceImpl implements SessionService {
      * @see com.blt.talk.service.internal.SessionService#update(long, int)
      */
     @Override
+    @Transactional
     public void update(long sessionId, int time) {
         IMRecentSession session = recentSessionRepository.findOne(sessionId);
         session.setUpdated(time);

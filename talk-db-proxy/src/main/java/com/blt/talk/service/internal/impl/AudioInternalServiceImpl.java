@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.util.CommonUtils;
@@ -42,6 +43,7 @@ public class AudioInternalServiceImpl implements AudioInternalService {
      * @see com.blt.talk.service.internal.AudioInternalService#saveAudioInfo(long, long, int, com.google.protobuf.ByteString)
      */
     @Override
+    @Transactional
     public long saveAudioInfo(long fromId, long toId, int time, byte[] content) {
 
         int realLen = content.length - 4;
@@ -87,6 +89,7 @@ public class AudioInternalServiceImpl implements AudioInternalService {
      * @see com.blt.talk.service.internal.AudioInternalService#readAudioInfo(long)
      */
     @Override
+    @Transactional(readOnly = true)
     public byte[] readAudioInfo(long id) {
 
         IMAudio audio = audioRepository.findOne(id);
@@ -111,6 +114,7 @@ public class AudioInternalServiceImpl implements AudioInternalService {
      * @see com.blt.talk.service.internal.AudioInternalService#readAudios(java.util.List)
      */
     @Override
+    @Transactional(readOnly = true)
     public List<byte[]> readAudios(List<Long> audioIds) {
         
         List<byte[]> audioResult = new ArrayList<>();

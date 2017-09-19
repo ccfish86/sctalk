@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.util.CommonUtils;
@@ -34,6 +35,7 @@ public class RelationShipServiceImpl implements RelationShipService{
      * @see com.blt.talk.service.service.RelationShipService#getRelationId(int, int)
      */
     @Override
+    @Transactional
     public Long getRelationId(long userId, long toId, boolean add) {
         
         Long relateId = DBConstant.INVALIAD_VALUE;
