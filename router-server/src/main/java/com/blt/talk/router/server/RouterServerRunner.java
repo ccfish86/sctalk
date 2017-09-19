@@ -11,7 +11,6 @@ import javax.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -29,6 +28,7 @@ import com.blt.talk.common.code.proto.IMMessage;
 import com.blt.talk.common.code.proto.IMOther;
 import com.blt.talk.common.code.proto.IMServer;
 import com.blt.talk.common.code.proto.IMSwitchService;
+import com.blt.talk.router.server.config.RouterServerConfig;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -59,11 +59,8 @@ public class RouterServerRunner implements CommandLineRunner {
     private ServerBootstrap sBootstrap;
     private ChannelFuture future;
 
-    @Value("${talk.router.ip}")
-    private String ipadress;
-
-    @Value("${talk.router.port}")
-    private int port = 8900;
+    @Autowired
+    private RouterServerConfig routerServerConfig;
 
     /**
      * 在服务销毁时的处理
@@ -109,7 +106,7 @@ public class RouterServerRunner implements CommandLineRunner {
             logger.info("NettyRouterServer 启动了");
 
             // 绑定端口,开始接收进来的连接
-            future = sBootstrap.bind(ipadress, port).sync();
+            future = sBootstrap.bind(routerServerConfig.getIp(), routerServerConfig.getPort()).sync();
 
             // 获取绑定的端口号
             if (future.channel().localAddress() instanceof InetSocketAddress ) {
