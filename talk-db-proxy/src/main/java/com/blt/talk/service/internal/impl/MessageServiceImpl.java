@@ -137,7 +137,7 @@ public class MessageServiceImpl implements MessageService {
     private IMGroupMemberRepository groupMemberRepository;
     
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<UnreadEntity> getUnreadMsgCount(long userId) {
 
         List<UnreadEntity> unreadList = new ArrayList<>();
@@ -298,7 +298,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<UnreadEntity> getUnreadGroupMsgCount(long userId) {
         // 查询GroupID
         SearchCriteria<IMGroupMember> groupMemberSearchCriteria = new SearchCriteria<>();

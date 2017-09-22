@@ -369,7 +369,7 @@ public class MessageServiceController {
      * @since  1.0
      */
     @GetMapping(path = "/message/allUnreadCount")
-    @Transactional(readOnly = true)
+    @Transactional
     public BaseModel<List<UnreadEntity>> getAllUnreadMsgCount(@RequestParam("userId") long userId) {
 
         BaseModel<List<UnreadEntity>> unreadRes = new BaseModel<>();

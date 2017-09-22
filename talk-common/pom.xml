@@ -4,6 +4,19 @@
     <groupId>com.blt.talk</groupId>
     <artifactId>talk-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <distributionManagement>
+        <repository>
+            <id>user-release</id>
+            <name>User Project Release</name>
+            <url>http://192.168.10.9/repository/maven-releases/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>user-snapshots</id>
+            <name>User Project SNAPSHOTS</name>
+            <url>http://192.168.10.9/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>com.google.protobuf</groupId>

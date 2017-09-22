@@ -197,6 +197,14 @@ public class CommonUtils {
      * @return
      * @since  1.0
      */
+    public static boolean isGroup(int messageType) {
+        return MsgType.MSG_TYPE_GROUP_TEXT_VALUE == messageType || MsgType.MSG_TYPE_GROUP_AUDIO_VALUE  == messageType;
+    }
+    /**
+     * @param messageType
+     * @return
+     * @since  1.0
+     */
     public static boolean isSingle(MsgType messageType) {
         return MsgType.MSG_TYPE_SINGLE_TEXT == messageType || MsgType.MSG_TYPE_SINGLE_AUDIO == messageType;
     }
