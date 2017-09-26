@@ -14,13 +14,16 @@ import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
+import com.blt.talk.common.code.PduAttachData;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SessionType;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserInfo;
 import com.blt.talk.common.code.proto.IMBuddy;
+import com.blt.talk.common.code.proto.IMBuddy.IMUsersStatReq;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
+import com.blt.talk.common.constant.AttachType;
 import com.blt.talk.common.constant.SysConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.DepartmentEntity;
@@ -33,6 +36,7 @@ import com.blt.talk.message.server.manager.ClientUserManager;
 import com.blt.talk.message.server.remote.BuddyListService;
 import com.blt.talk.message.server.remote.DepartmentService;
 import com.blt.talk.message.server.remote.RecentSessionService;
+import com.google.protobuf.ByteString;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -280,7 +284,18 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
     @Override
     public void userStatusReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
+        // CID_BUDDY_LIST_USERS_STATUS_REQUEST
         logger.info("Send the users status request to router");
+        
+        IMUsersStatReq usersStatReq = (IMUsersStatReq) body;
+        
+        // 指定handle
+        long handleId = super.getHandleId(ctx);
+        
+        PduAttachData attachData = new PduAttachData(AttachType.PDU_FOR_PUSH,
+                handleId, 0);
+        usersStatReq.toBuilder().setAttachData(ByteString.copyFrom(attachData.getBufferData()));
+        
         routerHandler.send(header, body);
     }
 

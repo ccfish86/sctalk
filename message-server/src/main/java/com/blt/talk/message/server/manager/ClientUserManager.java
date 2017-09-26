@@ -38,7 +38,7 @@ public class ClientUserManager {
 //        return userNameMap.get(userName);
 //    }
     
-    public static ChannelHandlerContext getConnByHandle(Long userId, int handle) {
+    public static ChannelHandlerContext getConnByHandle(Long userId, long handle) {
         ClientUser client = userMap.get(userId);
         if (client == null) {
             return null;

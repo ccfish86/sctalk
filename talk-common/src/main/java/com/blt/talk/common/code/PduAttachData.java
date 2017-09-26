@@ -20,12 +20,12 @@ public class PduAttachData {
 
     private ByteBuf buffer = ByteBufUtil.threadLocalDirectBuffer();
     private int type;
-    private Integer handle;
+    private Long handle;
     private Integer serviceType;
     private Integer pduLength; 
     private ByteString pdu; 
     
-    public PduAttachData(int attachType, Integer handle, Integer serviceType) {
+    public PduAttachData(int attachType, Long handle, Integer serviceType) {
 
         this.type = attachType;
         this.handle = handle;
@@ -33,12 +33,12 @@ public class PduAttachData {
         this.pduLength = 0;
         
         buffer.writeInt(attachType);
-        buffer.writeInt(handle);
+        buffer.writeLong(handle);
         buffer.writeInt(serviceType);
         buffer.writeInt(0);
     }
 
-    public PduAttachData(int attachType, Integer handle, Integer serviceType, ByteString pdu) {
+    public PduAttachData(int attachType, Long handle, Integer serviceType, ByteString pdu) {
         
         this.type = attachType;
         this.handle = handle;
@@ -47,7 +47,7 @@ public class PduAttachData {
         this.pduLength = pdu.size();
         
         buffer.writeInt(attachType);
-        buffer.writeInt(handle);
+        buffer.writeLong(handle);
         buffer.writeInt(serviceType);
         buffer.writeInt(pdu.size());
         buffer.writeBytes(pdu.toByteArray());
@@ -69,7 +69,7 @@ public class PduAttachData {
         buffer.resetReaderIndex();
         
         this.type = buffer.readInt();
-        this.handle = buffer.readInt();
+        this.handle = buffer.readLong();
         this.serviceType = buffer.readInt();
         this.pduLength = buffer.readInt();
         ByteBuf buf = buffer.readBytes(this.pduLength);
@@ -93,7 +93,7 @@ public class PduAttachData {
     /**
      * @return the handle
      */
-    public Integer getHandle() {
+    public Long getHandle() {
         return handle;
     }
 

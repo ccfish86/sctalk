@@ -30,4 +30,18 @@ public abstract class AbstractUserHandlerImpl {
         } 
         return 0;
     }
+
+    /**
+     * 取ctx连接ID
+     * @param ctx 用户连接
+     * @return 用户ID
+     * @since  1.0
+     */
+    protected long getHandleId(ChannelHandlerContext ctx) {
+        Long handleId = ctx.attr(ClientUser.HANDLE_ID).get();
+        if (handleId != null) {
+            return handleId;
+        } 
+        return 0;
+    }
 }
