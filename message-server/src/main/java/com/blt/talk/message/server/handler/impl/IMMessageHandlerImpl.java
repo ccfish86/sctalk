@@ -254,7 +254,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
         
         if (userTokenRes.getCode() == 0) {
             String userToken = userTokenRes.getData();
-            if (userTokenRes != null) {
+            if (userToken != null) {
                 List<UserTokenInfo> userTokenList = new ArrayList<>();
                 UserTokenInfo tokenInfo = UserTokenInfo.newBuilder().setPushCount(1).setPushType(1)
                         .setToken(userToken)
