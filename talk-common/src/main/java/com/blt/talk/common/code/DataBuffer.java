@@ -34,7 +34,8 @@ public final class DataBuffer {
         if (buffer.hasArray()) {
             return buffer.array();
         } else {
-            byte[] content = new byte[buffer.capacity()];
+            buffer.resetReaderIndex();
+            byte[] content = new byte[buffer.writerIndex()];
             buffer.readBytes(content);
             return content;
         }
