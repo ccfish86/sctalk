@@ -50,7 +50,6 @@ import com.blt.talk.message.server.manager.ClientUser;
 import com.blt.talk.message.server.manager.ClientUserManager;
 import com.blt.talk.message.server.remote.GroupService;
 import com.blt.talk.message.server.remote.IphonePushService;
-import com.blt.talk.message.server.remote.LoginService;
 //import com.blt.talk.message.server.manager.ClientConnection;
 //import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.blt.talk.message.server.remote.MessageService;
@@ -77,8 +76,6 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
     private GroupService groupService;
     @Autowired
     private IphonePushService iphonePushService;
-    @Autowired
-    private LoginService loginService;
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -450,7 +447,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
                     return MessageConstant.IMAGE_COMMON_MSG;
                 } else {
                     StringBuffer sb = new StringBuffer();
-                    sb.append(sender).append("").append(content);
+                    sb.append(sender).append(":").append(content);
                     return sb.toString();
                 }
             } 
