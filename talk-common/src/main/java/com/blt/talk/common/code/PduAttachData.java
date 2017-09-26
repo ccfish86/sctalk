@@ -57,7 +57,8 @@ public class PduAttachData {
         if (buffer.hasArray()) {
             return buffer.array();
         } else {
-            byte[] content = new byte[buffer.capacity()];
+            buffer.resetReaderIndex();
+            byte[] content = new byte[buffer.writerIndex()];
             buffer.readBytes(content);
             return content;
         }
@@ -66,7 +67,6 @@ public class PduAttachData {
     public PduAttachData(ByteString bytes) {
         
         buffer.writeBytes(bytes.toByteArray());
-        buffer.resetReaderIndex();
         
         this.type = buffer.readInt();
         this.handle = buffer.readLong();
