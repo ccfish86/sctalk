@@ -2,7 +2,6 @@ package com.blt.talk.common.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-import java.util.Date;
 
 import org.bouncycastle.util.encoders.Base64;
 
@@ -16,19 +15,31 @@ import org.bouncycastle.util.encoders.Base64;
  */
 public class SecurityUtils {
 
+    /**
+     * 解码
+     * @param byteMsg base64格式的byte数组
+     * @return 解码后的byte数组
+     * @since  1.0
+     */
     public byte[] DecryptMsg(byte[] byteMsg) {
 
         if (byteMsg == null || byteMsg.length == 0) {
             return new byte[]{};
         }
-
-        byte[] pDecData = AESUtils.decrypt(byteMsg);
+        byte[] msg = Base64.decode(byteMsg);
+        byte[] pDecData = AESUtils.decrypt(msg);
         byte[] lenbytes = Arrays.copyOfRange(pDecData, pDecData.length - 4, pDecData.length);
         int nInLen = CommonUtils.byteArray2int(lenbytes);
 
         return Arrays.copyOf(pDecData, nInLen);
     }
     
+    /**
+     * 解码
+     * @param strMsg base64格式的字符串
+     * @return 解码后的byte数组
+     * @since  1.0
+     */
     public byte[] DecryptMsg(String strMsg) {
 
         if (strMsg == null || strMsg.isEmpty()) {
@@ -43,6 +54,12 @@ public class SecurityUtils {
         return Arrays.copyOf(pDecData, nInLen);
     }
 
+    /**
+     * 加密
+     * @param strMsg 明文
+     * @return 加密后的byte数组(base64)
+     * @since  1.0
+     */
     public byte[] EncryptMsg(String strMsg) {
         try {
             byte[] pInData = strMsg.getBytes("utf8");
@@ -79,15 +96,6 @@ public class SecurityUtils {
             
             return m_pInstance;
         }
-    }
-
-    public static void main(String[] args) {
-        String x = "dgjzZcuwYVvgiMtBlzoa8cfFUbOPlY7H75nmNpyLdRMtd9adxLn7iDJeljOTkdrHiIhrb8Up7XStoQJrSv8aQJ3snFMfTahAjyia7aY/5QSmaNnmQkC0FWLikc1bgpts";
-        String rs = new String(getInstance().DecryptMsg(x));
-        
-        System.out.println(rs);
-        
-        System.out.println(new Date(1497606650L*1000));
     }
 
 }
