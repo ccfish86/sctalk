@@ -25,5 +25,10 @@ public interface MessageConstant {
     /**图片消息的前后常量*/
     public  final String IMAGE_MSG_START = "&$#@~^@[{:";
     public  final String IMAGE_MSG_END = ":}]&$~@#@";
+    
+    public  final String IMAGE_COMMON_MSG = "您收到了一条消息";
+    
+    public  final String COMMON_MSG = "您收到了一条消息";
+    
 
 }

@@ -2,6 +2,7 @@ package com.blt.talk.common.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Date;
 
 import org.bouncycastle.util.encoders.Base64;
 
@@ -15,7 +16,19 @@ import org.bouncycastle.util.encoders.Base64;
  */
 public class SecurityUtils {
 
+    public byte[] DecryptMsg(byte[] byteMsg) {
 
+        if (byteMsg == null || byteMsg.length == 0) {
+            return new byte[]{};
+        }
+
+        byte[] pDecData = AESUtils.decrypt(byteMsg);
+        byte[] lenbytes = Arrays.copyOfRange(pDecData, pDecData.length - 4, pDecData.length);
+        int nInLen = CommonUtils.byteArray2int(lenbytes);
+
+        return Arrays.copyOf(pDecData, nInLen);
+    }
+    
     public byte[] DecryptMsg(String strMsg) {
 
         if (strMsg == null || strMsg.isEmpty()) {
@@ -68,5 +81,13 @@ public class SecurityUtils {
         }
     }
 
+    public static void main(String[] args) {
+        String x = "dgjzZcuwYVvgiMtBlzoa8cfFUbOPlY7H75nmNpyLdRMtd9adxLn7iDJeljOTkdrHiIhrb8Up7XStoQJrSv8aQJ3snFMfTahAjyia7aY/5QSmaNnmQkC0FWLikc1bgpts";
+        String rs = new String(getInstance().DecryptMsg(x));
+        
+        System.out.println(rs);
+        
+        System.out.println(new Date(1497606650L*1000));
+    }
 
 }

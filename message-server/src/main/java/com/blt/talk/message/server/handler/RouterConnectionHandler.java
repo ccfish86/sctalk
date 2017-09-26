@@ -80,46 +80,6 @@ public class RouterConnectionHandler extends SimpleChannelInboundHandler<IMProto
             default:
                 logger.warn("暂不支持的服务ID{}" , header.getServiceId());
                 break;
-                
-                
-//            case CID_OTHER_HEARTBEAT:
-//                break;
-//            case CID_OTHER_SERVER_KICK_USER:
-//                _HandleKickUser( pPdu );
-//                break;
-//            case CID_BUDDY_LIST_STATUS_NOTIFY:
-//                _HandleStatusNotify( pPdu );
-//                break;
-//            case CID_BUDDY_LIST_USERS_STATUS_RESPONSE:
-//                _HandleUsersStatusResponse( pPdu );
-//                break;
-//            case CID_MSG_READ_NOTIFY:
-//                _HandleMsgReadNotify(pPdu);
-//                break;
-//            case CID_MSG_DATA:
-//                _HandleMsgData(pPdu);
-//                break;
-//            case CID_SWITCH_P2P_CMD:
-//                _HandleP2PMsg(pPdu );
-//                break;
-//            case CID_OTHER_LOGIN_STATUS_NOTIFY:
-//                _HandlePCLoginStatusNotify(pPdu);
-//                break;
-//            case CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY:
-//                _HandleRemoveSessionNotify(pPdu);
-//                break;
-//            case CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY:
-//                _HandleSignInfoChangedNotify(pPdu);
-//            case CID_GROUP_CHANGE_MEMBER_NOTIFY:
-//                s_group_chat->HandleGroupChangeMemberBroadcast(pPdu);
-//                break;
-//            case CID_FILE_NOTIFY:
-//                s_file_handler->HandleFileNotify(pPdu);
-//                break;
-//                break;
-//            default:
-//                log("unknown cmd id=%d ", pPdu->GetCommandId());
-//                break;
         }
     }
 

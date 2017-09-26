@@ -187,8 +187,7 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
         	
     		//先发给给数据库
         	//BaseModel<Long> deviceTokenRes =  loginService.setdeviceToken(userToken);
-        	
-        	loginService.setdeviceToken(userToken);
+        	loginService.setDeviceToken(userToken);
         	
         	resHeader = header.clone();
         	resHeader.setCommandId((short)LoginCmdID.CID_LOGIN_REQ_LOGINOUT_VALUE);
@@ -281,7 +280,7 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
             userToken.setClientType(deviceTokenReq.getClientType());
             userToken.setUserToken(deviceTokenReq.getDeviceTokenBytes().toStringUtf8());
             
-            loginService.setdeviceToken(userToken);
+            loginService.setDeviceToken(userToken);
     	} catch(Exception e){
     		
     		logger.error("服务器端异常", e);

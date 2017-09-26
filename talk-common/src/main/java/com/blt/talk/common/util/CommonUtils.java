@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 
 import com.blt.talk.common.code.proto.IMBaseDefine;
+import com.blt.talk.common.code.proto.IMBaseDefine.ClientType;
 import com.blt.talk.common.code.proto.IMBaseDefine.MsgType;
 
 /**
@@ -216,5 +217,33 @@ public class CommonUtils {
     public static boolean isAudio(int msgType) {
         return MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE == msgType || MsgType.MSG_TYPE_GROUP_AUDIO_VALUE == msgType;
     }
+
+    /**
+     * @param msgType
+     * @return
+     * @since  1.0
+     */
+    public static boolean isAudio(MsgType msgType) {
+        return MsgType.MSG_TYPE_SINGLE_AUDIO == msgType || MsgType.MSG_TYPE_GROUP_AUDIO == msgType;
+    }
     
+    /**
+     * 由token判断客户端类型
+     * 
+     * @param userToken 用户token
+     * @return
+     * @since  3.0
+     */
+    public static ClientType getClientTypeOfToken(String userToken) {
+        if (userToken != null) {
+            if (userToken.startsWith("ios:")) {
+                return ClientType.CLIENT_TYPE_IOS;
+            } else if (userToken.startsWith("android:")) {
+                    return ClientType.CLIENT_TYPE_IOS;
+            } else {
+                return ClientType.CLIENT_TYPE_WINDOWS;
+            }
+        }
+        return ClientType.CLIENT_TYPE_WINDOWS;
+    }
 }

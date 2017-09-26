@@ -7,19 +7,17 @@ import java.util.concurrent.Callable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blt.talk.common.code.proto.IMBaseDefine.ClientType;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.param.IosPushReq;
 import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.service.config.PushServerInfo;
+import com.blt.talk.service.internal.UserTokenService;
 
 import javapns.Push;
 import javapns.notification.PushNotificationPayload;
@@ -41,10 +39,11 @@ public class IphonePushServiceController {
 
     @Autowired
     private PushServerInfo pushServerInfo;
+    @Autowired
+    private UserTokenService userTokenService;
 
     @PostMapping(value = "/toUsers")
-    public Callable<BaseModel<?>> sendToUsers(@PathVariable Long userId,
-            @RequestBody IosPushReq message) {
+    public Callable<BaseModel<?>> sendToUsers(@RequestBody IosPushReq message) {
 
         return new Callable<BaseModel<?>>() {
             @Override
@@ -58,8 +57,14 @@ public class IphonePushServiceController {
                     List<String> tokens = new ArrayList<String>();
                     
                     for (UserToken user: message.getUserTokenList()) {
-                        if (ClientType.CLIENT_TYPE_IOS == user.getClientType()) {
-                            tokens.add(user.getUserToken());
+                        String token;
+                        if (user.getUserToken() != null) {
+                            token = user.getUserToken();
+                        } else {
+                            token = userTokenService.getToken(user.getUserId());
+                        }
+                        if (token != null && token.startsWith("ios:")) {
+                            tokens.add(token.substring(4));
                         }
                     }
                     

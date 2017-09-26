@@ -24,6 +24,7 @@ import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
+import com.blt.talk.common.model.entity.GroupPushEntity;
 import com.blt.talk.common.model.entity.ShieldStatusEntity;
 import com.blt.talk.common.param.GroupPushReq;
 import com.blt.talk.common.param.GroupUpdateMemberReq;
@@ -138,10 +139,57 @@ public class GroupServiceController {
     /**
      * 查询组的属性
      * @param groupVersionList
+     * @return 查询结果:群资料（版本）
+     * @since  1.0
+     */
+    @GetMapping(path = "/groupPushInfo")
+    @Transactional(readOnly = true)
+    public BaseModel<GroupPushEntity> getGroupPushInfo(@RequestParam("groupId") Long groupId, @RequestParam("userId") Long userId) {
+        
+        BaseModel<GroupPushEntity> groupRes = new BaseModel<>();
+        IMGroup group = groupRepository.findOne(groupId);
+        if (group != null) {
+            GroupPushEntity groupEntity = new GroupPushEntity();
+            groupEntity.setId(group.getId());
+            groupEntity.setAvatar(group.getAvatar());
+            groupEntity.setCreated(group.getCreated());
+            groupEntity.setCreatorId(group.getCreator());
+            groupEntity.setGroupType(group.getType());
+            groupEntity.setStatus(group.getStatus());
+            groupEntity.setMainName(group.getName());
+            groupEntity.setVersion(group.getVersion());
+            
+            // fillGroupMember
+            String key = RedisKeys.concat(RedisKeys.GROUP_INFO, group.getId());
+            HashOperations<String, String, String> groupMapOps = redisTemplate.opsForHash();
+            Map<String, String> groupMemberMap = groupMapOps.entries(key);
+            List<String> userIdList = new ArrayList<>();
+            
+            if (groupMemberMap != null) {
+                for (String memberId : groupMemberMap.keySet()) {
+                    userIdList.add(memberId);
+                }
+            }
+            groupRes.setData(groupEntity);
+            
+            // push shield status
+            List<ShieldStatusEntity> shieldStatusList = groupInternalService.getGroupPush(groupId, userIdList);
+            groupEntity.setUserList(shieldStatusList);
+        } else {
+            groupRes.setCode(1);
+        }
+        
+        return groupRes;
+    }
+
+    /**
+     * 查询组的属性
+     * @param groupVersionList
      * @return 查询结果:群资料
      * @since  1.0
      */
     @PostMapping(path = "/infoList")
+    @Transactional(readOnly = true)
     public BaseModel<List<GroupEntity>> groupInfoList(@RequestBody Map<String, Integer> groupIdList) {
         
         List<Long> groupIds = new ArrayList<>();
@@ -263,14 +311,14 @@ public class GroupServiceController {
      * @since  1.0
      */
     @GetMapping(path = "/group/pushStatus")
-    public BaseModel<Integer> getGroupPush(@RequestParam("groupId") long groupId, @RequestParam("userId") long userId) {
+    public BaseModel<List<ShieldStatusEntity>> getGroupPush(@RequestParam("groupId") long groupId, @RequestParam("userId") List<Long> userId) {
         
         List<String> userIdList = new ArrayList<>();
-        userIdList.add(String.valueOf(userId));
+        userIdList.addAll(userIdList);
         
         List<ShieldStatusEntity> shieldStatusList = groupInternalService.getGroupPush(groupId, userIdList);
-        BaseModel<Integer> shieldStatus = new BaseModel<Integer>();
-        shieldStatus.setData(shieldStatusList.get(0).getShieldStatus());
+        BaseModel<List<ShieldStatusEntity>> shieldStatus = new BaseModel<>();
+        shieldStatus.setData(shieldStatusList);
         return shieldStatus;
     }
 

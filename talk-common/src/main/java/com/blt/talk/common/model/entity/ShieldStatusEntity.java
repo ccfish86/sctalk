@@ -5,6 +5,7 @@
 package com.blt.talk.common.model.entity;
 
 /**
+ * 推送设置
  * 
  * @author 袁贵
  * @version 1.0
@@ -13,11 +14,11 @@ package com.blt.talk.common.model.entity;
 public class ShieldStatusEntity {
 
     private long userId;
-
-    private long groupId;
     
     private int shieldStatus;
 
+    private String userToken;
+    
     /**
      * @return the userId
      */
@@ -31,21 +32,6 @@ public class ShieldStatusEntity {
     public void setUserId(long userId) {
         this.userId = userId;
     }
-
-    /**
-     * @return the groupId
-     */
-    public long getGroupId() {
-        return groupId;
-    }
-
-    /**
-     * @param groupId the groupId to set
-     */
-    public void setGroupId(long groupId) {
-        this.groupId = groupId;
-    }
-
     /**
      * @return the shieldStatus
      */
@@ -58,6 +44,20 @@ public class ShieldStatusEntity {
      */
     public void setShieldStatus(int shieldStatus) {
         this.shieldStatus = shieldStatus;
+    }
+
+    /**
+     * @return the userToken
+     */
+    public String getUserToken() {
+        return userToken;
+    }
+
+    /**
+     * @param userToken the userToken to set
+     */
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
     }
 
 }

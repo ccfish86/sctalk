@@ -4,6 +4,7 @@
 
 package com.blt.talk.message.server.handler.impl;
 
+import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,26 +14,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSONObject;
+import com.blt.talk.common.code.DefaultIMHeader;
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
+import com.blt.talk.common.code.PduAttachData;
 import com.blt.talk.common.code.proto.IMBaseDefine;
+import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.ClientType;
 import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MsgType;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SessionType;
+import com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo;
+import com.blt.talk.common.code.proto.IMBuddy.IMUsersStatReq;
 import com.blt.talk.common.code.proto.IMMessage;
 import com.blt.talk.common.code.proto.IMMessage.IMMsgData;
+import com.blt.talk.common.code.proto.IMServer.IMPushToUserReq;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
+import com.blt.talk.common.constant.AttachType;
 import com.blt.talk.common.constant.DBConstant;
+import com.blt.talk.common.constant.MessageConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.MessageEntity;
-import com.blt.talk.common.model.entity.GroupEntity;
+import com.blt.talk.common.model.entity.GroupPushEntity;
+import com.blt.talk.common.model.entity.ShieldStatusEntity;
 import com.blt.talk.common.model.entity.UnreadEntity;
 import com.blt.talk.common.param.ClearUserCountReq;
 import com.blt.talk.common.param.GroupMessageSendReq;
+import com.blt.talk.common.param.GroupPushReq;
 import com.blt.talk.common.param.MessageSendReq;
+import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.result.GroupCmdResult;
 import com.blt.talk.common.util.CommonUtils;
+import com.blt.talk.common.util.SecurityUtils;
 import com.blt.talk.message.server.RouterServerConnecter;
 import com.blt.talk.message.server.handler.IMMessageHandler;
 import com.blt.talk.message.server.manager.ClientUser;
@@ -41,6 +56,7 @@ import com.blt.talk.message.server.remote.GroupService;
 //import com.blt.talk.message.server.manager.ClientConnection;
 //import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.blt.talk.message.server.remote.MessageService;
+import com.google.protobuf.ByteString;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -264,38 +280,136 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
         
         // 服务器没有群的信息，向DB服务器请求群信息，并带上消息作为附件，返回时在发送该消息给其他群成员
         // 查询群员，然后推送消息
-        List<Long> groupIdList = new ArrayList<>();
-        groupIdList.add(msgdata.getToSessionId());
-        BaseModel<List<GroupEntity>> groupListRes = groupService.groupInfoList(groupIdList);
-        if (groupListRes.getCode() == GroupCmdResult.SUCCESS.getCode()) {
-            if(groupListRes.getData() != null && !groupListRes.getData().isEmpty()) {
-                List<Long> memberList = groupListRes.getData().get(0).getUserList();
+        BaseModel<GroupPushEntity> groupRes = groupService.getGroupPushInfo(msgdata.getToSessionId());
+        if (groupRes.getCode() == GroupCmdResult.SUCCESS.getCode()) {
+            if(groupRes.getData() != null ) {
+                List<ShieldStatusEntity> memberShieldStatusList = groupRes.getData().getUserList();
+                List<Long> userIdList = new ArrayList<>(); 
+                List<UserTokenInfo> userTokenList = new ArrayList<>();
                 
-                if (memberList.contains(msgdata.getFromUserId())) {
-                    //用户在群中
-                    IMProtoMessage<MessageLite> message = new IMProtoMessage<>(header, msgdata);
-                    for (long userId : memberList) {
-                        ClientUser clientUser = ClientUserManager.getUserById(userId);
-                        if (clientUser == null) {
-                            continue;
-                        }
-                        if (userId == msgdata.getFromUserId()) {
-                            clientUser.broadcast(message, ctx);
-                        } else {
-                            clientUser.broadcast(message, null);
-                        }
+                // 群消息广播/推送
+                IMProtoMessage<MessageLite> message = new IMProtoMessage<>(header, msgdata);
+                for (ShieldStatusEntity userShieldStatus : memberShieldStatusList) {
+                    
+                    // 处理token
+                    if (userShieldStatus.getUserToken() != null) {
+                        UserTokenInfo token = UserTokenInfo.newBuilder().setPushCount(1).setPushType(1)
+                                .setToken(userShieldStatus.getUserToken())
+                                .setUserId(userShieldStatus.getUserId())
+                                .setUserType(CommonUtils.getClientTypeOfToken(userShieldStatus.getUserToken())).build();
+                           ;
+                        userTokenList.add(token);
+                    }
+                    
+                    
+                    ClientUser clientUser = ClientUserManager.getUserById(userShieldStatus.getUserId());
+                    if (clientUser == null) {
+                        userIdList.add(userShieldStatus.getUserId());
+                        
+                        
+                        continue;
+                    }
+                    if (userShieldStatus.getUserId() == msgdata.getFromUserId()) {
+                        clientUser.broadcast(message, ctx);
+                    } else {
+                        clientUser.broadcast(message, null);
+                        userIdList.add(userShieldStatus.getUserId());
                     }
                 }
+                
+                // 群消息推送相关
+                JSONObject groupPushJson = new JSONObject();
+                groupPushJson.put("msg_type", msgdata.getMsgType().getNumber());
+                groupPushJson.put("from_id", msgdata.getFromUserId());
+                groupPushJson.put("group_id", msgdata.getToSessionId());
+                
+                ClientUser imSenderUser = ClientUserManager.getUserById(msgdata.getFromUserId());
+                String msgFlash = buildIosPushFlash(imSenderUser.getNickName(), msgdata);
+                IMPushToUserReq pushToUserReq = IMPushToUserReq.newBuilder()
+                        .setFlash(msgFlash).setData(groupPushJson.toJSONString())
+                        .addAllUserTokenList(userTokenList).build();
+                
+                // 查询在线状态
+                // 查询完成后，处理推送
+                PduAttachData attachData = new PduAttachData(AttachType.PDU_FOR_PUSH,
+                        0, 0, pushToUserReq.toByteString());
+                
+                IMUsersStatReq userStatReq = IMUsersStatReq.newBuilder()
+                        .setUserId(msgdata.getFromUserId()).addAllUserIdList(userIdList)
+                        .setAttachData(ByteString.copyFrom(attachData.getBufferData())).build();
+                
+                IMHeader headerStatReq = new DefaultIMHeader(BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_REQUEST_VALUE);
+                routerConnector.send(new IMProtoMessage<>(headerStatReq, userStatReq));
+
+//                // 推送
+//                List<UserToken> userTokens = new ArrayList<>();
+//                for (ShieldStatusEntity userShieldStatus: memberShieldStatusList) {
+//                    if (msgdata.getFromUserId() == userShieldStatus.getUserId()) {
+//                        continue;
+//                    }
+//                    
+//                    ClientUser imUser = ClientUserManager.getUserById(userShieldStatus.getUserId());
+//                    if (imUser != null) {
+//                        UserToken userToken = new UserToken();
+//                        
+//                        // PC端登录后，不处理IOS推送
+//                        userToken.setUserId(userShieldStatus.getUserId());
+//                        userToken.setUserToken(userToken);
+//                        userTokens.add(userToken);
+//                    }
+//                    
+//                }
+//                
+//                // 推送当前Server的用户
+//                
+//                // 推送其他Server用户
             }
-            
-            // FIXME > 群消息推送相关
-            // CID_OTHER_GET_SHIELD_REQ - CID_OTHER_GET_SHIELD_RSP
-            // 获取一个群的推送设置
-            
-            // CID_OTHER_GET_DEVICE_TOKEN_REQ - CID_OTHER_GET_DEVICE_TOKEN_RSP
-            // push
         }
 
+    }
+
+    /**
+     * IOS推着内容
+     * 
+     * @param sender 发送者
+     * @param msgdata 消息
+     * @return IOS推送消息
+     * @since  1.1
+     */
+    private String buildIosPushFlash(String sender, IMMsgData msgdata) {
+
+        if (CommonUtils.isAudio(msgdata.getMsgType())) {
+            if (sender == null) {
+                return MessageConstant.COMMON_MSG;
+            } else {
+                StringBuffer sb = new StringBuffer();
+                if (CommonUtils.isGroup(msgdata.getMsgType())) {
+
+                    sb.append(sender).append("在群聊中发送了一条语音消息");
+                } else {
+                    sb.append(sender).append("给您发送了一条语音消息");
+                }
+                return sb.toString();
+            }
+            
+        } else {
+            if (sender == null) {
+                return MessageConstant.COMMON_MSG;
+            } else {
+                byte[] conBytes =  SecurityUtils.getInstance().DecryptMsg(msgdata.getMsgData().toByteArray());
+                String content = new String(conBytes); 
+                
+                // 判断开头与结尾
+                if (content.startsWith(MessageConstant.IMAGE_MSG_START)
+                        && content.endsWith(MessageConstant.IMAGE_MSG_END)) {
+                    return MessageConstant.IMAGE_COMMON_MSG;
+                } else {
+                    StringBuffer sb = new StringBuffer();
+                    sb.append(sender).append("").append(content);
+                    return sb.toString();
+                }
+            } 
+        }
     }
 
     /*

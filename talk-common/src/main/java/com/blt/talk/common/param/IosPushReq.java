@@ -17,6 +17,8 @@ public class IosPushReq {
     
     private String content;
     
+    private int pushType;
+    
     private int msgType;
     
     private Long fromId;
@@ -39,6 +41,22 @@ public class IosPushReq {
     public void setContent(String content) {
         this.content = content;
     }
+
+    /**
+     * @return the pushType
+     */
+    public int getPushType() {
+        return pushType;
+    }
+
+
+    /**
+     * @param pushType the pushType to set
+     */
+    public void setPushType(int pushType) {
+        this.pushType = pushType;
+    }
+
 
     /**
      * @return the msgType

@@ -36,8 +36,8 @@ public interface LoginService {
      * @return 
      * @since  1.0
      */
-    @PostMapping(path = "/login/setdeviceToken")
-    BaseModel<Long> setdeviceToken(@RequestBody UserToken userToken);
+    @PostMapping(path = "/login/deviceToken")
+    BaseModel<Long> setDeviceToken(@RequestBody UserToken userToken);
     
     @PostMapping(path = "/login/kickPcClient")
     BaseModel<Long> kickPcClient(@RequestBody KickUserReq kickUserReq );//route

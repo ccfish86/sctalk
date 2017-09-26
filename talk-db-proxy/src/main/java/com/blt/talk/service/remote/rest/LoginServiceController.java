@@ -131,7 +131,7 @@ public class LoginServiceController {
      * @return 设置结果
      * @since  1.0
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/login/setdeviceToken")
+    @RequestMapping(method = RequestMethod.POST, value = "/login/deviceToken")
     public BaseModel<?> setDeviceToken(@RequestBody UserToken param) {
 
         // 存储> Redis: RedisKeys(user_info_${user_id}/token)

@@ -16,8 +16,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
+import com.blt.talk.common.code.PduAttachData;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.FileCmdID;
@@ -25,7 +28,9 @@ import com.blt.talk.common.code.proto.IMBaseDefine.GroupCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.OtherCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SwitchServiceCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.UserStat;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
+import com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo;
 import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.IMBuddy.IMPCLoginStatusNotify;
 import com.blt.talk.common.code.proto.IMFile;
@@ -34,17 +39,23 @@ import com.blt.talk.common.code.proto.IMMessage.IMMsgData;
 import com.blt.talk.common.code.proto.IMMessage.IMMsgDataReadNotify;
 import com.blt.talk.common.code.proto.IMOther;
 import com.blt.talk.common.code.proto.IMServer;
+import com.blt.talk.common.code.proto.IMServer.IMPushToUserReq;
 import com.blt.talk.common.code.proto.IMServer.IMServerKickUser;
 import com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify;
 import com.blt.talk.common.code.proto.IMSwitchService;
+import com.blt.talk.common.constant.AttachType;
+import com.blt.talk.common.constant.PushConstant;
 import com.blt.talk.common.constant.SysConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
+import com.blt.talk.common.param.IosPushReq;
+import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.result.GroupCmdResult;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.message.server.MessageServerStarter;
 import com.blt.talk.message.server.RouterServerConnecter;
 import com.blt.talk.message.server.remote.GroupService;
+import com.blt.talk.message.server.remote.IphonePushService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.MessageLite;
 
@@ -106,54 +117,38 @@ public class RouterHandlerManager {
 	}
 
 	/**
+	 * 通信录相关处理
+	 * 
 	 * @param ctx
 	 * @param commandId
 	 * @param header
 	 * @param body
 	 * @since 1.0
 	 */
-	public void doBuddyList(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
+    public void doBuddyList(ChannelHandlerContext ctx, short commandId, IMHeader header,
+            MessageLite body) {
 
-		logger.info("doBuddyList");
-		switch (commandId) {
-		// case
-		// BuddyListCmdID.CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST_VALUE:
-		// break;
-		case BuddyListCmdID.CID_BUDDY_LIST_STATUS_NOTIFY_VALUE:
-			// send friend online message to client
-			sendStatusNotify(header, body, ctx);
-			break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_REQUEST_VALUE:
-		// break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_REQ_VALUE:
-		// break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_REQUEST_VALUE:
-		// break;
-		case BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_RESPONSE_VALUE:
-			// send back to user
-			sendUsersStatus(header, body, ctx);
-			break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_CHANGE_AVATAR_REQUEST_VALUE:
-		// break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_PC_LOGIN_STATUS_NOTIFY_VALUE:
-		// break;
-		 case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE: //todebug
-			 removeSessionNotify(header, body, ctx);
-		 break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_DEPARTMENT_REQUEST_VALUE:
-		// break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY_VALUE:
-		// break;
-		// case BuddyListCmdID.CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST_VALUE:
-		// break;
-		 case BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE: //todebug
-			  signInfoChangedNotify(header, body, ctx);
-		 break;
-		default:
-			logger.warn("Unsupport command id {}", commandId);
-			break;
-		}
-	}
+        logger.info("doBuddyList");
+        switch (commandId) {
+            case BuddyListCmdID.CID_BUDDY_LIST_STATUS_NOTIFY_VALUE:
+                // send friend online message to client
+                handleStatusNotify(header, body, ctx);
+                break;
+            case BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_RESPONSE_VALUE:
+                // send back to user
+                handleUsersStatus(header, body, ctx);
+                break;
+            case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE: // todebug
+                removeSessionNotify(header, body, ctx);
+                break;
+            case BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE: // todebug
+                signInfoChangedNotify(header, body, ctx);
+                break;
+            default:
+                logger.warn("Unsupport command id {}", commandId);
+                break;
+        }
+    }
 
 	/**
 	 * 
@@ -194,24 +189,94 @@ public class RouterHandlerManager {
 	 * @param ctx
 	 * @since 1.0
 	 */
-	private void sendStatusNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+	private void handleStatusNotify(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 		// 通知好友及关联群组的用户在线状况
 		ClientUserManager.broadCast(new IMProtoMessage<>(header, body), SysConstant.CLIENT_TYPE_FLAG_PC);
 	}
 
-	/**
-	 * @param header
-	 * @param body
-	 * @param ctx
-	 * @since 1.0
-	 */
-	private void sendUsersStatus(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-		IMBuddy.IMUsersStatRsp usersStatRsp = (IMBuddy.IMUsersStatRsp) body;
-		ClientUser client = ClientUserManager.getUserById(usersStatRsp.getUserId());
-		if (client != null) {
-			client.broadcast(new IMProtoMessage<MessageLite>(header, body), ctx);
-		}
-	}
+    /**
+     * 处理用户状态查询响应
+     * 
+     * @param header
+     * @param body
+     * @param ctx
+     * @since 1.0
+     */
+    private void handleUsersStatus(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+        IMBuddy.IMUsersStatRsp usersStatRsp = (IMBuddy.IMUsersStatRsp) body;
+        PduAttachData attachData = new PduAttachData(usersStatRsp.getAttachData());
+
+        if (attachData.getType() == AttachType.HANDLE) {
+            int handleId = attachData.getHandle();
+            ChannelHandlerContext msgCtx =
+                    ClientUserManager.getConnByHandle(usersStatRsp.getUserId(), handleId);
+            if (msgCtx != null) {
+                msgCtx.writeAndFlush(new IMProtoMessage<MessageLite>(header, body));
+            }
+        } else if (attachData.getType() == AttachType.PDU_FOR_PUSH) {
+            
+            try {
+                
+                List<UserToken> userTokenList = new ArrayList<>();
+                List<UserToken> olUserTokenList = new ArrayList<>();
+                
+                IMPushToUserReq pushToUserReq = IMPushToUserReq.parseFrom(attachData.getPdu());
+                for (UserStat userStat : usersStatRsp.getUserStatListList()) {
+                    UserToken userToken = new UserToken();
+                    userToken.setUserId(userStat.getUserId());
+                    for (UserTokenInfo utokenInfo : pushToUserReq.getUserTokenListList()) {
+                        if (utokenInfo.getUserId() == userStat.getUserId()) {
+                            userToken.setUserToken(utokenInfo.getToken());
+                            break;
+                        }
+                    }
+                    
+                    if (userStat.getStatus() == UserStatType.USER_STATUS_ONLINE) {
+                        // userToken.setPushType(PushConstant.IM_PUSH_TYPE_SILENT);
+                        olUserTokenList.add(userToken);
+                    } else {
+                        // userToken.setPushType(PushConstant.IM_PUSH_TYPE_NORMAL);
+                        userTokenList.add(userToken);
+                    }
+                }
+                
+                JSONObject pushJson = JSON.parseObject(pushToUserReq.getData());
+                
+                // 推送
+                
+                IphonePushService iphonePushService = applicationContext.getBean(IphonePushService.class);
+                if (iphonePushService != null) {
+                    if (!userTokenList.isEmpty()) {
+                        IosPushReq pushReq = new IosPushReq();
+                        pushReq.setContent(pushToUserReq.getFlash());
+                        pushReq.setMsgType(pushJson.getIntValue("msg_type"));
+                        pushReq.setFromId(pushJson.getLong("from_id"));
+                        pushReq.setGroupId(pushJson.getLong("group_id"));
+                        pushReq.setPushType(PushConstant.IM_PUSH_TYPE_NORMAL);
+                        pushReq.setUserTokenList(userTokenList);
+                        iphonePushService.sendToUsers(pushReq);
+                    }
+                    if (!olUserTokenList.isEmpty()) {
+                        IosPushReq pushReq = new IosPushReq();
+                        pushReq.setContent(pushToUserReq.getFlash());
+                        pushReq.setMsgType(pushJson.getIntValue("msg_type"));
+                        pushReq.setFromId(pushJson.getLong("from_id"));
+                        pushReq.setGroupId(pushJson.getLong("group_id"));
+                        pushReq.setPushType(PushConstant.IM_PUSH_TYPE_SILENT);
+                        pushReq.setUserTokenList(olUserTokenList);
+                        iphonePushService.sendToUsers(pushReq);
+                    }
+                }
+                
+            } catch (InvalidProtocolBufferException e) {
+                // e.printStackTrace();
+                logger.warn("推送消息解码失败！", e);
+            }
+        } else {
+            // 暂不支持，待追加
+        }
+
+    }
 
 	/**
 	 * @param ctx

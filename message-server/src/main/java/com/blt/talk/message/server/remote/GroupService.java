@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
+import com.blt.talk.common.model.entity.GroupPushEntity;
+import com.blt.talk.common.model.entity.ShieldStatusEntity;
 import com.blt.talk.common.param.GroupPushReq;
 import com.blt.talk.common.param.GroupUpdateMemberReq;
 
@@ -39,7 +41,7 @@ public interface GroupService {
     
     /**
      * 查询组的属性
-     * @param groupVersionList
+     * @param groupIdList
      * @return
      * @since  1.0
      */
@@ -52,8 +54,17 @@ public interface GroupService {
      * @return
      * @since  1.0
      */
+    @GetMapping(path = "/group/groupPushInfo")
+    BaseModel<GroupPushEntity> getGroupPushInfo(@RequestParam("groupId") Long groupId);
+    
+    /**
+     * 查询组的属性
+     * @param groupVersionList
+     * @return
+     * @since  1.0
+     */
     @PostMapping(path = "/group/infoList")
-    BaseModel<List<GroupEntity>> groupInfoList(@RequestBody Map<String, Integer> groupIdList);
+    BaseModel<List<GroupEntity>> groupInfoList(@RequestBody Map<String, Integer> groupVersionList);
     
     /**
      * 创建群组
@@ -74,16 +85,6 @@ public interface GroupService {
     BaseModel<List<Long>> changeGroupMember(@RequestBody GroupUpdateMemberReq groupMember);
 
     /**
-     * 获取一个群的推送设置
-     * @param groupId 群ID
-     * @param userId 用户ID
-     * @return
-     * @since  1.0
-     */
-    @GetMapping(path = "/group/pushStatus")
-    public BaseModel<Integer> getGroupPush(@RequestParam("groupId") long groupId, @RequestParam("userId") long userId);
-
-    /**
      * 设置群组信息推送，屏蔽或者取消屏蔽
      * @param groupPushReq
      * @return
@@ -91,4 +92,16 @@ public interface GroupService {
      */
     @PostMapping(path = "/group/updatePushStatus")
     BaseModel<Integer> setGroupPush(@RequestBody GroupPushReq groupPushReq);
+    
+    /**
+     * 获取一个群的推送设置
+     * @param groupId 群ID
+     * @param userId 用户ID
+     * @return
+     * @since  1.0
+     */
+    @GetMapping(path = "/group/pushStatus")
+    public BaseModel<List<ShieldStatusEntity>> getGroupPush(@RequestParam("groupId") long groupId,
+            @RequestParam("userId") List<Long> userId);
+
 }

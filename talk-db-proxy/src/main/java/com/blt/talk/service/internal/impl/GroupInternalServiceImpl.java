@@ -22,6 +22,7 @@ import com.blt.talk.common.model.entity.ShieldStatusEntity;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.service.internal.GroupInternalService;
 import com.blt.talk.service.internal.SessionService;
+import com.blt.talk.service.internal.UserTokenService;
 import com.blt.talk.service.jpa.entity.IMGroup;
 import com.blt.talk.service.jpa.entity.IMGroupMember;
 import com.blt.talk.service.jpa.repository.IMGroupMemberRepository;
@@ -46,6 +47,8 @@ public class GroupInternalServiceImpl implements GroupInternalService {
     private IMGroupRepository groupRepository;
     @Autowired
     private SessionService sessionService;
+    @Autowired
+    private UserTokenService userTokenService;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -228,9 +231,9 @@ public class GroupInternalServiceImpl implements GroupInternalService {
             String status = statusList.get(i);
             String userId = userIdList.get(i);
             ShieldStatusEntity shieldStatus = new ShieldStatusEntity();
-            shieldStatus.setGroupId(groupId);
             shieldStatus.setUserId(Long.valueOf(userId));
             shieldStatus.setShieldStatus(status == null?DBConstant.GROUP_STATUS_ONLINE: DBConstant.GROUP_STATUS_SHIELD);
+            shieldStatus.setUserToken(userTokenService.getToken(userId));
             shieldStatusList.add(shieldStatus);
         }
         

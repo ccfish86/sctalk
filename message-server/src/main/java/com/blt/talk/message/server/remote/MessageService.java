@@ -20,6 +20,7 @@ import com.blt.talk.common.param.GroupMessageSendReq;
 import com.blt.talk.common.param.MessageSendReq;
 
 /**
+ * 消息处理Service
  * 
  * @author 袁贵
  * @version 1.0

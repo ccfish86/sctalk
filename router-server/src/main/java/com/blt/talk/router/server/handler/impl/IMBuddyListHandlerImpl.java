@@ -61,6 +61,7 @@ public class IMBuddyListHandlerImpl implements IMBuddyListHandler {
         IMBuddy.IMUsersStatRsp.Builder userStatRes = IMBuddy.IMUsersStatRsp.newBuilder();
         userStatRes.addAllUserStatList(userStatList);
         userStatRes.setUserId(usersStatReq.getUserId());
+        userStatRes.setAttachData(usersStatReq.getAttachData());
         
         IMHeader headerRes = header.clone();
         headerRes.setCommandId((short)BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_RESPONSE_VALUE);
