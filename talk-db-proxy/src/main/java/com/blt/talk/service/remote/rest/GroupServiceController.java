@@ -144,7 +144,7 @@ public class GroupServiceController {
      */
     @GetMapping(path = "/groupPushInfo")
     @Transactional(readOnly = true)
-    public BaseModel<GroupPushEntity> getGroupPushInfo(@RequestParam("groupId") Long groupId, @RequestParam("userId") Long userId) {
+    public BaseModel<GroupPushEntity> getGroupPushInfo(@RequestParam("groupId") Long groupId) {
         
         BaseModel<GroupPushEntity> groupRes = new BaseModel<>();
         IMGroup group = groupRepository.findOne(groupId);
