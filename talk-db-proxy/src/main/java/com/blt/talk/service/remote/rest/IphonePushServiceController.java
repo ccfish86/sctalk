@@ -7,9 +7,11 @@ import java.util.concurrent.Callable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blt.talk.common.model.BaseModel;
@@ -112,6 +114,20 @@ public class IphonePushServiceController {
                 }
             }
         };
+    }
+    
+    /**
+     * 用户device token取得
+     * @param userId
+     * @return
+     * @since  3.0
+     */
+    @GetMapping(value = "/deviceToken")
+    BaseModel<String> userDeviceToken(@RequestParam("userId") long userId){
+        String userToken = userTokenService.getToken(userId);
+        BaseModel<String> result = new BaseModel<>();
+        result.setData(userToken);
+        return result;
     }
 
 }

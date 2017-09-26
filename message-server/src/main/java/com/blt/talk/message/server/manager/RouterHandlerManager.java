@@ -207,7 +207,7 @@ public class RouterHandlerManager {
         PduAttachData attachData = new PduAttachData(usersStatRsp.getAttachData());
 
         if (attachData.getType() == AttachType.HANDLE) {
-            int handleId = attachData.getHandle();
+            Long handleId = attachData.getHandle();
             ChannelHandlerContext msgCtx =
                     ClientUserManager.getConnByHandle(usersStatRsp.getUserId(), handleId);
             if (msgCtx != null) {

@@ -4,7 +4,6 @@
 
 package com.blt.talk.message.server.handler.impl;
 
-import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,6 @@ import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.PduAttachData;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
-import com.blt.talk.common.code.proto.IMBaseDefine.ClientType;
 import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MsgType;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
@@ -42,9 +40,7 @@ import com.blt.talk.common.model.entity.ShieldStatusEntity;
 import com.blt.talk.common.model.entity.UnreadEntity;
 import com.blt.talk.common.param.ClearUserCountReq;
 import com.blt.talk.common.param.GroupMessageSendReq;
-import com.blt.talk.common.param.GroupPushReq;
 import com.blt.talk.common.param.MessageSendReq;
-import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.result.GroupCmdResult;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.common.util.SecurityUtils;
@@ -53,6 +49,8 @@ import com.blt.talk.message.server.handler.IMMessageHandler;
 import com.blt.talk.message.server.manager.ClientUser;
 import com.blt.talk.message.server.manager.ClientUserManager;
 import com.blt.talk.message.server.remote.GroupService;
+import com.blt.talk.message.server.remote.IphonePushService;
+import com.blt.talk.message.server.remote.LoginService;
 //import com.blt.talk.message.server.manager.ClientConnection;
 //import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.blt.talk.message.server.remote.MessageService;
@@ -77,6 +75,10 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
     private MessageService messageService;
     @Autowired
     private GroupService groupService;
+    @Autowired
+    private IphonePushService iphonePushService;
+    @Autowired
+    private LoginService loginService;
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -243,8 +245,48 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
             toClientUser.broadcast(message, null);
         }
 
-        // FIXME > 消息推送相关
+        // 消息推送相关
+        List<Long> userIdList = new ArrayList<>();
+        userIdList.add(msgdata.getToSessionId());
+        
         // CID_OTHER_GET_DEVICE_TOKEN_REQ - CID_OTHER_GET_DEVICE_TOKEN_RES
+        BaseModel<String> userTokenRes = iphonePushService.userDeviceToken(msgdata.getToSessionId());
+        
+        if (userTokenRes.getCode() == 0) {
+            String userToken = userTokenRes.getData();
+            if (userTokenRes != null) {
+                List<UserTokenInfo> userTokenList = new ArrayList<>();
+                UserTokenInfo tokenInfo = UserTokenInfo.newBuilder().setPushCount(1).setPushType(1)
+                        .setToken(userToken)
+                        .setUserId(msgdata.getToSessionId())
+                        .setUserType(CommonUtils.getClientTypeOfToken(userToken)).build();
+                userTokenList.add(tokenInfo);
+                
+                
+                JSONObject groupPushJson = new JSONObject();
+                groupPushJson.put("msg_type", msgdata.getMsgType().getNumber());
+                groupPushJson.put("from_id", msgdata.getFromUserId());
+                
+                ClientUser imSenderUser = ClientUserManager.getUserById(msgdata.getFromUserId());
+                String msgFlash = buildIosPushFlash(imSenderUser.getNickName(), msgdata);
+                IMPushToUserReq pushToUserReq = IMPushToUserReq.newBuilder()
+                        .setFlash(msgFlash).setData(groupPushJson.toJSONString())
+                        .addAllUserTokenList(userTokenList).build();
+                
+                // 查询在线状态
+                // 查询完成后，处理推送
+                PduAttachData attachData = new PduAttachData(AttachType.PDU_FOR_PUSH,
+                        0L, 0, pushToUserReq.toByteString());
+                
+                IMUsersStatReq userStatReq = IMUsersStatReq.newBuilder()
+                        .setUserId(msgdata.getFromUserId()).addAllUserIdList(userIdList)
+                        .setAttachData(ByteString.copyFrom(attachData.getBufferData())).build();
+                
+                IMHeader headerStatReq = new DefaultIMHeader(BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_REQUEST_VALUE);
+                routerConnector.send(new IMProtoMessage<>(headerStatReq, userStatReq));
+            }
+        }
+
     }
 
     /**
@@ -291,13 +333,16 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
                 IMProtoMessage<MessageLite> message = new IMProtoMessage<>(header, msgdata);
                 for (ShieldStatusEntity userShieldStatus : memberShieldStatusList) {
                     
+                    if (userShieldStatus.getShieldStatus() == DBConstant.GROUP_STATUS_SHIELD) {
+                        continue;
+                    }
+                    
                     // 处理token
                     if (userShieldStatus.getUserToken() != null) {
                         UserTokenInfo token = UserTokenInfo.newBuilder().setPushCount(1).setPushType(1)
                                 .setToken(userShieldStatus.getUserToken())
                                 .setUserId(userShieldStatus.getUserId())
                                 .setUserType(CommonUtils.getClientTypeOfToken(userShieldStatus.getUserToken())).build();
-                           ;
                         userTokenList.add(token);
                     }
                     
@@ -332,7 +377,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
                 // 查询在线状态
                 // 查询完成后，处理推送
                 PduAttachData attachData = new PduAttachData(AttachType.PDU_FOR_PUSH,
-                        0, 0, pushToUserReq.toByteString());
+                        0L, 0, pushToUserReq.toByteString());
                 
                 IMUsersStatReq userStatReq = IMUsersStatReq.newBuilder()
                         .setUserId(msgdata.getFromUserId()).addAllUserIdList(userIdList)

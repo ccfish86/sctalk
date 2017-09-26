@@ -7,8 +7,10 @@ package com.blt.talk.message.server.remote;
 import java.util.concurrent.Callable;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.param.IosPushReq;
@@ -31,5 +33,14 @@ public interface IphonePushService {
      */
     @PostMapping(value = "/push/toUsers")
     Callable<BaseModel<?>> sendToUsers(@RequestBody IosPushReq pushReq);
+    
+    /**
+     * 用户device token取得
+     * @param userId
+     * @return
+     * @since  3.0
+     */
+    @GetMapping(value = "/push/deviceToken")
+    BaseModel<String> userDeviceToken(@RequestParam("userId") long userId);
     
 }
