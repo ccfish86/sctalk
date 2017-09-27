@@ -504,9 +504,10 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
             List<IMBaseDefine.UnreadInfo> unreadInfos = new ArrayList<>();
             if (userMessage.getCode() == 0) {
                 if (userMessage.getData() != null) {
-                
                     for (UnreadEntity unreadEntity : userMessage.getData()) {
-                        unreadInfos.add(JavaBean2ProtoBuf.getUnreadInfo(unreadEntity));
+                        if (unreadEntity.getLaststMsgId() > 0) {
+                            unreadInfos.add(JavaBean2ProtoBuf.getUnreadInfo(unreadEntity));
+                        }
                     }                
                     
                 }
