@@ -62,7 +62,6 @@ import com.blt.talk.service.jpa.entity.IMMessage7;
 import com.blt.talk.service.jpa.entity.IMMessage8;
 import com.blt.talk.service.jpa.entity.IMMessage9;
 import com.blt.talk.service.jpa.entity.IMMessageEntity;
-import com.blt.talk.service.jpa.repository.IMGroupMemberRepository;
 import com.blt.talk.service.jpa.repository.IMGroupMessage0Repository;
 import com.blt.talk.service.jpa.repository.IMGroupMessage1Repository;
 import com.blt.talk.service.jpa.repository.IMGroupMessage2Repository;
@@ -101,9 +100,6 @@ public class MessageServiceController {
 
     @Autowired
     private IMGroupRepository groupRepository;
-    @Autowired
-    private IMGroupMemberRepository groupMemberRepository;
-
     @Autowired
     private IMMessage0Repository message0Repository;
     @Autowired
@@ -561,17 +557,6 @@ public class MessageServiceController {
                 break;
         }
         
-        // 查询语音
-        if (messageList!= null) {
-            for (MessageEntity msgEntity : messageList) {
-                if (msgEntity.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE) {
-                    // 语音Base64
-                    byte[] audioData = audioInternalService.readAudioInfo(Long.valueOf(msgEntity.getContent()));
-                    msgEntity.setContent(Base64Utils.encodeToString(audioData));
-                }
-            }
-        }
-
         BaseModel<List<MessageEntity>> messageListRes = new BaseModel<>();
         messageListRes.setData(messageList);
         return messageListRes;
@@ -729,17 +714,6 @@ public class MessageServiceController {
             default:
                 break;
         }
-
-        // 查询语音
-        if (messageList!= null) {
-            for (MessageEntity msgEntity : messageList) {
-                if (msgEntity.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE) {
-                    // 语音Base64
-                    byte[] audioData = audioInternalService.readAudioInfo(Long.valueOf(msgEntity.getContent()));
-                    msgEntity.setContent(Base64Utils.encodeToString(audioData));
-                }
-            }
-        }
         
         BaseModel<List<MessageEntity>> messageListRes = new BaseModel<>();
         messageListRes.setData(messageList);
@@ -752,7 +726,13 @@ public class MessageServiceController {
             MessageEntity messageEntity = new MessageEntity();
             messageEntity.setId(message.getId());
             messageEntity.setMsgId(message.getMsgId());
-            messageEntity.setContent(message.getContent());
+            if (message.getType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE) {
+                // 语音Base64
+                byte[] audioData = audioInternalService.readAudioInfo(Long.valueOf(message.getContent()));
+                messageEntity.setContent(Base64Utils.encodeToString(audioData));
+            } else {
+                messageEntity.setContent(message.getContent());
+            }
             messageEntity.setFromId(message.getUserId());
             messageEntity.setCreated(message.getCreated());
             messageEntity.setStatus(message.getStatus());
@@ -769,7 +749,13 @@ public class MessageServiceController {
             MessageEntity messageEntity = new MessageEntity();
             messageEntity.setId(message.getId());
             messageEntity.setMsgId(message.getMsgId());
-            messageEntity.setContent(message.getContent());
+            if (message.getType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE) {
+                // 语音Base64
+                byte[] audioData = audioInternalService.readAudioInfo(Long.valueOf(message.getContent()));
+                messageEntity.setContent(Base64Utils.encodeToString(audioData));
+            } else {
+                messageEntity.setContent(message.getContent());
+            }
             messageEntity.setFromId(message.getUserId());
             messageEntity.setCreated(message.getCreated());
             messageEntity.setStatus(message.getStatus());
