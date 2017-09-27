@@ -726,7 +726,7 @@ public class MessageServiceController {
             MessageEntity messageEntity = new MessageEntity();
             messageEntity.setId(message.getId());
             messageEntity.setMsgId(message.getMsgId());
-            if (message.getType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE) {
+            if (message.getType() == IMBaseDefine.MsgType.MSG_TYPE_GROUP_AUDIO_VALUE) {
                 // 语音Base64
                 byte[] audioData = audioInternalService.readAudioInfo(Long.valueOf(message.getContent()));
                 messageEntity.setContent(Base64Utils.encodeToString(audioData));
