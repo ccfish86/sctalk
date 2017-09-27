@@ -337,7 +337,7 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
     	IMPushShieldRsp pushShieldRsp = null;
     	
     	try {   	  		
-    		BaseModel<Long> pushShieldRes  = loginService.pushShield(pushShieldReq.getUserId());
+    		BaseModel<Integer> pushShieldRes  = loginService.pushShield(pushShieldReq.getUserId(), pushShieldReq.getShieldStatus());
     		
     		pushShieldRsp = IMPushShieldRsp.newBuilder()
     				            .setUserId(userId)
@@ -367,22 +367,25 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
         IMQueryPushShieldRsp queryPushShieldRsp = null;
     	
     	try {   	  		
-    		BaseModel<Long> queryPushShieldRes  = loginService.pushShield(queryPushShieldReq.getUserId());
+    		BaseModel<Integer> queryPushShieldRes  = loginService.queryPushShield(queryPushShieldReq.getUserId());
     		
     		queryPushShieldRsp = IMQueryPushShieldRsp.newBuilder()
     				            .setUserId(userId)
-    				            .setShieldStatus(queryPushShieldRes.getData().intValue())
+    				            .setShieldStatus(queryPushShieldRes.getData())
     				            .setResultCode(queryPushShieldRes.getCode())
     				            .build();    
     		resHeader = header.clone();
     		resHeader.setCommandId((short)LoginCmdID.CID_LOGIN_RES_QUERY_PUSH_SHIELD_VALUE);
     		
     		ctx.writeAndFlush(new IMProtoMessage<>(resHeader, queryPushShieldRsp));
-    		
     	} catch(Exception e){
     		
     		logger.error("服务器端异常", e);
-    		ctx.writeAndFlush(new IMProtoMessage<>(resHeader, queryPushShieldRsp));
+
+            // 异常时，处理(0:successed 1:failed)
+            queryPushShieldRsp = IMQueryPushShieldRsp.newBuilder().setUserId(userId)
+                    .setResultCode(6).build();
+            ctx.writeAndFlush(new IMProtoMessage<>(resHeader, queryPushShieldRsp));
     	} 
     }
 

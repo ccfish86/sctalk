@@ -21,6 +21,8 @@ public abstract class RedisKeys {
     public static String USER_INFO = "usr";
     /** 用户临时信息-密码错误 */
     public static String USER_LOGIN_FAILD = "ulf";
+    /** 用户信息(防打扰开关) */
+    public static String USER_SHIELD = "shield";
     
     /** 用户信息-用户未读 */
     public static String USER_UNREAD = "usr_unr";

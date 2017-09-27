@@ -42,10 +42,10 @@ public interface LoginService {
     @PostMapping(path = "/login/kickPcClient")
     BaseModel<Long> kickPcClient(@RequestBody KickUserReq kickUserReq );//route
     
-    @GetMapping(path = "/login/pushShield")
-    BaseModel<Long> pushShield(@RequestParam("userId") long userId);
+    @PostMapping(path = "/login/pushShield")
+    BaseModel<Integer> pushShield(@RequestParam("userId") long userId, @RequestParam("shieldStatus") int shieldStatus);
     
     @GetMapping(path = "/login/queryPushShield")
-    BaseModel<Long> queryPushShield(@RequestParam("userId") long userId);
+    BaseModel<Integer> queryPushShield(@RequestParam("userId") long userId);
     
 }

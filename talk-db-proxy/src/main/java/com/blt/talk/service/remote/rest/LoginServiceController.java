@@ -15,10 +15,12 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blt.talk.common.code.proto.IMBaseDefine.ClientType;
@@ -170,4 +172,27 @@ public class LoginServiceController {
         return new BaseModel<>();
     }
 
+    @PostMapping(path = "/login/pushShield")
+    public BaseModel<Integer> pushShield(@RequestParam("userId") long userId, @RequestParam("shieldStatus") int shieldStatus) {
+        String key = RedisKeys.concat(RedisKeys.USER_INFO, userId); 
+        HashOperations<String, String, String> userMapOps = redisTemplate.opsForHash();
+        userMapOps.put(key, RedisKeys.USER_SHIELD, String.valueOf(shieldStatus));
+        
+        return new BaseModel<Integer>();
+    }
+    
+    @GetMapping(path = "/login/queryPushShield")
+    public BaseModel<Integer> queryPushShield(@RequestParam("userId") long userId) {
+        
+        String key = RedisKeys.concat(RedisKeys.USER_INFO, userId); 
+        HashOperations<String, String, String> userMapOps = redisTemplate.opsForHash();
+        String shieldStatus = userMapOps.get(key, RedisKeys.USER_SHIELD);
+        
+        BaseModel<Integer> res = new BaseModel<Integer>();
+        if (shieldStatus != null) {
+            res.setData(Integer.valueOf(shieldStatus));
+        }
+        return res;
+    }
+    
 }
