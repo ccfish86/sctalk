@@ -6,8 +6,6 @@ package com.blt.talk.service.remote.rest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,13 +35,11 @@ import com.blt.talk.common.param.ClearUserCountReq;
 import com.blt.talk.common.param.GroupMessageSendReq;
 import com.blt.talk.common.param.MessageSendReq;
 import com.blt.talk.common.util.CommonUtils;
-import com.blt.talk.common.util.SecurityUtils;
 import com.blt.talk.service.internal.AudioInternalService;
 import com.blt.talk.service.internal.MessageService;
 import com.blt.talk.service.internal.RelationShipService;
 import com.blt.talk.service.internal.SessionService;
 import com.blt.talk.service.jpa.entity.IMGroup;
-import com.blt.talk.service.jpa.entity.IMGroupMember;
 import com.blt.talk.service.jpa.entity.IMGroupMessage0;
 import com.blt.talk.service.jpa.entity.IMGroupMessage1;
 import com.blt.talk.service.jpa.entity.IMGroupMessage2;
@@ -368,7 +364,7 @@ public class MessageServiceController {
      * @return 未读消息列表
      * @since  1.0
      */
-    @GetMapping(path = "/message/allUnreadCount")
+    @GetMapping(path = "/allUnreadCount")
     @Transactional
     public BaseModel<List<UnreadEntity>> getAllUnreadMsgCount(@RequestParam("userId") long userId) {
 
