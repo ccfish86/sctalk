@@ -1,11 +1,15 @@
 package com.blt.talk.common.util;
 
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * AES加密/解密类
@@ -24,6 +28,7 @@ public class AESUtils {
 
     /** AES/ECB/NoPadding:为兼容c++，手动补位（最后4byte补长度）, AES/ECB/ZeroBytePadding */
     private static final String PADDING = "AES/ECB/NoPadding";
+    private static final Logger logger = LoggerFactory.getLogger(AESUtils.class);
 
     protected static SecretKeySpec makeKey() throws NoSuchAlgorithmException, UnsupportedEncodingException, NoSuchProviderException {
 
@@ -43,6 +48,8 @@ public class AESUtils {
             Cipher cipher = Cipher.getInstance(PADDING);
             cipher.init(Cipher.ENCRYPT_MODE, makeKey());
             return cipher.doFinal(content);
+        } catch (InvalidKeyException ie) {
+            logger.error("当前的JDK，不支持128以上密钥。", ie);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,7 +83,10 @@ public class AESUtils {
             Cipher cipher = Cipher.getInstance(PADDING);
             cipher.init(Cipher.DECRYPT_MODE, makeKey());
             return cipher.doFinal(content);
+        } catch (InvalidKeyException ie) {
+            logger.error("当前的JDK，不支持128以上密钥。", ie);
         } catch (Exception e) {
+            logger.warn("数据无法解密，{}", content);
             e.printStackTrace();
         }
         return null;

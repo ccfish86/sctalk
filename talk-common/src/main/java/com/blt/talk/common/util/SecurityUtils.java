@@ -28,6 +28,9 @@ public class SecurityUtils {
         }
         byte[] msg = Base64.decode(byteMsg);
         byte[] pDecData = AESUtils.decrypt(msg);
+        if (pDecData == null || pDecData.length < 4) {
+            return new byte[]{};
+        }
         byte[] lenbytes = Arrays.copyOfRange(pDecData, pDecData.length - 4, pDecData.length);
         int nInLen = CommonUtils.byteArray2int(lenbytes);
 
@@ -48,6 +51,9 @@ public class SecurityUtils {
 
         byte[] msg = Base64.decode(strMsg);
         byte[] pDecData = AESUtils.decrypt(msg);
+        if (pDecData == null || pDecData.length < 4) {
+            return new byte[]{};
+        }
         byte[] lenbytes = Arrays.copyOfRange(pDecData, pDecData.length - 4, pDecData.length);
         int nInLen = CommonUtils.byteArray2int(lenbytes);
 
