@@ -81,7 +81,7 @@ public class RouterHandlerManager {
 	 * 
 	 * @since 1.0
 	 */
-	@Scheduled(fixedRate = 300000)
+	@Scheduled(fixedRate = 30000)
 	public void sendHeartBeat() {
 
 		RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
