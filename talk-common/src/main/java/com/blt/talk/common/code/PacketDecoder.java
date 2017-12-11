@@ -64,7 +64,7 @@ public final class PacketDecoder extends ByteToMessageDecoder {
             IMProtoMessage<MessageLite> protoMessage = new IMProtoMessage<>(header, msg);
             out.add(protoMessage);
             
-            logger.debug("Received protobuf ：length={}, commandId={}", header.getLength(), header.getCommandId());
+            logger.debug("Received protobuf : length={}, commandId={}", header.getLength(), header.getCommandId());
         } catch (Exception e) {
             logger.error(ctx.channel().remoteAddress() + ",decode failed.", e);
         } finally {

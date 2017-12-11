@@ -46,7 +46,7 @@ public final class PacketEncoder extends MessageToByteEncoder<IMProtoMessage<Mes
             }
             
             out.writeBytes(allbytes);
-            logger.debug("Sent protobuf：commandId={}", header.getCommandId());
+            logger.debug("Sent protobuf: commandId={}", header.getCommandId());
         } catch (Exception e) {
             logger.error("编码异常", e);
         } finally {
