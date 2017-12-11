@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.util.concurrent.ListenableFuture;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blt.talk.common.code.DefaultIMHeader;
 import com.blt.talk.common.code.IMHeader;
@@ -24,6 +26,8 @@ import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MsgType;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SessionType;
+import com.blt.talk.common.code.proto.IMBaseDefine.UserStat;
+import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo;
 import com.blt.talk.common.code.proto.IMBuddy.IMUsersStatReq;
 import com.blt.talk.common.code.proto.IMMessage;
@@ -33,6 +37,7 @@ import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
 import com.blt.talk.common.constant.AttachType;
 import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.constant.MessageConstant;
+import com.blt.talk.common.constant.PushConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.MessageEntity;
 import com.blt.talk.common.model.entity.GroupPushEntity;
@@ -40,11 +45,13 @@ import com.blt.talk.common.model.entity.ShieldStatusEntity;
 import com.blt.talk.common.model.entity.UnreadEntity;
 import com.blt.talk.common.param.ClearUserCountReq;
 import com.blt.talk.common.param.GroupMessageSendReq;
+import com.blt.talk.common.param.IosPushReq;
 import com.blt.talk.common.param.MessageSendReq;
+import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.result.GroupCmdResult;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.common.util.SecurityUtils;
-import com.blt.talk.message.server.RouterServerConnecter;
+import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.handler.IMMessageHandler;
 import com.blt.talk.message.server.manager.ClientUser;
 import com.blt.talk.message.server.manager.ClientUserManager;
@@ -54,6 +61,7 @@ import com.blt.talk.message.server.remote.IphonePushService;
 //import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.blt.talk.message.server.remote.MessageService;
 import com.google.protobuf.ByteString;
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -78,6 +86,8 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
     private IphonePushService iphonePushService;
     @Autowired
     private ApplicationContext applicationContext;
+    @Autowired
+    private MessageServerCluster messageServerCluster; 
 
     /*
      * (non-Javadoc)
@@ -225,10 +235,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
         ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageDataAckBuilder.build()));
         
         // 广播
-        RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
-        if (routerConnector != null) {
-            routerConnector.send(new IMProtoMessage<>(header, msgdata), true);
-        }
+        messageServerCluster.send(header, msgdata);
         
         // 消息发送
         IMProtoMessage<MessageLite> message = new IMProtoMessage<>(header, msgdata);
@@ -266,21 +273,31 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
                 
                 ClientUser imSenderUser = ClientUserManager.getUserById(msgdata.getFromUserId());
                 String msgFlash = buildIosPushFlash(imSenderUser.getNickName(), msgdata);
-                IMPushToUserReq pushToUserReq = IMPushToUserReq.newBuilder()
-                        .setFlash(msgFlash).setData(groupPushJson.toJSONString())
-                        .addAllUserTokenList(userTokenList).build();
+//                IMPushToUserReq pushToUserReq = IMPushToUserReq.newBuilder()
+//                        .setFlash(msgFlash).setData(groupPushJson.toJSONString())
+//                        .addAllUserTokenList(userTokenList).build();
                 
                 // 查询在线状态
                 // 查询完成后，处理推送
-                PduAttachData attachData = new PduAttachData(AttachType.PDU_FOR_PUSH,
-                        0L, 0, pushToUserReq.toByteString());
+//                PduAttachData attachData = new PduAttachData(AttachType.PDU_FOR_PUSH,
+//                        0L, 0, pushToUserReq.toByteString());
+//                
+//                IMUsersStatReq userStatReq = IMUsersStatReq.newBuilder()
+//                        .setUserId(msgdata.getFromUserId()).addAllUserIdList(userIdList)
+//                        .setAttachData(ByteString.copyFrom(attachData.getBufferData())).build();
+//                
+//                IMHeader headerStatReq = new DefaultIMHeader(BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_REQUEST_VALUE);
+//                // 广播
+//                messageServerCluster.send(headerStatReq, userStatReq);
+                ListenableFuture<List<IMBaseDefine.UserStat>> userStatFuture = messageServerCluster.userStatusReq(msgdata.getFromUserId(), userIdList);
+                userStatFuture.addCallback((List<IMBaseDefine.UserStat> userStatList) -> {
+                    // 查询用户状态后处理
+                    this.pushToUser(userStatList, userTokenList, groupPushJson, msgFlash);
+                }, (Throwable e) -> {
+                    //  异常处理
+                    logger.warn("处理推送异常", e);
+                });
                 
-                IMUsersStatReq userStatReq = IMUsersStatReq.newBuilder()
-                        .setUserId(msgdata.getFromUserId()).addAllUserIdList(userIdList)
-                        .setAttachData(ByteString.copyFrom(attachData.getBufferData())).build();
-                
-                IMHeader headerStatReq = new DefaultIMHeader(BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_REQUEST_VALUE);
-                routerConnector.send(new IMProtoMessage<>(headerStatReq, userStatReq));
             }
         }
 
@@ -312,10 +329,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
         ctx.writeAndFlush(new IMProtoMessage<>(headerRes, messageDataAckBuilder.build()));
         
         // 广播
-        RouterServerConnecter routerConnector = applicationContext.getBean(RouterServerConnecter.class);
-        if (routerConnector != null) {
-            routerConnector.send(new IMProtoMessage<>(header, msgdata), true);
-        }
+        messageServerCluster.send(header, msgdata);
         
         // 服务器没有群的信息，向DB服务器请求群信息，并带上消息作为附件，返回时在发送该消息给其他群成员
         // 查询群员，然后推送消息
@@ -373,15 +387,24 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
                 
                 // 查询在线状态
                 // 查询完成后，处理推送
-                PduAttachData attachData = new PduAttachData(AttachType.PDU_FOR_PUSH,
-                        0L, 0, pushToUserReq.toByteString());
+//                PduAttachData attachData = new PduAttachData(AttachType.PDU_FOR_PUSH,
+//                        0L, 0, pushToUserReq.toByteString());
+//                
+//                IMUsersStatReq userStatReq = IMUsersStatReq.newBuilder()
+//                        .setUserId(msgdata.getFromUserId()).addAllUserIdList(userIdList)
+//                        .setAttachData(ByteString.copyFrom(attachData.getBufferData())).build();
+//                
+//                IMHeader headerStatReq = new DefaultIMHeader(BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_REQUEST_VALUE);
+//                messageServerCluster.send(headerStatReq, userStatReq);
                 
-                IMUsersStatReq userStatReq = IMUsersStatReq.newBuilder()
-                        .setUserId(msgdata.getFromUserId()).addAllUserIdList(userIdList)
-                        .setAttachData(ByteString.copyFrom(attachData.getBufferData())).build();
-                
-                IMHeader headerStatReq = new DefaultIMHeader(BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_REQUEST_VALUE);
-                routerConnector.send(new IMProtoMessage<>(headerStatReq, userStatReq));
+                ListenableFuture<List<IMBaseDefine.UserStat>> userStatFuture = messageServerCluster.userStatusReq(msgdata.getFromUserId(), userIdList);
+                userStatFuture.addCallback((List<IMBaseDefine.UserStat> userStatList) -> {
+                    // 查询用户状态后处理
+                    this.pushToUser(userStatList, userTokenList, groupPushJson, msgFlash);
+                }, (Throwable e) -> {
+                    // 异常处理
+                    logger.warn("处理推送异常", e);
+                });
 
 //                // 推送
 //                List<UserToken> userTokens = new ArrayList<>();
@@ -773,5 +796,56 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
 
             ctx.writeAndFlush(new IMProtoMessage<>(headerRes, clientTimeRsp));
         }
+    }
+    
+    private void pushToUser(List<UserStat> userStatList, List<UserTokenInfo> allUserTokenList,
+            JSONObject pushJson, String msgFlash) {
+
+        List<UserToken> userTokenList = new ArrayList<>();
+        List<UserToken> olUserTokenList = new ArrayList<>();
+
+        for (UserStat userStat : userStatList) {
+            UserToken userToken = new UserToken();
+            userToken.setUserId(userStat.getUserId());
+            for (UserTokenInfo utokenInfo : allUserTokenList) {
+                if (utokenInfo.getUserId() == userStat.getUserId()) {
+                    userToken.setUserToken(utokenInfo.getToken());
+                    break;
+                }
+            }
+
+            if (userStat.getStatus() == UserStatType.USER_STATUS_ONLINE) {
+                // userToken.setPushType(PushConstant.IM_PUSH_TYPE_SILENT);
+                olUserTokenList.add(userToken);
+            } else {
+                // userToken.setPushType(PushConstant.IM_PUSH_TYPE_NORMAL);
+                userTokenList.add(userToken);
+            }
+        }
+
+        // 推送
+        if (iphonePushService != null) {
+            if (!userTokenList.isEmpty()) {
+                IosPushReq pushReq = new IosPushReq();
+                pushReq.setContent(msgFlash);
+                pushReq.setMsgType(pushJson.getIntValue("msg_type"));
+                pushReq.setFromId(pushJson.getLong("from_id"));
+                pushReq.setGroupId(pushJson.getLong("group_id"));
+                pushReq.setPushType(PushConstant.IM_PUSH_TYPE_NORMAL);
+                pushReq.setUserTokenList(userTokenList);
+                iphonePushService.sendToUsers(pushReq);
+            }
+            if (!olUserTokenList.isEmpty()) {
+                IosPushReq pushReq = new IosPushReq();
+                pushReq.setContent(msgFlash);
+                pushReq.setMsgType(pushJson.getIntValue("msg_type"));
+                pushReq.setFromId(pushJson.getLong("from_id"));
+                pushReq.setGroupId(pushJson.getLong("group_id"));
+                pushReq.setPushType(PushConstant.IM_PUSH_TYPE_SILENT);
+                pushReq.setUserTokenList(olUserTokenList);
+                iphonePushService.sendToUsers(pushReq);
+            }
+        }
+
     }
 }

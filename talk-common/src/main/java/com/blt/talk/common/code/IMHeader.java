@@ -211,7 +211,7 @@ public class IMHeader {
      * @return the reserved
      * @since  1.0
      */
-    public int getReserved() {
+    public short getReserved() {
         return reserved;
     }
 

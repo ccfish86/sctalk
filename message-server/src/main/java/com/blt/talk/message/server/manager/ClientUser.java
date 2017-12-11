@@ -40,7 +40,7 @@ import io.netty.util.AttributeKey;
  */
 public class ClientUser {
 
-    public static final AtomicLong HandleIdGenerator = new AtomicLong();
+//    public static final AtomicLong HandleIdGenerator = new AtomicLong();
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private long userId;
@@ -74,9 +74,9 @@ public class ClientUser {
     /**
      * @param ctx
      */
-    public ClientUser(ChannelHandlerContext ctx, long userId, ClientType clientType, UserStatType statType) {
+    public ClientUser(ChannelHandlerContext ctx, long userId, long handleId, ClientType clientType, UserStatType statType) {
         this();
-        long handle = HandleIdGenerator.incrementAndGet();
+        long handle = handleId;
         this.userId = userId;
         this.connMap.put(handle, ctx);
         ctx.attr(HANDLE_ID).set(handle);

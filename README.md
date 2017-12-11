@@ -16,7 +16,11 @@
 
 ---
 
-版本[0.1.0-RELEASE]使用了router-server作为消息中转服务，0.2以后将使用hazelcast等分布式中间件取代router-server来处理消息的“漫游”
+版本[0.1.0-RELEASE]使用了router-server作为消息中转服务（这点跟原TT是相似的），0.2以后将使用hazelcast等分布式中间件取代router-server来处理消息的“漫游”。
+
+取消“router-server”，更多的是为了解决路由服务的单点故障的问题，之后会追加zuul来对外提供服务。
+
+---
 
 希望大家一起努力，把这个项目完善起来。
 

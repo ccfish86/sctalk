@@ -36,14 +36,15 @@ import com.blt.talk.common.param.LoginReq;
 import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.result.LoginCmdResult;
 import com.blt.talk.common.util.CommonUtils;
+import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.handler.IMLoginHandler;
-import com.blt.talk.message.server.handler.RouterHandler;
 import com.blt.talk.message.server.manager.ClientUser;
 import com.blt.talk.message.server.manager.ClientUserManager;
 //import com.blt.talk.message.server.manager.ClientConnection;
 //import com.blt.talk.message.server.manager.ClientConnectionMap;
 import com.blt.talk.message.server.remote.LoginService;
 import com.google.protobuf.MessageLite;
+import com.hazelcast.core.HazelcastInstance;
 
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -63,8 +64,12 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private LoginService loginService;
+//    @Autowired
+//    private RouterHandler routerHandler;
     @Autowired
-    private RouterHandler routerHandler;
+    private HazelcastInstance hazelCastInstance;
+    @Autowired
+    private MessageServerCluster messageServerCluster;
     
     /**
      * 
@@ -111,20 +116,20 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
             } else {
                 
                 // 查询同一用户的其他Client
-                ClientUser clientUser = ClientUserManager.getUserById(userRes.getData().getId());
+                Long userId = userRes.getData().getId();
+                ClientUser clientUser = ClientUserManager.getUserById(userId);
+                Long handleId = hazelCastInstance.getAtomicLong("message-server#HANDLE_ID").getAndIncrement();
                 if (clientUser == null) {
-                    
-                    logger.debug("登录成功:{}", userRes.getData().getId());
-                    clientUser = new ClientUser(ctx, userRes.getData().getId(), req.getClientType(), UserStatType.USER_STATUS_ONLINE);
+                    logger.debug("登录成功:{}", userId);
+                    clientUser = new ClientUser(ctx, userId, handleId, req.getClientType(), UserStatType.USER_STATUS_ONLINE);
                     clientUser.setLoginName(userRes.getData().getRealName());
                     clientUser.setNickName(userRes.getData().getMainName());
-                    ClientUserManager.addUserById(userRes.getData().getId(), clientUser);
+                    ClientUserManager.addUserById(userId, clientUser);
                 } else {
-                    logger.debug("登录成功，设置参数:{}", userRes.getData().getId());
-                    long handle = ClientUser.HandleIdGenerator.incrementAndGet();
-                    clientUser.addConn(handle, ctx);
-                    ctx.attr(ClientUser.HANDLE_ID).set(handle);
-                    ctx.attr(ClientUser.USER_ID).set(userRes.getData().getId());
+                    logger.debug("登录成功，设置参数:{}", userId);
+                    clientUser.addConn(handleId, ctx);
+                    ctx.attr(ClientUser.HANDLE_ID).set(handleId);
+                    ctx.attr(ClientUser.USER_ID).set(userId);
                     ctx.attr(ClientUser.CLIENT_TYPE).set(req.getClientType());
                     ctx.attr(ClientUser.STATUS).set(UserStatType.USER_STATUS_ONLINE);
                 }
@@ -137,9 +142,10 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
                 clientUser.setValidate(true);
                 
                 // 广播
-                routerHandler.sendUserStatusUpdate(ctx, IMBaseDefine.UserStatType.USER_STATUS_ONLINE);
+                // routerHandler.sendUserStatusUpdate(ctx, IMBaseDefine.UserStatType.USER_STATUS_ONLINE);
                 // 广播
-                routerHandler.kickOutSameClientType(ctx, IMBaseDefine.KickReasonType.KICK_REASON_DUPLICATE_USER);
+                // routerHandler.kickOutSameClientType(ctx, IMBaseDefine.KickReasonType.KICK_REASON_DUPLICATE_USER);
+                messageServerCluster.userStatusUpdate(userId, ctx, IMBaseDefine.UserStatType.USER_STATUS_ONLINE);
 
                 // 后移，防止登录后判断是否在线（PC）失败
                 IMBaseDefine.UserInfo userInfo = JavaBean2ProtoBuf.getUserInfo(userRes.getData());

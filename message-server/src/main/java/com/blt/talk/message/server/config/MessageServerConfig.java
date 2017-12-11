@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * 
  * @author 袁贵
  * @version 3.0
- * @since 3.0
+ * @since 1.0
  */
 @Component
 @ConfigurationProperties(prefix = "talk.message")
@@ -22,6 +22,8 @@ public class MessageServerConfig {
     private String ip;
     /** 端口号 */
     private int port;
+    
+    private final Hazelcast hazelcast = new Hazelcast();
 
     /**
      * @return the ip
@@ -51,5 +53,31 @@ public class MessageServerConfig {
         this.port = port;
     }
 
+    public Hazelcast getHazelcast() {
+        return hazelcast;
+    }
+
+    public static class Hazelcast {
+
+        private int timeToLiveSeconds = 3600;
+
+        private int backupCount = 1;
+
+        public int getTimeToLiveSeconds() {
+            return timeToLiveSeconds;
+        }
+
+        public void setTimeToLiveSeconds(int timeToLiveSeconds) {
+            this.timeToLiveSeconds = timeToLiveSeconds;
+        }
+
+        public int getBackupCount() {
+            return backupCount;
+        }
+
+        public void setBackupCount(int backupCount) {
+            this.backupCount = backupCount;
+        }
+    }
 
 }

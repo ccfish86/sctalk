@@ -14,6 +14,7 @@ import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.OtherCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SwitchServiceCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
+import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.handler.IMBuddyListHandler;
 import com.blt.talk.message.server.handler.IMFileHandle;
 import com.blt.talk.message.server.handler.IMGroupHandler;
@@ -21,7 +22,7 @@ import com.blt.talk.message.server.handler.IMLoginHandler;
 import com.blt.talk.message.server.handler.IMMessageHandler;
 import com.blt.talk.message.server.handler.IMOtherHandler;
 import com.blt.talk.message.server.handler.IMSwitchHandler;
-import com.blt.talk.message.server.handler.RouterHandler;
+//import com.blt.talk.message.server.handler.RouterHandler;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -52,9 +53,11 @@ public class HandlerManager {
     private IMSwitchHandler imSwitchHandler;
     @Autowired
     private IMFileHandle imFileHandle;
-    
+//    
+//    @Autowired
+//    private RouterHandler routerHandler;
     @Autowired
-    private RouterHandler routerHandler;
+    private MessageServerCluster messageServerCluster;
     
 //    /**
 //     * 用户状态变更通知
@@ -392,7 +395,8 @@ public class HandlerManager {
             return;
         }
 
-        routerHandler.sendUserStatusUpdate(ctx, UserStatType.USER_STATUS_OFFLINE);
+        // routerHandler.sendUserStatusUpdate(ctx, UserStatType.USER_STATUS_OFFLINE);
+        messageServerCluster.userStatusUpdate(userId, ctx, UserStatType.USER_STATUS_OFFLINE);
         
         ClientUser clientUser = ClientUserManager.getUserById(userId);
         if (clientUser != null) {
@@ -422,7 +426,8 @@ public class HandlerManager {
             return;
         }
 
-        routerHandler.sendUserStatusUpdate(ctx, UserStatType.USER_STATUS_OFFLINE);
+        // routerHandler.sendUserStatusUpdate(ctx, UserStatType.USER_STATUS_OFFLINE);
+        messageServerCluster.userStatusUpdate(userId, ctx, UserStatType.USER_STATUS_OFFLINE);
         
         ClientUser clientUser = ClientUserManager.getUserById(userId);
         if (clientUser != null) {
@@ -449,7 +454,8 @@ public class HandlerManager {
             return;
         }
 
-        routerHandler.sendUserStatusUpdate(ctx, UserStatType.USER_STATUS_ONLINE);
+        // routerHandler.sendUserStatusUpdate(ctx, UserStatType.USER_STATUS_ONLINE);
+        messageServerCluster.userStatusUpdate(userId, ctx, UserStatType.USER_STATUS_OFFLINE);
         
         ClientUser clientUser = ClientUserManager.getUserById(userId);
         if (clientUser != null) {

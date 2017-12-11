@@ -34,6 +34,7 @@ import com.blt.talk.common.code.proto.IMMessage;
 import com.blt.talk.common.code.proto.IMOther;
 import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.message.server.channel.NettyChatServerInitializer;
+import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.config.MessageServerConfig;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -66,6 +67,8 @@ public class MessageServerStarter {
 
     @Autowired
     private MessageServerConfig messageServerConfig;
+    @Autowired
+    private MessageServerCluster messageServerCluster;
     
     private boolean started = false;
     
@@ -77,6 +80,8 @@ public class MessageServerStarter {
     @PreDestroy
     public void destroy() {
 
+        messageServerCluster.closeLocal();
+        
         // FIXME 处理资源关闭，后期需要对应：
         if (future != null && future.channel() != null) {
             // 1. 通知在线用户[服务器即将关闭]
@@ -131,6 +136,9 @@ public class MessageServerStarter {
                 this.started = true;
                 logger.info("NettyChatServer 启动了，address={}:{}", socketAddress.getAddress().getHostAddress(), socketAddress.getPort());
             }
+            
+            // messageServerCluster
+            messageServerCluster.registLocal(this);
             
             // 等待服务器socket关闭
             // 在本例子中不会发生,这时可以关闭服务器了

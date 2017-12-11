@@ -105,7 +105,12 @@ public class JavaBean2ProtoBuf {
         unreadBuilder.setLatestMsgId(unreadEntity.getLaststMsgId());
         unreadBuilder.setLatestMsgFromUserId(unreadEntity.getLatestMsgFromUserId());
         unreadBuilder.setLatestMsgType(IMBaseDefine.MsgType.forNumber(unreadEntity.getLaststMsgType()));
-        unreadBuilder.setLatestMsgData(ByteString.copyFromUtf8(unreadEntity.getLatestMsgData()));
+        // unreadBuilder.setLatestMsgData(ByteString.copyFromUtf8(unreadEntity.getLatestMsgData()));
+        if (unreadEntity.getLatestMsgData() != null) {
+            unreadBuilder.setLatestMsgData(ByteString.copyFromUtf8(unreadEntity.getLatestMsgData()));
+        } else {
+            unreadBuilder.setLatestMsgData(ByteString.EMPTY);
+        }
         unreadBuilder.setSessionId(unreadEntity.getPeerId());
         unreadBuilder.setSessionType(IMBaseDefine.SessionType.forNumber(unreadEntity.getSessionType()));
         unreadBuilder.setUnreadCnt(unreadEntity.getUnReadCnt());

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * 
  * @author 袁贵
  * @version 3.0
- * @since 3.0
+ * @since 1.0
  */
 @Component
 @ConfigurationProperties(prefix = "talk.router")

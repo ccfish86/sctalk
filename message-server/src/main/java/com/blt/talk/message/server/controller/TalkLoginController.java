@@ -2,15 +2,18 @@
  * Copyright © 2013-2017 BLT, Co., Ltd. All Rights Reserved.
  */
 
-package com.blt.talk.router.server.controller;
+package com.blt.talk.message.server.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blt.talk.common.model.BaseModel;
-import com.blt.talk.router.server.manager.MessageServerManager;
-import com.blt.talk.router.server.model.LoginResponse;
+import com.blt.talk.message.server.cluster.MessageServerManager;
+import com.blt.talk.message.server.model.LoginResponse;
 
 /**
  * 提供登录服务
@@ -22,6 +25,25 @@ import com.blt.talk.router.server.model.LoginResponse;
 @RestController
 public class TalkLoginController {
 
+    @Autowired
+    private MessageServerManager messageServerManager;
+
+    /**
+     * 服务器列表
+     * <br>
+     * 用于手动确认服务器状态
+     * 
+     * @return
+     * @since  1.0
+     */
+    @RequestMapping(value = "/", method={RequestMethod.GET})
+    public BaseModel<List<String>> getServers() {
+        List<String> servers = messageServerManager.allServerNames();
+        BaseModel<List<String>> model = new BaseModel<>();
+        model.setData(servers);
+        return model;
+    }
+    
     /**
      * 登录
      * <br>
@@ -32,7 +54,7 @@ public class TalkLoginController {
     @RequestMapping(value = "/msg_server", method={RequestMethod.GET})
     public BaseModel<LoginResponse> login() {
 
-        MessageServerManager.MessageServerInfo server = MessageServerManager.getUsableServer();
+        MessageServerManager.MessageServerInfo server = messageServerManager.getUsableServer();
         
         BaseModel<LoginResponse> model = new BaseModel<>();
         if (server == null) {

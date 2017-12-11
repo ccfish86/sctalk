@@ -5,7 +5,7 @@
 
     <groupId>com.blt.talk</groupId>
     <artifactId>file-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>file-server</name>
@@ -36,7 +36,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-cloud.version>Dalston.SR1</spring-cloud.version>
+        <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
     </properties>
 
     <dependencies>
@@ -47,7 +47,7 @@
         <dependency>
             <groupId>com.blt.talk</groupId>
             <artifactId>talk-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.blt</groupId>

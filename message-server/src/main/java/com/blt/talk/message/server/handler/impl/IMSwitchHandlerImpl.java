@@ -11,8 +11,8 @@ import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.common.constant.SysConstant;
+import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.handler.IMSwitchHandler;
-import com.blt.talk.message.server.handler.RouterHandler;
 import com.blt.talk.message.server.manager.ClientUser;
 import com.blt.talk.message.server.manager.ClientUserManager;
 //import com.blt.talk.message.server.manager.ClientConnection;
@@ -30,8 +30,10 @@ import io.netty.channel.ChannelHandlerContext;
 @Component
 public class IMSwitchHandlerImpl extends AbstractUserHandlerImpl implements IMSwitchHandler {
 
+//    @Autowired
+//    private RouterHandler routerHandler;
     @Autowired
-    private RouterHandler routerHandler;
+    private MessageServerCluster messageServerCluster;
     
     /* (non-Javadoc)
      * @see com.blt.talk.message.server.handler.IMSwitchHandler#switchP2p(com.blt.talk.common.code.IMHeader, com.google.protobuf.MessageLite, io.netty.channel.ChannelHandlerContext)
@@ -72,7 +74,8 @@ public class IMSwitchHandlerImpl extends AbstractUserHandlerImpl implements IMSw
         ClientUserManager.broadCast(swithP2pMsg, SysConstant.CLIENT_TYPE_FLAG_BOTH);
         
         // 通过路由进行转发
-        routerHandler.send(header, body);
+        // routerHandler.send(header, body);
+        messageServerCluster.send(header, body);
     }
 
 }

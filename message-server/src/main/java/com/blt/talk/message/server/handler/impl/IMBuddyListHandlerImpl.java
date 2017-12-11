@@ -11,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.concurrent.ListenableFuture;
 
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
-import com.blt.talk.common.code.PduAttachData;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
@@ -23,20 +23,18 @@ import com.blt.talk.common.code.proto.IMBaseDefine.UserInfo;
 import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.IMBuddy.IMUsersStatReq;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
-import com.blt.talk.common.constant.AttachType;
 import com.blt.talk.common.constant.SysConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.DepartmentEntity;
 import com.blt.talk.common.model.entity.SessionEntity;
 import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
+import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.handler.IMBuddyListHandler;
-import com.blt.talk.message.server.handler.RouterHandler;
 import com.blt.talk.message.server.manager.ClientUserManager;
 import com.blt.talk.message.server.remote.BuddyListService;
 import com.blt.talk.message.server.remote.DepartmentService;
 import com.blt.talk.message.server.remote.RecentSessionService;
-import com.google.protobuf.ByteString;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -46,7 +44,7 @@ import io.netty.channel.ChannelHandlerContext;
  * 
  * @author 袁贵
  * @version 1.0
- * @since 3.0
+ * @since 1.0
  */
 @Component
 public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements IMBuddyListHandler {
@@ -55,12 +53,10 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
     private BuddyListService buddyListService;
     @Autowired
     private RecentSessionService sessionService;
-
+    @Autowired
+    private MessageServerCluster messageServerCluster;
     @Autowired
     private DepartmentService departmentService;
-
-    @Autowired
-    private RouterHandler routerHandler;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -205,7 +201,8 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
 
                    //是否需要广播给用户自身?跟下面的广播是否重复？
                    ClientUserManager.broadCast(removeSessionNotifyMsg, SysConstant.CLIENT_TYPE_FLAG_BOTH);
-                   routerHandler.send(removeSessionNotifyHeader, removeSessionNotify);
+                   // routerHandler.send(removeSessionNotifyHeader, removeSessionNotify);
+                   messageServerCluster.send(removeSessionNotifyHeader, removeSessionNotify);
                 }
 
         } catch (Exception e) {
@@ -289,14 +286,33 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
         
         IMUsersStatReq usersStatReq = (IMUsersStatReq) body;
         
-        // 指定handle
-        long handleId = super.getHandleId(ctx);
-        
-        PduAttachData attachData = new PduAttachData(AttachType.HANDLE,
-                handleId, 0);
-        usersStatReq.toBuilder().setAttachData(ByteString.copyFrom(attachData.getBufferData()));
-        
-        routerHandler.send(header, body);
+        ListenableFuture<List<IMBaseDefine.UserStat>> userStatFuture = messageServerCluster
+                .userStatusReq(usersStatReq.getUserId(), usersStatReq.getUserIdListList());
+        userStatFuture.addCallback((List<IMBaseDefine.UserStat> userStatList) -> {
+            // 查询用户状态后处理
+            IMBuddy.IMUsersStatRsp.Builder userStatRes = IMBuddy.IMUsersStatRsp.newBuilder();
+            userStatRes.addAllUserStatList(userStatList);
+            userStatRes.setUserId(usersStatReq.getUserId());
+            userStatRes.setAttachData(usersStatReq.getAttachData());
+            
+            IMHeader headerRes = header.clone();
+            headerRes.setCommandId((short)BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_RESPONSE_VALUE);
+            ctx.writeAndFlush(new IMProtoMessage<>(headerRes, userStatRes.build()));
+        }, (Throwable e) -> {
+            //  异常处理
+            logger.warn("处理推送异常", e);
+        });
+//        
+//        IMUsersStatReq usersStatReq = (IMUsersStatReq) body;
+//        
+//        // 指定handle
+//        long handleId = super.getHandleId(ctx);
+//        
+//        PduAttachData attachData = new PduAttachData(AttachType.HANDLE,
+//                handleId, 0);
+//        usersStatReq.toBuilder().setAttachData(ByteString.copyFrom(attachData.getBufferData()));
+//        
+//        routerHandler.send(header, body);
     }
 
     /*
@@ -433,7 +449,8 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
             IMBuddy.IMSignInfoChangedNotify.Builder notifyBody = IMBuddy.IMSignInfoChangedNotify.newBuilder();
             notifyBody.setChangedUserId(userId);
             notifyBody.setSignInfo(changeSignReq.getSignInfo());
-            routerHandler.send(notifyHeader, notifyBody.build());
+            // routerHandler.send(notifyHeader, notifyBody.build());
+            messageServerCluster.send(notifyHeader, notifyBody.build());
         } catch (Exception e) {
             logger.error("服务器端异常", e);
             IMBuddy.IMChangeSignInfoRsp res =
