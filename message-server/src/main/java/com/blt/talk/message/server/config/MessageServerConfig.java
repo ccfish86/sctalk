@@ -22,6 +22,8 @@ public class MessageServerConfig {
     private String ip;
     /** 端口号 */
     private int port;
+    /** 文件上传后访问地址 */
+    private String fileServer;
     
     private final Hazelcast hazelcast = new Hazelcast();
 
@@ -51,6 +53,20 @@ public class MessageServerConfig {
      */
     public void setPort(int port) {
         this.port = port;
+    }
+
+    /**
+     * @return the fileServer
+     */
+    public String getFileServer() {
+        return fileServer;
+    }
+
+    /**
+     * @param fileServer the fileServer to set
+     */
+    public void setFileServer(String fileServer) {
+        this.fileServer = fileServer;
     }
 
     public Hazelcast getHazelcast() {

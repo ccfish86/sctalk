@@ -24,7 +24,7 @@ import com.blt.talk.message.server.cluster.UserClientInfoManager;
  * 
  * @author 袁贵
  * @version 1.0
- * @since  3.0
+ * @since  1.0
  */
 @RestController
 public class TalkOnlineController {

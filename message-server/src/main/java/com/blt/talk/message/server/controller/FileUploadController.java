@@ -2,20 +2,21 @@
  * Copyright © 2013-2016 BLT, Co., Ltd. All Rights Reserved.
  */
 
-package com.blt.talk.file.server.controller;
+package com.blt.talk.message.server.controller;
 
 import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
-import com.alibaba.fastjson.util.IOUtils;
 import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.message.server.config.MessageServerConfig;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -36,7 +37,13 @@ import net.mikesu.fastdfs.data.BufferFile;
 @RestController
 public class FileUploadController {
 
-    @PostMapping(path = "/")
+    private static String imageServer;
+    
+    public void FileUploadController(MessageServerConfig messageServerConfig) {
+        imageServer = messageServerConfig.getFileServer();
+    }
+    
+    @PostMapping(path = "/upload")
     public BaseModel<FileUploadRsp> upload(HttpServletRequest request) {
 
         if (request instanceof MultipartRequest) {
@@ -131,7 +138,7 @@ public class FileUploadController {
             if (value == null || value.length() == 0) {
                 jsonGenerator.writeString(value);
             } else {
-                jsonGenerator.writeString("http://www.100902.com/" + value.trim());
+                jsonGenerator.writeString(imageServer + value.trim());
             }
         }
     }
