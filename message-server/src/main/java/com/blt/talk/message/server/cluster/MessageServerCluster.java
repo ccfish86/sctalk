@@ -59,7 +59,7 @@ public class MessageServerCluster implements InitializingBean {
 
     public void send(IMHeader header, MessageLite messageLit, boolean retry) {
         // 根据类型处理
-        MyClusterMessage clusterMessage = new MyClusterMessage();
+        MyClusterMessage clusterMessage = new MyClusterMessage(header, messageLit);
         this.topic.publish(clusterMessage);
     }
 
