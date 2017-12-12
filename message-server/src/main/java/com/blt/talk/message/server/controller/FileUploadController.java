@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,7 +38,7 @@ public class FileUploadController {
 
     private static String imageServer;
     
-    public void FileUploadController(MessageServerConfig messageServerConfig) {
+    public FileUploadController(MessageServerConfig messageServerConfig) {
         imageServer = messageServerConfig.getFileServer();
     }
     
