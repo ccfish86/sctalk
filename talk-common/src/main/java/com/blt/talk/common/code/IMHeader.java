@@ -1,5 +1,7 @@
 package com.blt.talk.common.code;
 
+import java.io.Serializable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +13,12 @@ import com.blt.talk.common.constant.SysConstant;
  * @author 袁贵
  * @time 2017/05/04
  */
-public class IMHeader {
+public class IMHeader implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8872067650988868285L;
 
     private Logger logger = LoggerFactory.getLogger(IMHeader.class);
 
