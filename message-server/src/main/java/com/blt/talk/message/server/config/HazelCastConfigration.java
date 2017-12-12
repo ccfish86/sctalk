@@ -108,7 +108,7 @@ public class HazelCastConfigration {
          * map will be copied to another JVM for fail-safety. Valid numbers are 0 (no backup), 1, 2,
          * 3.
          */
-        mapConfig.setBackupCount(0);
+        mapConfig.setBackupCount(1);
 
         /*
          * Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU (Least Frequently

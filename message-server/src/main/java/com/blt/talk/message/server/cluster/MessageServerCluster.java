@@ -45,7 +45,7 @@ public class MessageServerCluster implements InitializingBean {
     @Autowired
     private MyClusterMessageListener clusterMessageListener;
     @Autowired
-    private MyClusterClientListener clientListener;
+    private MyClusterMembershipListener membershipListener;
     @Autowired
     private UserClientInfoManager userClientInfoManager;
     @Autowired
@@ -67,7 +67,7 @@ public class MessageServerCluster implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         this.topic =  hazelcastInstance.getTopic("message-server#router");
         this.topic.addMessageListener(clusterMessageListener);
-        this.hazelcastInstance.getClientService().addClientListener(clientListener);
+        hazelcastInstance.getCluster().addMembershipListener(membershipListener);
     }
     
     /**
