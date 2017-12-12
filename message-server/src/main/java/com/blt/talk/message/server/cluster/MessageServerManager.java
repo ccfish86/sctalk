@@ -43,12 +43,12 @@ public class MessageServerManager {
     /**
      * 根据【连接ID】移除MessageServer信息
      * 
-     * 
+     * @param clientUuid 客户端UUID
      * @since 1.0
      */
-    public void unload() {
-        if (messageServerInfoMap.containsKey(memberId)) {
-            messageServerInfoMap.remove(memberId);
+    public void unload(String clientUuid) {
+        if (messageServerInfoMap.containsKey(clientUuid)) {
+            messageServerInfoMap.remove(clientUuid);
         }
     }
 
