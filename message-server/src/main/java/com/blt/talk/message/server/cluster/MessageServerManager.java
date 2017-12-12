@@ -6,13 +6,11 @@ package com.blt.talk.message.server.cluster;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.blt.talk.message.server.cluster.UserClientInfoManager.UserClientInfo;
 import com.hazelcast.core.HazelcastInstance;
 
 /**
@@ -25,29 +23,30 @@ import com.hazelcast.core.HazelcastInstance;
 public class MessageServerManager {
 
     private Map<String, MessageServerInfo> messageServerInfoMap;
-    
+    private String memberId;
+
     public MessageServerManager(HazelcastInstance hazelcastInstance) {
         this.messageServerInfoMap = hazelcastInstance.getMap("message-server#router#server");
+        this.memberId = hazelcastInstance.getCluster().getLocalMember().getUuid();
     }
 
     /**
      * 通过连接ID查询对应的MessageServer信息
      * 
-     * @param memberId NODE-ID
      * @return MessageServer信息
      * @since 1.0
      */
-    public MessageServerInfo getServer(String memberId) {
+    public MessageServerInfo getServer() {
         return messageServerInfoMap.get(memberId);
     }
 
     /**
      * 根据【连接ID】移除MessageServer信息
      * 
-     * @param memberId NODE-ID
+     * 
      * @since 1.0
      */
-    public void erase(String memberId) {
+    public void unload() {
         if (messageServerInfoMap.containsKey(memberId)) {
             messageServerInfoMap.remove(memberId);
         }
@@ -56,22 +55,21 @@ public class MessageServerManager {
     /**
      * 添加MessageServer信息
      * 
-     * @param memberId NODE-ID
+     * 
      * @param serverInfo MessageServer信息
      * @since 1.0
      */
-    public void insert(String memberId, MessageServerInfo serverInfo) {
+    public void insert(MessageServerInfo serverInfo) {
         messageServerInfoMap.put(memberId, serverInfo);
     }
 
     /**
      * 更新MessageServer用户数
      * 
-     * @param memberId NODE-ID
      * @param count 用户数（连接数）
      * @since 1.0
      */
-    public void update(String memberId, int count) {
+    public void update(int count) {
         if (messageServerInfoMap.containsKey(memberId)) {
             messageServerInfoMap.get(memberId).setUserCount(count);
         }
@@ -123,7 +121,7 @@ public class MessageServerManager {
          * 
          */
         private static final long serialVersionUID = 3130423310364673999L;
-        
+
         /** IP地址/主机地址 */
         private String ip;
         /** 端口号（Netty-Socket） */
@@ -177,7 +175,7 @@ public class MessageServerManager {
 
     /**
      * @return
-     * @since  1.0
+     * @since 1.0
      */
     public List<String> allServerNames() {
         if (messageServerInfoMap.size() == 0) {

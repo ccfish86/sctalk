@@ -22,7 +22,6 @@ import com.blt.talk.message.server.handler.IMLoginHandler;
 import com.blt.talk.message.server.handler.IMMessageHandler;
 import com.blt.talk.message.server.handler.IMOtherHandler;
 import com.blt.talk.message.server.handler.IMSwitchHandler;
-//import com.blt.talk.message.server.handler.RouterHandler;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -53,51 +52,8 @@ public class HandlerManager {
     private IMSwitchHandler imSwitchHandler;
     @Autowired
     private IMFileHandle imFileHandle;
-//    
-//    @Autowired
-//    private RouterHandler routerHandler;
     @Autowired
     private MessageServerCluster messageServerCluster;
-    
-//    /**
-//     * 用户状态变更通知
-//     * @param ctx
-//     * @param userStatus
-//     * @since  1.0
-//     */
-//    public void doUserStatusUpdate(ChannelHandlerContext ctx, UserStatType userStatus) {
-//
-//        Long userId = ctx.attr(ClientUser.USER_ID).get();
-//        ClientType clientType = ctx.attr(ClientUser.CLIENT_TYPE).get();
-//
-//        if (userId != null) {
-//        
-//            // 只有上下线通知才通知LoginServer/RouterServer
-//            if (userStatus == UserStatType.USER_STATUS_ONLINE 
-//                    || userStatus == UserStatType.USER_STATUS_OFFLINE) {
-////                IMServer.IMUserCntUpdate userCntUpdate = IMServer.IMUserCntUpdate.newBuilder()
-////                        .setUserAction(userStatus == IMBaseDefine.UserStatType.USER_STATUS_ONLINE?
-////                                TalkServerEnums.USER_CNT.INC.ordinal():TalkServerEnums.USER_CNT.DEC.ordinal())
-////                        .setUserId(userId).build();
-////                IMHeader userCntUpdateHeader = new IMHeader();
-////                userCntUpdateHeader.setServiceId((short)ServiceID.SID_OTHER_VALUE);
-////                userCntUpdateHeader.setCommandId((short)OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE);
-////                // > LoginServer
-//                
-//                IMServer.IMUserStatusUpdate userStatusUpdate = IMServer.IMUserStatusUpdate.newBuilder()
-//                        .setUserId(userId).setUserStatus(userStatus.getNumber()).setClientType(clientType).build();
-//                IMHeader userStatusUpdateHeader = new IMHeader();
-//                userStatusUpdateHeader.setServiceId((short)ServiceID.SID_OTHER_VALUE);
-//                userStatusUpdateHeader.setCommandId((short)OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE);
-//                
-//                // 发送给RouterServer
-//                routerHandler.send(userStatusUpdateHeader, userStatusUpdate);
-//                
-//            } else {
-//                // 不做处理
-//            }
-//        }
-//    }
     
     /**
      * 处理登录认证
@@ -297,30 +253,6 @@ public class HandlerManager {
             case OtherCmdID.CID_OTHER_STOP_RECV_PACKET_VALUE: //不需要实现？
             	imOtherHandler.StopReceivePacket(header, body, ctx);
                 break;
-//            case OtherCmdID.CID_OTHER_VALIDATE_REQ_VALUE: //采用REST调用，已不需要？
-//                break;
-//            case OtherCmdID.CID_OTHER_GET_DEVICE_TOKEN_REQ_VALUE: //采用REST调用，已不需要？
-//                break;
-//            case OtherCmdID.CID_OTHER_ROLE_SET_VALUE: //设置route服务器的主从，是否还需要？
-//                break;
-//            case OtherCmdID.CID_OTHER_ONLINE_USER_INFO_VALUE: //已在Route中实现
-//                break;
-//            case OtherCmdID.CID_OTHER_USER_STATUS_UPDATE_VALUE: //在login，logout和关闭连接时调用， 不在这里调用
-//                break;
-//            case OtherCmdID.CID_OTHER_USER_CNT_UPDATE_VALUE: //在login，logout和关闭连接时调用， 不在这里调用
-//                break;
-//            case OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE://踢出同客户端类型的用户，在login时调用，不在这里调用
-//                break;
-//            case OtherCmdID.CID_OTHER_LOGIN_STATUS_NOTIFY_VALUE://不需要在这里实现，在route中实现
-//                break;
-//            case OtherCmdID.CID_OTHER_PUSH_TO_USER_REQ_VALUE://不需要在这里实现，在push服务器中实现
-//                break;
-//            case OtherCmdID.CID_OTHER_GET_SHIELD_REQ_VALUE://不需要在这里实现
-//                break;
-//            case OtherCmdID.CID_OTHER_FILE_TRANSFER_REQ_VALUE://不需要在这里实现
-//                break;
-//            case OtherCmdID.CID_OTHER_FILE_SERVER_IP_REQ_VALUE://不需要在这里实现，在file服务器中处理
-//                break;
             default:
                 logger.warn("Unsupport command id {}", commandId);
                 break;

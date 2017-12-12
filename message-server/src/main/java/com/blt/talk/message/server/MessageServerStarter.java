@@ -79,8 +79,6 @@ public class MessageServerStarter {
 
     @PreDestroy
     public void destroy() {
-
-        messageServerCluster.closeLocal();
         
         // FIXME 处理资源关闭，后期需要对应：
         if (future != null && future.channel() != null) {

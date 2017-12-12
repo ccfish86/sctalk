@@ -110,6 +110,7 @@ public class MessageServerCluster implements InitializingBean {
                 userClientInfo = new UserClientInfoManager.UserClientInfo();
                 userClientInfo.addClientType(clientType);
                 userClientInfo.addRouteConn(nodeId);
+                userClientInfo.setUserId(userId);
                 
                 userClientInfoManager.insert(userId, userClientInfo);
             }
@@ -168,14 +169,6 @@ public class MessageServerCluster implements InitializingBean {
         return result;
     }
 
-    @Async
-    public void closeLocal() {
-        // 消息服务器关闭
-        // 清除用户连接数据
-        String nodeId = hazelcastInstance.getCluster().getLocalMember().getUuid();
-        messageServerManager.erase(nodeId);
-    }
-
     /**
      * @param messageServerStarter
      * @since  1.0
@@ -184,13 +177,12 @@ public class MessageServerCluster implements InitializingBean {
     public void registLocal(MessageServerStarter messageServerStarter) {
 
         logger.info("更新消息服务器信息");
-        String nodeId = hazelcastInstance.getCluster().getLocalMember().getUuid();
         
         MessageServerManager.MessageServerInfo serverInfo = new MessageServerManager.MessageServerInfo();
         serverInfo.setIp(messageServerStarter.getIpadress());
         serverInfo.setPort(messageServerStarter.getPort());
         serverInfo.setUserCount(0);
-        messageServerManager.insert(nodeId, serverInfo);
+        messageServerManager.insert(serverInfo);
     }
 
 }
