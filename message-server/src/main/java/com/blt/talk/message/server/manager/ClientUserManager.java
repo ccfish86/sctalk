@@ -81,7 +81,16 @@ public class ClientUserManager {
         userMap.clear();
 //        userNameMap.clear();
     }
-    
+
+    public static List<Long> getOnlineUserList() {
+        List<Long> userList = new ArrayList<>();
+        for (ClientUser user : userMap.values()) {
+            if (user.isValidate()) {
+                userList.add(user.getUserId());
+            }
+        }
+        return userList;
+    }
     /**
      * 获取用户连接状态
      * 

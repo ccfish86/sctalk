@@ -79,6 +79,9 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
 
         MyClusterMessage clusterMessage = message.getMessageObject();
         Member member = message.getPublishingMember();
+        
+        logger.debug("Length:{}, ServiceID:{}, CommandID:{}, Body:{}", clusterMessage.getLength(),
+                clusterMessage.getServiceId(), clusterMessage.getCommandId(), clusterMessage.getBody());
 
         // 根据不同的消息，做不同的处理
         // 处理请求分发

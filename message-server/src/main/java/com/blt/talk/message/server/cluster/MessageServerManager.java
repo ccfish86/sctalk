@@ -8,9 +8,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.stereotype.Component;
 
+import com.blt.talk.message.server.model.TalkServerResponse;
 import com.hazelcast.core.HazelcastInstance;
 
 /**
@@ -36,8 +38,8 @@ public class MessageServerManager {
      * @return MessageServer信息
      * @since 1.0
      */
-    public MessageServerInfo getServer() {
-        return messageServerInfoMap.get(memberId);
+    public MessageServerInfo getServer(String uuid) {
+        return messageServerInfoMap.get(uuid);
     }
 
     /**
@@ -71,7 +73,24 @@ public class MessageServerManager {
      */
     public void update(int count) {
         if (messageServerInfoMap.containsKey(memberId)) {
-            messageServerInfoMap.get(memberId).setUserCount(count);
+            MessageServerInfo server = messageServerInfoMap.get(memberId);
+            server.setUserCount(count);
+            messageServerInfoMap.put(memberId, server);
+        }
+    }
+
+    /**
+     * 更新MessageServer用户数
+     * 
+     * @param uuid NODE-ID
+     * @param count 用户数（连接数）
+     * @since 1.0
+     */
+    public void update(String uuid, int count) {
+        if (messageServerInfoMap.containsKey(uuid)) {
+            MessageServerInfo server = messageServerInfoMap.get(uuid);
+            server.setUserCount(count);
+            messageServerInfoMap.put(uuid, server);
         }
     }
 
@@ -92,17 +111,17 @@ public class MessageServerManager {
         for (MessageServerInfo server : messageServerInfoMap.values()) {
 
             // 如果当前服务器连接数不到100， 直接返回
-            if (server.getUserCount() < 100) {
-                return server;
+            // if (server.getUserCount() < 100) {
+            // return server;
+            // } else {
+            if (minConnServer == null) {
+                minConnServer = server;
+            } else if (minConnServer.getUserCount() > server.getUserCount()) {
+                minConnServer = server;
             } else {
-                if (minConnServer == null) {
-                    minConnServer = server;
-                } else if (minConnServer.getUserCount() > server.getUserCount()) {
-                    minConnServer = server;
-                } else {
-                    // nth to do
-                }
+                // nth to do
             }
+            // }
         }
 
         return minConnServer;
@@ -188,4 +207,23 @@ public class MessageServerManager {
         return serverNames;
     }
 
+    /**
+     * @return
+     * @since 1.0
+     */
+    public List<TalkServerResponse> allServers() {
+        if (messageServerInfoMap.size() == 0) {
+            return null;
+        }
+        List<TalkServerResponse> serverNames = new ArrayList<>();
+        for (Entry<String, MessageServerInfo> serverSet : messageServerInfoMap.entrySet()) {
+            MessageServerInfo server = serverSet.getValue();
+            TalkServerResponse serverResponse = new TalkServerResponse();
+            serverResponse.setServer(server.getIp() + ":" + server.getPort());
+            serverResponse.setUuid(serverSet.getKey());
+            serverResponse.setUserCount(server.getUserCount());
+            serverNames.add(serverResponse);
+        }
+        return serverNames;
+    }
 }
