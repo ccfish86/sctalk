@@ -6,12 +6,15 @@ package com.blt.talk.message.server.cluster;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.MultiMap;
 
 /**
  * 
@@ -23,13 +26,43 @@ import com.hazelcast.core.HazelcastInstance;
 public class MessageServerManager {
 
     private Map<String, MessageServerInfo> messageServerInfoMap;
+    private MultiMap<String, Long> messageServerConnectionMap;
     private String memberId;
+    
+    @Autowired
+    private UserClientInfoManager userClientInfoManager;
 
     public MessageServerManager(HazelcastInstance hazelcastInstance) {
         this.messageServerInfoMap = hazelcastInstance.getMap("message-server#router#server");
+        this.messageServerConnectionMap = hazelcastInstance.getMultiMap("message-server#router#server#connection");
         this.memberId = hazelcastInstance.getCluster().getLocalMember().getUuid();
     }
 
+    public void addConnect(String uuid, Long netId) {
+        messageServerConnectionMap.put(uuid, netId);
+    }
+
+    public MessageServerInfo getServerBy(Long netId) {
+        for (String uuid: messageServerConnectionMap.keySet()) {
+            if (messageServerConnectionMap.containsEntry(uuid, netId)) {
+                return messageServerInfoMap.get(uuid);
+            }
+        }
+        return null;
+    }
+    
+    public void removeConnect(String uuid, Long netId) {
+        messageServerConnectionMap.remove(uuid, netId);
+    }
+    public int getConnectCount(String uuid) {
+        return messageServerConnectionMap.valueCount(uuid);
+    }
+
+    public Collection<Long> getUserList(String uuid) {
+        Collection<Long> netIds = messageServerConnectionMap.get(uuid);
+        return userClientInfoManager.getUserList(netIds);
+    }
+    
     /**
      * 通过连接ID查询对应的MessageServer信息
      * 
@@ -47,9 +80,9 @@ public class MessageServerManager {
      * @since 1.0
      */
     public void unload(String clientUuid) {
-        if (messageServerInfoMap.containsKey(clientUuid)) {
-            messageServerInfoMap.remove(clientUuid);
-        }
+        messageServerInfoMap.remove(clientUuid);
+        Collection<Long> netIds = messageServerConnectionMap.remove(clientUuid);
+        userClientInfoManager.unloadServer(netIds);
     }
 
     /**

@@ -4,6 +4,7 @@
 
 package com.blt.talk.message.server.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.message.server.cluster.MessageServerManager;
+import com.blt.talk.message.server.cluster.MessageServerManager.MessageServerInfo;
 import com.blt.talk.message.server.cluster.UserClientInfoManager;
 
 /**
@@ -32,6 +35,8 @@ public class TalkOnlineController {
 
     @Autowired
     private UserClientInfoManager userClientInfoManager;
+    @Autowired
+    private MessageServerManager messageServerManager;
     
     /**
      * 在线用户查询
@@ -58,17 +63,26 @@ public class TalkOnlineController {
      * @since  1.0
      */
     @RequestMapping(value = "/onlines", method={RequestMethod.GET})
-    public BaseModel<Map<Long, List<String>>> allOnline() {
+    public BaseModel<Map<Long, List<MessageServerInfo>>> allOnline() {
         
         Collection<UserClientInfoManager.UserClientInfo> clientInfos = userClientInfoManager.allUsers();
         
-        Map<Long, List<String>> userConnMapList = new HashMap<>();
+        Map<Long, List<MessageServerInfo>> userConnMapList = new HashMap<>();
         
         for(UserClientInfoManager.UserClientInfo user :clientInfos) {
-            userConnMapList.put(user.getUserId(), user.getRouteConns());
+            List<Long> conns = user.getRouteConns();
+            List<MessageServerInfo> servers = new ArrayList<>();
+            for (Long conn : conns) {
+                MessageServerInfo server = messageServerManager.getServerBy(conn);
+                if (server!= null) {
+                    servers.add(server);
+                }
+            }
+            userConnMapList.put(user.getUserId(), servers);
+            
         }
         
-        BaseModel<Map<Long, List<String>>> result = new BaseModel<>();
+        BaseModel<Map<Long, List<MessageServerInfo>>> result = new BaseModel<>();
         result.setData(userConnMapList);
         return result;
     }

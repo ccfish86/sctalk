@@ -199,6 +199,7 @@ public class ClientUser {
         header.setCommandId((short)LoginCmdID.CID_LOGIN_KICK_USER_VALUE);
 
         conn.writeAndFlush(new IMProtoMessage<>(header, message));
+        conn.close();
         // conn ->SetKickOff();
         // conn ->Close();
     }

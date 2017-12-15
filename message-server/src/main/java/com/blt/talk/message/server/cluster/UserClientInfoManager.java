@@ -20,7 +20,6 @@ import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
 import com.blt.talk.common.util.CommonUtils;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.MultiMap;
 
 /**
  * 处理用户连接信息管理
@@ -35,8 +34,11 @@ public final class UserClientInfoManager implements InitializingBean {
     @Autowired
     private HazelcastInstance hazelcastInstance;
 
+    /** 用户信息 */
     private Map<Long, UserClientInfo> userClientInfoMap;
-    private MultiMap<String, Long> serverUserMap;
+    
+    /** 连接ID与用户关系 */
+    private Map<Long, Long> serverUserMap;
 
     public Collection<UserClientInfo> allUsers() {
         return userClientInfoMap.values();
@@ -52,33 +54,21 @@ public final class UserClientInfoManager implements InitializingBean {
     public UserClientInfo getUserInfo(Long userId) {
         return userClientInfoMap.get(userId);
     }
-
-    /**
-     * 取服务器的用户数
-     * @param uuid 服务器ID（依赖hazelcast）
-     * @return
-     * @since  1.0
-     */
-    public int getUserCount(String uuid) {
-        if (serverUserMap.containsKey(uuid)) {
-            return serverUserMap.valueCount(uuid);
-        } else {
-            return 0;
-        }
-    }
-
     /**
      * 取服务器的用户
-     * @param uuid 服务器ID（依赖hazelcast）
+     * @param netIds 连接ID列表（依赖hazelcast）
      * @return
      * @since  1.0
      */
-    public Collection<Long> getUserList(String uuid) {
-        if (serverUserMap.containsKey(uuid)) {
-            return serverUserMap.get(uuid);
-        } else {
-            return new ArrayList<>();
+    public Collection<Long> getUserList(Collection<Long> netIds) {
+        Collection<Long> userList = new ArrayList<>();
+        for (Long netId : netIds) {
+            Long userId = serverUserMap.get(netId);
+            if (userId != null) {
+                userList.add(userId);
+            }
         }
+        return userList;
     }
     /**
      * 删除用户连接信息 <br>
@@ -87,33 +77,37 @@ public final class UserClientInfoManager implements InitializingBean {
      * @param userId 用户ID
      * @since 1.0
      */
-    public void erase(Long userId, String uuid) {
+    public void erase(Long userId, Long netid) {
         if (userClientInfoMap.containsKey(userId)) {
             userClientInfoMap.remove(userId);
         }
-        serverUserMap.remove(uuid, userId);
+        serverUserMap.remove(netid, userId);
     }
 
     /**
      * 删除用户连接信息 <br>
      * 服务器离线时
      * 
-     * @param uuid 服务器ID
+     * @param netIds 连接ID列表
      * @since 1.0
      */
-    public void unloadServer(String uuid) {
-        if (serverUserMap.containsKey(uuid)) {
-            Collection<Long> userList = serverUserMap.remove(uuid);
-            if (!userList.isEmpty()) {
-                for (Long userId : userList) {
-                    UserClientInfo userClientInfo = userClientInfoMap.get(userId);
-                    int cnnCount = userClientInfo.removeRouteConn(uuid);
-                    if (cnnCount == 0) {
-                        // erase(userId);
-                        userClientInfoMap.remove(userId);
-                    } else {
-                        userClientInfoMap.put(userId, userClientInfo);
-                    }
+    public void unloadServer(Collection<Long> netIds) {
+        Collection<Long> userList = new ArrayList<>();
+        for (Long netId : netIds) {
+            Long userId = serverUserMap.remove(netId);
+            if (userId != null) {
+                userList.add(userId);
+            }
+        }
+        if (!userList.isEmpty()) {
+            for (Long userId : userList) {
+                UserClientInfo userClientInfo = userClientInfoMap.get(userId);
+                userClientInfo.netConnects.removeAll(netIds);
+                if (userClientInfo.netConnects.isEmpty()) {
+                    // erase(userId);
+                    userClientInfoMap.remove(userId);
+                } else {
+                    userClientInfoMap.put(userId, userClientInfo);
                 }
             }
         }
@@ -128,9 +122,9 @@ public final class UserClientInfoManager implements InitializingBean {
      */
     public void insert(Long userId, UserClientInfo userClientInfo) {
         userClientInfoMap.put(userId, userClientInfo);
-        List<String> routeConns = userClientInfo.getRouteConns();
+        List<Long> routeConns = userClientInfo.getRouteConns();
         if (routeConns != null) {
-            for (String conn : routeConns) {
+            for (Long conn : routeConns) {
                 serverUserMap.put(conn, userId);
             }
         }
@@ -145,9 +139,9 @@ public final class UserClientInfoManager implements InitializingBean {
     public void update(Long userId, UserClientInfo userClientInfo) {
         if (userClientInfoMap.containsKey(userId)) {
             userClientInfoMap.put(userId, userClientInfo);
-            List<String> routeConns = userClientInfo.getRouteConns();
+            List<Long> routeConns = userClientInfo.getRouteConns();
             if (routeConns != null) {
-                for (String conn : routeConns) {
+                for (Long conn : routeConns) {
                     serverUserMap.put(conn, userId);
                 }
             }
@@ -169,6 +163,9 @@ public final class UserClientInfoManager implements InitializingBean {
         private static final long serialVersionUID = 4078865102805121742L;
 
         private Long userId;
+//        
+//        /** 服务器ID */
+//        private List<String> uuids;
 
         /**
          * @return the userId
@@ -184,25 +181,33 @@ public final class UserClientInfoManager implements InitializingBean {
             this.userId = userId;
         }
 
-        private List<String> netConnects = new ArrayList<>();
+        private List<Long> netConnects = new ArrayList<>();
         private Set<IMBaseDefine.ClientType> clientTypes = new HashSet<>();
 
-        public void addRouteConn(String netId) {
+        public void addRouteConn(long netId) {
             this.netConnects.add(netId);
         }
 
+//        public String getUuid() {
+//            return uuid;
+//        }
+//
+//        public void setUuid(String uuid) {
+//            this.uuid = uuid;
+//        }
+
         /**
          * 删除连接
-         * @param netId 连接uuid
+         * @param netId 连接id
          * @return 剩余连接数
          * @since  1.0
          */
-        public int removeRouteConn(String netId) {
+        public int removeRouteConn(long netId) {
             this.netConnects.remove(netId);
             return this.netConnects.size();
         }
 
-        public boolean findRouteConn(String netId) {
+        public boolean findRouteConn(Long netId) {
             return this.netConnects.contains(netId);
         }
 
@@ -215,7 +220,7 @@ public final class UserClientInfoManager implements InitializingBean {
          * @return
          * @since  1.0
          */
-        public List<String> getRouteConns() {
+        public List<Long> getRouteConns() {
             return netConnects;
         }
 
@@ -279,7 +284,7 @@ public final class UserClientInfoManager implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         this.userClientInfoMap = hazelcastInstance.getMap("message-server#router#user");
-        this.serverUserMap = hazelcastInstance.getMultiMap("message-server#router#server");
+        this.serverUserMap = hazelcastInstance.getMap("message-server#router#connection");
     }
 
 }

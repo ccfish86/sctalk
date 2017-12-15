@@ -56,7 +56,7 @@ public class TalkLoginController {
             MessageServerManager.MessageServerInfo server = messageServerManager.getServer(uuid);
             if (server != null) {
                 
-                Collection<Long> users = userClientInfoManager.getUserList(uuid);
+                Collection<Long> users = messageServerManager.getUserList(uuid);
                 TalkServerResponse talkServerResponse = new TalkServerResponse();
                 talkServerResponse.setServer(server.getIp());
                 talkServerResponse.setUuid(uuid);
@@ -95,13 +95,13 @@ public class TalkLoginController {
             String freeUuid = null;
             int minUserCount = Integer.MAX_VALUE;
             for (String uuid : servers) {
-                int userCount = userClientInfoManager.getUserCount(uuid);
-                if (userCount == 0) {
+                int connectionCount = messageServerManager.getConnectCount(uuid);
+                if (connectionCount == 0) {
                     freeUuid = uuid;
                     break;
                 } else {
-                    if (minUserCount > userCount) {
-                        minUserCount = userCount;
+                    if (minUserCount > connectionCount) {
+                        minUserCount = connectionCount;
                         freeUuid = uuid;
                     }
                 }

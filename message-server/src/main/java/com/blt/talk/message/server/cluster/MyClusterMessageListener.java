@@ -19,9 +19,6 @@ import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.PduAttachData;
 import com.blt.talk.common.code.proto.IMBaseDefine;
-import com.blt.talk.common.code.proto.IMBuddy;
-import com.blt.talk.common.code.proto.IMFile;
-import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.FileCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.GroupCmdID;
@@ -31,13 +28,16 @@ import com.blt.talk.common.code.proto.IMBaseDefine.SwitchServiceCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStat;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo;
+import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.IMBuddy.IMPCLoginStatusNotify;
+import com.blt.talk.common.code.proto.IMFile;
 import com.blt.talk.common.code.proto.IMGroup.IMGroupChangeMemberNotify;
 import com.blt.talk.common.code.proto.IMMessage.IMMsgData;
 import com.blt.talk.common.code.proto.IMMessage.IMMsgDataReadNotify;
 import com.blt.talk.common.code.proto.IMServer.IMPushToUserReq;
 import com.blt.talk.common.code.proto.IMServer.IMServerKickUser;
 import com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify;
+import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.common.constant.AttachType;
 import com.blt.talk.common.constant.PushConstant;
 import com.blt.talk.common.constant.SysConstant;
@@ -72,7 +72,7 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
     @Autowired
     private GroupService groupService;
     @Autowired
-    IphonePushService iphonePushService;
+    private IphonePushService iphonePushService;
 
     @Override
     public void onMessage(Message<MyClusterMessage> message) {
@@ -364,7 +364,6 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
      * @since 1.0 李春生
      */
     private void handleKickUser(MessageLite body) {
-
 
         // 转换body中的数据,判断是否是真正的kickUser消息,如果是,则进行下面的操作,不是抛出异常
         IMServerKickUser kickUser = (IMServerKickUser) body;

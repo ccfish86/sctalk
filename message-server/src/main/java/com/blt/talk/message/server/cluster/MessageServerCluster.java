@@ -85,17 +85,25 @@ public class MessageServerCluster implements InitializingBean {
 
         UserClientInfoManager.UserClientInfo userClientInfo = userClientInfoManager.getUserInfo(userId);
         ClientType clientType =  msgCtx.attr(ClientUser.CLIENT_TYPE).get();
+        long handleId =  msgCtx.attr(ClientUser.HANDLE_ID).get();
         String nodeId = hazelcastInstance.getCluster().getLocalMember().getUuid();
+        
+        // 处理服务器与连接关联
+        if (status == IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
+            messageServerManager.addConnect(nodeId, handleId);
+        } else {
+            messageServerManager.removeConnect(nodeId, handleId);
+        }
         
         if (userClientInfo != null) {
             // 现存连接
-            if (userClientInfo.findRouteConn(nodeId)) {
+            if (userClientInfo.findRouteConn(handleId)) {
                 if (status != IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
                     int clientCnt = userClientInfo.removeClientType(clientType);
                     if (clientCnt == 0) {
-                        int cnnCount = userClientInfo.removeRouteConn(nodeId);
+                        int cnnCount = userClientInfo.removeRouteConn(handleId);
                         if (cnnCount == 0) {
-                            userClientInfoManager.erase(userId, nodeId);
+                            userClientInfoManager.erase(userId, handleId);
                         }
                     }
                 } else {
@@ -104,7 +112,7 @@ public class MessageServerCluster implements InitializingBean {
             } else {
                 if (status != IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
                     userClientInfo.addClientType(clientType);
-                    userClientInfo.addRouteConn(nodeId);
+                    userClientInfo.addRouteConn(handleId);
                 }
             }
             userClientInfoManager.update(userId, userClientInfo);
@@ -112,7 +120,8 @@ public class MessageServerCluster implements InitializingBean {
             if (status != IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
                 userClientInfo = new UserClientInfoManager.UserClientInfo();
                 userClientInfo.addClientType(clientType);
-                userClientInfo.addRouteConn(nodeId);
+                userClientInfo.addRouteConn(handleId);
+                // userClientInfo.setUuid(nodeId);
                 userClientInfo.setUserId(userId);
                 
                 userClientInfoManager.insert(userId, userClientInfo);
