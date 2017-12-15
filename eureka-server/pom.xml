@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.blt</groupId>
-    <artifactId>config-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>eureka-server</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>config-server</name>
+    <name>eureka-server</name>
     <description>聊天服务器之配置服务</description>
 
     <parent>
@@ -28,17 +28,17 @@
     <dependencies>
         <!-- <dependency> -->
         <!-- <groupId>org.springframework.cloud</groupId> -->
-        <!-- <artifactId>spring-cloud-config-server</artifactId> -->
+        <!-- <artifactId>spring-cloud-eureka-server</artifactId> -->
         <!-- </dependency> -->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka-server</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.tmatesoft.svnkit</groupId>
-            <artifactId>svnkit</artifactId>
-        </dependency>
+<!--         <dependency> -->
+<!--             <groupId>org.tmatesoft.svnkit</groupId> -->
+<!--             <artifactId>svnkit</artifactId> -->
+<!--         </dependency> -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
