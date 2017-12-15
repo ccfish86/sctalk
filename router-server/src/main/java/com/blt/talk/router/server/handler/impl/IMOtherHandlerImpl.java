@@ -64,7 +64,7 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
             if (userClientInfo != null) {
                 // 现存连接
                 if (userClientInfo.findRouteConn(netId)) {
-                    if (userStat.getStatus() != IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
+                    if (userStat.getStatus() != IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
                         userClientInfo.removeClientType(userStat.getClientType());
                         
                         if (userClientInfo.isMsgConnNULL()) {
@@ -185,7 +185,7 @@ public class IMOtherHandlerImpl implements IMOtherHandler {
         if (userClientInfo != null) {
             // 现存连接
             if (userClientInfo.findRouteConn(netId)) {
-                if (status != IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
+                if (status != IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
                     userClientInfo.removeClientType(clientType);
                     
                     if (userClientInfo.isMsgConnNULL()) {
