@@ -87,28 +87,30 @@ public final class UserClientInfoManager implements InitializingBean {
      * @param userId 用户ID
      * @since 1.0
      */
-    public void erase(Long userId) {
+    public void erase(Long userId, String uuid) {
         if (userClientInfoMap.containsKey(userId)) {
             userClientInfoMap.remove(userId);
         }
+        serverUserMap.remove(uuid, userId);
     }
 
     /**
      * 删除用户连接信息 <br>
-     * 用户所有端离线时
+     * 服务器离线时
      * 
-     * @param userId 用户ID
+     * @param uuid 服务器ID
      * @since 1.0
      */
     public void unloadServer(String uuid) {
         if (serverUserMap.containsKey(uuid)) {
-            Collection<Long> userList = serverUserMap.get(uuid);
+            Collection<Long> userList = serverUserMap.remove(uuid);
             if (!userList.isEmpty()) {
                 for (Long userId : userList) {
                     UserClientInfo userClientInfo = userClientInfoMap.get(userId);
                     int cnnCount = userClientInfo.removeRouteConn(uuid);
                     if (cnnCount == 0) {
-                        erase(userId);
+                        // erase(userId);
+                        userClientInfoMap.remove(userId);
                     } else {
                         userClientInfoMap.put(userId, userClientInfo);
                     }

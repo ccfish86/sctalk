@@ -95,7 +95,7 @@ public class MessageServerCluster implements InitializingBean {
                     if (clientCnt == 0) {
                         int cnnCount = userClientInfo.removeRouteConn(nodeId);
                         if (cnnCount == 0) {
-                            userClientInfoManager.erase(userId);
+                            userClientInfoManager.erase(userId, nodeId);
                         }
                     }
                 } else {
