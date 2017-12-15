@@ -32,6 +32,7 @@ import com.blt.talk.common.code.proto.IMGroup;
 import com.blt.talk.common.code.proto.IMLogin;
 import com.blt.talk.common.code.proto.IMMessage;
 import com.blt.talk.common.code.proto.IMOther;
+import com.blt.talk.common.code.proto.IMServer;
 import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.message.server.channel.NettyChatServerInitializer;
 import com.blt.talk.message.server.cluster.MessageServerCluster;
@@ -173,6 +174,8 @@ public class MessageServerStarter {
         // OtherCmdID
         ProtobufParseMap.register(ServiceID.SID_OTHER_VALUE, OtherCmdID.CID_OTHER_HEARTBEAT_VALUE,
                 IMOther.IMHeartBeat::parseFrom, IMOther.IMHeartBeat.class);
+        ProtobufParseMap.register(ServiceID.SID_OTHER_VALUE, OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE,
+                IMServer.IMServerKickUser::parseFrom, IMServer.IMServerKickUser.class); 
         
         // CID_SWITCH_P2P_CMD
         ProtobufParseMap.register(ServiceID.SID_SWITCH_SERVICE_VALUE, SwitchServiceCmdID.CID_SWITCH_P2P_CMD_VALUE,
