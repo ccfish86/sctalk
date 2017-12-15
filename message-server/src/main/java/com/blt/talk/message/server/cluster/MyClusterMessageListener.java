@@ -96,7 +96,7 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
                 }
                 break;
             case IMBaseDefine.ServiceID.SID_OTHER_VALUE:
-                this.doOther(clusterMessage.getCommandId(), clusterMessage);
+                this.doOther(clusterMessage.getCommandId(), clusterMessage, member);
                 break;
             case IMBaseDefine.ServiceID.SID_SWITCH_SERVICE_VALUE:
                 if (!member.localMember()) {
@@ -190,17 +190,21 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
      * @param clusterMessage
      * @since 1.0
      */
-    private void doOther(short commandId, MyClusterMessage clusterMessage) {
+    private void doOther(short commandId, MyClusterMessage clusterMessage, Member member) {
         logger.debug("MyClusterMessageListener#doOther");
         IMHeader header = clusterMessage.getHeader();
         try {
             MessageLite body = clusterMessage.getMessage();
             switch (commandId) {
                 case OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE:
-                    handleKickUser(body);
+                    if (!member.localMember()) {
+                        handleKickUser(body);
+                    }
                     break;
                 case OtherCmdID.CID_OTHER_LOGIN_STATUS_NOTIFY_VALUE:
-                    handlePCLoginStatusNotify(header, body);
+                    if (!member.localMember()) {
+                        handlePCLoginStatusNotify(header, body);
+                    }
                     break;
                 case OtherCmdID.CID_OTHER_HEARTBEAT_VALUE:// 无需实现
                     break;

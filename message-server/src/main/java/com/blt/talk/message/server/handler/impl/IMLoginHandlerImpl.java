@@ -9,12 +9,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.blt.talk.common.code.DefaultIMHeader;
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.KickReasonType;
 import com.blt.talk.common.code.proto.IMBaseDefine.LoginCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.OtherCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.ResultType;
+import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
 import com.blt.talk.common.code.proto.IMLogin.IMDeviceTokenReq;
 import com.blt.talk.common.code.proto.IMLogin.IMDeviceTokenRsp;
@@ -28,6 +31,7 @@ import com.blt.talk.common.code.proto.IMLogin.IMPushShieldReq;
 import com.blt.talk.common.code.proto.IMLogin.IMPushShieldRsp;
 import com.blt.talk.common.code.proto.IMLogin.IMQueryPushShieldReq;
 import com.blt.talk.common.code.proto.IMLogin.IMQueryPushShieldRsp;
+import com.blt.talk.common.code.proto.IMServer.IMServerKickUser;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.UserEntity;
@@ -127,6 +131,13 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
                     ClientUserManager.addUserById(userId, clientUser);
                 } else {
                     logger.debug("登录成功，设置参数:{}", userId);
+                    
+                    // 踢掉同时在线的同类型的客户端
+                    clientUser.kickSameClientType(req.getClientType().getNumber(),
+                            IMBaseDefine.KickReasonType.KICK_REASON_DUPLICATE_USER.getNumber(),
+                            ctx);
+                    
+                    // 追加新的连接
                     clientUser.addConn(handleId, ctx);
                     ctx.attr(ClientUser.HANDLE_ID).set(handleId);
                     ctx.attr(ClientUser.USER_ID).set(userId);
@@ -143,9 +154,16 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
                 
                 // 广播
                 // routerHandler.sendUserStatusUpdate(ctx, IMBaseDefine.UserStatType.USER_STATUS_ONLINE);
+                messageServerCluster.userStatusUpdate(userId, ctx, IMBaseDefine.UserStatType.USER_STATUS_ONLINE);
+
                 // 广播
                 // routerHandler.kickOutSameClientType(ctx, IMBaseDefine.KickReasonType.KICK_REASON_DUPLICATE_USER);
-                messageServerCluster.userStatusUpdate(userId, ctx, IMBaseDefine.UserStatType.USER_STATUS_ONLINE);
+                // OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE
+                IMHeader kkHeader = new DefaultIMHeader(ServiceID.SID_OTHER_VALUE, OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE);
+                IMServerKickUser kickUser = IMServerKickUser.newBuilder().setClientType(req.getClientType())
+                        .setReason(IMBaseDefine.KickReasonType.KICK_REASON_DUPLICATE_USER_VALUE).setUserId(userId).build();
+                
+                messageServerCluster.send(kkHeader, kickUser);
 
                 // 后移，防止登录后判断是否在线（PC）失败
                 IMBaseDefine.UserInfo userInfo = JavaBean2ProtoBuf.getUserInfo(userRes.getData());
