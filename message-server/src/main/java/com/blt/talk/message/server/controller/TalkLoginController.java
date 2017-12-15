@@ -22,7 +22,6 @@ import com.blt.talk.message.server.cluster.MessageServerManager;
 import com.blt.talk.message.server.cluster.UserClientInfoManager;
 import com.blt.talk.message.server.model.LoginResponse;
 import com.blt.talk.message.server.model.TalkServerResponse;
-import com.hazelcast.core.HazelcastInstance;
 
 /**
  * 提供登录服务
@@ -38,8 +37,6 @@ public class TalkLoginController {
     private MessageServerManager messageServerManager;
     @Autowired
     private UserClientInfoManager userClientInfoManager;
-    @Autowired
-    private HazelcastInstance hazelcastInstance;
     
     private Logger logger =LoggerFactory.getLogger(getClass());
     

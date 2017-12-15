@@ -106,8 +106,8 @@ public final class UserClientInfoManager implements InitializingBean {
             if (!userList.isEmpty()) {
                 for (Long userId : userList) {
                     UserClientInfo userClientInfo = userClientInfoMap.get(userId);
-                    userClientInfo.removeRouteConn(uuid);
-                    if (userClientInfo.getRouteConnCount() == 0) {
+                    int cnnCount = userClientInfo.removeRouteConn(uuid);
+                    if (cnnCount == 0) {
                         erase(userId);
                     } else {
                         userClientInfoMap.put(userId, userClientInfo);
@@ -141,11 +141,13 @@ public final class UserClientInfoManager implements InitializingBean {
      * @since 1.0
      */
     public void update(Long userId, UserClientInfo userClientInfo) {
-        userClientInfoMap.put(userId, userClientInfo);
-        List<String> routeConns = userClientInfo.getRouteConns();
-        if (routeConns != null) {
-            for (String conn : routeConns) {
-                serverUserMap.put(conn, userId);
+        if (userClientInfoMap.containsKey(userId)) {
+            userClientInfoMap.put(userId, userClientInfo);
+            List<String> routeConns = userClientInfo.getRouteConns();
+            if (routeConns != null) {
+                for (String conn : routeConns) {
+                    serverUserMap.put(conn, userId);
+                }
             }
         }
     }
@@ -187,8 +189,15 @@ public final class UserClientInfoManager implements InitializingBean {
             this.netConnects.add(netId);
         }
 
-        public void removeRouteConn(String netId) {
+        /**
+         * 删除连接
+         * @param netId 连接uuid
+         * @return 剩余连接数
+         * @since  1.0
+         */
+        public int removeRouteConn(String netId) {
             this.netConnects.remove(netId);
+            return this.netConnects.size();
         }
 
         public boolean findRouteConn(String netId) {
@@ -197,16 +206,6 @@ public final class UserClientInfoManager implements InitializingBean {
 
         public boolean isMsgConnNULL() {
             return clientTypes.isEmpty();
-        }
-
-        /**
-         * 获取连接数（MessageServer-RouterServer）
-         * 
-         * @return 连接数
-         * @since 1.0
-         */
-        public int getRouteConnCount() {
-            return netConnects.size();
         }
 
         /**
@@ -232,10 +231,12 @@ public final class UserClientInfoManager implements InitializingBean {
          * 删除用户客户端类型
          * 
          * @param clientType 客户端类型
+         * @return 客户端类型数
          * @since 1.0
          */
-        public void removeClientType(IMBaseDefine.ClientType clientType) {
+        public int removeClientType(IMBaseDefine.ClientType clientType) {
             this.clientTypes.remove(clientType);
+            return clientTypes.size();
         }
 
         /**

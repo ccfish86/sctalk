@@ -90,12 +90,11 @@ public class MessageServerCluster implements InitializingBean {
         if (userClientInfo != null) {
             // 现存连接
             if (userClientInfo.findRouteConn(nodeId)) {
-                if (status != IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
-                    userClientInfo.removeClientType(clientType);
-                    
-                    if (userClientInfo.isMsgConnNULL()) {
-                        userClientInfo.removeRouteConn(nodeId);
-                        if (userClientInfo.getRouteConnCount() == 0) {
+                if (status != IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
+                    int clientCnt = userClientInfo.removeClientType(clientType);
+                    if (clientCnt == 0) {
+                        int cnnCount = userClientInfo.removeRouteConn(nodeId);
+                        if (cnnCount == 0) {
                             userClientInfoManager.erase(userId);
                         }
                     }
