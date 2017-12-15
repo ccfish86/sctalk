@@ -8,11 +8,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.springframework.stereotype.Component;
 
-import com.blt.talk.message.server.model.TalkServerResponse;
 import com.hazelcast.core.HazelcastInstance;
 
 /**
@@ -66,68 +64,6 @@ public class MessageServerManager {
     }
 
     /**
-     * 更新MessageServer用户数
-     * 
-     * @param count 用户数（连接数）
-     * @since 1.0
-     */
-    public void update(int count) {
-        if (messageServerInfoMap.containsKey(memberId)) {
-            MessageServerInfo server = messageServerInfoMap.get(memberId);
-            server.setUserCount(count);
-            messageServerInfoMap.put(memberId, server);
-        }
-    }
-
-    /**
-     * 更新MessageServer用户数
-     * 
-     * @param uuid NODE-ID
-     * @param count 用户数（连接数）
-     * @since 1.0
-     */
-    public void update(String uuid, int count) {
-        if (messageServerInfoMap.containsKey(uuid)) {
-            MessageServerInfo server = messageServerInfoMap.get(uuid);
-            server.setUserCount(count);
-            messageServerInfoMap.put(uuid, server);
-        }
-    }
-
-    /**
-     * 获取可用的消息服务器 <br>
-     * 遍历消息服务器列表，如果消息服务器的用户连接数不超过一定数(暂指定100)，直接返回当前消息服务器，否则取用户连接数最小的
-     * 
-     * @return
-     * @since 1.0
-     */
-    public MessageServerInfo getUsableServer() {
-        if (messageServerInfoMap.size() == 0) {
-            return null;
-        }
-
-        MessageServerInfo minConnServer = null;
-
-        for (MessageServerInfo server : messageServerInfoMap.values()) {
-
-            // 如果当前服务器连接数不到100， 直接返回
-            // if (server.getUserCount() < 100) {
-            // return server;
-            // } else {
-            if (minConnServer == null) {
-                minConnServer = server;
-            } else if (minConnServer.getUserCount() > server.getUserCount()) {
-                minConnServer = server;
-            } else {
-                // nth to do
-            }
-            // }
-        }
-
-        return minConnServer;
-    }
-
-    /**
      * 消息服务器信息
      * 
      * @author 袁贵
@@ -145,8 +81,6 @@ public class MessageServerManager {
         private String ip;
         /** 端口号（Netty-Socket） */
         private Integer port;
-        /** 用户数 */
-        private int userCount;
 
         /**
          * @return the ip
@@ -176,22 +110,23 @@ public class MessageServerManager {
             this.port = port;
         }
 
-        /**
-         * @return the userCount
-         */
-        public int getUserCount() {
-            return userCount;
-        }
-
-        /**
-         * @param userCount the userCount to set
-         */
-        public void setUserCount(int userCount) {
-            this.userCount = userCount;
-        }
-
     }
 
+    /**
+     * @return
+     * @since 1.0
+     */
+    public List<String> allServerIds() {
+        if (messageServerInfoMap.size() == 0) {
+            return null;
+        }
+        List<String> serverIds = new ArrayList<>();
+        for (String uuid : messageServerInfoMap.keySet()) {
+            serverIds.add(uuid);
+        }
+        return serverIds;
+    }
+    
     /**
      * @return
      * @since 1.0
@@ -207,23 +142,4 @@ public class MessageServerManager {
         return serverNames;
     }
 
-    /**
-     * @return
-     * @since 1.0
-     */
-    public List<TalkServerResponse> allServers() {
-        if (messageServerInfoMap.size() == 0) {
-            return null;
-        }
-        List<TalkServerResponse> serverNames = new ArrayList<>();
-        for (Entry<String, MessageServerInfo> serverSet : messageServerInfoMap.entrySet()) {
-            MessageServerInfo server = serverSet.getValue();
-            TalkServerResponse serverResponse = new TalkServerResponse();
-            serverResponse.setServer(server.getIp() + ":" + server.getPort());
-            serverResponse.setUuid(serverSet.getKey());
-            serverResponse.setUserCount(server.getUserCount());
-            serverNames.add(serverResponse);
-        }
-        return serverNames;
-    }
 }

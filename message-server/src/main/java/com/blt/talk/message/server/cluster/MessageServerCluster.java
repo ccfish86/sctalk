@@ -108,7 +108,7 @@ public class MessageServerCluster implements InitializingBean {
                     userClientInfo.addRouteConn(nodeId);
                 }
             }
-            
+            userClientInfoManager.update(userId, userClientInfo);
         } else {
             if (status != IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
                 userClientInfo = new UserClientInfoManager.UserClientInfo();
@@ -185,7 +185,6 @@ public class MessageServerCluster implements InitializingBean {
         MessageServerManager.MessageServerInfo serverInfo = new MessageServerManager.MessageServerInfo();
         serverInfo.setIp(messageServerStarter.getIpadress());
         serverInfo.setPort(messageServerStarter.getPort());
-        serverInfo.setUserCount(0);
         messageServerManager.insert(serverInfo);
     }
 

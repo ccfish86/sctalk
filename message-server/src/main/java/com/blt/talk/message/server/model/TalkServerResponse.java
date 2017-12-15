@@ -5,7 +5,7 @@
 package com.blt.talk.message.server.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * 服务器连接信息
@@ -27,7 +27,7 @@ public class TalkServerResponse implements Serializable {
 
     private Integer userCount;
 
-    private List<Long> users;
+    private Collection<Long> users;
 
     /**
      * @return the server
@@ -60,14 +60,14 @@ public class TalkServerResponse implements Serializable {
     /**
      * @return the users
      */
-    public List<Long> getUsers() {
+    public Collection<Long> getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(List<Long> users) {
+    public void setUsers(Collection<Long> users) {
         this.users = users;
     }
 

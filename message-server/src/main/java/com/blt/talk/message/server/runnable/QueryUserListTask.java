@@ -11,6 +11,9 @@ import java.util.concurrent.Callable;
 import com.blt.talk.message.server.manager.ClientUserManager;
 
 /**
+ * 处理在线用户的查询
+ * <br>
+ * 此类暂时用于查询对应的消息服务器中的用户信息，以便于为用户连接提供负载参考
  * 
  * @author 袁贵
  * @version 1.0

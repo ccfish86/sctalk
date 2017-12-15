@@ -4,12 +4,9 @@
 
 package com.blt.talk.message.server.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,11 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.message.server.cluster.MessageServerManager;
+import com.blt.talk.message.server.cluster.UserClientInfoManager;
 import com.blt.talk.message.server.model.LoginResponse;
 import com.blt.talk.message.server.model.TalkServerResponse;
-import com.blt.talk.message.server.runnable.QueryUserListTask;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.Member;
 
 /**
  * 提供登录服务
@@ -41,6 +37,8 @@ public class TalkLoginController {
     @Autowired
     private MessageServerManager messageServerManager;
     @Autowired
+    private UserClientInfoManager userClientInfoManager;
+    @Autowired
     private HazelcastInstance hazelcastInstance;
     
     private Logger logger =LoggerFactory.getLogger(getClass());
@@ -54,48 +52,28 @@ public class TalkLoginController {
      */
     @RequestMapping(value = "/", method = {RequestMethod.GET})
     public BaseModel<List<TalkServerResponse>> getServers() {
-        List<TalkServerResponse> servers = messageServerManager.allServers();
+        List<String> serverIds = messageServerManager.allServerIds();
+        List<TalkServerResponse> servers = new ArrayList<>();
+        
+        for (String uuid : serverIds) {
+            MessageServerManager.MessageServerInfo server = messageServerManager.getServer(uuid);
+            if (server != null) {
+                
+                Collection<Long> users = userClientInfoManager.getUserList(uuid);
+                TalkServerResponse talkServerResponse = new TalkServerResponse();
+                talkServerResponse.setServer(server.getIp());
+                talkServerResponse.setUuid(uuid);
+                talkServerResponse.setUserCount(users.size());
+                talkServerResponse.setUsers(users);
+                servers.add(talkServerResponse);
+            }
+        }
+        
         BaseModel<List<TalkServerResponse>> model = new BaseModel<>();
         model.setData(servers);
         return model;
     }
 
-    /**
-     * 更新在线用户数
-     * @param request
-     * @return
-     * @since  1.0
-     */
-    @RequestMapping(value = "/update", method = {RequestMethod.GET})
-    public BaseModel<Map<String, Integer>> updata(HttpServletRequest request) {
-        Map<Member, Future<List<Long>>> members = hazelcastInstance.getExecutorService("default").submitToAllMembers(new QueryUserListTask());
-        BaseModel<Map<String, Integer>> result = new BaseModel<>();
-        try {
-            
-            String uuid = "";
-            Map<String, Integer> map = new HashMap<>();
-            
-            for (Entry<Member, Future<List<Long>>> set:members.entrySet()) {
-                Future<List<Long>> userListFuture = set.getValue();
-                List<Long> userList = userListFuture.get();
-                if (!userList.isEmpty()) {
-                    uuid = set.getKey().getUuid();
-                    logger.debug("Update user count{},{}", uuid, userList.size());
-                    messageServerManager.update(uuid, userList.size());
-                    map.put(uuid, userList.size());
-                }
-            }
-            result.setData(map);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return result;
-    }
-    
     /**
      * 登录 <br>
      * 用于分配消息服务器
@@ -106,14 +84,33 @@ public class TalkLoginController {
     @RequestMapping(value = "/msg_server", method = {RequestMethod.GET})
     public BaseModel<LoginResponse> login(HttpServletRequest request) {
         
-        MessageServerManager.MessageServerInfo server = messageServerManager.getUsableServer();
+        List<String> servers = messageServerManager.allServerIds();
 
+        // MessageServerManager.MessageServerInfo
         BaseModel<LoginResponse> model = new BaseModel<>();
-        if (server == null) {
+        if (servers == null || servers.isEmpty()) {
             model.setCode(1);
             model.setMsg("没有服务");
         } else {
             LoginResponse data = new LoginResponse();
+            
+            // 处理负载
+            String freeUuid = null;
+            int minUserCount = Integer.MAX_VALUE;
+            for (String uuid : servers) {
+                int userCount = userClientInfoManager.getUserCount(uuid);
+                if (userCount == 0) {
+                    freeUuid = uuid;
+                    break;
+                } else {
+                    if (minUserCount > userCount) {
+                        minUserCount = userCount;
+                        freeUuid = uuid;
+                    }
+                }
+            }
+            MessageServerManager.MessageServerInfo server = messageServerManager.getServer(freeUuid);
+            
             data.setPriorIP(server.getIp());
             data.setBackupIP(server.getIp());
             

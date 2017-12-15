@@ -4,9 +4,10 @@
 
 package com.blt.talk.message.server.controller;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,18 +58,18 @@ public class TalkOnlineController {
      * @since  1.0
      */
     @RequestMapping(value = "/onlines", method={RequestMethod.GET})
-    public BaseModel<List<Long>> allOnline() {
+    public BaseModel<Map<Long, List<String>>> allOnline() {
         
         Collection<UserClientInfoManager.UserClientInfo> clientInfos = userClientInfoManager.allUsers();
         
-        List<Long> userList = new ArrayList<>();
+        Map<Long, List<String>> userConnMapList = new HashMap<>();
         
         for(UserClientInfoManager.UserClientInfo user :clientInfos) {
-            userList.add(user.getUserId());
+            userConnMapList.put(user.getUserId(), user.getRouteConns());
         }
         
-        BaseModel<List<Long>> result = new BaseModel<>();
-        result.setData(userList);
+        BaseModel<Map<Long, List<String>>> result = new BaseModel<>();
+        result.setData(userConnMapList);
         return result;
     }
 }

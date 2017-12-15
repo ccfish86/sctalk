@@ -24,6 +24,8 @@ public class MyClusterMembershipListener implements MembershipListener {
 
     @Autowired
     private MessageServerManager messageServerManager;
+    @Autowired
+    private UserClientInfoManager userClientInfoManager;
     
     private Logger logger = LoggerFactory.getLogger(getClass());
     
@@ -44,7 +46,7 @@ public class MyClusterMembershipListener implements MembershipListener {
         String uuid = membershipEvent.getMember().getUuid();
         logger.info("关闭连接: {}", uuid);
         messageServerManager.unload(uuid);
-
+        userClientInfoManager.unloadServer(uuid);
     }
 
     /* (non-Javadoc)

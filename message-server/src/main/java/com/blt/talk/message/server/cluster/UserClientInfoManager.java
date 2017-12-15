@@ -20,6 +20,7 @@ import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
 import com.blt.talk.common.util.CommonUtils;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.MultiMap;
 
 /**
  * 处理用户连接信息管理
@@ -35,10 +36,7 @@ public final class UserClientInfoManager implements InitializingBean {
     private HazelcastInstance hazelcastInstance;
 
     private Map<Long, UserClientInfo> userClientInfoMap;
-
-    public void updateInfo() {
-
-    }
+    private MultiMap<String, Long> serverUserMap;
 
     public Collection<UserClientInfo> allUsers() {
         return userClientInfoMap.values();
@@ -56,6 +54,33 @@ public final class UserClientInfoManager implements InitializingBean {
     }
 
     /**
+     * 取服务器的用户数
+     * @param uuid 服务器ID（依赖hazelcast）
+     * @return
+     * @since  1.0
+     */
+    public int getUserCount(String uuid) {
+        if (serverUserMap.containsKey(uuid)) {
+            return serverUserMap.valueCount(uuid);
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * 取服务器的用户
+     * @param uuid 服务器ID（依赖hazelcast）
+     * @return
+     * @since  1.0
+     */
+    public Collection<Long> getUserList(String uuid) {
+        if (serverUserMap.containsKey(uuid)) {
+            return serverUserMap.get(uuid);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+    /**
      * 删除用户连接信息 <br>
      * 用户所有端离线时
      * 
@@ -69,6 +94,30 @@ public final class UserClientInfoManager implements InitializingBean {
     }
 
     /**
+     * 删除用户连接信息 <br>
+     * 用户所有端离线时
+     * 
+     * @param userId 用户ID
+     * @since 1.0
+     */
+    public void unloadServer(String uuid) {
+        if (serverUserMap.containsKey(uuid)) {
+            Collection<Long> userList = serverUserMap.get(uuid);
+            if (!userList.isEmpty()) {
+                for (Long userId : userList) {
+                    UserClientInfo userClientInfo = userClientInfoMap.get(userId);
+                    userClientInfo.removeRouteConn(uuid);
+                    if (userClientInfo.getRouteConnCount() == 0) {
+                        erase(userId);
+                    } else {
+                        userClientInfoMap.put(userId, userClientInfo);
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
      * 添加用户连接信息
      * 
      * @param userId 用户ID
@@ -77,6 +126,28 @@ public final class UserClientInfoManager implements InitializingBean {
      */
     public void insert(Long userId, UserClientInfo userClientInfo) {
         userClientInfoMap.put(userId, userClientInfo);
+        List<String> routeConns = userClientInfo.getRouteConns();
+        if (routeConns != null) {
+            for (String conn : routeConns) {
+                serverUserMap.put(conn, userId);
+            }
+        }
+    }
+    /**
+     * 更新用户连接信息
+     * 
+     * @param userId 用户ID
+     * @param userClientInfo 用户连接信息
+     * @since 1.0
+     */
+    public void update(Long userId, UserClientInfo userClientInfo) {
+        userClientInfoMap.put(userId, userClientInfo);
+        List<String> routeConns = userClientInfo.getRouteConns();
+        if (routeConns != null) {
+            for (String conn : routeConns) {
+                serverUserMap.put(conn, userId);
+            }
+        }
     }
 
     /**
@@ -139,6 +210,15 @@ public final class UserClientInfoManager implements InitializingBean {
         }
 
         /**
+         * 获取用户的连接
+         * @return
+         * @since  1.0
+         */
+        public List<String> getRouteConns() {
+            return netConnects;
+        }
+
+        /**
          * 追加用户客户端类型
          * 
          * @param clientType 客户端类型
@@ -196,6 +276,7 @@ public final class UserClientInfoManager implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         this.userClientInfoMap = hazelcastInstance.getMap("message-server#router#user");
+        this.serverUserMap = hazelcastInstance.getMultiMap("message-server#router#server");
     }
 
 }
