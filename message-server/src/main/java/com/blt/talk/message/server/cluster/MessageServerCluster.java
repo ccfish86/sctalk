@@ -191,6 +191,7 @@ public class MessageServerCluster implements InitializingBean {
         logger.info("更新消息服务器信息");
         
         MessageServerManager.MessageServerInfo serverInfo = new MessageServerManager.MessageServerInfo();
+        serverInfo.setPriorIP(messageServerStarter.getPriorIP());
         serverInfo.setIp(messageServerStarter.getIpadress());
         serverInfo.setPort(messageServerStarter.getPort());
         messageServerManager.insert(serverInfo);

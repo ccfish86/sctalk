@@ -112,6 +112,8 @@ public class MessageServerManager {
 
         /** IP地址/主机地址 */
         private String ip;
+        /** 主IP地址（外网IP） */
+        private String priorIP;
         /** 端口号（Netty-Socket） */
         private Integer port;
 
@@ -127,6 +129,20 @@ public class MessageServerManager {
          */
         public void setIp(String ip) {
             this.ip = ip;
+        }
+
+        /**
+         * @return the priorIP
+         */
+        public String getPriorIP() {
+            return priorIP;
+        }
+
+        /**
+         * @param priorIP the priorIP to set
+         */
+        public void setPriorIP(String priorIP) {
+            this.priorIP = priorIP;
         }
 
         /**

@@ -33,7 +33,11 @@ public class JavaBean2ProtoBuf {
         IMBaseDefine.UserInfo.Builder userBuilder = IMBaseDefine.UserInfo.newBuilder();
         
         userBuilder.setStatus(userInfo.getStatus());
-        userBuilder.setAvatarUrl(userInfo.getAvatar());
+        if (userInfo.getAvatar() == null)  {
+            userBuilder.setAvatarUrl("");
+        } else {
+            userBuilder.setAvatarUrl(userInfo.getAvatar());
+        }
         userBuilder.setDepartmentId(userInfo.getDepartmentId());
         userBuilder.setEmail(userInfo.getEmail());
         userBuilder.setUserGender(userInfo.getGender());

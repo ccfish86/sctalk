@@ -12,8 +12,8 @@ public class DBConstant {
     /**性别
      * 1. 男性 2.女性
      * */
-    public static final int SEX_MAILE = 1;
-    public static final int SEX_FEMALE = 2;
+    public static final byte SEX_MAILE = 1;
+    public static final byte SEX_FEMALE = 2;
 
     /**msgType*/
     public static final int  MSG_TYPE_SINGLE_TEXT = 0x01;
@@ -49,10 +49,13 @@ public class DBConstant {
     /**user status
      * 1. 试用期 2. 正式 3. 离职 4.实习
      * */
-    public static final int  USER_STATUS_PROBATION = 1;
-    public static final int  USER_STATUS_OFFICIAL = 2;
-    public static final int  USER_STATUS_LEAVE = 3;
-    public static final int  USER_STATUS_INTERNSHIP =4;
+    public static final byte  USER_STATUS_PROBATION = 1;
+    public static final byte  USER_STATUS_OFFICIAL = 2;
+    public static final byte  USER_STATUS_LEAVE = 3;
+    public static final byte  USER_STATUS_INTERNSHIP =4;
+
+    public static final byte  SHIELD_ONLINE = 0;
+    public static final byte  SHIELD_SHIELD = 1;
 
    /**group type*/
    public static final int  GROUP_TYPE_NORMAL = 1;

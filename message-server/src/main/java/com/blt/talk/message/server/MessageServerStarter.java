@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -70,11 +72,14 @@ public class MessageServerStarter {
     private MessageServerConfig messageServerConfig;
     @Autowired
     private MessageServerCluster messageServerCluster;
+    @Autowired
+    private Registration registration;
     
     private boolean started = false;
     
-    /** IP */
+    /** 外网IP */
     private String ipadress;
+    private String priorIP;
     /** 端口号 */
     private int port;
 
@@ -123,13 +128,14 @@ public class MessageServerStarter {
                     .childOption(ChannelOption.SO_KEEPALIVE, true)
                     .childOption(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000);
 
-            
             // 绑定端口,开始接收进来的连接
-            future = sBootstrap.bind(messageServerConfig.getIp(), messageServerConfig.getPort()).sync();
+            String registHost = registration.getHost();
+            future = sBootstrap.bind(registHost, messageServerConfig.getPort()).sync();
 
             // 获取绑定的端口号
             if (future.channel().localAddress() instanceof InetSocketAddress ) {
                 InetSocketAddress socketAddress = (InetSocketAddress)future.channel().localAddress();
+                this.priorIP = messageServerConfig.getIp();
                 this.ipadress = socketAddress.getAddress().getHostAddress();
                 this.port = socketAddress.getPort();
                 this.started = true;
@@ -265,6 +271,13 @@ public class MessageServerStarter {
                 FileCmdID.CID_FILE_HAS_OFFLINE_REQ_VALUE,
                 IMFile.IMFileHasOfflineReq::parseFrom, IMFile.IMFileHasOfflineReq.class);
         
+    }
+
+    /**
+     * @return the priorIP
+     */
+    public String getPriorIP() {
+        return priorIP;
     }
 
     /**

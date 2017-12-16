@@ -14,6 +14,7 @@ import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.KickUserReq;
 import com.blt.talk.common.param.LoginReq;
+import com.blt.talk.common.param.RegistReq;
 import com.blt.talk.common.param.UserToken;
 
 /**
@@ -30,6 +31,8 @@ public interface LoginService {
     @PostMapping(path = "/login")
     BaseModel<UserEntity> login(@RequestBody LoginReq loginReq);
     
+    @PostMapping(path = "/regist")
+    public BaseModel<Long> regist(@RequestBody RegistReq param);
     /**
      * 
      * @param userToken 用户Tken

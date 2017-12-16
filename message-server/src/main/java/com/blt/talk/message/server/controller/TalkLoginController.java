@@ -13,15 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.common.param.RegistReq;
 import com.blt.talk.message.server.cluster.MessageServerManager;
-import com.blt.talk.message.server.cluster.UserClientInfoManager;
 import com.blt.talk.message.server.model.LoginResponse;
 import com.blt.talk.message.server.model.TalkServerResponse;
+import com.blt.talk.message.server.remote.LoginService;
 
 /**
  * 提供登录服务
@@ -36,7 +39,7 @@ public class TalkLoginController {
     @Autowired
     private MessageServerManager messageServerManager;
     @Autowired
-    private UserClientInfoManager userClientInfoManager;
+    private LoginService loginService;
     
     private Logger logger =LoggerFactory.getLogger(getClass());
     
@@ -69,6 +72,12 @@ public class TalkLoginController {
         BaseModel<List<TalkServerResponse>> model = new BaseModel<>();
         model.setData(servers);
         return model;
+    }
+    
+    @PostMapping(value = "/regist")
+    public BaseModel<?> regist(@RequestBody RegistReq req) {
+        BaseModel<?> res = loginService.regist(req);
+        return res;
     }
 
     /**
@@ -108,7 +117,7 @@ public class TalkLoginController {
             }
             MessageServerManager.MessageServerInfo server = messageServerManager.getServer(freeUuid);
             
-            data.setPriorIP(server.getIp());
+            data.setPriorIP(server.getPriorIP());
             data.setBackupIP(server.getIp());
             
             // 文件服务器地址（后续从配置文件读取地址）

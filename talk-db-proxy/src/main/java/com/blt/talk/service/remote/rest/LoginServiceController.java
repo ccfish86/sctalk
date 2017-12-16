@@ -28,8 +28,12 @@ import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.LoginReq;
+import com.blt.talk.common.param.RegistReq;
 import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.result.LoginCmdResult;
+import com.blt.talk.common.util.CommonUtils;
+import com.blt.talk.common.util.SecurityUtils;
+import com.blt.talk.service.internal.DepartmentService;
 import com.blt.talk.service.jpa.entity.IMUser;
 import com.blt.talk.service.jpa.repository.IMUserRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
@@ -53,10 +57,61 @@ public class LoginServiceController {
     private PasswordEncoder passwordEncoder;
     
     @Autowired
+    private DepartmentService departmentService;
+    
+    @Autowired
     private StringRedisTemplate redisTemplate;
     
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    /**
+     * 注册
+     * @param param 用户名或手机号phone
+     * @return 登录成功后返回用户ID
+     * @since  1.1
+     */
+    @PostMapping(path = "/regist")
+    public BaseModel<Long> regist(@RequestBody RegistReq param) {
+        BaseModel<Long> userRes = new BaseModel<>();
+        SearchCriteria<IMUser> userSearchCriteria = new SearchCriteria<>();
+        userSearchCriteria.add(JpaRestrictions.or(JpaRestrictions.eq("name", param.getName(), false),
+                JpaRestrictions.eq("phone", param.getName(), false)));
+        userSearchCriteria.add(JpaRestrictions.ne("status", DBConstant.USER_STATUS_LEAVE, false));
+        List<IMUser> users = userRepository.findAll(userSearchCriteria);
+        
+        if (!users.isEmpty()) {
+            logger.debug("用户{}注册失败， 已存在", param.getName());
+            return userRes.setResult(LoginCmdResult.REGIST_EXISTED_USER);
+        }
+        
+        Long departId = departmentService.getDeptId("TT测试部门");
+        
+        int time = CommonUtils.currentTimeSeconds(); 
+        
+        String md5 = SecurityUtils.getInstance().EncryptPass(param.getPassword());
+        String pwdEnc = passwordEncoder.encode(md5);
+        
+        IMUser user = new IMUser();
+        user.setName(param.getName());
+        user.setPassword(pwdEnc);
+        user.setSex((byte)param.getSex());
+        user.setNick(param.getName());
+        user.setPhone(param.getPhone());
+        user.setDepartId(departId);
+        user.setSalt("1111");
+        user.setStatus(DBConstant.USER_STATUS_OFFICIAL);
+        user.setPushShieldStatus(DBConstant.SHIELD_ONLINE);
+        user.setDomain(" ");
+        user.setAvatar("");
+        user.setSignInfo(" ");
+        user.setEmail(param.getEmail() == null? param.getName()+ "@tt": param.getEmail());
+        user.setCreated(time);
+        user.setUpdated(time);
+        
+        user = userRepository.save(user);
+        userRes.setData(user.getId());
+        return userRes;
+    }
     /**
      * 登录
      * @param param 用户名或手机号phone

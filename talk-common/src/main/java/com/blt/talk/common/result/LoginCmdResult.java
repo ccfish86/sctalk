@@ -15,6 +15,7 @@ public enum LoginCmdResult implements ResultEnum {
     SUCCESS(0, "成功"),
     LOGIN_NOUSER(1, "用户名/密码错误"),
     LOGIN_WRONG_PASSWORD(2, "密码错误"),
+    REGIST_EXISTED_USER(3, "用户名已被注册"),
     LOGIN_PASSWORD_LOCK(6, "用户名/密码错误次数太多");
 
     private int code;

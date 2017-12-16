@@ -1,9 +1,11 @@
 package com.blt.talk.common.util;
 
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
 import java.util.Arrays;
 
 import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.encoders.Hex;
 
 /**
  * 消息加密/解密类 <br>
@@ -91,7 +93,18 @@ public class SecurityUtils {
             return new byte[]{};
         }
     }
-    
+
+    public String EncryptPass(String strPass) {
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+        byte[] md5md5Bytes = md5.digest(strPass.getBytes());
+        return Hex.toHexString(md5md5Bytes);
+    }
     private static SecurityUtils m_pInstance;
 
     public static SecurityUtils getInstance() {
