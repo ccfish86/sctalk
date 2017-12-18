@@ -88,8 +88,9 @@ public class LoginServiceController {
         
         int time = CommonUtils.currentTimeSeconds(); 
         
-        String md5 = SecurityUtils.getInstance().EncryptPass(param.getPassword());
-        String pwdEnc = passwordEncoder.encode(md5);
+        // String md5 = SecurityUtils.getInstance().EncryptPass(param.getPassword());
+        // String pwdEnc = passwordEncoder.encode(md5);
+        String pwdEnc = passwordEncoder.encode(param.getPassword());
         
         IMUser user = new IMUser();
         user.setName(param.getName());
