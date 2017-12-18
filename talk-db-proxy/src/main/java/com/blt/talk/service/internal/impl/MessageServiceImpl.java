@@ -278,6 +278,7 @@ public class MessageServiceImpl implements MessageService {
 
             if (lastMessage != null) {
                 unreadEntity.setLaststMsgId(lastMessage.getMsgId());
+                unreadEntity.setLaststMsgType(lastMessage.getType());
                 unreadEntity.setLatestMsgFromUserId(lastMessage.getUserId());
                 if (lastMessage.getType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_TEXT_VALUE) {
                     unreadEntity.setLatestMsgData(lastMessage.getContent());
@@ -463,6 +464,7 @@ public class MessageServiceImpl implements MessageService {
                     unreadEntity.setUnReadCnt(unreadCount);
                     if (lastMessage != null) {
                         unreadEntity.setLaststMsgId(lastMessage.getMsgId());
+                        unreadEntity.setLaststMsgType(lastMessage.getType());
                         unreadEntity.setLatestMsgFromUserId(lastMessage.getUserId());
                         if (lastMessage.getType() == IMBaseDefine.MsgType.MSG_TYPE_GROUP_TEXT_VALUE) {
                             unreadEntity.setLatestMsgData(lastMessage.getContent());
