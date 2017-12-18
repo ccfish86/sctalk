@@ -277,8 +277,7 @@ public class MessageServiceImpl implements MessageService {
             }
 
             if (lastMessage != null) {
-                // unreadEntity.setLatestMsgId(lastMessage.getMsgId());
-                // unreadEntity.setLatestMsgType(lastMessage.getType());
+                unreadEntity.setLaststMsgId(lastMessage.getMsgId());
                 unreadEntity.setLatestMsgFromUserId(lastMessage.getUserId());
                 if (lastMessage.getType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_TEXT_VALUE) {
                     unreadEntity.setLatestMsgData(lastMessage.getContent());
