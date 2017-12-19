@@ -62,7 +62,7 @@ public class BuddyListServiceController {
     }
     /**
      * 更新用户头像
-     * @param signInfo 签名
+     * @param userAvatarReq 头像信息
      * @return 更新结果
      * @since  1.0
      */
