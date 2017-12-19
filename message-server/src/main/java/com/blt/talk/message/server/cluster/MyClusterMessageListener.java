@@ -260,10 +260,10 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
                     // send friend online message to client
                     handleStatusNotify(header, body);
                     break;
-                case BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_RESPONSE_VALUE:
-                    // send back to user
-                    handleUsersStatus(header, body);
-                    break;
+//                case BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_RESPONSE_VALUE:
+//                    // send back to user
+//                    handleUsersStatus(header, body);
+//                    break;
                 case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE: // todebug
                     removeSessionNotify(header, body);
                     break;
@@ -490,85 +490,85 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
                 SysConstant.CLIENT_TYPE_FLAG_PC);
     }
 
-    /**
-     * 处理用户状态查询响应
-     * 
-     * @param header
-     * @param body
-     * @since 1.0
-     */
-    private void handleUsersStatus(IMHeader header, MessageLite body) {
-        IMBuddy.IMUsersStatRsp usersStatRsp = (IMBuddy.IMUsersStatRsp) body;
-        PduAttachData attachData = new PduAttachData(usersStatRsp.getAttachData());
-
-        if (attachData.getType() == AttachType.HANDLE) {
-            Long handleId = attachData.getHandle();
-            ChannelHandlerContext msgCtx =
-                    ClientUserManager.getConnByHandle(usersStatRsp.getUserId(), handleId);
-            if (msgCtx != null) {
-                msgCtx.writeAndFlush(new IMProtoMessage<MessageLite>(header, body));
-            }
-        } else if (attachData.getType() == AttachType.PDU_FOR_PUSH) {
-
-            try {
-
-                List<UserToken> userTokenList = new ArrayList<>();
-                List<UserToken> olUserTokenList = new ArrayList<>();
-
-                IMPushToUserReq pushToUserReq = IMPushToUserReq.parseFrom(attachData.getPdu());
-                for (UserStat userStat : usersStatRsp.getUserStatListList()) {
-                    UserToken userToken = new UserToken();
-                    userToken.setUserId(userStat.getUserId());
-                    for (UserTokenInfo utokenInfo : pushToUserReq.getUserTokenListList()) {
-                        if (utokenInfo.getUserId() == userStat.getUserId()) {
-                            userToken.setUserToken(utokenInfo.getToken());
-                            break;
-                        }
-                    }
-
-                    if (userStat.getStatus() == UserStatType.USER_STATUS_ONLINE) {
-                        // userToken.setPushType(PushConstant.IM_PUSH_TYPE_SILENT);
-                        olUserTokenList.add(userToken);
-                    } else {
-                        // userToken.setPushType(PushConstant.IM_PUSH_TYPE_NORMAL);
-                        userTokenList.add(userToken);
-                    }
-                }
-
-                JSONObject pushJson = JSON.parseObject(pushToUserReq.getData());
-
-                // 推送
-                if (iphonePushService != null) {
-                    if (!userTokenList.isEmpty()) {
-                        IosPushReq pushReq = new IosPushReq();
-                        pushReq.setContent(pushToUserReq.getFlash());
-                        pushReq.setMsgType(pushJson.getIntValue("msg_type"));
-                        pushReq.setFromId(pushJson.getLong("from_id"));
-                        pushReq.setGroupId(pushJson.getLong("group_id"));
-                        pushReq.setPushType(PushConstant.IM_PUSH_TYPE_NORMAL);
-                        pushReq.setUserTokenList(userTokenList);
-                        iphonePushService.sendToUsers(pushReq);
-                    }
-                    if (!olUserTokenList.isEmpty()) {
-                        IosPushReq pushReq = new IosPushReq();
-                        pushReq.setContent(pushToUserReq.getFlash());
-                        pushReq.setMsgType(pushJson.getIntValue("msg_type"));
-                        pushReq.setFromId(pushJson.getLong("from_id"));
-                        pushReq.setGroupId(pushJson.getLong("group_id"));
-                        pushReq.setPushType(PushConstant.IM_PUSH_TYPE_SILENT);
-                        pushReq.setUserTokenList(olUserTokenList);
-                        iphonePushService.sendToUsers(pushReq);
-                    }
-                }
-
-            } catch (InvalidProtocolBufferException e) {
-                // e.printStackTrace();
-                logger.warn("推送消息解码失败！", e);
-            }
-        } else {
-            // 暂不支持，待追加
-        }
-    }
+//    /**
+//     * 处理用户状态查询响应
+//     * 
+//     * @param header
+//     * @param body
+//     * @since 1.0
+//     */
+//    private void handleUsersStatus(IMHeader header, MessageLite body) {
+//        IMBuddy.IMUsersStatRsp usersStatRsp = (IMBuddy.IMUsersStatRsp) body;
+//        PduAttachData attachData = new PduAttachData(usersStatRsp.getAttachData());
+//
+//        if (attachData.getType() == AttachType.HANDLE) {
+//            Long handleId = attachData.getHandle();
+//            ChannelHandlerContext msgCtx =
+//                    ClientUserManager.getConnByHandle(usersStatRsp.getUserId(), handleId);
+//            if (msgCtx != null) {
+//                msgCtx.writeAndFlush(new IMProtoMessage<MessageLite>(header, body));
+//            }
+//        } else if (attachData.getType() == AttachType.PDU_FOR_PUSH) {
+//
+//            try {
+//
+//                List<UserToken> userTokenList = new ArrayList<>();
+//                List<UserToken> olUserTokenList = new ArrayList<>();
+//
+//                IMPushToUserReq pushToUserReq = IMPushToUserReq.parseFrom(attachData.getPdu());
+//                for (UserStat userStat : usersStatRsp.getUserStatListList()) {
+//                    UserToken userToken = new UserToken();
+//                    userToken.setUserId(userStat.getUserId());
+//                    for (UserTokenInfo utokenInfo : pushToUserReq.getUserTokenListList()) {
+//                        if (utokenInfo.getUserId() == userStat.getUserId()) {
+//                            userToken.setUserToken(utokenInfo.getToken());
+//                            break;
+//                        }
+//                    }
+//
+//                    if (userStat.getStatus() == UserStatType.USER_STATUS_ONLINE) {
+//                        // userToken.setPushType(PushConstant.IM_PUSH_TYPE_SILENT);
+//                        olUserTokenList.add(userToken);
+//                    } else {
+//                        // userToken.setPushType(PushConstant.IM_PUSH_TYPE_NORMAL);
+//                        userTokenList.add(userToken);
+//                    }
+//                }
+//
+//                JSONObject pushJson = JSON.parseObject(pushToUserReq.getData());
+//
+//                // 推送
+//                if (iphonePushService != null) {
+//                    if (!userTokenList.isEmpty()) {
+//                        IosPushReq pushReq = new IosPushReq();
+//                        pushReq.setContent(pushToUserReq.getFlash());
+//                        pushReq.setMsgType(pushJson.getIntValue("msg_type"));
+//                        pushReq.setFromId(pushJson.getLong("from_id"));
+//                        pushReq.setGroupId(pushJson.getLong("group_id"));
+//                        pushReq.setPushType(PushConstant.IM_PUSH_TYPE_NORMAL);
+//                        pushReq.setUserTokenList(userTokenList);
+//                        iphonePushService.sendToUsers(pushReq);
+//                    }
+//                    if (!olUserTokenList.isEmpty()) {
+//                        IosPushReq pushReq = new IosPushReq();
+//                        pushReq.setContent(pushToUserReq.getFlash());
+//                        pushReq.setMsgType(pushJson.getIntValue("msg_type"));
+//                        pushReq.setFromId(pushJson.getLong("from_id"));
+//                        pushReq.setGroupId(pushJson.getLong("group_id"));
+//                        pushReq.setPushType(PushConstant.IM_PUSH_TYPE_SILENT);
+//                        pushReq.setUserTokenList(olUserTokenList);
+//                        iphonePushService.sendToUsers(pushReq);
+//                    }
+//                }
+//
+//            } catch (InvalidProtocolBufferException e) {
+//                // e.printStackTrace();
+//                logger.warn("推送消息解码失败！", e);
+//            }
+//        } else {
+//            // 暂不支持，待追加
+//        }
+//    }
 
     /**
      * 

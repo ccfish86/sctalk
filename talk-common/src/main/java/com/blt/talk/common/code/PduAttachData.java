@@ -11,11 +11,14 @@ import io.netty.buffer.ByteBufUtil;
 
 /**
  * 用户存放服务器端待处理消息
+ * <br>
  * 
  * @author 袁贵
  * @version 1.1
  * @since  1.1
+ * @deprecated 使用hazelcast替代router后，该对象已经不需要
  */
+@Deprecated
 public class PduAttachData {
 
     private ByteBuf buffer = ByteBufUtil.threadLocalDirectBuffer();
