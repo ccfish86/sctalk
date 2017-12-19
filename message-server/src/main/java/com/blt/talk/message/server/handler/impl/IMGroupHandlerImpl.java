@@ -22,7 +22,6 @@ import com.blt.talk.common.code.proto.IMBaseDefine.GroupType;
 import com.blt.talk.common.code.proto.IMGroup;
 import com.blt.talk.common.code.proto.IMGroup.IMGroupChangeMemberReq;
 import com.blt.talk.common.code.proto.IMGroup.IMGroupCreateReq;
-import com.blt.talk.common.code.proto.IMGroup.IMNormalGroupListReq;
 import com.blt.talk.common.code.proto.IMGroup.IMNormalGroupListRsp;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
 import com.blt.talk.common.model.BaseModel;
@@ -62,11 +61,10 @@ public class IMGroupHandlerImpl extends AbstractUserHandlerImpl implements IMGro
     @Override
     public void normalListReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
-        IMNormalGroupListReq req = (IMNormalGroupListReq) body;
         long userId = super.getUserId(ctx);
 
         try {
-            BaseModel<List<GroupEntity>> groupListRes = groupService.normalList(req.getUserId());
+            BaseModel<List<GroupEntity>> groupListRes = groupService.normalList(userId);
 
             if (groupListRes.getCode() != GroupCmdResult.SUCCESS.getCode()) {
 

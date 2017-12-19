@@ -76,10 +76,9 @@ public class ClientUser {
      */
     public ClientUser(ChannelHandlerContext ctx, long userId, long handleId, ClientType clientType, UserStatType statType) {
         this();
-        long handle = handleId;
         this.userId = userId;
-        this.connMap.put(handle, ctx);
-        ctx.attr(HANDLE_ID).set(handle);
+        this.connMap.put(handleId, ctx);
+        ctx.attr(HANDLE_ID).set(handleId);
         ctx.attr(USER_ID).set(userId);
         ctx.attr(CLIENT_TYPE).set(clientType);
         ctx.attr(STATUS).set(statType);

@@ -384,14 +384,13 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
      */
     @Override
     public void queryPushShield(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
-    	IMQueryPushShieldReq queryPushShieldReq = (IMQueryPushShieldReq) body;
         long userId = super.getUserId(ctx);
     	
     	IMHeader resHeader = null;
         IMQueryPushShieldRsp queryPushShieldRsp = null;
     	
     	try {   	  		
-    		BaseModel<Integer> queryPushShieldRes  = loginService.queryPushShield(queryPushShieldReq.getUserId());
+    		BaseModel<Integer> queryPushShieldRes  = loginService.queryPushShield(userId);
     		
     		queryPushShieldRsp = IMQueryPushShieldRsp.newBuilder()
     				            .setUserId(userId)

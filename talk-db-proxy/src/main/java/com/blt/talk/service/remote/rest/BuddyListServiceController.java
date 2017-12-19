@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.UserEntity;
+import com.blt.talk.common.param.BuddyListUserAvatarReq;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.service.jpa.entity.IMUser;
@@ -53,6 +54,25 @@ public class BuddyListServiceController {
         int time = CommonUtils.currentTimeSeconds();
         IMUser imuser = userRepository.findOne(signInfo.getUserId());
         imuser.setSignInfo(signInfo.getSignInfo());
+        imuser.setUpdated(time);
+
+        userRepository.save(imuser);
+
+        return new BaseModel<String>();
+    }
+    /**
+     * 更新用户头像
+     * @param signInfo 签名
+     * @return 更新结果
+     * @since  1.0
+     */
+    @PostMapping(path = "/changeAvatar")
+    @Transactional
+    public BaseModel<?> updateUserAvatar(@RequestBody BuddyListUserAvatarReq userAvatarReq) {
+
+        int time = CommonUtils.currentTimeSeconds();
+        IMUser imuser = userRepository.findOne(userAvatarReq.getUserId());
+        imuser.setAvatar(userAvatarReq.getAvatarUrl());
         imuser.setUpdated(time);
 
         userRepository.save(imuser);

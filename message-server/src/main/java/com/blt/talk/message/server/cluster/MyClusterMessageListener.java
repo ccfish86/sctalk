@@ -267,6 +267,9 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
                 case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE: // todebug
                     removeSessionNotify(header, body);
                     break;
+                case BuddyListCmdID.CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY_VALUE:
+                    handleAvatarChangedNotify(header, body);
+                    break;
                 case BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE: // todebug
                     signInfoChangedNotify(header, body);
                     break;
@@ -570,6 +573,10 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
 //        }
 //    }
 
+    private void handleAvatarChangedNotify(IMHeader header, MessageLite body) {
+        // 这样处理是否合理，需要检查？
+        ClientUserManager.broadCast(new IMProtoMessage<>(header, body), SysConstant.CLIENT_TYPE_FLAG_BOTH);
+    }
     /**
      * 
      * @param header
