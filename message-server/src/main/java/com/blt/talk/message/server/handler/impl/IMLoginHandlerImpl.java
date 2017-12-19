@@ -361,7 +361,7 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
     	IMPushShieldRsp pushShieldRsp = null;
     	
     	try {   	  		
-    		BaseModel<Integer> pushShieldRes  = loginService.pushShield(pushShieldReq.getUserId(), pushShieldReq.getShieldStatus());
+    		BaseModel<Integer> pushShieldRes  = loginService.pushShield(userId, pushShieldReq.getShieldStatus());
     		
     		pushShieldRsp = IMPushShieldRsp.newBuilder()
     				            .setUserId(userId)
