@@ -77,7 +77,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
             userIdForInsert = new ArrayList<>();
             userIdForInsert = members.stream().filter(id -> {
                 for (IMGroupMember groupMember : groupMembers) {
-                    if (groupMember.getId() == id) {
+                    if (groupMember.getId().equals(id)) {
                         return false;
                     }
                 }
