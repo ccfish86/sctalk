@@ -387,7 +387,7 @@ public class HandlerManager {
         }
 
         // routerHandler.sendUserStatusUpdate(ctx, UserStatType.USER_STATUS_ONLINE);
-        messageServerCluster.userStatusUpdate(userId, ctx, UserStatType.USER_STATUS_OFFLINE);
+        messageServerCluster.userStatusUpdate(userId, ctx, UserStatType.USER_STATUS_ONLINE);
         
         ClientUser clientUser = ClientUserManager.getUserById(userId);
         if (clientUser != null) {
