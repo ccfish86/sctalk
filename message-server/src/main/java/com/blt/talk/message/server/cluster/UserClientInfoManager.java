@@ -196,17 +196,6 @@ public final class UserClientInfoManager implements InitializingBean {
 //            this.uuid = uuid;
 //        }
 
-        /**
-         * 删除连接
-         * @param netId 连接id
-         * @return 剩余连接数
-         * @since  1.0
-         */
-        public int removeRouteConn(long netId) {
-            this.netConnects.remove(netId);
-            return this.netConnects.size();
-        }
-
         public boolean findRouteConn(Long netId) {
             return this.netConnects.contains(netId);
         }
@@ -241,8 +230,9 @@ public final class UserClientInfoManager implements InitializingBean {
          * @return 客户端类型数
          * @since 1.0
          */
-        public int removeClientType(IMBaseDefine.ClientType clientType) {
+        public int removeClient(IMBaseDefine.ClientType clientType, Long netId) {
             this.clientTypes.remove(clientType);
+            this.netConnects.remove(netId);
             return clientTypes.size();
         }
 

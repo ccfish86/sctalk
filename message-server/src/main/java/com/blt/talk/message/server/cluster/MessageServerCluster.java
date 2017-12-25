@@ -99,13 +99,8 @@ public class MessageServerCluster implements InitializingBean {
             // 现存连接
             if (userClientInfo.findRouteConn(handleId)) {
                 if (status != IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
-                    int clientCnt = userClientInfo.removeClientType(clientType);
-                    if (clientCnt == 0) {
-                        int cnnCount = userClientInfo.removeRouteConn(handleId);
-                        if (cnnCount == 0) {
-                            userClientInfoManager.erase(userId, handleId);
-                        }
-                    }
+                    userClientInfo.removeClient(clientType, handleId);
+                    userClientInfoManager.erase(userId, handleId);
                 } else {
                     userClientInfo.addClientType(clientType);
                 }
