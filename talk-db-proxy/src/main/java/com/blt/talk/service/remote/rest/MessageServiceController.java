@@ -34,6 +34,8 @@ import com.blt.talk.common.model.entity.UnreadEntity;
 import com.blt.talk.common.param.ClearUserCountReq;
 import com.blt.talk.common.param.GroupMessageSendReq;
 import com.blt.talk.common.param.MessageSendReq;
+import com.blt.talk.common.result.NormarCmdResult;
+import com.blt.talk.common.result.ResultEnum;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.service.internal.AudioInternalService;
 import com.blt.talk.service.internal.MessageService;
@@ -177,6 +179,12 @@ public class MessageServiceController {
             
             long audioId = audioInternalService.saveAudioInfo(messageSendReq.getUserId(), messageSendReq.getGroupId(),
                     messageSendReq.getCreateTime(), messageSendReq.getContent());
+            
+            if (audioId == DBConstant.INVALIAD_VALUE) {
+                // 录音保存失败
+                return new BaseModel<Long>().setResult(NormarCmdResult.DFS_ERROR);
+            }
+            
             content = String.valueOf(audioId);
         } else {
             content = messageSendReq.getMsgContent();
@@ -281,6 +289,11 @@ public class MessageServiceController {
         if (messageSendReq.getMsgType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO) {
             long audioId = audioInternalService.saveAudioInfo(messageSendReq.getUserId(), messageSendReq.getToId(),
                     messageSendReq.getCreateTime(), messageSendReq.getContent());
+            if (audioId == DBConstant.INVALIAD_VALUE) {
+                // 录音保存失败
+                return new BaseModel<Long>().setResult(NormarCmdResult.DFS_ERROR);
+            }
+            
             content = String.valueOf(audioId);
         } else {
             content = messageSendReq.getMsgContent();
