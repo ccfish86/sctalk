@@ -14,6 +14,8 @@
 
 线上测试地址：`http://tt.hifipi.com/msg_server` 用户名密码 10~99
 
+另外，推荐一个java版的管理后台：https://github.com/Seeyouenough/TeamTalkOverwrite
+
 ---
 
 版本[0.1.0-RELEASE]使用了router-server作为消息中转服务（这点跟原TT是相似的），0.2以后将使用hazelcast等分布式中间件取代router-server来处理消息的“漫游”。
