@@ -15,6 +15,7 @@
 线上测试地址：`http://tt.hifipi.com/msg_server` 用户名密码 10~99
 
 另外，推荐一个java版的管理后台：https://github.com/Seeyouenough/TeamTalkOverwrite
+>> 测试地址：[http://tt.hifipi.com/admin/](http://tt.hifipi.com/admin/)
 
 ---
 
