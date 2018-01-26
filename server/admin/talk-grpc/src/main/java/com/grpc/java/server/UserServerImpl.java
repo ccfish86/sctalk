@@ -1,25 +1,33 @@
 package com.grpc.java.server;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.grpc.java.kernel.entity.IMUser;
 import com.grpc.java.service.IUserService;
+import com.grpc.java.utils.CommUtils;
 import com.user.grpc.User;
 import com.user.grpc.UserRequest;
 import com.user.grpc.UserResponse;
 import com.user.grpc.UserServiceGrpc;
-import io.grpc.stub.StreamObserver;
 
-import java.util.List;
+import io.grpc.stub.StreamObserver;
+import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
 
 /**
  * Created by wx on 2017/11/9.
  */
+@GrpcService(UserServiceGrpc.class)
 public class UserServerImpl extends UserServiceGrpc.UserServiceImplBase {
+    
+    @Autowired
     private IUserService userService;
 
-    public UserServerImpl(BeanContainer service) {
-        this.userService= service.userService;
-    }
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    
     @Override
     public void addUser(UserRequest request, StreamObserver<UserResponse> responseStreamObserver){
 
@@ -28,7 +36,7 @@ public class UserServerImpl extends UserServiceGrpc.UserServiceImplBase {
 
         IMUser existUser =this.userService.getUserByName(name);
         if(existUser !=null){
-            System.out.println("内容已存在");
+            logger.debug("内容已存在");
             UserResponse response = UserResponse.newBuilder()
                     .setStatusId(1)
                     .build();
@@ -43,9 +51,11 @@ public class UserServerImpl extends UserServiceGrpc.UserServiceImplBase {
             user.setPhone(request.getPhone());
             user.setEmail(request.getEmail());
             user.setdepartid(request.getDepartid());
+            user.setStatus((byte)2); // 正式 
+            user.setCreated(CommUtils.getSystemSeconds());
 
             this.userService.addUser(user);
-            System.out.println("添加成功");
+            logger.debug("添加成功");
             UserResponse response = UserResponse.newBuilder()
                     .setStatusId(0)
                     .build();
@@ -70,7 +80,7 @@ public class UserServerImpl extends UserServiceGrpc.UserServiceImplBase {
             existUser.setdepartid(request.getDepartid());
 
             this.userService.updateUser(existUser);
-            System.out.println("修改成功");
+            logger.debug("修改成功");
             UserResponse response = UserResponse.newBuilder()
                     .setStatusId(1)
                     .build();
@@ -78,7 +88,7 @@ public class UserServerImpl extends UserServiceGrpc.UserServiceImplBase {
 
         }
         else{
-            System.out.println("内容不存在");
+            logger.debug("内容不存在");
             UserResponse response = UserResponse.newBuilder()
                     .setStatusId(0)
                     .build();
@@ -144,7 +154,7 @@ public class UserServerImpl extends UserServiceGrpc.UserServiceImplBase {
                 removeCount++;
             }else
             {
-                System.out.println("数据库没有该数据-->id为:"+exitId.getId());
+                logger.debug("数据库没有该数据-->id为:"+exitId.getId());
             }
         }
 
@@ -169,7 +179,7 @@ public class UserServerImpl extends UserServiceGrpc.UserServiceImplBase {
             existUser.setPassword(request.getPassword());
             existUser.setSalt(request.getSalt());
             this.userService.updatePassword(existUser);
-            System.out.println("修改成功");
+            logger.debug("修改成功");
             UserResponse response = UserResponse.newBuilder()
                     .setStatusId(1)
                     .build();
@@ -177,7 +187,7 @@ public class UserServerImpl extends UserServiceGrpc.UserServiceImplBase {
 
         }
         else{
-            System.out.println("内容不存在");
+            logger.debug("内容不存在");
             UserResponse response = UserResponse.newBuilder()
                     .setStatusId(0)
                     .build();

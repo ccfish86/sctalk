@@ -1,26 +1,33 @@
 package com.grpc.java.server;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.discovery.grpc.Discovery;
 import com.discovery.grpc.DiscoveryRequest;
 import com.discovery.grpc.DiscoveryResponse;
 import com.discovery.grpc.DiscoveryServiceGrpc;
 import com.grpc.java.kernel.entity.IMDiscovery;
 import com.grpc.java.service.IDiscoveryService;
-import io.grpc.stub.StreamObserver;
 
-import java.util.List;
+import io.grpc.stub.StreamObserver;
+import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
 
 
 /**
  * Created by wx on 2017/11/9.
  */
+@GrpcService(DiscoveryServiceGrpc.class)
 public class DiscoveryServerImpl extends DiscoveryServiceGrpc.DiscoveryServiceImplBase {
+    
+    @Autowired
     private IDiscoveryService discoveryService;
 
-    public DiscoveryServerImpl(BeanContainer service) {
-        this.discoveryService= service.discoveryService;
-    }
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    
     @Override
     public void addDiscovery(DiscoveryRequest request, StreamObserver<DiscoveryResponse> responseStreamObserver){
 
@@ -33,7 +40,7 @@ public class DiscoveryServerImpl extends DiscoveryServiceGrpc.DiscoveryServiceIm
 
         IMDiscovery existDiscovery =this.discoveryService.getDiscoveryByName(itemname);
         if(existDiscovery !=null){
-            System.out.println("内容已存在");
+            logger.debug("内容已存在");
             DiscoveryResponse response = DiscoveryResponse.newBuilder()
                     .setStatusId(1)
                     .build();
@@ -45,7 +52,7 @@ public class DiscoveryServerImpl extends DiscoveryServiceGrpc.DiscoveryServiceIm
             discovery.setItemurl(itemurl);
             discovery.setItempriority(itempriority);
             this.discoveryService.addDiscovery(discovery);
-            System.out.println("添加成功");
+            logger.debug("添加成功");
             DiscoveryResponse response = DiscoveryResponse.newBuilder()
                     .setStatusId(0)
                     .build();
@@ -69,7 +76,7 @@ public class DiscoveryServerImpl extends DiscoveryServiceGrpc.DiscoveryServiceIm
             existDiscovery.setItemurl(itemurl);
             existDiscovery.setItempriority(itempriority);
             this.discoveryService.updateDiscovery(existDiscovery);
-            System.out.println("修改成功");
+            logger.debug("修改成功");
             DiscoveryResponse response = DiscoveryResponse.newBuilder()
                     .setStatusId(1)
                     .build();
@@ -77,7 +84,7 @@ public class DiscoveryServerImpl extends DiscoveryServiceGrpc.DiscoveryServiceIm
 
         }
         else{
-            System.out.println("内容不存在");
+            logger.debug("内容不存在");
             DiscoveryResponse response = DiscoveryResponse.newBuilder()
                     .setStatusId(0)
                     .build();
@@ -136,7 +143,7 @@ public class DiscoveryServerImpl extends DiscoveryServiceGrpc.DiscoveryServiceIm
                 this.discoveryService.deleteDiscovery(exitId.getId());
                 removeCount++;
             }else {
-                System.out.println("数据库没有该数据-->id为:"+exitId.getId());
+                logger.debug("数据库没有该数据-->id为:"+exitId.getId());
             }
         }
         if(removeCount==disId.size())

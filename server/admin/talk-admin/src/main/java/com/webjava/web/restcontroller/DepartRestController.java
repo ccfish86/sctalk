@@ -1,5 +1,17 @@
 package com.webjava.web.restcontroller;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * Created by wx on 2017/10/27.
  */
@@ -15,19 +27,9 @@ import com.google.protobuf.util.JsonFormat;
 import com.webjava.kernel.entity.IMDepart;
 import com.webjava.utils.HttpUtils;
 import com.webjava.utils.ResponseInfo;
+
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import net.devh.springboot.autoconfigure.grpc.client.GrpcClient;
 
 
 @RestController
@@ -35,15 +37,11 @@ import java.util.List;
 public class DepartRestController {
     public static org.slf4j.Logger logger= LoggerFactory.getLogger(DepartRestController.class);
 
-    private static final String HOST = "localhost";
-    private static final int PORT = 50051;
-
+    @GrpcClient("talk-grpc")
+    private ManagedChannel channel;
+    
     @RequestMapping(value = "/depart/list",method = RequestMethod.GET)
     public void listDepart(HttpServletRequest request, HttpServletResponse response) throws InvalidProtocolBufferException {
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         DepartServiceGrpc.DepartServiceBlockingStub stub =
@@ -79,10 +77,6 @@ public class DepartRestController {
 
         IMDepart depart=gson.fromJson(strJson,IMDepart.class);
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
-
         // Create a blocking stub with the channel
         DepartServiceGrpc.DepartServiceBlockingStub stub =
                 DepartServiceGrpc.newBlockingStub(channel);
@@ -115,11 +109,6 @@ public class DepartRestController {
         List<Integer> list=new ArrayList<Integer>();
         Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
         list = new Gson().fromJson(strjson, type);
-
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         DepartServiceGrpc.DepartServiceBlockingStub stub =
@@ -155,11 +144,6 @@ public class DepartRestController {
         String strData =HttpUtils.getJsonBody(request);
         Gson gson=new Gson();
         IMDepart depart = gson.fromJson(strData,IMDepart.class);
-
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         DepartServiceGrpc.DepartServiceBlockingStub stub =

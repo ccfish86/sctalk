@@ -1,5 +1,12 @@
 package com.grpc.java.server;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.grpc.java.kernel.entity.manager_info;
 import com.grpc.java.kernel.entity.manager_role_info;
 import com.grpc.java.service.ManagerService;
@@ -9,29 +16,27 @@ import com.manager.grpc.Manager;
 import com.manager.grpc.ManagerRequest;
 import com.manager.grpc.ManagerResponse;
 import com.manager.grpc.ManagerServiceGrpc;
-import io.grpc.stub.StreamObserver;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.grpc.stub.StreamObserver;
+import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
 
 /**
  * Created by wx on 2017/11/8.
  */
 
-
+@GrpcService(ManagerServiceGrpc.class)
 public class ManagerServerImpl extends ManagerServiceGrpc.ManagerServiceImplBase {
+    
+    @Autowired
     private ManagerService managerService;
+    @Autowired
     private Manager_RoleService manager_roleService;
 
-    public ManagerServerImpl(BeanContainer service) {
-        this.managerService= service.managerService;
-        this.manager_roleService=service.manager_roleService;
-    }
-
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    
     @Override
     public void login(ManagerRequest request, StreamObserver<ManagerResponse> responseStreamObserver){
-        System.out.println("Received request: " + request);
+        logger.debug("Received request: " + request);
 
         String username = request.getUsername();
         String password = request.getPassword();
@@ -40,7 +45,7 @@ public class ManagerServerImpl extends ManagerServiceGrpc.ManagerServiceImplBase
         manager_info manager = this.managerService.getName(username);
         if (manager != null && manager.getPassword().equals(password))
         {
-            System.out.print("okok");
+            logger.debug("okok");
             Manager.Builder aa=Manager.newBuilder();
             aa.setId(manager.getManagerId());
             aa.setUsername(manager.getUsername());
@@ -56,7 +61,7 @@ public class ManagerServerImpl extends ManagerServiceGrpc.ManagerServiceImplBase
         }
         else
         {
-            System.out.print("fail");
+            logger.debug("fail");
             ManagerResponse response = ManagerResponse.newBuilder()
                     .setStatusId(1)
                     .build();
@@ -121,8 +126,7 @@ public class ManagerServerImpl extends ManagerServiceGrpc.ManagerServiceImplBase
     @Override
     public void modifyPassword(ManagerRequest request, StreamObserver<ManagerResponse> responseStreamObserver){
 
-        System.out.println("Received request: " + request);
-        System.out.println(request);
+        logger.debug("Received request: " + request);
         int id = request.getId();
         String pwd = request.getPassword();
         pwd=EncryptHelper.encodeByMD5(pwd);
@@ -130,14 +134,14 @@ public class ManagerServerImpl extends ManagerServiceGrpc.ManagerServiceImplBase
         if(user!=null){
             user.setPassword(pwd);
             this.managerService.updatePassword(user);
-            System.out.print("okok");
+            logger.debug("okok");
             ManagerResponse response = ManagerResponse.newBuilder()
                     .setStatusId(1)
                     .build();
             responseStreamObserver.onNext(response);
 
         }else{
-            System.out.print("fail");
+            logger.debug("fail");
             ManagerResponse response = ManagerResponse.newBuilder()
                     .setStatusId(0)
                     .build();
@@ -177,7 +181,7 @@ public class ManagerServerImpl extends ManagerServiceGrpc.ManagerServiceImplBase
 
         manager_info existUser =this.managerService.getName(name);
         if(existUser !=null){
-            System.out.println("内容已存在");
+            logger.debug("内容已存在");
             ManagerResponse response = ManagerResponse.newBuilder()
                     .setStatusId(1)
                     .build();
@@ -190,7 +194,7 @@ public class ManagerServerImpl extends ManagerServiceGrpc.ManagerServiceImplBase
             user.setIntroduction(request.getIntroduction());
             user.setAvatar(request.getAvatar());
             this.managerService.add(user);
-            System.out.println("添加成功");
+            logger.debug("添加成功");
             ManagerResponse response = ManagerResponse.newBuilder()
                     .setStatusId(0)
                     .build();
@@ -220,7 +224,7 @@ public class ManagerServerImpl extends ManagerServiceGrpc.ManagerServiceImplBase
                 removeCount++;
             }else
             {
-                System.out.println("数据库没有该数据-->id为:"+exitId.getManagerId());
+                logger.debug("数据库没有该数据-->id为:"+exitId.getManagerId());
             }
         }
 

@@ -1,5 +1,12 @@
 package com.grpc.java.server;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.grpc.java.kernel.entity.manager_info;
 import com.grpc.java.kernel.entity.manager_role_info;
 import com.grpc.java.kernel.entity.role_info;
@@ -12,29 +19,29 @@ import com.role.grpc.Role;
 import com.role.grpc.RoleRequest;
 import com.role.grpc.RoleResponse;
 import com.role.grpc.RoleServiceGrpc;
-import io.grpc.stub.StreamObserver;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.grpc.stub.StreamObserver;
+import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
 
 
 /**
  * Created by wx on 2017/11/8.
  */
 
+@GrpcService(RoleServiceGrpc.class)
 public class RoleServerImpl extends RoleServiceGrpc.RoleServiceImplBase {
+
+    @Autowired
     private RoleService roleService;
+    @Autowired
     private Role_PowerService  role_powerService;
+    @Autowired
     private ManagerService managerService;
+    @Autowired
     private Manager_RoleService manager_roleService;
 
-    public RoleServerImpl(BeanContainer service) {
-        this.roleService=service.roleService;
-        this.role_powerService=service.role_powerService;
-        this.managerService=service.managerService;
-        this.manager_roleService=service.manager_roleService;
-    }
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    
     @Override
     public void addRole(RoleRequest request, StreamObserver<RoleResponse> responseStreamObserver){
         String name=request.getRoleName();
@@ -124,7 +131,7 @@ public class RoleServerImpl extends RoleServiceGrpc.RoleServiceImplBase {
                 roleService.delete(role.getRoleId());
                 conunt++;
             }else {
-                System.out.println("数据库无此id:" + role.getRoleId() + "对应的信息!");
+                logger.debug("数据库无此id:" + role.getRoleId() + "对应的信息!");
             }
         }
         if(conunt==ids.size()){

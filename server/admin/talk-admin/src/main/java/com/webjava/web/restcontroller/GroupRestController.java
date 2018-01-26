@@ -3,22 +3,27 @@ package com.webjava.web.restcontroller;
  * Created by wx on 2017/10/27.
  */
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.webjava.kernel.entity.IMGroup;
 import com.webjava.kernel.service.IGroupService;
 import com.webjava.utils.HttpUtils;
 import com.webjava.utils.ResponseInfo;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import io.grpc.ManagedChannel;
+import net.devh.springboot.autoconfigure.grpc.client.GrpcClient;
 
 
 @RestController
@@ -28,6 +33,8 @@ public class GroupRestController {
     @Resource
     private IGroupService groupService;
 
+    @GrpcClient("talk-grpc")
+    private ManagedChannel channel;
 
     @RequestMapping(value = "/group/list",method = RequestMethod.GET)
     public void listGroup(HttpServletRequest request, HttpServletResponse response){

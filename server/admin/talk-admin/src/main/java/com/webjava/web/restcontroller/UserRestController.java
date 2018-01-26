@@ -1,5 +1,19 @@
 package com.webjava.web.restcontroller;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * Created by wx on 2017/10/27.
  */
@@ -17,21 +31,9 @@ import com.webjava.kernel.entity.IMUser;
 import com.webjava.utils.EncryptHelper;
 import com.webjava.utils.HttpUtils;
 import com.webjava.utils.ResponseInfo;
+
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import net.devh.springboot.autoconfigure.grpc.client.GrpcClient;
 
 
 
@@ -39,19 +41,14 @@ import java.util.Random;
 @RequestMapping("/users")
 public class UserRestController {
 
-
-    private static final String HOST = "localhost";
-    private static final int PORT = 50051;
+    @GrpcClient("talk-grpc")
+    private ManagedChannel channel;
     
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "/user/list",method = RequestMethod.GET)
     public void listUser(HttpServletRequest request, HttpServletResponse response) throws InvalidProtocolBufferException, InvalidProtocolBufferException {
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         UserServiceGrpc.UserServiceBlockingStub stub =
@@ -87,10 +84,6 @@ public class UserRestController {
         Gson gson=new Gson();
 
         IMUser user=gson.fromJson(strJson,IMUser.class);
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         UserServiceGrpc.UserServiceBlockingStub stub =
@@ -133,10 +126,6 @@ public class UserRestController {
         Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
         list = new Gson().fromJson(strjson, type);
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
-
         // Create a blocking stub with the channel
         UserServiceGrpc.UserServiceBlockingStub stub =
                 UserServiceGrpc.newBlockingStub(channel);
@@ -169,11 +158,6 @@ public class UserRestController {
         String strData =HttpUtils.getJsonBody(request);
         Gson gson=new Gson();
         IMUser user = gson.fromJson(strData,IMUser.class);
-
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         UserServiceGrpc.UserServiceBlockingStub stub =
@@ -214,10 +198,6 @@ public class UserRestController {
 
 
         IMUser user = gson.fromJson(strData,IMUser.class);
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         UserServiceGrpc.UserServiceBlockingStub stub =

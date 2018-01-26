@@ -1,5 +1,16 @@
 package com.webjava.web.restcontroller;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * Created by wx on 2017/10/27.
  */
@@ -15,32 +26,20 @@ import com.google.protobuf.util.JsonFormat;
 import com.webjava.kernel.entity.IMDiscovery;
 import com.webjava.utils.HttpUtils;
 import com.webjava.utils.ResponseInfo;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import io.grpc.ManagedChannel;
+import net.devh.springboot.autoconfigure.grpc.client.GrpcClient;
 
 
 @RestController
 @RequestMapping("/users")
 public class DiscoveryRestController {
 
-    private static final String HOST = "localhost";
-    private static final int PORT = 50051;
+    @GrpcClient("talk-grpc")
+    private ManagedChannel channel;
 
     @RequestMapping(value = "/discovery/list",method = RequestMethod.GET)
     public void listDiscovery(HttpServletRequest request, HttpServletResponse response) throws InvalidProtocolBufferException {
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         DiscoveryServiceGrpc.DiscoveryServiceBlockingStub stub =
@@ -76,10 +75,6 @@ public class DiscoveryRestController {
 
         IMDiscovery discovery=gson.fromJson(strJson,IMDiscovery.class);
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
-
         // Create a blocking stub with the channel
         DiscoveryServiceGrpc.DiscoveryServiceBlockingStub stub =
                 DiscoveryServiceGrpc.newBlockingStub(channel);
@@ -113,11 +108,6 @@ public class DiscoveryRestController {
         Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
         list = new Gson().fromJson(strjson, type);
 
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
-
         // Create a blocking stub with the channel
         DiscoveryServiceGrpc.DiscoveryServiceBlockingStub stub =
                 DiscoveryServiceGrpc.newBlockingStub(channel);
@@ -150,11 +140,6 @@ public class DiscoveryRestController {
         String strData =HttpUtils.getJsonBody(request);
         Gson gson=new Gson();
         IMDiscovery discovery = gson.fromJson(strData,IMDiscovery.class);
-
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         DiscoveryServiceGrpc.DiscoveryServiceBlockingStub stub =

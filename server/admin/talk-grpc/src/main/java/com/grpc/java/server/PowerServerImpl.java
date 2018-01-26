@@ -1,36 +1,51 @@
 package com.grpc.java.server;
 
-import com.grpc.java.kernel.entity.*;
-import com.grpc.java.service.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.grpc.java.kernel.entity.manager_info;
+import com.grpc.java.kernel.entity.manager_role_info;
+import com.grpc.java.kernel.entity.power_info;
+import com.grpc.java.kernel.entity.role_info;
+import com.grpc.java.kernel.entity.role_power_info;
+import com.grpc.java.service.ManagerService;
+import com.grpc.java.service.Manager_RoleService;
+import com.grpc.java.service.PowerService;
+import com.grpc.java.service.RoleService;
+import com.grpc.java.service.Role_PowerService;
 import com.power.grpc.Power;
 import com.power.grpc.PowerRequest;
 import com.power.grpc.PowerResponse;
 import com.power.grpc.PowerServiceGrpc;
-import io.grpc.stub.StreamObserver;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.grpc.stub.StreamObserver;
+import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
 
 
 /**
  * Created by wx on 2017/11/8.
  */
 
+@GrpcService(PowerServiceGrpc.class)
 public class PowerServerImpl extends PowerServiceGrpc.PowerServiceImplBase {
+    
+    @Autowired
     private PowerService powerService;
+    @Autowired
     private ManagerService managerService;
+    @Autowired
     private Role_PowerService role_powerService;
+    @Autowired
     private RoleService roleService;
+    @Autowired
     private Manager_RoleService manager_roleService;
 
-    public PowerServerImpl(BeanContainer service) {
-        this.powerService= service.powerService;
-        this.manager_roleService=service.manager_roleService;
-        this.managerService=service.managerService;
-        this.role_powerService=service.role_powerService;
-        this.roleService=service.roleService;
-    }
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
+    
     @Override
     public void addPower(PowerRequest request, StreamObserver<PowerResponse> responseStreamObserver){
         String name=request.getPowerName();
@@ -125,7 +140,7 @@ public class PowerServerImpl extends PowerServiceGrpc.PowerServiceImplBase {
                 powerService.delete(power.getPowerId());
                 conunt++;
             }else {
-                System.out.println("数据库无此id:" + power.getPowerId() + "对应的信息!");
+                logger.debug("数据库无此id:" + power.getPowerId() + "对应的信息!");
             }
         }
         if(conunt==ids.size()){

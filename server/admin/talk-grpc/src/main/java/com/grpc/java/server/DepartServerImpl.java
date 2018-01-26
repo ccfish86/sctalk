@@ -1,5 +1,11 @@
 package com.grpc.java.server;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.depart.grpc.Depart;
 import com.depart.grpc.DepartRequest;
 import com.depart.grpc.DepartResponse;
@@ -8,21 +14,22 @@ import com.grpc.java.kernel.entity.IMDepart;
 import com.grpc.java.kernel.entity.IMUser;
 import com.grpc.java.service.IDepartService;
 import com.grpc.java.service.IUserService;
-import io.grpc.stub.StreamObserver;
 
-import java.util.List;
+import io.grpc.stub.StreamObserver;
+import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
 
 /**
  * Created by wx on 2017/11/9.
  */
+@GrpcService(DepartServiceGrpc.class)
 public class DepartServerImpl extends DepartServiceGrpc.DepartServiceImplBase {
+    
+    @Autowired
     private IDepartService departService;
+    @Autowired
     private IUserService userService;
-
-    public DepartServerImpl(BeanContainer service) {
-        this.departService= service.departService;
-        this.userService=service.userService;
-    }
+    
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public void addDepart(DepartRequest request, StreamObserver<DepartResponse> responseStreamObserver){
@@ -36,7 +43,7 @@ public class DepartServerImpl extends DepartServiceGrpc.DepartServiceImplBase {
 
         IMDepart existDepart =this.departService.getDepartByName(departName);
         if(existDepart !=null){
-            System.out.println("内容已存在");
+            logger.debug("内容已存在");
             DepartResponse response = DepartResponse.newBuilder()
                     .setStatusId(1)
                     .build();
@@ -48,7 +55,7 @@ public class DepartServerImpl extends DepartServiceGrpc.DepartServiceImplBase {
             depart.setPriority(priority);
             depart.setParentid(parentId);
             this.departService.addDepart(depart);
-            System.out.println("添加成功");
+            logger.debug("添加成功");
             DepartResponse response = DepartResponse.newBuilder()
                     .setStatusId(0)
                     .build();
@@ -72,7 +79,7 @@ public class DepartServerImpl extends DepartServiceGrpc.DepartServiceImplBase {
             existDepart.setPriority(priority);
             existDepart.setParentid(parentId);
             this.departService.updateDepart(existDepart);
-            System.out.println("修改成功");
+            logger.debug("修改成功");
             DepartResponse response = DepartResponse.newBuilder()
                     .setStatusId(1)
                     .build();
@@ -80,7 +87,7 @@ public class DepartServerImpl extends DepartServiceGrpc.DepartServiceImplBase {
 
         }
         else{
-            System.out.println("内容不存在");
+            logger.debug("内容不存在");
             DepartResponse response = DepartResponse.newBuilder()
                     .setStatusId(0)
                     .build();
@@ -164,7 +171,7 @@ public class DepartServerImpl extends DepartServiceGrpc.DepartServiceImplBase {
 
             }else
             {
-                System.out.println("数据库没有该数据-->id为:"+exitId.getId());
+                logger.debug("数据库没有该数据-->id为:"+exitId.getId());
             }
         }
 

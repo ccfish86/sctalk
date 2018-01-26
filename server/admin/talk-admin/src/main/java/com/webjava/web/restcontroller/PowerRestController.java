@@ -1,5 +1,16 @@
 package com.webjava.web.restcontroller;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * Created by wx on 2017/10/27.
  */
@@ -17,26 +28,18 @@ import com.webjava.model.power_info;
 import com.webjava.model.role_info;
 import com.webjava.utils.HttpUtils;
 import com.webjava.utils.ResponseInfo;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import io.grpc.ManagedChannel;
+import net.devh.springboot.autoconfigure.grpc.client.GrpcClient;
 
 
 @RestController
 @RequestMapping("/users")
 public class PowerRestController {
 
-    private static final String HOST = "localhost";
-    private static final int PORT = 50051;
-
+    @GrpcClient("talk-grpc")
+    private ManagedChannel channel;
+    
     @RequestMapping(value="/power/modify", method= RequestMethod.POST)
     public void modifyPower(HttpServletRequest request, HttpServletResponse response){
 
@@ -44,10 +47,6 @@ public class PowerRestController {
 
         Gson gson = new Gson();
         power_info power=gson.fromJson(strData,power_info.class);
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         PowerServiceGrpc.PowerServiceBlockingStub stub =
@@ -83,10 +82,6 @@ public class PowerRestController {
 
         power_info power=gson.fromJson(strJson,power_info.class);
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
-
         // Create a blocking stub with the channel
         PowerServiceGrpc.PowerServiceBlockingStub stub =
                 PowerServiceGrpc.newBlockingStub(channel);
@@ -120,11 +115,6 @@ public class PowerRestController {
         Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
         list = new Gson().fromJson(strjson, type);
 
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
-
         // Create a blocking stub with the channel
         PowerServiceGrpc.PowerServiceBlockingStub stub =
                 PowerServiceGrpc.newBlockingStub(channel);
@@ -155,10 +145,6 @@ public class PowerRestController {
     @RequestMapping(value = "/power/list",method = RequestMethod.GET)
     public void listPower(HttpServletRequest request, HttpServletResponse response) throws InvalidProtocolBufferException, InvalidProtocolBufferException {
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
-
         // Create a blocking stub with the channel
         PowerServiceGrpc.PowerServiceBlockingStub stub =
                 PowerServiceGrpc.newBlockingStub(channel);
@@ -186,10 +172,6 @@ public class PowerRestController {
     @RequestMapping(value = "/getRoute",method = RequestMethod.GET)
     public void getRoute(HttpServletRequest request,HttpServletResponse response) throws InvalidProtocolBufferException {
         String token = request.getParameter("token");
-        System.out.println(token);
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         PowerServiceGrpc.PowerServiceBlockingStub stub =
@@ -222,9 +204,6 @@ public class PowerRestController {
         Gson gson=new Gson();
         role_info role=gson.fromJson(strData,role_info.class);
         int id = role.getRoleId();
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         PowerServiceGrpc.PowerServiceBlockingStub stub =

@@ -1,5 +1,17 @@
 package com.webjava.web.restcontroller;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * Created by wx on 2017/10/27.
  */
@@ -17,26 +29,17 @@ import com.webjava.kernel.entity.IMManager;
 import com.webjava.model.CheckLogin;
 import com.webjava.utils.HttpUtils;
 import com.webjava.utils.ResponseInfo;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import io.grpc.ManagedChannel;
+import net.devh.springboot.autoconfigure.grpc.client.GrpcClient;
 
 
 @RestController
 @RequestMapping("/users")
 public class ManagerRestController {
 
-    private static final String HOST = "localhost";
-    private static final int PORT = 50051;
+    @GrpcClient("talk-grpc")
+    private ManagedChannel channel;
 
     @RequestMapping(value="/login", method= RequestMethod.POST)
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,10 +47,6 @@ public class ManagerRestController {
         String dataStr =HttpUtils.getJsonBody(request);
         Gson gson=new Gson();
         CheckLogin checkLogin=gson.fromJson(dataStr,CheckLogin.class);
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         ManagerServiceGrpc.ManagerServiceBlockingStub stub =
@@ -84,10 +83,6 @@ public class ManagerRestController {
     public void getInfo(HttpServletRequest request,HttpServletResponse response) throws InvalidProtocolBufferException {
           String token = request.getParameter("token");
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
-
         // Create a blocking stub with the channel
         ManagerServiceGrpc.ManagerServiceBlockingStub stub =
                 ManagerServiceGrpc.newBlockingStub(channel);
@@ -119,11 +114,6 @@ public class ManagerRestController {
         System.out.println(strData);
         Gson gson = new Gson();
         IMManager admin=gson.fromJson(strData,IMManager.class);
-
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         ManagerServiceGrpc.ManagerServiceBlockingStub stub =
@@ -157,10 +147,6 @@ public class ManagerRestController {
 
         IMManager manager=gson.fromJson(strJson,IMManager.class);
 
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
-
         // Create a blocking stub with the channel
         ManagerServiceGrpc.ManagerServiceBlockingStub stub =
                 ManagerServiceGrpc.newBlockingStub(channel);
@@ -192,10 +178,6 @@ public class ManagerRestController {
         String strData =HttpUtils.getJsonBody(request);
         Gson gson=new Gson();
         IMManager manager = gson.fromJson(strData,IMManager.class);
-        
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         ManagerServiceGrpc.ManagerServiceBlockingStub stub =
@@ -225,9 +207,6 @@ public class ManagerRestController {
 
     @RequestMapping(value = "/manager/list", method = RequestMethod.GET)
     public void listManager(HttpServletRequest request,HttpServletResponse response) throws InvalidProtocolBufferException {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         ManagerServiceGrpc.ManagerServiceBlockingStub stub =
@@ -259,11 +238,6 @@ public class ManagerRestController {
         List<Integer> list=new ArrayList<Integer>();
         Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
         list = new Gson().fromJson(strjson, type);
-
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         ManagerServiceGrpc.ManagerServiceBlockingStub stub =
@@ -300,10 +274,6 @@ public class ManagerRestController {
         list = new Gson().fromJson(strjson, type);
         int id=list.get(list.size()-1);
         list.remove(list.size()-1);
-
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(HOST, PORT)
-                .usePlaintext(true)
-                .build();
 
         // Create a blocking stub with the channel
         ManagerServiceGrpc.ManagerServiceBlockingStub stub =
