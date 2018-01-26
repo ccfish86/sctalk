@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.manager_role.grpc;
+
+message MR{
+    int32 id=4;
+
+    int32 role_id=1;
+
+    int32 manager_id=2;
+}
+
+message MRRequest{
+    int32 id=4;
+
+    int32 role_id=1;
+
+    int32 manager_id=2;
+
+    repeated MR mr=5;
+}
+
+message MRResponse{
+    int32 id=4;
+
+    int32 role_id=1;
+
+    int32 manager_id=2;
+
+    repeated MR mr=5;
+
+    int32 status_id=6;
+    
+}
+
+service MRService{
+    rpc listMR(MRRequest) returns (MRResponse);
+    rpc addMR(MRRequest) returns (MRResponse);
+    rpc removeMR(MRRequest) returns (MRResponse);
+    rpc modifyMR(MRRequest) returns (MRResponse);
+}
