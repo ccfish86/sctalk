@@ -6,3 +6,5 @@ TeamTalk Background Management Overwrite
 https://github.com/Seeyouenough/TeamTalkOverwrite
 
 ==本处修改了一部分DB字段名的问题==
+
+后台所使用的建表文> doc/teamtalk-admin.sql
