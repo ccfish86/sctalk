@@ -75,7 +75,7 @@ public class HazelCastConfigration {
             return hazelCastInstance;
         }
         Config config = new Config();
-        config.setInstanceName("message-server");
+        config.setInstanceName("talk-admin");
         config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
         if (this.registration == null) {
             log.warn("No discovery service is set up, Hazelcast cannot create a cluster.");
