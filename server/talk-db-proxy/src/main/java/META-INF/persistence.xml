@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="talk-db-proxy">
+		<class>com.blt.talk.service.jpa.entity.IMAudio</class>
+		<class>com.blt.talk.service.jpa.entity.IMDepart</class>
+		<class>com.blt.talk.service.jpa.entity.IMDiscovery</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroup</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroupMember</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroupMessage0</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroupMessage1</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroupMessage2</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroupMessage3</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroupMessage4</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroupMessage5</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroupMessage6</class>
+		<class>com.blt.talk.service.jpa.entity.IMGroupMessage7</class>
+        <class>com.blt.talk.service.jpa.entity.IMGroupMessage8</class>
+        <class>com.blt.talk.service.jpa.entity.IMGroupMessage9</class>
+		<class>com.blt.talk.service.jpa.entity.IMMessage0</class>
+		<class>com.blt.talk.service.jpa.entity.IMMessage1</class>
+		<class>com.blt.talk.service.jpa.entity.IMMessage2</class>
+		<class>com.blt.talk.service.jpa.entity.IMMessage3</class>
+		<class>com.blt.talk.service.jpa.entity.IMMessage4</class>
+		<class>com.blt.talk.service.jpa.entity.IMMessage5</class>
+		<class>com.blt.talk.service.jpa.entity.IMMessage6</class>
+		<class>com.blt.talk.service.jpa.entity.IMMessage7</class>
+        <class>com.blt.talk.service.jpa.entity.IMMessage8</class>
+        <class>com.blt.talk.service.jpa.entity.IMMessage9</class>
+		<class>com.blt.talk.service.jpa.entity.IMRecentSession</class>
+		<class>com.blt.talk.service.jpa.entity.IMRelationShip</class>
+		<class>com.blt.talk.service.jpa.entity.IMUser</class>
+	</persistence-unit>
+</persistence>
