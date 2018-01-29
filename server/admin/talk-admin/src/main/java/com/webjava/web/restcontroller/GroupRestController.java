@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.webjava.kernel.entity.IMGroup;
 import com.webjava.kernel.service.IGroupService;
 import com.webjava.utils.HttpUtils;
 import com.webjava.utils.ResponseInfo;
 
-import io.grpc.ManagedChannel;
-import net.devh.springboot.autoconfigure.grpc.client.GrpcClient;
+import net.ccfish.talk.admin.domain.ImGroup;
 
 
 @RestController
@@ -33,12 +31,10 @@ public class GroupRestController {
     @Resource
     private IGroupService groupService;
 
-    @GrpcClient("talk-grpc")
-    private ManagedChannel channel;
-
     @RequestMapping(value = "/group/list",method = RequestMethod.GET)
     public void listGroup(HttpServletRequest request, HttpServletResponse response){
-        List<IMGroup> groups=this.groupService.getAllGroup();
+
+        List<ImGroup> groups=this.groupService.getAllGroup();
         if(groups.size()>0){
             Gson gson=new Gson();
             String data=gson.toJson(groups);
@@ -58,10 +54,10 @@ public class GroupRestController {
 
         Gson gson=new Gson();
 
-        IMGroup group=gson.fromJson(strJson,IMGroup.class);
+        ImGroup group=gson.fromJson(strJson,ImGroup.class);
 
         System.out.println(group);
-        IMGroup existgroup =this.groupService.getGroupByName(group.getName());
+        ImGroup existgroup =this.groupService.getGroupByName(group.getName());
         if(existgroup !=null){
             HttpUtils.setJsonBody(response,new ResponseInfo(1,"用户名已存在！"));
         }
@@ -76,13 +72,13 @@ public class GroupRestController {
     public void removeGroup(HttpServletRequest request,HttpServletResponse response ){
 
         String strjson = HttpUtils.getJsonBody(request);
-        List<Integer> list=new ArrayList<Integer>();
-        Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
+        List<Long> list=new ArrayList<Long>();
+        Type type = new TypeToken<ArrayList<Long>>(){}.getType();
         list = new Gson().fromJson(strjson, type);
 
-        for(int i : list){
-            Integer id = i;
-            IMGroup exitId =this.groupService.getGroupById(id);
+        for(Long i : list){
+            Long id = i;
+            ImGroup exitId =this.groupService.getGroupById(id);
             if(exitId!=null){
                 this.groupService.deleteGroup(id);
                 HttpUtils.setJsonBody(response,new ResponseInfo(0,"修改成功！"));
@@ -97,8 +93,8 @@ public class GroupRestController {
     public void updateGroup (HttpServletRequest request,HttpServletResponse response){
         String strData =HttpUtils.getJsonBody(request);
         Gson gson=new Gson();
-        IMGroup group = gson.fromJson(strData,IMGroup.class);
-        IMGroup existgroup=this.groupService.getGroupById(group.getId());
+        ImGroup group = gson.fromJson(strData,ImGroup.class);
+        ImGroup existgroup=this.groupService.getGroupById(group.getId());
         if(existgroup !=null){
             this.groupService.updateGroup(group);
             HttpUtils.setJsonBody(response,new ResponseInfo(0,"更新用户信息成功！"));

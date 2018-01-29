@@ -1,25 +1,24 @@
 package com.webjava.kernel.service;
 
-import com.webjava.kernel.entity.IMGroup;
-import com.webjava.kernel.entity.IMUser;
-
 import java.util.List;
+
+import net.ccfish.talk.admin.domain.ImGroup;
 
 /**
  * Created by wx on 2017/10/27.
  */
 public interface IGroupService {
 
-    IMGroup getGroupById(Integer id);
+    ImGroup getGroupById(Long id);
 
-    IMGroup getGroupByName(String name);
+    ImGroup getGroupByName(String name);
 
-    List<IMGroup> getAllGroup();
+    List<ImGroup> getAllGroup();
 
-    Boolean addGroup(IMGroup user);
+    void addGroup(ImGroup group);
 
-    Boolean deleteGroup(Integer id);
+    void deleteGroup(Long id);
 
-    Boolean updateGroup(IMGroup user);
+    void updateGroup(ImGroup group);
 
 }

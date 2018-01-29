@@ -1,50 +1,61 @@
 package com.webjava.kernel.service.implement;
 
-import com.webjava.kernel.entity.IMGroup;
-import com.webjava.kernel.mybatis.mapper.IMGroupMapper;
-import com.webjava.kernel.service.IGroupService;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.List;
+import com.webjava.kernel.service.IGroupService;
+
+import net.ccfish.talk.admin.domain.ImGroup;
+import net.ccfish.talk.admin.repository.IImGroupRepository;
 
 /**
  * Created by wx on 2017/10/27.
  */
 @Service("groupService")
-public class GroupServiceImpl implements IGroupService{
+public class GroupServiceImpl implements IGroupService {
 
-    @Resource
-    private IMGroupMapper groupMapper;
+    @Autowired
+    private IImGroupRepository groupMapper;
 
-    public IMGroup getGroupById(Integer userId) {
-       return groupMapper.selectGroupById(userId);
+    public ImGroup getGroupById(Long id) {
+        return groupMapper.findOne(id);
     }
 
     @Override
-    public IMGroup getGroupByName(String userName) {
-       return groupMapper.selectGroupByName(userName);
+    public ImGroup getGroupByName(String userName) {
+        return groupMapper.findByName(userName);
     }
 
     @Override
-    public List<IMGroup> getAllGroup() {
-        return groupMapper.selectAllGroup();
+    public List<ImGroup> getAllGroup() {
+        // return groupMapper.selectAllGroup();
+        return groupMapper.findAll(new Sort(Sort.Direction.ASC, "id"));
     }
 
     @Override
-    public Boolean addGroup(IMGroup user) {
-        return groupMapper.insertSelective(user) > 0;
+    public void addGroup(ImGroup group) {
+        // groupMapper.save(user);
+        groupMapper.save(group);
     }
 
     @Override
-    public Boolean deleteGroup(Integer id) {
-        return groupMapper.deleteByPrimaryKey(id) > 0;
+    public void deleteGroup(Long id) {
+        // groupMapper.delete(id);
+        ImGroup group = groupMapper.findOne(id);
+        if (group!= null) {
+            group.setStatus((byte)1);;
+            groupMapper.save(group);
+        }
     }
 
 
     @Override
-    public Boolean updateGroup(IMGroup user) {
-        return groupMapper.updateByPrimaryKeySelective(user) > 0;
+    public void updateGroup(ImGroup group) {
+        // groupMapper.updateByPrimaryKeySelective(user);
+        groupMapper.save(group);
     }
 
 }
