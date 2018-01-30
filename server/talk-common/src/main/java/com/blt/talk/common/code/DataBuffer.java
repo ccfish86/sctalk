@@ -1,6 +1,7 @@
 package com.blt.talk.common.code;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
@@ -122,13 +123,13 @@ public final class DataBuffer {
 
         byte[] bytes = readBytes(length);
 
-        return new String(bytes, Charset.forName("utf8"));
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 
     public String readString(int length) {
         byte[] bytes = readBytes(length);
 
-        return new String(bytes);
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 
     public void writeBytes(byte[] bytes) {
