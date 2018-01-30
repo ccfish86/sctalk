@@ -10,7 +10,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 
@@ -76,8 +75,6 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
     private GroupService groupService;
     @Autowired
     private IphonePushService iphonePushService;
-    @Autowired
-    private ApplicationContext applicationContext;
     @Autowired
     private MessageServerCluster messageServerCluster; 
 
@@ -578,7 +575,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
                         messageListReq.getMsgIdBegin(), messageListReq.getMsgCnt());
             } else {
                 // 错误的类型
-                logger.warn("错误的参数:SessionType=", messageListReq.getSessionType());
+                logger.warn("错误的参数:SessionType={}", messageListReq.getSessionType());
                 return;
             }
             
@@ -655,7 +652,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
                 latestMsgIdRes = messageService.getLatestGroupMessageId(userId, latestMsgIdReq.getSessionId());
             } else {
                 // 错误的类型
-                logger.warn("错误的参数:SessionType=", latestMsgIdReq.getSessionType());
+                logger.warn("错误的参数:SessionType={}", latestMsgIdReq.getSessionType());
                 return;
             }
             
@@ -708,7 +705,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
                 messageListRes = messageService.getGroupMessageById(userId, getMsgByIdReq.getSessionId(), getMsgByIdReq.getMsgIdListList());
             } else {
                 // 错误的类型
-                logger.warn("错误的参数:SessionType=", getMsgByIdReq.getSessionType());
+                logger.warn("错误的参数:SessionType={}", getMsgByIdReq.getSessionType());
                 return;
             }
             
