@@ -1,0 +1,63 @@
+package IM.WebRTC;
+import "IM.BaseDefine.proto";
+option java_package = "com.blt.talk.common.code.proto";
+//option java_outer_classname = "MOGUJIEIMMessage";
+option optimize_for = LITE_RUNTIME;
+
+//service id   0x0009
+
+message IMAVCallInitiateReq {
+	//cmd id:		0x0901
+	required uint64 from_id = 1;			// 发起呼叫的一方
+	required uint64 to_id = 2;				// 被呼叫一方
+	required uint64 call_id = 3;
+	required IM.BaseDefine.ClientType caller_client_type = 4;
+	required bytes body = 5;
+	optional bytes attach_data = 20;
+}
+
+message IMAVCallInitiateRes {
+	//cmd id:		0x0902
+	required uint64 from_id = 1;			// 发起呼叫的一方
+	required uint64 to_id = 2;				// 被呼叫的一方
+	required uint64 call_id = 3;
+	required IM.BaseDefine.ClientType called_client_type = 4;
+	required uint32 code = 5;
+	required string	reason = 6;
+	required bytes  body = 7;
+	optional bytes attach_data = 20;
+}
+
+message  IMAVCallHungUpReq {
+	//cmd id: 		0x0903
+	required uint64 from_id = 1;			// 发起挂断的一方
+	required uint64 to_id = 2;				// 被挂断的一方
+	required uint64 call_id = 3;
+	optional bytes attach_data = 20;
+}
+
+message  IMAVCallHungUpRes {
+	//cmd id: 		0x0904
+	required uint64 from_id = 1;			// 发起挂断的一方
+	required uint64 to_id = 2;				// 被挂断的一方
+	required uint64 call_id = 3;
+	required uint32 code = 4;
+	optional bytes attach_data = 20;
+}
+
+message IMAVCallCancelReq {
+	//cmd id: 		0x0905
+	required uint64 from_id = 1;
+	required uint64 to_id = 2;
+	required uint64 call_id = 3;
+	optional bytes attach_data = 20;
+}
+
+message IMAVCallCancelRes {
+	//cmd id: 		0x0906
+	required uint32 from_id = 1;		// 发起Cancel的一端
+	required uint32 to_id = 2;			// 对方
+	required uint64 call_id = 3;
+	optional bytes attach_data = 20;
+}
+

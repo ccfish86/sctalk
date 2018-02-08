@@ -13,6 +13,7 @@ enum ServiceID{
     SID_SWITCH_SERVICE  = 0x0006;
     SID_OTHER           = 0x0007;
     SID_INTERNAL        = 0x0008;
+    SID_AVCALL          = 0x0009;           // audio or vedio call
 }
 
 // command id for login
@@ -137,6 +138,14 @@ enum OtherCmdID{
     CID_OTHER_FILE_SERVER_IP_RSP            = 0x0734;
 }
 
+enum AVCallCmdId {
+    CID_AVCALL_INITIATE_REQ                  = 0x0901;
+    CID_AVCALL_INITIATE_RES                  = 0x0902;
+    CID_AVCALL_HUNGUP_REQ                    = 0x0903;
+    CID_AVCALL_HUNGUP_RES                    = 0x0904;
+    CID_AVCALL_CANCEL_REQ                    = 0x0905;
+    CID_AVCALL_CANCEL_RES                    = 0x0906;
+}
 enum ResultType{
 	REFUSE_REASON_NONE				= 0;
 	REFUSE_REASON_NO_MSG_SERVER		= 1;
