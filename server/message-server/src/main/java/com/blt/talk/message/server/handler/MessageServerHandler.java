@@ -25,15 +25,7 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
 
     private Logger logger = LoggerFactory.getLogger(MessageServerHandler.class);
 
-    private HandlerManager handlerManager;
-
-    public void setHandlerManager(HandlerManager handlerManager) {
-        this.handlerManager = handlerManager;
-    }
-
-    public MessageServerHandler() {
-        super();
-    }
+    private final HandlerManager handlerManager;
 
     public MessageServerHandler(HandlerManager handlerManager) {
         super();
@@ -51,7 +43,7 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
     /**
      * 每当服务端断开客户端连接时,客户端的channel从ChannelGroup中移除,并通知列表中其他客户端channel
      * 
-     * @param ctx
+     * @param ctx 连接context
      * @throws Exception
      */
     @Override
@@ -102,6 +94,9 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
             case IMBaseDefine.ServiceID.SID_SWITCH_SERVICE_VALUE:
                 handlerManager.doSwitch(ctx, header.getCommandId(), header, message.getBody());
                 break;
+            case IMBaseDefine.ServiceID.SID_AVCALL_VALUE: // for webrtc
+                handlerManager.doWebrtc(ctx, header.getCommandId(), header, message.getBody());
+                break;
             default:
                 logger.warn("暂不支持的服务ID{}" , header.getServiceId());
                 break;
@@ -117,7 +112,7 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
     /**
      * 服务端监听到客户端活动
      * 
-     * @param ctx
+     * @param ctx 连接context
      * @throws Exception
      */
     @Override
@@ -132,7 +127,7 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
     /**
      * 服务端监听到客户端不活动
      * 
-     * @param ctx
+     * @param ctx 连接context
      * @throws Exception
      */
     @Override
@@ -146,7 +141,7 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
     /**
      * 当服务端的IO 抛出异常时被调用
      * 
-     * @param ctx
+     * @param ctx 连接context
      * @param cause
      * @throws Exception
      */
