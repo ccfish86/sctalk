@@ -67,8 +67,8 @@ public class MessageServerStarter {
     private static Logger logger = LoggerFactory.getLogger(MessageServerStarter.class);
 
     @Autowired
-    //@Qualifier("NettyWsServerInitializer")
-    @Qualifier("NettyChatServerInitializer")
+    @Qualifier("NettyWsServerInitializer")
+    // @Qualifier("NettyChatServerInitializer")
     private ChannelInitializer<SocketChannel> channelInboundHandler;
 
     private ServerBootstrap sBootstrap;

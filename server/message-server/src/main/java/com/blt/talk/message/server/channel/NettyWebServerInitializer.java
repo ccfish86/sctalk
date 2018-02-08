@@ -9,19 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.blt.talk.common.code.PacketWsFrameDecoder;
-import com.blt.talk.common.code.PacketWsFrameEncoder;
-import com.blt.talk.message.server.handler.MessageWsServerHandler;
 import com.blt.talk.message.server.manager.HandlerManager;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.http.websocketx.WebSocketFrameAggregator;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.ssl.SslContext;
 
 /**
  * Websocket支持
@@ -36,6 +31,15 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 public class NettyWebServerInitializer extends ChannelInitializer<SocketChannel> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final SslContext sslCtx;
+    
+    public NettyWebServerInitializer() {
+
+        // Configure SSL context
+        // TODO 证书 sslCtx = SslContext.newServerContext(certificate, privateKey);
+        logger.warn("暂不支持SSL，如果需要，请配置对应的证书文件");
+        sslCtx = null;
+    }
     
     @Autowired
     private HandlerManager handlerManager;
@@ -44,14 +48,9 @@ public class NettyWebServerInitializer extends ChannelInitializer<SocketChannel>
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast(new LoggingHandler(LogLevel.DEBUG));
-        logger.info("******", pipeline.toString());        
-        pipeline.addLast("http-codec", new HttpServerCodec());
-        pipeline.addLast("aggregator", new WebSocketFrameAggregator(65536)); // Http消息组装  
-        pipeline.addLast("http-chunked", new ChunkedWriteHandler()); // WebSocket通信支持  
-         pipeline.addLast("decoder", new PacketWsFrameDecoder());
-         pipeline.addLast("encoder", new PacketWsFrameEncoder());
-        // pipeline.addLast("handler", new MessageSocketServerHandler(handlerManager));
-        pipeline.addLast("handler", new MessageWsServerHandler(handlerManager));
+        PortUnificationServerHandler portUnificationServerHandler = new PortUnificationServerHandler(sslCtx);
+        portUnificationServerHandler.setHandlerManager(handlerManager);
+        pipeline.addLast(portUnificationServerHandler);
     }
 
 }

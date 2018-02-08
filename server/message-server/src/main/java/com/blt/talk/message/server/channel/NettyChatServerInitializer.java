@@ -20,11 +20,13 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 /**
+ * 初始化socket
  * 
  * @author 袁贵
  * @version 1.0
  * @since 1.0
  */
+@Deprecated
 @Component("NettyChatServerInitializer")
 public class NettyChatServerInitializer extends ChannelInitializer<SocketChannel> {
 

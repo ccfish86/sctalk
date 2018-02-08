@@ -19,13 +19,9 @@
 
 ---
 
-2018-02-08 调整一行代码即可支持websocket，当然也可以改为配置文件。理论上可以通过以下调整同时支持socket和websocket（看自己脑洞）：可以分别配置几个消息服务器（socket/websocket），然后根据不同的参数返回对应类型的消息服务器列表，不同类型的消息服务器可以互联，与业务无影响。
-```java
-    // MessageServerStarter.java
-    //@Qualifier("NettyWsServerInitializer")
-    @Qualifier("NettyChatServerInitializer")
-    private ChannelInitializer<SocketChannel> channelInboundHandler;
-```
+2018-02-08 支持websocket，可与现APP互通。
+web端地址:[teamtalk_websocket_client](http://tt.hifipi.com/teamtalk_websocket_client/)
+
 websocket使用客户端：[xiaominfc/teamtalk_websocket_client](https://github.com/xiaominfc/teamtalk_websocket_client)
 
 版本[0.1.0-RELEASE]使用了router-server作为消息中转服务（这点跟原TT是相似的），0.2以后将使用hazelcast等分布式中间件取代router-server来处理消息的“漫游”。
