@@ -7,8 +7,10 @@ package com.blt.talk.message.server.cluster;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,6 +51,30 @@ public class MessageServerManager {
             }
         }
         return null;
+    }
+    
+    public String getMemberByNetId(Long netId) {
+        String targetUuid = null;
+        for (String uuid: messageServerConnectionMap.keySet()) {
+            if (messageServerConnectionMap.containsEntry(uuid, netId)) {
+                targetUuid = uuid;
+                break;
+            }
+        }
+
+        return targetUuid;
+    }
+    public Set<String> getMemberByNetIds(List<Long> netIds) {
+        Set<String> targetUuids = new HashSet<>();
+        for (String uuid: messageServerConnectionMap.keySet()) {
+            for (Long netId: netIds) {
+                if (messageServerConnectionMap.containsEntry(uuid, netId)) {
+                    targetUuids.add(uuid);
+                }
+            }
+        }
+
+        return targetUuids;
     }
     
     public void removeConnect(String uuid, Long netId) {

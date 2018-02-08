@@ -10,6 +10,7 @@ import com.google.protobuf.MessageLite;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
+ * 群组处理Handler
  * 
  * @author 袁贵
  * @version 1.0
@@ -18,26 +19,26 @@ import io.netty.channel.ChannelHandlerContext;
 public interface IMGroupHandler {
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void normalListReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void groupInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
     
 //    /**
 //     * 
-//     * @param header
-//     * @param body
-//     * @param ctx
+//     * @param header 消息头
+//     * @param body 消息体
+//     * @param ctx 连接context
 //     * @since 1.0
 //     */
 //    void groupCreateReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
@@ -45,36 +46,36 @@ public interface IMGroupHandler {
 //    
 //    /**
 //     * 
-//     * @param header
-//     * @param body
-//     * @param ctx
+//     * @param header 消息头
+//     * @param body 消息体
+//     * @param ctx 连接context
 //     * @since 1.0
 //     */
 //    void groupChangeMemberReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 //    
     
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void createGroupReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
     
     /**
      * 修改组成员
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void changeMemberReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
     
     /**
      * 
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void groupShieldReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);

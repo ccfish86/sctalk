@@ -18,65 +18,65 @@ import io.netty.channel.ChannelHandlerContext;
 public interface IMBuddyListHandler {
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  3.0
      */
     void recentContactReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void userInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void removeSessionReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void allUserReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void userStatusReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void changeAvaterReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void departmentReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void changeSignInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);

@@ -13,13 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.analysis.ProtobufParseMap;
+import com.blt.talk.common.code.proto.IMBaseDefine.AVCallCmdId;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.FileCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.GroupCmdID;
@@ -36,15 +36,20 @@ import com.blt.talk.common.code.proto.IMMessage;
 import com.blt.talk.common.code.proto.IMOther;
 import com.blt.talk.common.code.proto.IMServer;
 import com.blt.talk.common.code.proto.IMSwitchService;
+import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq;
+import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq;
+import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes;
 import com.blt.talk.message.server.channel.NettyChatServerInitializer;
 import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.config.MessageServerConfig;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
@@ -62,8 +67,9 @@ public class MessageServerStarter {
     private static Logger logger = LoggerFactory.getLogger(MessageServerStarter.class);
 
     @Autowired
+    //@Qualifier("NettyWsServerInitializer")
     @Qualifier("NettyChatServerInitializer")
-    private NettyChatServerInitializer channelInboundHandler;
+    private ChannelInitializer<SocketChannel> channelInboundHandler;
 
     private ServerBootstrap sBootstrap;
     private ChannelFuture future;
@@ -270,6 +276,17 @@ public class MessageServerStarter {
         ProtobufParseMap.register(ServiceID.SID_FILE_VALUE,
                 FileCmdID.CID_FILE_HAS_OFFLINE_REQ_VALUE,
                 IMFile.IMFileHasOfflineReq::parseFrom, IMFile.IMFileHasOfflineReq.class);
+        
+        // For webrtc(audio/vedio call)
+        ProtobufParseMap.register(ServiceID.SID_AVCALL_VALUE,
+                AVCallCmdId.CID_AVCALL_INITIATE_REQ_VALUE,
+                IMAVCallInitiateReq::parseFrom, IMAVCallInitiateReq.class);
+        ProtobufParseMap.register(ServiceID.SID_AVCALL_VALUE,
+                AVCallCmdId.CID_AVCALL_INITIATE_RES_VALUE,
+                IMAVCallInitiateRes::parseFrom, IMAVCallInitiateRes.class);
+        ProtobufParseMap.register(ServiceID.SID_AVCALL_VALUE,
+                AVCallCmdId.CID_AVCALL_HUNGUP_REQ_VALUE,
+                IMAVCallHungUpReq::parseFrom, IMAVCallHungUpReq.class);
         
     }
 

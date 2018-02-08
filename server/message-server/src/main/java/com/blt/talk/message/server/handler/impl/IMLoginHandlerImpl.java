@@ -77,9 +77,9 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
     
     /**
      * 
-     * @param header
+     * @param header 消息头
      * @param msg
-     * @param ctx
+     * @param ctx 连接context
      * @throws Exception
      * @since  3.0
      */

@@ -10,7 +10,9 @@ import com.google.protobuf.MessageLite;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
- * 
+ * 文件处理Handler
+ * <br>
+ * 文件发送 
  * @author 袁贵
  * @version 1.0
  * @since  1.0

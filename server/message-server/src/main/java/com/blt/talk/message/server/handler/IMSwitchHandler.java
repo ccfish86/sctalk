@@ -10,6 +10,7 @@ import com.google.protobuf.MessageLite;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
+ * 处理p2p等
  * 
  * @author 袁贵
  * @version 1.0
@@ -18,9 +19,9 @@ import io.netty.channel.ChannelHandlerContext;
 public interface IMSwitchHandler {
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void switchP2p(IMHeader header, MessageLite body, ChannelHandlerContext ctx);

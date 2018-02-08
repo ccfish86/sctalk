@@ -39,6 +39,11 @@ public final class UserClientInfoManager implements InitializingBean {
     
     /** 连接ID与用户关系 */
     private Map<Long, Long> serverUserMap;
+    
+    /** 呼叫连接与用户关系 */
+    private Map<Long, IMAVCall> hmCallerMap;
+    /** 呼叫连接与被叫关系 */
+    private Map<Long, IMAVCall> hmCalledMap;
 
     public Collection<UserClientInfo> allUsers() {
         return userClientInfoMap.values();
@@ -53,6 +58,72 @@ public final class UserClientInfoManager implements InitializingBean {
      */
     public UserClientInfo getUserInfo(Long userId) {
         return userClientInfoMap.get(userId);
+    }
+
+    /**
+     * 获取呼叫信息
+     * 
+     * @param fromId 用户ID
+     * @since  1.3
+     */
+    public IMAVCall getCaller(Long fromId) {
+        return hmCallerMap.get(fromId);
+    }
+    /**
+     * 删除呼叫信息
+     * 
+     * @param userId 用户ID
+     * @since  1.3
+     */
+    public void removeCaller(Long userId) {
+        hmCallerMap.remove(userId);
+    }
+    
+    /**
+     * 设置呼叫信息
+     * 
+     * @param fromId 用户ID
+     * @param netId 连接ID
+     * @since  1.3
+     */
+    public void addCaller(Long fromId, Long netId) {
+        IMAVCall avCall = new IMAVCall();
+        avCall.setUserId(fromId);
+        avCall.setNetId(netId);
+        hmCallerMap.put(fromId, avCall);
+    }
+    /**
+     * 获取被叫信息
+     * 
+     * @param toId 用户ID
+     * @since  1.3
+     */
+    public IMAVCall getCalled(Long toId) {
+        return hmCalledMap.get(toId);
+    }
+
+    /**
+     * 删除被叫信息
+     * 
+     * @param userId 用户ID
+     * @since  1.3
+     */
+    public void removeCalled(Long userId) {
+        hmCalledMap.remove(userId);
+    }
+
+    /**
+     * 设置被叫信息
+     * 
+     * @param toId 用户ID
+     * @param netId 连接ID
+     * @since  1.3
+     */
+    public void addCalled(Long toId, Long netId) {
+        IMAVCall avCall = new IMAVCall();
+        avCall.setUserId(toId);
+        avCall.setNetId(netId);
+        hmCalledMap.put(toId, avCall);
     }
     /**
      * 取服务器的用户
@@ -148,6 +219,51 @@ public final class UserClientInfoManager implements InitializingBean {
         }
     }
 
+    /**
+     * 用户呼叫信息
+     * 
+     * @author 袁贵
+     * @version 1.0
+     * @since  1.0
+     */
+    public static class IMAVCall implements Serializable {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1645682202612564754L;
+        
+        private Long userId;
+
+        private Long netId;
+        
+        private Long callId;
+
+        public Long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+
+        public Long getNetId() {
+            return netId;
+        }
+
+        public void setNetId(Long netId) {
+            this.netId = netId;
+        }
+
+        public Long getCallId() {
+            return callId;
+        }
+
+        public void setCallId(Long callId) {
+            this.callId = callId;
+        }
+    }
+    
     /**
      * 用户连接信息
      * 
@@ -275,6 +391,9 @@ public final class UserClientInfoManager implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         this.userClientInfoMap = hazelcastInstance.getMap("message-server#router#user");
         this.serverUserMap = hazelcastInstance.getMap("message-server#router#connection");
+        this.hmCallerMap = hazelcastInstance.getMap("message-server#router#caller");
+        this.hmCalledMap = hazelcastInstance.getMap("message-server#router#called");
     }
+
 
 }

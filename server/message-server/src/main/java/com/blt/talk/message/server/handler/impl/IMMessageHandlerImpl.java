@@ -203,7 +203,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
     /**
      * 处理私消息
      * 
-     * @param header
+     * @param header 消息头
      * @param msgdata
      * @since  1.0
      */
@@ -295,7 +295,7 @@ public class IMMessageHandlerImpl extends AbstractUserHandlerImpl implements IMM
     /**
      * 处理群消息发送
      * 
-     * @param header
+     * @param header 消息头
      * @param msgdata
      * @since  1.0
      */

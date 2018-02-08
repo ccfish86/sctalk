@@ -343,7 +343,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
     
                 // 头像更新广播
                 IMHeader notifyHeader = new IMHeader();
-                // notifyHeader.setServiceId((short)ServiceID.SID_BUDDY_LIST_VALUE);
+                notifyHeader.setServiceId((short)ServiceID.SID_BUDDY_LIST_VALUE);
                 notifyHeader.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY_VALUE);
                 IMBuddy.IMAvatarChangedNotify.Builder notifyBody = IMBuddy.IMAvatarChangedNotify.newBuilder();
                 notifyBody.setChangedUserId(userId);

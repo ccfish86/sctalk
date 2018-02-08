@@ -19,6 +19,7 @@ import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.PduAttachData;
 import com.blt.talk.common.code.proto.IMBaseDefine;
+import com.blt.talk.common.code.proto.IMBaseDefine.AVCallCmdId;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.FileCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.GroupCmdID;
@@ -110,6 +111,9 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
                 if (!member.localMember()) {
                     this.doGroup(clusterMessage.getCommandId(), clusterMessage);
                 }
+                break;
+            case IMBaseDefine.ServiceID.SID_AVCALL_VALUE:
+                this.doWebrtc(clusterMessage.getCommandId(), clusterMessage, member);
                 break;
             default:
                 logger.warn("暂不支持的服务ID{}", clusterMessage.getServiceId());
@@ -251,7 +255,7 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
      * @since 1.0
      */
     private void doBuddyList(short commandId, MyClusterMessage clusterMessage) {
-        logger.info("doBuddyList");
+        logger.debug("doBuddyList");
         IMHeader header = clusterMessage.getHeader();
         try {
             MessageLite body = clusterMessage.getMessage();
@@ -283,6 +287,50 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
     }
 
     /**
+     * 处理webrtc
+     * @param commandId 命令ID
+     * @param clusterMessage 消息
+     * @param member hazelcast成员
+     * @since  1.3
+     */
+    private void doWebrtc(short commandId, MyClusterMessage clusterMessage, Member member) {
+        // FIXME webrtc
+        logger.debug("doWebrtc");
+        IMHeader header = clusterMessage.getHeader();
+        try {
+            MessageLite body = clusterMessage.getMessage();
+            switch (commandId) {
+                case AVCallCmdId.CID_AVCALL_CANCEL_REQ_VALUE:
+                    if (!member.localMember()) {
+                        handleInitateCallReq(header, body);
+                    }
+                    break;
+                case AVCallCmdId.CID_AVCALL_CANCEL_RES_VALUE:
+                    handleCallCancelReq(header, body);
+                    break;
+                case AVCallCmdId.CID_AVCALL_HUNGUP_REQ_VALUE:
+                    
+                    break;
+                default:
+                    logger.warn("Unsupport command id {}", commandId);
+                    break;
+            }
+        } catch (IOException e) {
+            logger.error("decode failed.", e);
+        }
+        
+    }
+
+    private void handleInitateCallReq(IMHeader header, MessageLite body) {
+        // TODO Auto-generated method stub
+        
+    }
+    private void handleCallCancelReq(IMHeader header, MessageLite body) {
+        // 如果handleId(attachData)存在，则直接取消所对应的连接
+        // 否则通知所有对应的客户端
+    }
+    
+    /**
      * 
      * @param header
      * @param body
@@ -305,7 +353,6 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
         }
 
     }
-
 
     /**
      * @param header

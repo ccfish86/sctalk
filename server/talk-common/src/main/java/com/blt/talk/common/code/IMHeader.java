@@ -89,6 +89,16 @@ public class IMHeader implements Serializable {
     }
 
     /**
+     * Set the sequence number
+     * @param seq the sequence number
+     * @since  1.0
+     */
+    public void setSeqnum(int seq) {
+        this.seqnum = (short) seq;
+    }
+
+
+    /**
      * 头文件的压包函数
      *
      * @return 数据包
@@ -159,6 +169,14 @@ public class IMHeader implements Serializable {
     public void setCommandId(short commandID) {
         this.commandId = commandID;
     }
+    /**
+     * Set then command id
+     * @param commandID the command id
+     * @since  1.0
+     */
+    public void setCommandId(int commandID) {
+        this.commandId = (short) commandID;
+    }
 
     /**
      * Get the service id
@@ -176,6 +194,14 @@ public class IMHeader implements Serializable {
      */
     public void setServiceId(short serviceID) {
         this.serviceId = serviceID;
+    }
+    /**
+     * Set the service id
+     * @param serviceID the service id
+     * @since  1.0
+     */
+    public void setServiceId(int serviceID) {
+        this.serviceId = (short) serviceID;
     }
 
     /**

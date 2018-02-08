@@ -64,6 +64,14 @@ public final class IMBaseDefine {
      * <code>SID_INTERNAL = 8;</code>
      */
     SID_INTERNAL(8),
+    /**
+     * <pre>
+     * audio or vedio call
+     * </pre>
+     *
+     * <code>SID_AVCALL = 9;</code>
+     */
+    SID_AVCALL(9),
     ;
 
     /**
@@ -113,6 +121,14 @@ public final class IMBaseDefine {
      * <code>SID_INTERNAL = 8;</code>
      */
     public static final int SID_INTERNAL_VALUE = 8;
+    /**
+     * <pre>
+     * audio or vedio call
+     * </pre>
+     *
+     * <code>SID_AVCALL = 9;</code>
+     */
+    public static final int SID_AVCALL_VALUE = 9;
 
 
     public final int getNumber() {
@@ -137,6 +153,7 @@ public final class IMBaseDefine {
         case 6: return SID_SWITCH_SERVICE;
         case 7: return SID_OTHER;
         case 8: return SID_INTERNAL;
+        case 9: return SID_AVCALL;
         default: return null;
       }
     }
@@ -1583,6 +1600,108 @@ public final class IMBaseDefine {
     }
 
     // @@protoc_insertion_point(enum_scope:IM.BaseDefine.OtherCmdID)
+  }
+
+  /**
+   * Protobuf enum {@code IM.BaseDefine.AVCallCmdId}
+   */
+  public enum AVCallCmdId
+      implements com.google.protobuf.Internal.EnumLite {
+    /**
+     * <code>CID_AVCALL_INITIATE_REQ = 2305;</code>
+     */
+    CID_AVCALL_INITIATE_REQ(2305),
+    /**
+     * <code>CID_AVCALL_INITIATE_RES = 2306;</code>
+     */
+    CID_AVCALL_INITIATE_RES(2306),
+    /**
+     * <code>CID_AVCALL_HUNGUP_REQ = 2307;</code>
+     */
+    CID_AVCALL_HUNGUP_REQ(2307),
+    /**
+     * <code>CID_AVCALL_HUNGUP_RES = 2308;</code>
+     */
+    CID_AVCALL_HUNGUP_RES(2308),
+    /**
+     * <code>CID_AVCALL_CANCEL_REQ = 2309;</code>
+     */
+    CID_AVCALL_CANCEL_REQ(2309),
+    /**
+     * <code>CID_AVCALL_CANCEL_RES = 2310;</code>
+     */
+    CID_AVCALL_CANCEL_RES(2310),
+    ;
+
+    /**
+     * <code>CID_AVCALL_INITIATE_REQ = 2305;</code>
+     */
+    public static final int CID_AVCALL_INITIATE_REQ_VALUE = 2305;
+    /**
+     * <code>CID_AVCALL_INITIATE_RES = 2306;</code>
+     */
+    public static final int CID_AVCALL_INITIATE_RES_VALUE = 2306;
+    /**
+     * <code>CID_AVCALL_HUNGUP_REQ = 2307;</code>
+     */
+    public static final int CID_AVCALL_HUNGUP_REQ_VALUE = 2307;
+    /**
+     * <code>CID_AVCALL_HUNGUP_RES = 2308;</code>
+     */
+    public static final int CID_AVCALL_HUNGUP_RES_VALUE = 2308;
+    /**
+     * <code>CID_AVCALL_CANCEL_REQ = 2309;</code>
+     */
+    public static final int CID_AVCALL_CANCEL_REQ_VALUE = 2309;
+    /**
+     * <code>CID_AVCALL_CANCEL_RES = 2310;</code>
+     */
+    public static final int CID_AVCALL_CANCEL_RES_VALUE = 2310;
+
+
+    public final int getNumber() {
+      return value;
+    }
+
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static AVCallCmdId valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static AVCallCmdId forNumber(int value) {
+      switch (value) {
+        case 2305: return CID_AVCALL_INITIATE_REQ;
+        case 2306: return CID_AVCALL_INITIATE_RES;
+        case 2307: return CID_AVCALL_HUNGUP_REQ;
+        case 2308: return CID_AVCALL_HUNGUP_RES;
+        case 2309: return CID_AVCALL_CANCEL_REQ;
+        case 2310: return CID_AVCALL_CANCEL_RES;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<AVCallCmdId>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        AVCallCmdId> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<AVCallCmdId>() {
+            public AVCallCmdId findValueByNumber(int number) {
+              return AVCallCmdId.forNumber(number);
+            }
+          };
+
+    private final int value;
+
+    private AVCallCmdId(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:IM.BaseDefine.AVCallCmdId)
   }
 
   /**

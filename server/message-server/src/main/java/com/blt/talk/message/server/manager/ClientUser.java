@@ -142,7 +142,7 @@ public class ClientUser {
     public void broadcast(IMProtoMessage<MessageLite> message, ChannelHandlerContext fromCtx) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx) {
-                logger.debug("发送消息> {}", conn.channel().remoteAddress());
+                logger.trace("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
                 // conn > AddToSendList
             }
@@ -153,7 +153,7 @@ public class ClientUser {
     public void broadcastWithOutMobile(IMProtoMessage<MessageLite> message, ChannelHandlerContext fromCtx) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx && CommonUtils.isPc(conn.attr(CLIENT_TYPE).get())) {
-                logger.debug("发送消息> {}", conn.channel().remoteAddress());
+                logger.trace("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
             }
         }
@@ -162,7 +162,7 @@ public class ClientUser {
     public void broadcastToMobile(IMProtoMessage<MessageLite> message, ChannelHandlerContext fromCtx) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx && CommonUtils.isMobile(conn.attr(CLIENT_TYPE).get())) {
-                logger.debug("发送消息> {}", conn.channel().remoteAddress());
+                logger.trace("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
             }
         }
@@ -171,7 +171,7 @@ public class ClientUser {
     public void broadcaseMessage(IMProtoMessage<MessageLite> message, long messageId, ChannelHandlerContext fromCtx, long fromId) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx) {
-                logger.debug("发送消息> {}", conn.channel().remoteAddress());
+                logger.trace("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
                 // conn AddToSendList
             }
@@ -181,7 +181,7 @@ public class ClientUser {
     public void broadcastData(ByteBuf message, int len,  ChannelHandlerContext fromCtx) {
         for (ChannelHandlerContext conn: connMap.values()) {
             if (conn != fromCtx) {
-                logger.debug("发送消息> {}", conn.channel().remoteAddress());
+                logger.trace("发送消息> {}", conn.channel().remoteAddress());
                 conn.writeAndFlush(message);
             }
         }

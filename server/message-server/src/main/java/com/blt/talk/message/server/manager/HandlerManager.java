@@ -6,14 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.IMHeader;
+import com.blt.talk.common.code.analysis.ProtobufParseMap;
+import com.blt.talk.common.code.proto.IMBaseDefine.AVCallCmdId;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.FileCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.GroupCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.LoginCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.OtherCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SwitchServiceCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
+import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq;
+import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq;
+import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes;
 import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.handler.IMBuddyListHandler;
 import com.blt.talk.message.server.handler.IMFileHandle;
@@ -22,6 +28,7 @@ import com.blt.talk.message.server.handler.IMLoginHandler;
 import com.blt.talk.message.server.handler.IMMessageHandler;
 import com.blt.talk.message.server.handler.IMOtherHandler;
 import com.blt.talk.message.server.handler.IMSwitchHandler;
+import com.blt.talk.message.server.handler.IMWebrtcHandler;
 import com.google.protobuf.MessageLite;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -52,6 +59,8 @@ public class HandlerManager {
     private IMSwitchHandler imSwitchHandler;
     @Autowired
     private IMFileHandle imFileHandle;
+    @Autowired
+    private IMWebrtcHandler imWebrtcHandler;
     @Autowired
     private MessageServerCluster messageServerCluster;
     
@@ -272,6 +281,32 @@ public class HandlerManager {
         switch (commandId) {
             case SwitchServiceCmdID.CID_SWITCH_P2P_CMD_VALUE:
                 imSwitchHandler.switchP2p(header, body, ctx); //todebug
+                break; 
+            default:
+                logger.warn("Unsupport command id {}", commandId);
+                break;
+        }
+    }
+
+    /**
+     * 处理Webrtc会话消息
+     * @param ctx 信道
+     * @param commandId 命令
+     * @param header 消息头
+     * @param body 消息体
+     * @since  1.0
+     */
+    public void doWebrtc(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
+        logger.info("doWebrtc");
+        switch (commandId) {
+            case AVCallCmdId.CID_AVCALL_INITIATE_REQ_VALUE:
+                imWebrtcHandler.initiateReq(header, body, ctx); //todebug
+                break; 
+            case AVCallCmdId.CID_AVCALL_INITIATE_RES_VALUE:
+                imWebrtcHandler.initiateRes(header, body, ctx); //todebug
+                break; 
+            case AVCallCmdId.CID_AVCALL_HUNGUP_REQ_VALUE:
+                imWebrtcHandler.hungupCall(header, body, ctx); //todebug
                 break; 
             default:
                 logger.warn("Unsupport command id {}", commandId);

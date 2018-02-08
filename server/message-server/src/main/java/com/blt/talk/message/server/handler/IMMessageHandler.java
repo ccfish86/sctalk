@@ -10,7 +10,7 @@ import com.google.protobuf.MessageLite;
 import io.netty.channel.ChannelHandlerContext;
 
 /**
- * 
+ * 消息处理Handler
  * @author 袁贵
  * @version 1.0
  * @since  1.0
@@ -18,57 +18,57 @@ import io.netty.channel.ChannelHandlerContext;
 public interface IMMessageHandler {
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void sendMessage(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void readMessage(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void getUnreadCount(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void getMessageList(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void getLatestMessageId(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void getByMessageId(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
     /**
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since  1.0
      */
     void clientMsgDataAck(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
@@ -76,9 +76,9 @@ public interface IMMessageHandler {
     
     /**
      * 
-     * @param header
-     * @param body
-     * @param ctx
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
      * @since 1.0
      */
 	void clientTimeReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);

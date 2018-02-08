@@ -24,6 +24,9 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
+ * Websocket支持
+ * <br>
+ * 客户端测试通过：https://github.com/xiaominfc/teamtalk_websocket_client
  * 
  * @author 袁贵
  * @version 1.0
