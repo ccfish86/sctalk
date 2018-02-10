@@ -23,7 +23,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import io.netty.util.CharsetUtil;
 
 /**
- * 用来处理用户过来的消息
+ * 用来处理websocket过来的消息
  * 
  * @author 袁贵
  * @version 1.3
@@ -33,10 +33,8 @@ public final class MessageWsServerHandler extends MessageServerHandler {
 
     private Logger logger = LoggerFactory.getLogger(MessageServerHandler.class);
 
-    private WebSocketServerHandshaker handshaker;  
-    private ChannelHandlerContext ctx;  
-    private String sessionId;  
-    
+    private WebSocketServerHandshaker handshaker;
+
     public MessageWsServerHandler(HandlerManager handlerManager) {
         super(handlerManager);
     }
@@ -45,12 +43,10 @@ public final class MessageWsServerHandler extends MessageServerHandler {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
         if (msg instanceof HttpRequest) {
-            // httpService.handleHttpRequest(ctx, (FullHttpRequest) msg);
-            logger.debug("FullHttpRequest");
+            logger.debug("HttpRequest");
             // 完成 握手
             handleHttpRequest(ctx, (HttpRequest) msg);
         } else if (msg instanceof IMProtoMessage) {
-            logger.debug("IMProtoMessage");
             super.channelRead(ctx, msg);
         } else if (msg instanceof WebSocketFrame) {
             // websocketService.handleFrame(ctx, (WebSocketFrame) msg);
@@ -60,55 +56,58 @@ public final class MessageWsServerHandler extends MessageServerHandler {
             logger.debug("other:{}", msg);
         }
     }
-    
-    /** 
-     * 处理Http请求，完成WebSocket握手<br/> 
-     * 注意：WebSocket连接第一次请求使用的是Http 
-     * @param ctx 
-     * @param request 
-     * @throws Exception 
-     */  
-    private void handleHttpRequest(ChannelHandlerContext ctx, HttpRequest request) throws Exception {  
-        // 如果HTTP解码失败，返回HHTP异常  
-        if (!request.getDecoderResult().isSuccess() || (!"websocket".equals(request.headers().get("Upgrade")))) {  
-            sendHttpResponse(ctx, request, new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));  
-            return;  
-        }  
-  
-        // 正常WebSocket的Http连接请求，构造握手响应返回  
-        WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory("ws://" + request.headers().get(HttpHeaders.Names.HOST), null, false);  
-        handshaker = wsFactory.newHandshaker(request);  
-        if (handshaker == null) { 
-            // 无法处理的websocket版本  
-            WebSocketServerHandshakerFactory.sendUnsupportedWebSocketVersionResponse(ctx.channel());  
-        } else { 
-            // 向客户端发送websocket握手,完成握手  
-            logger.debug("向客户端发送websocket握手,完成握手");
-            handshaker.handshake(ctx.channel(), request);  
-            // 记录管道处理上下文，便于服务器推送数据到客户端  
-            this.ctx = ctx;  
-        }  
-    }  
 
-    /** 
-     * Http返回 
-     * @param ctx 
-     * @param request 
-     * @param response 
-     */  
-    private static void sendHttpResponse(ChannelHandlerContext ctx, HttpRequest request, HttpResponse response) {  
-        // 返回应答给客户端  
-        if (response.getStatus().code() != 200) {  
-            ByteBuf buf = Unpooled.copiedBuffer(response.getStatus().toString(), CharsetUtil.UTF_8);  
-            //response.content().writeBytes(buf);
-            buf.release();  
-            //HttpHeaders.setContentLength(response, response.content().readableBytes());  
-        }  
-  
-        // 如果是非Keep-Alive，关闭连接  
-        ChannelFuture f = ctx.channel().writeAndFlush(response);  
-        if (!HttpHeaders.isKeepAlive(request) || response.getStatus().code() != 200) {  
-            f.addListener(ChannelFutureListener.CLOSE);  
-        }  
-    } 
+    /**
+     * 处理Http请求，完成WebSocket握手<br/>
+     * 注意：WebSocket连接第一次请求使用的是Http
+     * 
+     * @param ctx
+     * @param request
+     * @throws Exception
+     */
+    private void handleHttpRequest(ChannelHandlerContext ctx, HttpRequest request)
+            throws Exception {
+        // 如果HTTP解码失败，返回HHTP异常
+        if (!request.getDecoderResult().isSuccess()
+                || (!"websocket".equals(request.headers().get("Upgrade")))) {
+            sendHttpResponse(ctx, request,
+                    new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
+            return;
+        }
+
+        // 正常WebSocket的Http连接请求，构造握手响应返回
+        WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
+                "ws://" + request.headers().get(HttpHeaders.Names.HOST), null, false);
+        handshaker = wsFactory.newHandshaker(request);
+        if (handshaker == null) {
+            // 无法处理的websocket版本
+            WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
+        } else {
+            // 向客户端发送websocket握手,完成握手
+            logger.debug("向客户端发送websocket握手,完成握手");
+            handshaker.handshake(ctx.channel(), request);
+        }
+    }
+
+    /**
+     * Http返回
+     * 
+     * @param ctx
+     * @param request
+     * @param response
+     */
+    private static void sendHttpResponse(ChannelHandlerContext ctx, HttpRequest request,
+            DefaultHttpResponse response) {
+        // 返回应答给客户端
+        if (response.getStatus().code() != 200) {
+            ByteBuf buf = Unpooled.copiedBuffer(response.getStatus().toString(), CharsetUtil.UTF_8);
+            buf.release();
+        }
+
+        // 如果是非Keep-Alive，关闭连接
+        ChannelFuture f = ctx.channel().writeAndFlush(response);
+        if (!HttpHeaders.isKeepAlive(request) || response.getStatus().code() != 200) {
+            f.addListener(ChannelFutureListener.CLOSE);
+        }
+    }
 }

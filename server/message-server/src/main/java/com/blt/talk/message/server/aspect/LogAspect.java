@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.blt.talk.common.code.IMHeader;
@@ -13,6 +14,8 @@ import com.google.protobuf.MessageLite;
 
 /**
  * Handler处理日志
+ * <br>
+ * 仅在开发和测试环境中启用
  * 
  * @author 袁贵
  * @version 1.0
@@ -20,6 +23,7 @@ import com.google.protobuf.MessageLite;
  */
 @Component
 @Aspect
+@Profile(value = {"dev", "test"})
 public class LogAspect {
     
     private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
@@ -50,7 +54,7 @@ public class LogAspect {
                     IMHeader header = (IMHeader)obj;
                     logger.debug("[param.header] serviceId:{}, commandId:{}", header.getServiceId(), header.getCommandId());
                 } else if (obj instanceof MessageLite) {
-                    logger.debug("[param.body] :{}", obj);
+                    logger.trace("[param.body] :{}", obj);
                 } else {
                     logger.debug("[param.other] :{}", obj);
                 }

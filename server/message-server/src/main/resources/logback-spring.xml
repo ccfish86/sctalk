@@ -16,7 +16,7 @@
     <logger name="org.hibernate.validator" level="WARN" />
     <logger name="org.hibernate" level="WARN" />
     <logger name="org.springframework" level="WARN" />
-    <logger name="org.springframework.web" level="DEBUG" />
+    <logger name="org.springframework.web" level="info" />
     <logger name="org.springframework.security" level="WARN" />
     <logger name="org.springframework.cache" level="WARN" />
 
