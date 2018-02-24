@@ -76,7 +76,7 @@ public class RecentSessionServiceController {
                 recentInfoList.add(recentInfo);
             });
         }
-
+        sessionRes.setData(recentInfoList);
         return sessionRes;
     }
 
