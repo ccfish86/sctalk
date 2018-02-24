@@ -95,7 +95,9 @@ public class BuddyListServiceController {
         imuser.setPhone(userInfoReq.getTelephone());
         imuser.setEmail(userInfoReq.getEmail());
         imuser.setSignInfo(userInfoReq.getSignInfo());
-        imuser.setAvatar(userInfoReq.getAvatarUrl());
+        if (userInfoReq.getAvatarUrl() != null) {
+            imuser.setAvatar(userInfoReq.getAvatarUrl());
+        }
         imuser.setUpdated(time);
 
         userRepository.save(imuser);
