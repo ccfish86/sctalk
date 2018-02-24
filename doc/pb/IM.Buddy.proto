@@ -157,3 +157,36 @@ message IMSignInfoChangedNotify {
     required uint64 changed_user_id = 1;     // 谁修改了个性签名
     required string sign_info = 2;
 }
+
+// 修改用户信息REQ
+message IMChangeUserInfoReq{
+	//cmd id:		0x0216
+	required uint64 user_id = 1;
+	optional string telephone_num = 2;
+    optional string email_address = 3;
+    optional string sign_info = 4;
+	optional string avatar_url = 5;
+	optional bytes attach_data = 20;
+}
+// 修改用户信息RSP
+message IMChangeUserInfoRsp{
+	//cmd id:		0x0217
+	required uint64 user_id = 1;
+	required uint32 result_code = 2;
+	optional string telephone_num = 3;
+    optional string email_address = 4;
+    optional string sign_info = 5;
+	optional string avatar_url = 6;
+	optional bytes attach_data = 20;
+}
+
+// 用户信息修改通知（广播）
+message IMUserInfoChangedNotify {
+    //cmd id:		0x0218
+    required uint64 changed_user_id = 1;     // 谁修改了个人信息
+	required uint32 result_code = 2;
+	optional string telephone_num = 3;
+    optional string email_address = 4;
+    optional string sign_info = 5;
+	optional string avatar_url = 6;
+}

@@ -58,6 +58,9 @@ enum BuddyListCmdID{
     CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST             = 0x0213; //修改个性签名请求
     CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE            = 0x0214; //
     CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY             = 0x0215; //签名修改通知
+    CID_BUDDY_LIST_CHANGE_USER_INFO_REQUEST              = 0x0216; //修改用户信息REQ
+    CID_BUDDY_LIST_CHANGE_USER_INFO_RESPONSE             = 0x0217; //修改用户信息RSP
+    CID_BUDDY_LIST_USER_INFO_CHANGED_NOTIFY             = 0x0218; //修改用户信息通知
 }
 
 // command id for msg
