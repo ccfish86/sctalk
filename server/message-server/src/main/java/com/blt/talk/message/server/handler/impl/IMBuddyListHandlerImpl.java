@@ -18,6 +18,7 @@ import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
+import com.blt.talk.common.code.proto.IMBaseDefine.ContactSessionInfo;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SessionType;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserInfo;
@@ -26,6 +27,7 @@ import com.blt.talk.common.code.proto.IMBuddy.IMUsersStatReq;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
 import com.blt.talk.common.constant.SysConstant;
 import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.common.model.entity.ContactSessionEntity;
 import com.blt.talk.common.model.entity.DepartmentEntity;
 import com.blt.talk.common.model.entity.SessionEntity;
 import com.blt.talk.common.model.entity.UserEntity;
@@ -77,20 +79,21 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
         IMBuddy.IMRecentContactSessionReq contackSessionReq =
                 (IMBuddy.IMRecentContactSessionReq) body;
         try {
-            BaseModel<List<SessionEntity>> contackSessionRes = sessionService
+            BaseModel<List<ContactSessionEntity>> contackSessionRes = sessionService
                     .getRecentSession(userId, contackSessionReq.getLatestUpdateTime());
 
             IMBuddy.IMRecentContactSessionRsp.Builder resBuilder =
                     IMBuddy.IMRecentContactSessionRsp.newBuilder();
             resBuilder.setUserId(userId);
 
+            List<ContactSessionInfo> contactSessionList = new ArrayList<>();
             if (contackSessionRes.getData() != null) {
                 contackSessionRes.getData().forEach(sessionInfo -> {
-                    resBuilder.getContactSessionListList()
-                            .add(JavaBean2ProtoBuf.getContactSessionInfo(sessionInfo));
+                    contactSessionList.add(JavaBean2ProtoBuf.getContactSessionInfo(sessionInfo));
                 });
             }
 
+            resBuilder.addAllContactSessionList(contactSessionList);
             IMHeader resHeader = header.clone();
             resHeader.setCommandId(
                      BuddyListCmdID.CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE_VALUE);

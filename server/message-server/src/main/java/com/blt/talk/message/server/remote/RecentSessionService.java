@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.common.model.entity.ContactSessionEntity;
 import com.blt.talk.common.model.entity.SessionEntity;
 
 /**
@@ -24,6 +25,6 @@ import com.blt.talk.common.model.entity.SessionEntity;
 public interface RecentSessionService {
 
     @GetMapping(path = "/session/recentSession")
-    BaseModel<List<SessionEntity>> getRecentSession(@RequestParam("userId") long userId, @RequestParam("updateTime") int lastUpdateTime);
+    BaseModel<List<ContactSessionEntity>> getRecentSession(@RequestParam("userId") long userId, @RequestParam("updateTime") int lastUpdateTime);
 
 }

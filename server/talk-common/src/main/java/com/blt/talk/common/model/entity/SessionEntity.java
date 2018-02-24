@@ -4,7 +4,9 @@ import com.blt.talk.common.code.proto.helper.EntityChangeEngine;
 
 /**
  * Entity mapped to table Session.
+ * @Deprecated use {@link ContactSessionEntity}
  */
+@Deprecated
 public class SessionEntity {
 
     private Long id;

@@ -4,7 +4,9 @@ import org.bouncycastle.util.encoders.Base64;
 
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.GroupType;
+import com.blt.talk.common.code.proto.IMBaseDefine.SessionStatusType;
 import com.blt.talk.common.model.MessageEntity;
+import com.blt.talk.common.model.entity.ContactSessionEntity;
 import com.blt.talk.common.model.entity.DepartmentEntity;
 import com.blt.talk.common.model.entity.GroupEntity;
 import com.blt.talk.common.model.entity.SessionEntity;
@@ -92,14 +94,17 @@ public class JavaBean2ProtoBuf {
     }
     
 
-    public static IMBaseDefine.ContactSessionInfo getContactSessionInfo(SessionEntity sessionInfo){
+    public static IMBaseDefine.ContactSessionInfo getContactSessionInfo(ContactSessionEntity sessionInfo){
         
         IMBaseDefine.ContactSessionInfo.Builder sessionInfoBuilder = IMBaseDefine.ContactSessionInfo.newBuilder();
-        sessionInfoBuilder.setLatestMsgFromUserId(sessionInfo.getTalkId());
+        sessionInfoBuilder.setSessionId(sessionInfo.getPeerId());
+        sessionInfoBuilder.setLatestMsgFromUserId(sessionInfo.getLatestMsgFromUserId());
+        sessionInfoBuilder.setSessionStatus(SessionStatusType.SESSION_STATUS_OK);
         sessionInfoBuilder.setLatestMsgType(IMBaseDefine.MsgType.forNumber(sessionInfo.getLatestMsgType()));
         sessionInfoBuilder.setSessionType(IMBaseDefine.SessionType.forNumber(sessionInfo.getPeerType()));
-        sessionInfoBuilder.setSessionId(sessionInfo.getPeerId());
         sessionInfoBuilder.setUpdatedTime(sessionInfo.getUpdated());
+        sessionInfoBuilder.setLatestMsgId(sessionInfo.getLatestMsgId());
+        sessionInfoBuilder.setLatestMsgData(ByteString.copyFromUtf8(sessionInfo.getLatestMsgData()));
         
         return sessionInfoBuilder.build();
     }
