@@ -30,6 +30,7 @@ import com.blt.talk.common.model.entity.DepartmentEntity;
 import com.blt.talk.common.model.entity.SessionEntity;
 import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserAvatarReq;
+import com.blt.talk.common.param.BuddyListUserInfoReq;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
 import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.handler.IMBuddyListHandler;
@@ -92,7 +93,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
 
             IMHeader resHeader = header.clone();
             resHeader.setCommandId(
-                    (short) BuddyListCmdID.CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE_VALUE);
+                     BuddyListCmdID.CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE_VALUE);
 
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, resBuilder.build()));
         } catch (Exception e) {
@@ -101,7 +102,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
                     IMBuddy.IMRecentContactSessionRsp.newBuilder().setUserId(userId).buildPartial();
             IMHeader resHeader = header.clone();
             resHeader.setCommandId(
-                    (short) BuddyListCmdID.CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE_VALUE);
+                     BuddyListCmdID.CID_BUDDY_LIST_RECENT_CONTACT_SESSION_RESPONSE_VALUE);
 
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
         }
@@ -140,7 +141,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
 
                 IMHeader headerRes = header.clone();
                 headerRes.setCommandId(
-                        (short) BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_RESPONSE_VALUE);
+                         BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_RESPONSE_VALUE);
                 ctx.writeAndFlush(
                         new IMProtoMessage<>(headerRes, userInfoResBuilder.buildPartial()));
             }
@@ -152,7 +153,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
             userInfoResBuilder.setUserId(userId);
 
             IMHeader headerRes = header.clone();
-            headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_RESPONSE_VALUE);
+            headerRes.setCommandId( BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_RESPONSE_VALUE);
             ctx.writeAndFlush(new IMProtoMessage<>(headerRes, userInfoResBuilder.buildPartial()));
         }
 
@@ -185,7 +186,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
             }
 
             headerRes = header.clone();
-            headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_RES_VALUE);
+            headerRes.setCommandId( BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_RES_VALUE);
             ctx.writeAndFlush(new IMProtoMessage<>(headerRes, removeSessionRsp));
 
             // 如果session类型为single则发送CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY通知
@@ -198,7 +199,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
                 IMHeader removeSessionNotifyHeader = new IMHeader();
                 removeSessionNotifyHeader.setServiceId((short) ServiceID.SID_BUDDY_LIST_VALUE);
                 removeSessionNotifyHeader.setCommandId(
-                        (short) BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE);
+                         BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE);
 
                 IMProtoMessage<MessageLite> removeSessionNotifyMsg =
                         new IMProtoMessage<>(removeSessionNotifyHeader, removeSessionNotify);
@@ -219,7 +220,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
                     .setSessionType(removeSessionReq.getSessionType()).setResultCode(1).build();
 
             headerRes = header.clone();
-            headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_RES_VALUE);
+            headerRes.setCommandId( BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_RES_VALUE);
             ctx.writeAndFlush(new IMProtoMessage<>(headerRes, removeSessionRsp));
         }
 
@@ -259,7 +260,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
 
             resBuilder.addAllUserList(allUsers);
             IMHeader resHeader = header.clone();
-            resHeader.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_RESPONSE_VALUE);
+            resHeader.setCommandId( BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_RESPONSE_VALUE);
 
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, resBuilder.build()));
         } catch (Exception e) {
@@ -267,7 +268,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
             IMBuddy.IMAllUserRsp res =
                     IMBuddy.IMAllUserRsp.newBuilder().setUserId(userId).buildPartial();
             IMHeader resHeader = header.clone();
-            resHeader.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_RESPONSE_VALUE);
+            resHeader.setCommandId( BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_RESPONSE_VALUE);
 
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
         }
@@ -300,7 +301,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
 
             IMHeader headerRes = header.clone();
             headerRes.setCommandId(
-                    (short) BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_RESPONSE_VALUE);
+                     BuddyListCmdID.CID_BUDDY_LIST_USERS_STATUS_RESPONSE_VALUE);
             ctx.writeAndFlush(new IMProtoMessage<>(headerRes, userStatRes.build()));
         }, (Throwable e) -> {
             // 异常处理
@@ -338,13 +339,13 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
                 }
     
                 headerRes = header.clone();
-                headerRes.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE_VALUE);
+                headerRes.setCommandId( BuddyListCmdID.CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE_VALUE);
                 ctx.writeAndFlush(new IMProtoMessage<>(headerRes, changeAvatarRsp));
     
                 // 头像更新广播
                 IMHeader notifyHeader = new IMHeader();
                 notifyHeader.setServiceId((short)ServiceID.SID_BUDDY_LIST_VALUE);
-                notifyHeader.setCommandId((short) BuddyListCmdID.CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY_VALUE);
+                notifyHeader.setCommandId( BuddyListCmdID.CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY_VALUE);
                 IMBuddy.IMAvatarChangedNotify.Builder notifyBody = IMBuddy.IMAvatarChangedNotify.newBuilder();
                 notifyBody.setChangedUserId(userId);
                 notifyBody.setAvatarUrl(changeAvatarReq.getAvatarUrl());
@@ -358,7 +359,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
 
             headerRes = header.clone();
             headerRes.setCommandId(
-                    (short) BuddyListCmdID.CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE_VALUE);
+                     BuddyListCmdID.CID_BUDDY_LIST_CHANGE_AVATAR_RESPONSE_VALUE);
             ctx.writeAndFlush(new IMProtoMessage<>(headerRes, changeAvatarRsp));
         }
     }
@@ -396,7 +397,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
 
                     IMHeader resHeader = header.clone();
                     resHeader.setCommandId(
-                            (short) BuddyListCmdID.CID_BUDDY_LIST_DEPARTMENT_RESPONSE_VALUE);
+                             BuddyListCmdID.CID_BUDDY_LIST_DEPARTMENT_RESPONSE_VALUE);
                     ctx.writeAndFlush(
                             new IMProtoMessage<>(resHeader, departmentResBuilder.build()));
                 }
@@ -431,7 +432,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
                     .setResultCode(signInfoRes.getCode()).buildPartial();
             IMHeader resHeader = header.clone();
             resHeader.setCommandId(
-                    (short) BuddyListCmdID.CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE_VALUE);
+                     BuddyListCmdID.CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE_VALUE);
 
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
 
@@ -441,7 +442,7 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
             IMHeader notifyHeader = new IMHeader();
             notifyHeader.setServiceId((short) ServiceID.SID_BUDDY_LIST_VALUE);
             notifyHeader.setCommandId(
-                    (short) BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE);
+                     BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE);
             IMBuddy.IMSignInfoChangedNotify.Builder notifyBody =
                     IMBuddy.IMSignInfoChangedNotify.newBuilder();
             notifyBody.setChangedUserId(userId);
@@ -455,10 +456,70 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
                     .buildPartial();
             IMHeader resHeader = header.clone();
             resHeader.setCommandId(
-                    (short) BuddyListCmdID.CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE_VALUE);
+                     BuddyListCmdID.CID_BUDDY_LIST_CHANGE_SIGN_INFO_RESPONSE_VALUE);
 
             ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
         }
+    }
+
+    /* (non-Javadoc)
+     * @see com.blt.talk.message.server.handler.IMBuddyListHandler#changeUserInfoReq(com.blt.talk.common.code.IMHeader, com.google.protobuf.MessageLite, io.netty.channel.ChannelHandlerContext)
+     */
+    @Override
+    public void changeUserInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
+
+        IMBuddy.IMChangeUserInfoReq changeUserInfoReq = (IMBuddy.IMChangeUserInfoReq) body;
+        long userId = super.getUserId(ctx);
+
+        try {
+            BuddyListUserInfoReq userInfoReq = new BuddyListUserInfoReq();
+            userInfoReq.setUserId(userId);
+            userInfoReq.setTelephone(changeUserInfoReq.getTelephoneNum());
+            userInfoReq.setSignInfo(changeUserInfoReq.getSignInfo());
+            userInfoReq.setAvatarUrl(changeUserInfoReq.getAvatarUrl());
+            userInfoReq.setEmail(changeUserInfoReq.getEmailAddress());
+            userInfoReq.setUserId(userId);
+            BaseModel<?> userInfoRes = buddyListService.updateUserInfo(userInfoReq);
+
+            IMBuddy.IMChangeUserInfoRsp res = IMBuddy.IMChangeUserInfoRsp.newBuilder()
+                    .setUserId(userId)
+                    .setTelephoneNum(changeUserInfoReq.getTelephoneNum())
+                    .setEmailAddress(changeUserInfoReq.getEmailAddress())
+                    .setSignInfo(changeUserInfoReq.getSignInfo())
+                    .setAvatarUrl(changeUserInfoReq.getAvatarUrl())
+                    .setResultCode(userInfoRes.getCode()).buildPartial();
+            IMHeader resHeader = header.clone();
+            resHeader.setCommandId(
+                     BuddyListCmdID.CID_BUDDY_LIST_CHANGE_USER_INFO_RESPONSE_VALUE);
+
+            ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
+
+            // 通知群和好友， 广播
+            IMHeader notifyHeader = new IMHeader();
+            notifyHeader.setServiceId((short) ServiceID.SID_BUDDY_LIST_VALUE);
+            notifyHeader.setCommandId(
+                     BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_CHANGED_NOTIFY_VALUE);
+            IMBuddy.IMUserInfoChangedNotify.Builder notifyBody =
+                    IMBuddy.IMUserInfoChangedNotify.newBuilder();
+            notifyBody.setChangedUserId(userId);
+            notifyBody.setTelephoneNum(changeUserInfoReq.getTelephoneNum());
+            notifyBody.setEmailAddress(changeUserInfoReq.getEmailAddress());
+            notifyBody.setSignInfo(changeUserInfoReq.getSignInfo());
+            notifyBody.setAvatarUrl(changeUserInfoReq.getAvatarUrl());
+            // routerHandler.send(notifyHeader, notifyBody.build());
+            messageServerCluster.send(notifyHeader, notifyBody.build());
+        } catch (Exception e) {
+            logger.error("服务器端异常", e);
+            IMBuddy.IMChangeUserInfoRsp res = IMBuddy.IMChangeUserInfoRsp.newBuilder()
+                    .setUserId(userId).setResultCode(1)
+                    .buildPartial();
+            IMHeader resHeader = header.clone();
+            resHeader.setCommandId(
+                     BuddyListCmdID.CID_BUDDY_LIST_CHANGE_USER_INFO_RESPONSE_VALUE);
+
+            ctx.writeAndFlush(new IMProtoMessage<>(resHeader, res));
+        }
+    
     }
 
 }

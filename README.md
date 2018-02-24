@@ -1,9 +1,16 @@
+## 索引
+- [概述](#概述)
+- [第三方说明及测试环境](#第三方说明及测试环境)
+- [项目更新](#项目更新)
+- [项目说明](#项目说明)
+
+## 概述
 当前项目是由蘑菇街的TeamTalk改造而来
 
 开源促进人类进步，`公司`也比较支持，只是想请各位朋友多多提BUG。
 具体文档见doc目录下,安装之前请仔细阅读相关文档。
 
-交流：
+## 第三方说明及测试环境
 
 建议大家在开发过程中遇到问题,提交issues到[https://github.com/ccfish86/sctalk/issues](https://github.com/ccfish86/sctalk/issues/)
 
@@ -17,7 +24,7 @@
 另外，推荐一个java版的管理后台：[Seeyouenough/TeamTalkOverwrite](https://github.com/Seeyouenough/TeamTalkOverwrite)
 >> 测试地址：[http://tt.hifipi.com/admin/](http://tt.hifipi.com/admin/)
 
----
+## 项目更新
 
 2018-02-08 支持websocket，可与现APP互通。
 web端地址:[teamtalk_websocket_client](http://tt.hifipi.com/teamtalk_websocket_client/)
@@ -39,7 +46,23 @@ websocket使用客户端：[xiaominfc/teamtalk_websocket_client](https://github.
  - 先通过map把需要处理该的msg服务给查出来，然后只发布到这些个msg服务。
  - 一些处理，可以通过hazelcast#ExecutorService直接处理
 
----
+## 项目说明
+项目主要有以下几部分：
+ 1. spring cloud相关的服务，如：eureka
+ 2. 底层基础设施，数据库(支持postgresql和mysql，或者其他)，redis
+ 3. message-server消息服务，DB-proxy服务。由于采用了hazelcast来处理了一些集群方面的东西，可以支持message-server多服务器，甚至message-server(socket)和message-server(websocket)互通
+ 4. 正在处理webrtc的视频通话，希望有生之年可以搞定:-)
+
+签于本站坑爹的字数限制，再唠叨几句。
+
+原Teamtalk（下面简称TT）的架构和功能就不详细介绍了，说点不一样的。
+
+ - 开发第一版的时候，跟TT一样有message-server、router-server和db-proxy，并且达到了多message-server相通的效果。后续接触到了hazelcast，并试着把router-server用topic和excuteService给取代了。
+ - 在开发db-proxy时，用了hibernate，然后顺便把字段名给调整了下。
+ - 把一些表的主键（ID），由Integer改为了Long，以避免数据量大时会超过Integer的上限。
+ - 同时支持socket和websocket连接，并能互发消息。
+ - 整理了一些TT相关的第三方开源项目，并做了测试服务器。
+
 
 希望大家一起努力，把这个项目完善起来。
 

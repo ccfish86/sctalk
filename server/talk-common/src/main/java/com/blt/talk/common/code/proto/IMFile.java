@@ -231,6 +231,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileLoginReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileLoginReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileLoginReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -435,9 +448,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileLoginReq)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileLoginReq();
@@ -518,7 +532,7 @@ public final class IMFile {
                   break;
                 }
                 case 18: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000002;
                   taskId_ = s;
                   break;
@@ -545,6 +559,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -753,6 +768,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileLoginRsp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileLoginRsp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileLoginRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -928,9 +956,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileLoginRsp)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileLoginRsp();
@@ -1003,7 +1032,7 @@ public final class IMFile {
                   break;
                 }
                 case 18: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000002;
                   taskId_ = s;
                   break;
@@ -1019,6 +1048,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -1276,6 +1306,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileState parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileState parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileState parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -1480,9 +1523,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileState)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileState();
@@ -1569,7 +1613,7 @@ public final class IMFile {
                   break;
                 }
                 case 18: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000002;
                   taskId_ = s;
                   break;
@@ -1590,6 +1634,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -1950,6 +1995,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFilePullDataReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFilePullDataReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFilePullDataReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -2220,9 +2278,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFilePullDataReq)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFilePullDataReq();
@@ -2316,7 +2375,7 @@ public final class IMFile {
                   break;
                 }
                 case 10: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000001;
                   taskId_ = s;
                   break;
@@ -2358,6 +2417,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -2705,6 +2765,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFilePullDataRsp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFilePullDataRsp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFilePullDataRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -2967,9 +3040,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFilePullDataRsp)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFilePullDataRsp();
@@ -3069,7 +3143,7 @@ public final class IMFile {
                   break;
                 }
                 case 18: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000002;
                   taskId_ = s;
                   break;
@@ -3100,6 +3174,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -3448,6 +3523,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -3710,9 +3798,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileReq)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileReq();
@@ -3816,7 +3905,7 @@ public final class IMFile {
                   break;
                 }
                 case 26: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000004;
                   fileName_ = s;
                   break;
@@ -3848,6 +3937,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -4411,6 +4501,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileRsp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileRsp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -4816,9 +4919,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileRsp)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileRsp();
@@ -4946,13 +5050,13 @@ public final class IMFile {
                   break;
                 }
                 case 34: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000008;
                   fileName_ = s;
                   break;
                 }
                 case 42: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000010;
                   taskId_ = s;
                   break;
@@ -4988,6 +5092,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -5620,6 +5725,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileNotify parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileNotify parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileNotify parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -6070,9 +6188,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileNotify)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileNotify();
@@ -6204,7 +6323,7 @@ public final class IMFile {
                   break;
                 }
                 case 26: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000004;
                   fileName_ = s;
                   break;
@@ -6215,7 +6334,7 @@ public final class IMFile {
                   break;
                 }
                 case 42: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000010;
                   taskId_ = s;
                   break;
@@ -6256,6 +6375,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -6440,6 +6560,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileHasOfflineReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileHasOfflineReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileHasOfflineReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -6598,9 +6731,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileHasOfflineReq)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileHasOfflineReq();
@@ -6682,6 +6816,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -7150,6 +7285,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileHasOfflineRsp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileHasOfflineRsp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileHasOfflineRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -7502,9 +7650,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileHasOfflineRsp)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileHasOfflineRsp();
@@ -7624,6 +7773,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -7995,6 +8145,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileAddOfflineReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileAddOfflineReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileAddOfflineReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -8274,9 +8437,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileAddOfflineReq)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileAddOfflineReq();
@@ -8381,13 +8545,13 @@ public final class IMFile {
                   break;
                 }
                 case 26: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000004;
                   taskId_ = s;
                   break;
                 }
                 case 34: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000008;
                   fileName_ = s;
                   break;
@@ -8408,6 +8572,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -8661,6 +8826,19 @@ public final class IMFile {
     }
 
     public static com.blt.talk.common.code.proto.IMFile.IMFileDelOfflineReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileDelOfflineReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMFile.IMFileDelOfflineReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -8865,9 +9043,10 @@ public final class IMFile {
       // @@protoc_insertion_point(builder_scope:IM.File.IMFileDelOfflineReq)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMFile.IMFileDelOfflineReq();
@@ -8954,7 +9133,7 @@ public final class IMFile {
                   break;
                 }
                 case 26: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000004;
                   taskId_ = s;
                   break;
@@ -8970,6 +9149,7 @@ public final class IMFile {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }

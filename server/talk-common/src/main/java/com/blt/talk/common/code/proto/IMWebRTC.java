@@ -370,6 +370,19 @@ public final class IMWebRTC {
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -660,9 +673,10 @@ public final class IMWebRTC {
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallInitiateReq)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq();
@@ -805,6 +819,7 @@ public final class IMWebRTC {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -1320,6 +1335,19 @@ public final class IMWebRTC {
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -1685,9 +1713,10 @@ public final class IMWebRTC {
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallInitiateRes)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes();
@@ -1833,7 +1862,7 @@ public final class IMWebRTC {
                   break;
                 }
                 case 50: {
-                  String s = input.readString();
+                  java.lang.String s = input.readString();
                   bitField0_ |= 0x00000020;
                   reason_ = s;
                   break;
@@ -1859,6 +1888,7 @@ public final class IMWebRTC {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -2157,6 +2187,19 @@ public final class IMWebRTC {
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -2389,9 +2432,10 @@ public final class IMWebRTC {
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallHungUpReq)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq();
@@ -2501,6 +2545,7 @@ public final class IMWebRTC {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -2844,6 +2889,19 @@ public final class IMWebRTC {
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -3105,9 +3163,10 @@ public final class IMWebRTC {
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallHungUpRes)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes();
@@ -3231,6 +3290,7 @@ public final class IMWebRTC {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -3505,6 +3565,19 @@ public final class IMWebRTC {
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -3721,9 +3794,10 @@ public final class IMWebRTC {
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallCancelReq)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq();
@@ -3833,6 +3907,7 @@ public final class IMWebRTC {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }
@@ -4131,6 +4206,19 @@ public final class IMWebRTC {
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return com.google.protobuf.GeneratedMessageLite.parseFrom(
+          DEFAULT_INSTANCE, data, extensionRegistry);
+    }
+    public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return com.google.protobuf.GeneratedMessageLite.parseFrom(
@@ -4363,9 +4451,10 @@ public final class IMWebRTC {
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallCancelRes)
     }
     private byte memoizedIsInitialized = -1;
-    protected final Object dynamicMethod(
+    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
+    protected final java.lang.Object dynamicMethod(
         com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        Object arg0, Object arg1) {
+        java.lang.Object arg0, java.lang.Object arg1) {
       switch (method) {
         case NEW_MUTABLE_INSTANCE: {
           return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes();
@@ -4475,6 +4564,7 @@ public final class IMWebRTC {
           } finally {
           }
         }
+        // fall through
         case GET_DEFAULT_INSTANCE: {
           return DEFAULT_INSTANCE;
         }

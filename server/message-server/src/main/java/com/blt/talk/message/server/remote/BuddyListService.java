@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserAvatarReq;
+import com.blt.talk.common.param.BuddyListUserInfoReq;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
 
 /**
@@ -40,7 +41,10 @@ public interface BuddyListService {
     @GetMapping(path = "/buddyList/removeSession")
     BaseModel<?> removeSession(@RequestParam("userId") long userId);
 
-    @GetMapping(path = "/buddyList/changeAvatar")
+    @PostMapping(path = "/buddyList/changeAvatar")
     BaseModel<?> updateUserAvatar(@RequestBody BuddyListUserAvatarReq userAvatarReq);
+
+    @GetMapping(path = "/buddyList/changeUserInfo")
+    BaseModel<?> updateUserInfo(BuddyListUserInfoReq userInfoReq);
 
 }

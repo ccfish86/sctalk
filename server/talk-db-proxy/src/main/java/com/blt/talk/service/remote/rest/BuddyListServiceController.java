@@ -20,6 +20,7 @@ import com.blt.talk.common.constant.DBConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserAvatarReq;
+import com.blt.talk.common.param.BuddyListUserInfoReq;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.service.jpa.entity.IMUser;
@@ -73,6 +74,28 @@ public class BuddyListServiceController {
         int time = CommonUtils.currentTimeSeconds();
         IMUser imuser = userRepository.findOne(userAvatarReq.getUserId());
         imuser.setAvatar(userAvatarReq.getAvatarUrl());
+        imuser.setUpdated(time);
+
+        userRepository.save(imuser);
+
+        return new BaseModel<String>();
+    }
+    /**
+     * 更新用户信息
+     * @param userInfoReq 头像信息
+     * @return 更新结果
+     * @since  1.1
+     */
+    @PostMapping(path = "/changeUserInfo")
+    @Transactional
+    public BaseModel<?> updateUserInfo(@RequestBody BuddyListUserInfoReq userInfoReq) {
+
+        int time = CommonUtils.currentTimeSeconds();
+        IMUser imuser = userRepository.findOne(userInfoReq.getUserId());
+        imuser.setPhone(userInfoReq.getTelephone());
+        imuser.setEmail(userInfoReq.getEmail());
+        imuser.setSignInfo(userInfoReq.getSignInfo());
+        imuser.setAvatar(userInfoReq.getAvatarUrl());
         imuser.setUpdated(time);
 
         userRepository.save(imuser);

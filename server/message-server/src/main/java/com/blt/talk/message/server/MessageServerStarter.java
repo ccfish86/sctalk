@@ -39,7 +39,6 @@ import com.blt.talk.common.code.proto.IMSwitchService;
 import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq;
 import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq;
 import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes;
-import com.blt.talk.message.server.channel.NettyChatServerInitializer;
 import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.config.MessageServerConfig;
 
@@ -269,8 +268,11 @@ public class MessageServerStarter {
                 BuddyListCmdID.CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST_VALUE, IMBuddy.IMChangeSignInfoReq::parseFrom,
                 IMBuddy.IMChangeSignInfoReq.class);
         ProtobufParseMap.register(ServiceID.SID_BUDDY_LIST_VALUE,
-                BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE,
-                IMBuddy.IMSignInfoChangedNotify::parseFrom, IMBuddy.IMSignInfoChangedNotify.class);
+                BuddyListCmdID.CID_BUDDY_LIST_CHANGE_USER_INFO_REQUEST_VALUE,
+                IMBuddy.IMChangeUserInfoReq::parseFrom, IMBuddy.IMChangeUserInfoReq.class);
+        ProtobufParseMap.register(ServiceID.SID_BUDDY_LIST_VALUE,
+                BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_CHANGED_NOTIFY_VALUE, IMBuddy.IMUserInfoChangedNotify::parseFrom,
+                IMBuddy.IMUserInfoChangedNotify.class);
         
         // FileCmdID
         ProtobufParseMap.register(ServiceID.SID_FILE_VALUE,

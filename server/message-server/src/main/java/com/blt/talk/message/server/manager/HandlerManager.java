@@ -149,6 +149,9 @@ public class HandlerManager {
             case BuddyListCmdID.CID_BUDDY_LIST_CHANGE_SIGN_INFO_REQUEST_VALUE:
                 imBuddyListHandler.changeSignInfoReq(header, body, ctx);
                 break;
+            case BuddyListCmdID.CID_BUDDY_LIST_CHANGE_USER_INFO_REQUEST_VALUE:
+                imBuddyListHandler.changeUserInfoReq(header, body, ctx);
+                break;
             default:
                 logger.warn("Unsupport command id {}", commandId);
                 break;

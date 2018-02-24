@@ -81,5 +81,12 @@ public interface IMBuddyListHandler {
      */
     void changeSignInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 
-    
+    /**
+     * 修改用户信息
+     * @param header 消息头
+     * @param body 消息体
+     * @param ctx 连接context
+     * @since  1.1
+     */
+    void changeUserInfoReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx);
 }

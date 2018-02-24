@@ -268,14 +268,17 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
 //                    // send back to user
 //                    handleUsersStatus(header, body);
 //                    break;
-                case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE: // todebug
+                case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE:
                     removeSessionNotify(header, body);
                     break;
                 case BuddyListCmdID.CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY_VALUE:
                     handleAvatarChangedNotify(header, body);
                     break;
-                case BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE: // todebug
+                case BuddyListCmdID.CID_BUDDY_LIST_SIGN_INFO_CHANGED_NOTIFY_VALUE:
                     signInfoChangedNotify(header, body);
+                    break;
+                case BuddyListCmdID.CID_BUDDY_LIST_USER_INFO_CHANGED_NOTIFY_VALUE:
+                    userInfoChangedNotify(header, body);
                     break;
                 default:
                     logger.warn("Unsupport command id {}", commandId);
@@ -635,7 +638,19 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
         ClientUserManager.broadCast(new IMProtoMessage<>(header, body),
                 SysConstant.CLIENT_TYPE_FLAG_BOTH);
     }
-
+    
+    /**
+     * 用户信息修改通知
+     * @param header
+     * @param body
+     * @since  1.1
+     */
+    private void userInfoChangedNotify(IMHeader header, MessageLite body) {
+        // 这样处理是否合理，需要检查？
+        ClientUserManager.broadCast(new IMProtoMessage<>(header, body),
+                SysConstant.CLIENT_TYPE_FLAG_BOTH);
+    }
+    
     /**
      * 
      * @param header
