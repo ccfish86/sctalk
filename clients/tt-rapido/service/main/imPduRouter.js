@@ -7,7 +7,7 @@ var groupAction = require('./groupAction.js');
 var messgAction = require('./messgAction.js');
 var otherAction = require('./otherAction.js');
 var fileAction = require('./fileAction.js');
-
+var sendP2pAction = require('./sendP2pAction.js');
 
 exports.imPduRoute = function(data){
   var imPdu = new CImPdu(data);
@@ -26,6 +26,9 @@ exports.imPduRoute = function(data){
       break;
     case BaseDefine.ServiceID.SID_FILE:
       fileAction.fileRoute(imPdu);
+      break;
+    case BaseDefine.ServiceID.SID_SWITCH_SERVICE:
+      sendP2pAction.p2pRoute(imPdu);
       break;
     case BaseDefine.ServiceID.SID_OTHER:
       otherAction.otherRoute(imPdu);

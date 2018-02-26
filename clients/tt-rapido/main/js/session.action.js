@@ -17,6 +17,10 @@ function screenShot(){
   ipcRenderer.send('screen-shot', sessionId, sessionType);
 }
 
+function screenShake() {
+  ipcRenderer.send('screen-shake', sessionId, sessionType);
+}
+
 function sendMsgClick(){
   let msgJson = {
     "toSessionId" : sessionId,

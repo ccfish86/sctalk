@@ -9,6 +9,7 @@ var sendPicAction = require("./sendPicAction.js");
 var UserInfoAction = require("./userInfoAction.js");
 var SettingAction = require("./settingAction.js");
 var trayAction = require("./trayAction.js");
+var sendP2pAction = require("./sendP2pAction.js");
 
 exports.ipcInit = function() {
   var ipc = require('electron').ipcMain;
@@ -35,8 +36,8 @@ exports.ipcInit = function() {
     groupAction.getAllGroupInfo();
   })
 
-  ipc.on('open-session', (event, sessionId, sessionType) => {
-    sessionAction.openSession(sessionId, sessionType);
+  ipc.on('open-session', (event, sessionId, sessionType, callback) => {
+    sessionAction.openSession(sessionId, sessionType, callback);
   })
 
   ipc.on('setting-Win', (event) => {
@@ -75,6 +76,9 @@ exports.ipcInit = function() {
 
   ipc.on('screen-shot', (event, sessionId, sessionType) => {
     sendPicAction.screenShot(sessionId, sessionType);
+  })
+  ipc.on('screen-shake', (event, sessionId, sessionType) => {
+    sendP2pAction.screenShake(sessionId, sessionType);
   })
 
   ipc.on('sessionWin-close', (event, sessionId, sessionType) => {

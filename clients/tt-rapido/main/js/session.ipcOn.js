@@ -51,7 +51,6 @@ $(function(){
   ipcRenderer.on('myInfo-load', (event, arg) => {
     if (arg){
       myInfo = arg;
-      console.log(arg);
     } else {
       alert("无法获取用户ID");
       // TODO 关闭这个对话框

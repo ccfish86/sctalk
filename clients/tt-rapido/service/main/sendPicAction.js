@@ -11,7 +11,7 @@ var BaseDefine_pb = require("../pb/IM.BaseDefine_pb.js");
 
 function doPostPicRsp(rspData, fileObj){
   let dataJson = JSON.parse(rspData);
-  if(dataJson.error_code == "0"){
+  if(dataJson.code == 0){
     console.log("rspdata:", dataJson.url, fileObj.toSessionType);
 
     let imgUrl = "&$#@~^@[{:"+dataJson.url + ":}]&$~@#@";
@@ -29,6 +29,7 @@ function doPostPicRsp(rspData, fileObj){
     messgAction.sendMsg(msgJson);
   } else{
     // TODO 发送图片失败 Do something!!!
+    console.warn('doPostPicRsp faild')
   }
 }
 

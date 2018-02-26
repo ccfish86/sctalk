@@ -31,7 +31,7 @@ $(function () {
 
   // 用户上线提醒;
   ipcRenderer.on('userOnline-notifi', (event, arg) => {
-    console.log('userOnline-notifi', arg);
+    // console.log('userOnline-notifi', arg);
     if ($("#user_avar_" + arg)) {
       $("#user_avar_" + arg).toggleClass("gray", false);
     }
@@ -45,7 +45,7 @@ $(function () {
 
   // 用户下线提醒;
   ipcRenderer.on('userOffline-notifi', (event, arg) => {
-    console.log('userOnline-notifi', arg);
+    // console.log('userOnline-notifi', arg);
     let argvImg = $("#user_avar_" + arg);
     let user_name = $("#user_name_" + arg);
     if (argvImg) {
@@ -66,12 +66,12 @@ $(function () {
 
   // 添加组群信息;
   ipcRenderer.on('groupinfo-add', (event, item) => {
-    console.log("item:", item);
+    // console.log("item:", item);
     createGroupHtml(item);
   })
   // 增加全部未读消息数
   ipcRenderer.on('allMsgCnt-add', (event, arg) => {
-    console.log("allMsgCnt-add:", arg);
+    // console.log("allMsgCnt-add:", arg);
     let allUnreadMsgCnt = 0;
     if ($('#allNewMsgSpan').html()) {
       allUnreadMsgCnt = parseInt($('#allNewMsgSpan').html());
@@ -144,8 +144,6 @@ $(function () {
   // IMDepartmentReq
   ipcRenderer.on('dept-reply', (event, arg) => {
     // 处理部门显示
-    console.log('dept-reply:' + arg);
-    console.log(arg);
     for (let key in arg) {
       let deptUl = $("<ul></ul>");
       deptUl.addClass('nav nav-lis');
@@ -172,14 +170,28 @@ $(function () {
     }
   })
 
+  // 窗口抖动
+  ipcRenderer.on('shake-window', (event, arg) => {
+    // 打开聊天窗口
+    if (arg) {
+      console.log('sessionWindow 抖动')
+      ipcRenderer.send('open-session', arg, SESSION_TYPE_USER, (sessionWindow) => {
+        // FIXME: 抖动
+        console.log('sessionWindow 抖动')
+        console.log(sessionWindow)
+      });
+    }
+  })
+
   // 更新个人信息
   ipcRenderer.on('update-myInfo', loadMyinfo);
   ipcRenderer.on('offline-myself', Offline);
+
 })
 
 let deptMemberMap = new Map();
 function recentSessUpate(recentMsgJosn) {
-  console.log("recentMsgJosn:", recentMsgJosn);
+  // console.log("recentMsgJosn:", recentMsgJosn);
   let timeMsgObj, divMsgObj, liItemObj;
   if (recentMsgJosn.toSessionType == SESSION_TYPE_GROUP) {
     timeMsgObj = $('#group_time_' + recentMsgJosn.toSessionId);
@@ -212,7 +224,6 @@ function showDeptMembers(deptId, deptNameLi, sessionWindowsId = '') {
     ipcRenderer.on('dept-mem-reply', (event, data) => {
       let userIdList = []
       for (let key in data) {
-        console.info(data[key])
         let userLi = getNodeLi(data[key].userId, "deptMember");
         if (sessionWindowsId && sessionWindowsId != undefined) {
           userLi.dblclick(function () {
@@ -221,7 +232,7 @@ function showDeptMembers(deptId, deptNameLi, sessionWindowsId = '') {
         } else {
           // userLi.bind("click",openUserGroupInfo(data[key].id, SESSION_TYPE_USER));
           userLi.dblclick(function () {
-            ipcRenderer.send('open-session', data[key].id, SESSION_TYPE_USER);
+            ipcRenderer.send('open-session', data[key].userId, SESSION_TYPE_USER);
           });
         }
         deptNameLi.after(userLi);
@@ -230,27 +241,6 @@ function showDeptMembers(deptId, deptNameLi, sessionWindowsId = '') {
       deptMemberMap.set(deptId, userIdList);
       ipcRenderer.send("load-userOnlineStat", userIdList);
     })
-    // $.getJSON("http://192.168.0.228:9090/getUsersByDept/"+deptId, function(data) {
-    //   let userIdList = []
-    //   for(let key in data){
-    //     let userLi = getNodeLi(data[key].id, "deptMember");
-    //     if(sessionWindowsId && sessionWindowsId != undefined)
-    //     {
-    //       userLi.dblclick(function(){
-    //         userListUpdate(this);
-    //       });
-    //     }else{
-    //       // userLi.bind("click",openUserGroupInfo(data[key].id, SESSION_TYPE_USER));
-    //       userLi.dblclick(function(){
-    //         ipcRenderer.send('open-session', data[key].id, SESSION_TYPE_USER);
-    //       });
-    //     }
-    //     deptNameLi.after(userLi);
-    //     userIdList.push(data[key].id);
-    //   }
-    //   deptMemberMap.set(deptId, userIdList);
-    //   ipcRenderer.send("load-userOnlineStat", userIdList);
-    // })
   } else{
     deptNameLi.siblings().show();
     // TODO 用户在线状态更新；

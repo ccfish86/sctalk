@@ -35,7 +35,6 @@ function ceckSendMsgStat(SeqNum){
 }
 
 function sendMsg(msgJson){
-  console.log("sendMsg sessionId:",msgJson.toSessionId, "msgType:", msgJson.MsgType)
   // TODO 消息为符合格式时的错误处理
   let msgDataObj = new MsgData();
   // TODO 添加未收到消息反馈时的处理；

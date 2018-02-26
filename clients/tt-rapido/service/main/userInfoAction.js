@@ -273,7 +273,7 @@ function doUserStatNotify(imPdu){
   }
 }
 function getDeptUserList(deptId) {
-  // FIXME userInfoMap 可能需要从服务器端查询所有用户或部门所属所有用户
+  // FIXME userInfoMap 需要从服务器端查询所有用户或部门所属所有用户
   let userList = {}
   for(let user of userInfoMap.values()) {
     if (user.departmentId == deptId) {

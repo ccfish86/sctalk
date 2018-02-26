@@ -21,6 +21,7 @@ var post_options = {
 };
 
 function postPicture(fileName, rspCallback) {
+  console.log('postPicture------------->');
   fs.readFile(fileName, function (err, imgData) {
     let ext = path.extname(fileName);
     let mime = mimes[ext];
@@ -38,7 +39,6 @@ function postByNativeImg(nativeImagObj, rspCallback) {
 }
 
 function postByBuffer(imageBuffer, fileName, mime, rspCallback){
-
   let dec = Math.random() * max;
   let hex = dec.toString(36);
   let BOUNDARYPREFIX = '--rapido';
