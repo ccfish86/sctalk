@@ -88,6 +88,7 @@ public class RecentSessionServiceController {
                         // 避免空消息 导致前端崩溃
                         recentInfo.setLatestMsgFromUserId(latestMessage.getUserId());
                         recentInfo.setLatestMsgId(latestMessage.getMsgId());
+                        recentInfo.setLatestMsgType(latestMessage.getType());
                         recentInfo.setLatestMsgData(latestMessage.getContent());
                         recentInfoList.add(recentInfo);
                     }
@@ -98,6 +99,7 @@ public class RecentSessionServiceController {
                         // 避免空消息 导致前端崩溃
                         recentInfo.setLatestMsgFromUserId(latestMessage.getUserId());
                         recentInfo.setLatestMsgId(latestMessage.getMsgId());
+                        recentInfo.setLatestMsgType(latestMessage.getType());
                         recentInfo.setLatestMsgData(latestMessage.getContent());
                         recentInfoList.add(recentInfo);
                     }

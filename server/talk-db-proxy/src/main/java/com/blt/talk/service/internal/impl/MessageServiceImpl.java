@@ -22,8 +22,11 @@ import org.springframework.util.Base64Utils;
 
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.constant.DBConstant;
+import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.common.model.MessageEntity;
 import com.blt.talk.common.model.entity.UnreadEntity;
 import com.blt.talk.common.util.SecurityUtils;
+import com.blt.talk.service.internal.AudioInternalService;
 import com.blt.talk.service.internal.MessageService;
 import com.blt.talk.service.internal.RelationShipService;
 import com.blt.talk.service.jpa.entity.IMGroupMember;
@@ -135,6 +138,8 @@ public class MessageServiceImpl implements MessageService {
     private IMGroupMessage9Repository groupMessage9Repository;
     @Autowired
     private IMGroupMemberRepository groupMemberRepository;
+    @Autowired
+    private AudioInternalService audioInternalService;
     
     @Override
     @Transactional
@@ -484,5 +489,320 @@ public class MessageServiceImpl implements MessageService {
 
         return unreadList;
     }
+    
+    @Override
+    @Transactional
+    public IMGroupMessageEntity getLatestGroupMessage(long groupId) {
 
+        Long splt = groupId % 10;
+        List<? extends IMGroupMessageEntity> messageList = null;
+
+        switch (splt.intValue()) {
+            case 0:
+                SearchCriteria<IMGroupMessage0> groupMessage0SearchCriteria = new SearchCriteria<>();
+                groupMessage0SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable = new PageRequest(0, 1, sortMessage);
+                Page<IMGroupMessage0> groupMessage0List =
+                        groupMessage0Repository.findAll(groupMessage0SearchCriteria, pageable);
+                if (groupMessage0List.hasContent()) {
+                    messageList = groupMessage0List.getContent();
+                }
+                break;
+            case 1:
+                SearchCriteria<IMGroupMessage1> groupMessage1SearchCriteria = new SearchCriteria<>();
+                groupMessage1SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
+                Page<IMGroupMessage1> groupMessage1List =
+                        groupMessage1Repository.findAll(groupMessage1SearchCriteria, pageable1);
+                if (groupMessage1List.hasContent()) {
+                    messageList = groupMessage1List.getContent();
+                }
+                break;
+            case 2:
+                SearchCriteria<IMGroupMessage2> groupMessage2SearchCriteria = new SearchCriteria<>();
+                groupMessage2SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
+                Page<IMGroupMessage2> groupMessage2List =
+                        groupMessage2Repository.findAll(groupMessage2SearchCriteria, pageable2);
+                if (groupMessage2List.hasContent()) {
+                    messageList = groupMessage2List.getContent();
+                }
+                break;
+            case 3:
+                SearchCriteria<IMGroupMessage3> groupMessage3SearchCriteria = new SearchCriteria<>();
+                groupMessage3SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
+                Page<IMGroupMessage3> groupMessage3List =
+                        groupMessage3Repository.findAll(groupMessage3SearchCriteria, pageable3);
+                if (groupMessage3List.hasContent()) {
+                    messageList = groupMessage3List.getContent();
+                }
+                break;
+            case 4:
+                SearchCriteria<IMGroupMessage4> groupMessage4SearchCriteria = new SearchCriteria<>();
+                groupMessage4SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
+                Page<IMGroupMessage4> groupMessage4List =
+                        groupMessage4Repository.findAll(groupMessage4SearchCriteria, pageable4);
+                if (groupMessage4List.hasContent()) {
+                    messageList = groupMessage4List.getContent();
+                }
+                break;
+            case 5:
+                SearchCriteria<IMGroupMessage5> groupMessage5SearchCriteria = new SearchCriteria<>();
+                groupMessage5SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
+                Page<IMGroupMessage5> groupMessage5List =
+                        groupMessage5Repository.findAll(groupMessage5SearchCriteria, pageable5);
+                if (groupMessage5List.hasContent()) {
+                    messageList = groupMessage5List.getContent();
+                }
+                break;
+            case 6:
+                SearchCriteria<IMGroupMessage6> groupMessage6SearchCriteria = new SearchCriteria<>();
+                groupMessage6SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
+                Page<IMGroupMessage6> groupMessage6List =
+                        groupMessage6Repository.findAll(groupMessage6SearchCriteria, pageable6);
+                if (groupMessage6List.hasContent()) {
+                    messageList = groupMessage6List.getContent();
+                }
+                break;
+            case 7:
+                SearchCriteria<IMGroupMessage7> groupMessage7SearchCriteria = new SearchCriteria<>();
+                groupMessage7SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
+                Page<IMGroupMessage7> groupMessage7List =
+                        groupMessage7Repository.findAll(groupMessage7SearchCriteria, pageable7);
+                if (groupMessage7List.hasContent()) {
+                    messageList = groupMessage7List.getContent();
+                }
+                break;
+            case 8:
+                SearchCriteria<IMGroupMessage8> groupMessage8SearchCriteria = new SearchCriteria<>();
+                groupMessage8SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
+                Page<IMGroupMessage8> groupMessage8List =
+                        groupMessage8Repository.findAll(groupMessage8SearchCriteria, pageable8);
+                if (groupMessage8List.hasContent()) {
+                    messageList = groupMessage8List.getContent();
+                }
+                break;
+            case 9:
+                SearchCriteria<IMGroupMessage9> groupMessage9SearchCriteria = new SearchCriteria<>();
+                groupMessage9SearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
+                groupMessage9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
+                Page<IMGroupMessage9> groupMessage9List =
+                        groupMessage9Repository.findAll(groupMessage9SearchCriteria, pageable9);
+                if (groupMessage9List.hasContent()) {
+                    messageList = groupMessage9List.getContent();
+                }
+                break;
+            default:
+                break;
+        }
+        if (messageList != null && !messageList.isEmpty()) {
+            return messageList.get(0);
+        }
+        return null;
+    }
+    
+    /* (non-Javadoc)
+     * @see com.blt.talk.service.internal.MessageService#getLatestMessage(long, long)
+     */
+    @Override
+    @Transactional
+    public IMMessageEntity getLatestMessage(long userId, long toUserId) {
+        Long relateId = relationShipService.getRelationId(userId, toUserId, false);
+
+        if (relateId == null || relateId == 0) {
+            return null;
+        }
+        Long splt = relateId % 10;
+        List<? extends IMMessageEntity> messageList = null;
+        switch (splt.intValue()) {
+            case 0:
+                SearchCriteria<IMMessage0> message0SearchCriteria = new SearchCriteria<>();
+                message0SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message0SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable = new PageRequest(0, 1, sortMessage);
+                Page<IMMessage0> message0List = message0Repository.findAll(message0SearchCriteria, pageable);
+                if (message0List.hasContent()) {
+                    messageList = message0List.getContent();
+                }
+                break;
+            case 1:
+                SearchCriteria<IMMessage1> message1SearchCriteria = new SearchCriteria<>();
+                message1SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message1SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage1 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable1 = new PageRequest(0, 1, sortMessage1);
+                Page<IMMessage1> message1List = message1Repository.findAll(message1SearchCriteria, pageable1);
+                if (message1List.hasContent()) {
+                    messageList = message1List.getContent();
+                }
+                break;
+            case 2:
+                SearchCriteria<IMMessage2> message2SearchCriteria = new SearchCriteria<>();
+                message2SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message2SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage2 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable2 = new PageRequest(0, 1, sortMessage2);
+                Page<IMMessage2> message2List = message2Repository.findAll(message2SearchCriteria, pageable2);
+                if (message2List.hasContent()) {
+                    messageList = message2List.getContent();
+                }
+                break;
+            case 3:
+                SearchCriteria<IMMessage3> message3SearchCriteria = new SearchCriteria<>();
+                message3SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message3SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage3 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable3 = new PageRequest(0, 1, sortMessage3);
+                Page<IMMessage3> message3List = message3Repository.findAll(message3SearchCriteria, pageable3);
+                if (message3List.hasContent()) {
+                    messageList = message3List.getContent();
+                }
+                break;
+            case 4:
+                SearchCriteria<IMMessage4> message4SearchCriteria = new SearchCriteria<>();
+                message4SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message4SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage4 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable4 = new PageRequest(0, 1, sortMessage4);
+                Page<IMMessage4> message4List = message4Repository.findAll(message4SearchCriteria, pageable4);
+                if (message4List.hasContent()) {
+                    messageList = message4List.getContent();
+                }
+                break;
+            case 5:
+                SearchCriteria<IMMessage5> message5SearchCriteria = new SearchCriteria<>();
+                message5SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message5SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage5 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable5 = new PageRequest(0, 1, sortMessage5);
+                Page<IMMessage5> message5List = message5Repository.findAll(message5SearchCriteria, pageable5);
+                if (message5List.hasContent()) {
+                    messageList = message5List.getContent();
+                }
+                break;
+            case 6:
+                SearchCriteria<IMMessage6> message6SearchCriteria = new SearchCriteria<>();
+                message6SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message6SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage6 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable6 = new PageRequest(0, 1, sortMessage6);
+                Page<IMMessage6> message6List = message6Repository.findAll(message6SearchCriteria, pageable6);
+                if (message6List.hasContent()) {
+                    messageList = message6List.getContent();
+                }
+                break;
+            case 7:
+                SearchCriteria<IMMessage7> message7SearchCriteria = new SearchCriteria<>();
+                message7SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message7SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage7 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable7 = new PageRequest(0, 1, sortMessage7);
+                Page<IMMessage7> message7List = message7Repository.findAll(message7SearchCriteria, pageable7);
+                if (message7List.hasContent()) {
+                    messageList = message7List.getContent();
+                }
+                break;
+            case 8:
+                SearchCriteria<IMMessage8> message8SearchCriteria = new SearchCriteria<>();
+                message8SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message8SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage8 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable8 = new PageRequest(0, 1, sortMessage8);
+                Page<IMMessage8> message8List = message8Repository.findAll(message8SearchCriteria, pageable8);
+                if (message8List.hasContent()) {
+                    messageList = message8List.getContent();
+                }
+                break;
+            case 9:
+                SearchCriteria<IMMessage9> message9SearchCriteria = new SearchCriteria<>();
+                message9SearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
+                message9SearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
+                Sort sortMessage9 = new Sort(Sort.Direction.DESC, "created", "id");
+                Pageable pageable9 = new PageRequest(0, 1, sortMessage9);
+                Page<IMMessage9> message9List = message9Repository.findAll(message9SearchCriteria, pageable9);
+                if (message9List.hasContent()) {
+                    messageList = message9List.getContent();
+                }
+                break;
+            default:
+                break;
+        }
+
+        if (messageList != null && !messageList.isEmpty()) {
+            return messageList.get(0);
+        }
+        return null;
+    }
+
+    public List<MessageEntity> findGroupMessageList(List<? extends IMGroupMessageEntity> messageList) {
+        List<MessageEntity> resultList = new ArrayList<>();
+        for (IMGroupMessageEntity message : messageList) {
+            MessageEntity messageEntity = new MessageEntity();
+            messageEntity.setId(message.getId());
+            messageEntity.setMsgId(message.getMsgId());
+            if (message.getType() == IMBaseDefine.MsgType.MSG_TYPE_GROUP_AUDIO_VALUE) {
+                // 语音Base64
+                byte[] audioData = audioInternalService.readAudioInfo(Long.valueOf(message.getContent()));
+                messageEntity.setContent(Base64Utils.encodeToString(audioData));
+            } else {
+                messageEntity.setContent(message.getContent());
+            }
+            messageEntity.setFromId(message.getUserId());
+            messageEntity.setCreated(message.getCreated());
+            messageEntity.setStatus(message.getStatus());
+            messageEntity.setMsgType(message.getType());
+
+            resultList.add(messageEntity);
+        }
+        return resultList;
+    }
+
+    public List<MessageEntity> findMessageList(List<? extends IMMessageEntity> messageList) {
+        List<MessageEntity> resultList = new ArrayList<>();
+        for (IMMessageEntity message : messageList) {
+            MessageEntity messageEntity = new MessageEntity();
+            messageEntity.setId(message.getId());
+            messageEntity.setMsgId(message.getMsgId());
+            if (message.getType() == IMBaseDefine.MsgType.MSG_TYPE_SINGLE_AUDIO_VALUE) {
+                // 语音Base64
+                byte[] audioData = audioInternalService.readAudioInfo(Long.valueOf(message.getContent()));
+                messageEntity.setContent(Base64Utils.encodeToString(audioData));
+            } else {
+                messageEntity.setContent(message.getContent());
+            }
+            messageEntity.setFromId(message.getUserId());
+            messageEntity.setCreated(message.getCreated());
+            messageEntity.setStatus(message.getStatus());
+            messageEntity.setMsgType(message.getType());
+            resultList.add(messageEntity);
+        }
+        return resultList;
+    }
 }
