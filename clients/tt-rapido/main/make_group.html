@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>创建讨论组</title>
+  <link rel="stylesheet" href="css/lib/bootstrap.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/lib/user-group.css">
+</head>
+<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="js/lib/json2.min.js"></script>
+<script type="text/javascript" src="js/lib/underscore.min.js"></script>
+<script type="text/javascript" src="js/makeGroup.action.js"></script>
+<script type="text/javascript" src="js/userdept.action.js"></script>
+<body>
+  <div class="container drag" style="padding: 5px 10px; border:1px solid #999;">
+    <div class="col-xs-12" style="height:30px;line-height:30px;padding: 0">
+      <b>创建讨论组</b> <button type="button" class="close no-drag" id="closeWindow"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="col-xs-7" style="padding: 0px;">
+      <div class="userShowDiv">
+        <input type="text" class="form-control no-drag" name="userGroupName" placeholder="讨论组名称" />
+        <input type="text" class="form-control no-drag" name="userName" placeholder="查找人员-未完成" disabled="disabled" />
+      </div>
+      <div class="no-drag" id="deptDiv"></div>
+    </div>
+    <div class="col-xs-5" style="padding: 0px 0px 0px 5px;">
+      <div class="col-xs-12" style="padding: 0px;">
+        <div class="col-xs-6" style="line-height: 50px;padding: 0px;font-size: 12px;">讨论组头像</div>
+        <div class="col-xs-6 text-center no-drag" id="groupAvatImg" style="padding: 0px;">
+          <input type="file" id="sendUserPicfile" onchange="sendUserPicture(this);" />
+        </div>
+      </div>
+      <div style="line-height: 40px;font-size: 12px;">已选联系人</div>
+      <div class="oldUserList no-drag"></div>
+    </div>
+    <div class="col-xs-12 text-right" style="margin: 3px auto;">
+        <input type="hidden" name="createId" />
+        <input type="hidden" name="groupId" />
+        <input type="button" class="btn btn-primary no-drag" name="Submit" value="确认" style="padding: 2px 15px;margin-right: 10px;" />
+        <input type="button" class="btn btn-default no-drag" name="cancel" value="关闭" style="padding: 2px 15px;" />
+      </div>
+  </div>
+</body>
+</html>

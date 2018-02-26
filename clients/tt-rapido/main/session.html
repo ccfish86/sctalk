@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/lib/bootstrap.css" />
+    <link rel="stylesheet" href="css/module-content.css" />
+    <link rel="stylesheet" href="css/session.css" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body onload ="sessOnload()" style="border:1px solid #999;">
+<div id="titleBarDiv" class="col-xs-12 drag" style="padding: 0;">
+  <div class="col-xs-9" style="padding: 10px 0 0 10px;">
+    <div id="obj_avar_main" style="cursor:pointer;"></div>
+    <div id="obj_user_main" style="cursor:pointer;" onclick="alert('等待更新');"></div>
+    <ul id="odj_user_info" class="user_info_content drag"></ul>
+  </div>
+  <div class="col-xs-3 text-right drag" style="margin-top: 5px;padding: 0 10px;">
+    <img id="title_bar_mini" class="setting no-drag" src='css/img/session/minimize.png' title="最小化" onmouseover="this.src='css/img/session/minimize_h.png'" onmouseout="this.src='css/img/session/minimize.png'" onclick="miniWindow();">
+    <img id="title_bar_max" class="setting no-drag" src='css/img/session/max.png' title="最大化" onmouseover="this.src='css/img/session/max_h.png'" onmouseout="this.src='css/img/session/max.png'" onclick="maxWindow();">
+    <img id="title_bar_close" class="setting no-drag" src='css/img/session/close.png' title="关闭" onmouseover="this.src='css/img/session/close_h.png'" onmouseout="this.src='css/img/session/close.png'" onclick="closeWindow();">
+  </div>
+</div>
+<div id="sessMainDiv" style="height:auto;position:absolute;top:64px;left:0px;right:160px;bottom:0px">
+  <div id="msgview" class="im_mainbox_middle_main_contentbox" style="position:absolute;height:auto;width:99%;overflow-x:hidden;overflow-y:auto;top:0px;bottom: 190px;">
+    <div class="im_mainbox_placeholder"></div>
+    <button class="im_history_btn" id="im_history_btn" style="outline:none;" onclick="readHistory();">查看历史聊天记录</button>
+    <p class="im_message_weektip_t" id="hisline">以上是历史消息</p>
+  </div>
+
+  <div id="toolBarDiv" style="height:30px;background-color:#F7F7F7;width:98%;position:absolute;bottom:160px;left:1%;">
+    <div title="表情" class="icon-toolbar emotion icon-toolbar-item" style="left:7px; background-position: 1px 3px;"></div>
+    <div title="发送图片" class="icon-toolbar icon-toolbar-item" style="left:30px; background-position: -22px 3px;">
+      <input type="file" name="image" style="opacity:0;filter:alpha(opacity=0);" id="sendPicInptfile"  onchange="sendPicture(this)"/>
+    </div>
+    <div title="截图" class="icon-toolbar icon-toolbar-item" style="left:53px; background-position: -44px 3px;" onclick="screenShot()"></div>
+    <div title="抖一下" class="icon-toolbar icon-toolbar-item" style="left:76px; background-position: -93px 3px;" onclick="alert('没有这个功能，灯下一版本吧！！！')" ></div>
+    <div title="发送文件" class="icon-toolbar icon-toolbar-item" style="left:101px; background-position: -121px 3px;" onclick="alert('没有这个功能，灯下一版本吧！！！')"></div>
+
+
+    <!-- <div title="赞一个" class="icon-toolbar icon-toolbar-item"
+    style="left:124px; background-position: -21px 4px; ">
+    </div> -->
+  </div>
+
+  <div id="editorDiv" style="height:120px; width:auto; margin:0; padding:2px;position:absolute;left:1px;bottom:45px;right:4px;" >
+    <textarea id="messageContent" style="height:100%; width:100%;font-size: 12px; border:0px; outline:none;resize:none;"></textarea>
+  </div>
+
+  <div id="footBarDiv" class="text-right drag" style="width:98%;background-color:#F7F7F7;position:absolute;bottom:10px;left:1%;" >
+    <span style="font-size:12px;padding-right:10px;color: #888">Alt+S发送</span>
+    <button type="button" class="btn btn-default no-drag" style="padding: 2px 15px;margin-right: 10px;color: #888" onclick="closeWindow();">
+      关闭
+    </button>
+    <button type="button" class="btn btn-primary no-drag" style="padding: 2px 15px;margin-right: 10px;" onclick="sendMsgClick();">
+      发送
+    </button>
+  </div>
+</div>
+<div id="groupAddonDiv" style="width:160px;height:auto;display:none;position:absolute;right:0px;top:64px;bottom:0px;">
+  <div style="width:98%;height:200px;border:1px solid #ccc;border-radius:4px;padding: 5px;font-size:12px; ">
+    群公告-未完成
+  </div>
+  <div style="width:99%;position:absolute;top:202px;bottom:0px;height:25px;">
+    <input type="text" id="Search_user" class="form-control" style="width:100%;height:25px;font-size: 12px" placeholder="搜索群成员-未完成" disabled="disabled" />
+  </div>
+  <div style="width:99%;height:auto;position:absolute;top:229px;left:0px;bottom:3px;overflow-y:auto;overflow-x:hidden;border:1px solid #ccc;border-radius:4px;" onselectstart="return false;">
+    <ul id="groupMemberUl"class="nav nav-list">
+      <li id="gmbottomLi" class="nav-header"></li>
+    </ul>
+  </div>
+</div>
+<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="js/lib/json2.min.js"></script>
+<script type="text/javascript" src="js/lib/underscore.min.js"></script>
+<script type="text/javascript" src="js/session.msgview.js"></script>
+
+<script type="text/javascript" src="js/session.helper.js"></script>
+<script type="text/javascript" src="js/session.allfaces.js"></script>
+<script type="text/javascript" src="js/session.jqFace.js"></script>
+
+<script type="text/javascript" src="js/session.onload.js"></script>
+<script type="text/javascript" src="js/session.ipcOn.js"></script>
+<script type="text/javascript" src="js/session.action.js"></script>
+
+<!-- message -->
+<!-- 文本类型消息 -->
+<script type="template/text" id="tpl_message1">
+  <div class="message <%= mtype %>">
+    <a href="#" onclick="userWindow(<%= userid %>);">
+      <img src="<%= avatar %>" width="40" height="40" title="<%= name %>" class="avatar" style="border-radius: 50%;" />
+    </a>
+    <i class="message_tip"></i>
+    <div class="message_content">
+      <div class="col-xs-4" style="padding:0px;white-space:nowrap;">
+        <a href="#" onclick="userWindow(<%= userid %>);"><%= name %></a>
+      </div>
+      <div class="col-xs-8 text-right" style="padding:0px 5px;color: #999;white-space:nowrap;"><%= time %></div>
+      <pre style="width:100%;padding:5px 20px 5px 0;word-wrap:break-word;"><%=content%></pre>
+    </div>
+  </div>
+</script>
+
+<!-- 图片类型的消息 -->
+<script type="template/text" id="tpl_message2">
+<div class="message <%= mtype %>">
+  <a href="moguim://moguim/:chat2?<%= uuid %>" target="_blank">
+    <img src="<%= avatar %>" width="40" height="40" title="<%= name %>" class="avatar" style="border-radius: 50%;" />
+  </a>
+  <i class="message_tip"></i>
+  <div class="message_content">
+    <div class="msg_shadowline">
+    <div class="message_name">
+      <a href="moguim://moguim/:chat2?<%= uuid %>" target="_blank">
+        <%= name %>
+      </a>
+    </div>
+    <div><%= time %></div>
+  </div>
+  <p><a href="<%= src %>" target="_blank"><img src="<%= src %>" width="<%= width %>" height="<%= height %>" /></a></p>
+  </div>
+</div>
+</script>
+
+<!-- 文件类型消息 -->
+<script type="template/text" id="tpl_message3">
+  <p id="<%= task_id %>_P" class="im_message_weektip">
+    收到文件：<i class="font-normal">"<%= filename %>"</i>
+    (<%= filesize %>) <a href="#" id="files_<%= fileid %>" onclick="accecptFile('<%= fileid %>')">接收文件</a>
+    <a href="#" id="folder_<%= fileid %>" style="display:none;" onclick="openFolder();">打开所在文件夹</a>
+    <!--<a href="#"  onclick="refuseFile('<%= fileid %>')">拒绝</a>-->
+    <div class="progress-out im_message_progress" id="<%= task_id %>_perDiv" style="display:none;">
+      <div class="percent-show "><span>0</span>%</div>
+      <div class="progress-in "></div>
+    </div>
+  </p>
+</script>
+
+<!-- 系统通知类型消息 -->
+<script type="template/text" id="tpl_message4">
+  <p class="im_message_weektip">
+    <span>
+      <i class="im_message_weektip_t">系统消息：</i><%= content %>
+    </span>
+  </p>
+</script>
+
+<!-- 发送文件类型消息 -->
+<script type="template/text" id="tpl_message5">
+  <p id="<%= task_id %>_P" class="im_message_weektip">
+    发送文件：
+    <i class="font-normal" title="<%= filepath %>">"<%= filename %>"</i>
+    (<%= filesize %>) <%= sendtime %>
+    <a href="#" onclick="alert('不要取消啦！')">取消</a>
+    <div class="progress-out im_message_progress" id="<%= task_id %>_perDiv" >
+      <div class="percent-show "><span>0</span>%</div>
+      <div class="progress-in "></div>
+    </div>
+  </p>
+</script>
+
+<!-- 语音类型的消息-->
+<script type="template/text" id="tpl_message6">
+<div class="message <%= mtype %>">
+  <img src="<%= avatar %>" width="40" height="40" title="<%= name %>" class="avatar" style="border-radius: 50%;" />
+  <i class="message_tip"></i>
+  <div class="message_content">
+    <div class="msg_shadowline">
+      <div class="message_name"><%= name %></div>
+      <div class="message_time"><%= time %></div>
+    </div>
+    <p class="message_voice_line">
+      <a class="message_voice J_voicebtn" target="_blank" data-id="<%= voiceid %>" href="moguim://moguim/:playvoice?<%= voiceid %>"></a>
+      <span class="voice_info"><%= voicetime %></span>
+      <span class="<%= voiceisread === 'true' ? '' : 'unread' %>"></span>
+    </p>
+  </div>
+</div>
+</script>
+<!-- message end -->
+</body>
+</html>
