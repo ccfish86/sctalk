@@ -34,8 +34,10 @@ import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserAvatarReq;
 import com.blt.talk.common.param.BuddyListUserInfoReq;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
+import com.blt.talk.common.param.SessionRemoveReq;
 import com.blt.talk.message.server.cluster.MessageServerCluster;
 import com.blt.talk.message.server.handler.IMBuddyListHandler;
+import com.blt.talk.message.server.manager.ClientUser;
 import com.blt.talk.message.server.manager.ClientUserManager;
 import com.blt.talk.message.server.remote.BuddyListService;
 import com.blt.talk.message.server.remote.DepartmentService;
@@ -178,7 +180,11 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
         IMHeader headerRes = null;
         try {
 
-            BaseModel<?> removeSessionRes = buddyListService.removeSession(userId);
+            SessionRemoveReq req = new SessionRemoveReq();
+            req.setUserId(userId);
+            req.setPeerId(removeSessionReq.getSessionId());
+            req.setType(removeSessionReq.getSessionType().getNumber());
+            BaseModel<?> removeSessionRes = buddyListService.removeSession(req);
             if (removeSessionRes.getCode() == 0 && removeSessionRes.getData() != null) {
                 removeSessionRsp = IMBuddy.IMRemoveSessionRsp.newBuilder().setUserId(userId)
                         .setSessionId(removeSessionReq.getSessionId())
@@ -207,9 +213,11 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
                 IMProtoMessage<MessageLite> removeSessionNotifyMsg =
                         new IMProtoMessage<>(removeSessionNotifyHeader, removeSessionNotify);
 
-                // 是否需要广播给用户自身?跟下面的广播是否重复？
-                ClientUserManager.broadCast(removeSessionNotifyMsg,
-                        SysConstant.CLIENT_TYPE_FLAG_BOTH);
+                // 广播给用户对应的其他端
+                ClientUser clientUser = ClientUserManager.getUserById(userId);
+                if (clientUser != null) {
+                    clientUser.broadcast(removeSessionNotifyMsg, ctx);
+                }
                 // routerHandler.send(removeSessionNotifyHeader, removeSessionNotify);
                 messageServerCluster.send(removeSessionNotifyHeader, removeSessionNotify);
             }

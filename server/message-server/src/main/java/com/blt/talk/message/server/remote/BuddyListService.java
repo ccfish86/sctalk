@@ -17,6 +17,7 @@ import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserAvatarReq;
 import com.blt.talk.common.param.BuddyListUserInfoReq;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
+import com.blt.talk.common.param.SessionRemoveReq;
 
 /**
  * 通讯录业务远程调用Service
@@ -37,9 +38,8 @@ public interface BuddyListService {
     @GetMapping(path = "/buddyList/userInfo")
     BaseModel<List<UserEntity>> getUserInfoList(@RequestParam("userId") List<Long> userIdListList);
 
-    // FIXME
-    @GetMapping(path = "/buddyList/removeSession")
-    BaseModel<?> removeSession(@RequestParam("userId") long userId);
+    @PostMapping(path = "/buddyList/removeSession")
+    BaseModel<?> removeSession(SessionRemoveReq sessionRemoveReq);
 
     @PostMapping(path = "/buddyList/changeAvatar")
     BaseModel<?> updateUserAvatar(@RequestBody BuddyListUserAvatarReq userAvatarReq);

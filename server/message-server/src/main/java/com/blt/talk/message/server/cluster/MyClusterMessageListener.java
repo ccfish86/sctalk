@@ -13,11 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.IMProtoMessage;
-import com.blt.talk.common.code.PduAttachData;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.AVCallCmdId;
 import com.blt.talk.common.code.proto.IMBaseDefine.BuddyListCmdID;
@@ -26,26 +23,19 @@ import com.blt.talk.common.code.proto.IMBaseDefine.GroupCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.MessageCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.OtherCmdID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SwitchServiceCmdID;
-import com.blt.talk.common.code.proto.IMBaseDefine.UserStat;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
-import com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo;
 import com.blt.talk.common.code.proto.IMBuddy;
 import com.blt.talk.common.code.proto.IMBuddy.IMPCLoginStatusNotify;
 import com.blt.talk.common.code.proto.IMFile;
 import com.blt.talk.common.code.proto.IMGroup.IMGroupChangeMemberNotify;
 import com.blt.talk.common.code.proto.IMMessage.IMMsgData;
 import com.blt.talk.common.code.proto.IMMessage.IMMsgDataReadNotify;
-import com.blt.talk.common.code.proto.IMServer.IMPushToUserReq;
 import com.blt.talk.common.code.proto.IMServer.IMServerKickUser;
 import com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify;
 import com.blt.talk.common.code.proto.IMSwitchService;
-import com.blt.talk.common.constant.AttachType;
-import com.blt.talk.common.constant.PushConstant;
 import com.blt.talk.common.constant.SysConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.GroupEntity;
-import com.blt.talk.common.param.IosPushReq;
-import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.result.GroupCmdResult;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.message.server.manager.ClientUser;
@@ -57,8 +47,6 @@ import com.google.protobuf.MessageLite;
 import com.hazelcast.core.Member;
 import com.hazelcast.core.Message;
 import com.hazelcast.core.MessageListener;
-
-import io.netty.channel.ChannelHandlerContext;
 
 /**
  * 
@@ -88,7 +76,7 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
         // 处理请求分发
         switch (clusterMessage.getServiceId()) {
             case IMBaseDefine.ServiceID.SID_BUDDY_LIST_VALUE:
-                this.doBuddyList(clusterMessage.getCommandId(), clusterMessage);
+                this.doBuddyList(clusterMessage.getCommandId(), clusterMessage, member);
                 break;
             case IMBaseDefine.ServiceID.SID_MSG_VALUE:
                 if (!member.localMember()) {
@@ -255,7 +243,7 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
      * @param clusterMessage
      * @since 1.0
      */
-    private void doBuddyList(short commandId, MyClusterMessage clusterMessage) {
+    private void doBuddyList(short commandId, MyClusterMessage clusterMessage, Member member) {
         logger.debug("doBuddyList");
         IMHeader header = clusterMessage.getHeader();
         try {
@@ -270,7 +258,9 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
 //                    handleUsersStatus(header, body);
 //                    break;
                 case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY_VALUE:
-                    removeSessionNotify(header, body);
+                    if (!member.localMember()) {
+                        removeSessionNotify(header, body);
+                    }
                     break;
                 case BuddyListCmdID.CID_BUDDY_LIST_AVATAR_CHANGED_NOTIFY_VALUE:
                     handleAvatarChangedNotify(header, body);

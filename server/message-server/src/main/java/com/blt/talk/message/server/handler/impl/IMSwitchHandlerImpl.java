@@ -71,8 +71,6 @@ public class IMSwitchHandlerImpl extends AbstractUserHandlerImpl implements IMSw
         	fromClientUser.broadcast(swithP2pMsg, ctx);
         }
         
-        ClientUserManager.broadCast(swithP2pMsg, SysConstant.CLIENT_TYPE_FLAG_BOTH);
-        
         // 通过路由进行转发
         // routerHandler.send(header, body);
         messageServerCluster.send(header, body);

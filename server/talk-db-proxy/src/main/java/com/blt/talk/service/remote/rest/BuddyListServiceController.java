@@ -22,7 +22,9 @@ import com.blt.talk.common.model.entity.UserEntity;
 import com.blt.talk.common.param.BuddyListUserAvatarReq;
 import com.blt.talk.common.param.BuddyListUserInfoReq;
 import com.blt.talk.common.param.BuddyListUserSignInfoReq;
+import com.blt.talk.common.param.SessionRemoveReq;
 import com.blt.talk.common.util.CommonUtils;
+import com.blt.talk.service.internal.SessionService;
 import com.blt.talk.service.jpa.entity.IMUser;
 import com.blt.talk.service.jpa.repository.IMUserRepository;
 import com.blt.talk.service.jpa.util.JpaRestrictions;
@@ -41,6 +43,8 @@ public class BuddyListServiceController {
 
     @Autowired
     private IMUserRepository userRepository;
+    @Autowired
+    private SessionService sessionService;
 
     /**
      * 更新用户签名
@@ -184,5 +188,23 @@ public class BuddyListServiceController {
         BaseModel<List<UserEntity>> userInfoRes = new BaseModel<>();
         userInfoRes.setData(userInfoList);
         return userInfoRes;
+    }
+    
+    /**
+     * 删除会话接口
+     * 
+     * @param sessionRemoveReq 会话信息
+     * @return 
+     * @since  1.1
+     */
+    @PostMapping(path = "/removeSession")
+    @Transactional
+    public BaseModel<?> removeSession(@RequestBody SessionRemoveReq sessionRemoveReq) {
+        
+        long id = sessionService.getSessionId(sessionRemoveReq.getUserId(), sessionRemoveReq.getPeerId(),
+                sessionRemoveReq.getType(), false);
+        sessionService.remove(id);
+        
+        return new BaseModel<>();
     }
 }
