@@ -107,7 +107,7 @@ function doMsgData(imPdu){
       return;
   }
   let localSessionId = SessionId + "_" + sessionType;
-  console.log("localSessionId", localSessionId);
+  //console.log("localSessionId", localSessionId);
 
   let unreadMsgJson = {
     toSessionId:SessionId,
@@ -151,7 +151,7 @@ function doMsgData(imPdu){
 function doMsgDataAck(imPdu){
   let msgDataAckObj = MsgDataAck.deserializeBinary(new Uint8Array(imPdu.getPbBody()));
   let seqNum = imPdu.getSeqNum();
-  console.log("delte squm:", seqNum);
+  // console.log("delte squm:", seqNum);
   if(sendMsgMap.has(seqNum)){
     let objJson = sendMsgMap.get(seqNum);
     let myMsgJson = {
@@ -167,7 +167,7 @@ function doMsgDataAck(imPdu){
     sessionWin = sessionAction.hasWindow( msgDataAckObj.getSessionId() + "_"
       +  msgDataAckObj.getSessionType());
     if(sessionWin){
-      console.log("myMsgJson:",myMsgJson);
+      // console.log("myMsgJson:",myMsgJson);
       sessionWin.send('msg-show', [myMsgJson]);
     }
     // if(BaseDefine_pb.MsgType.MSG_TYPE_GROUP_TEXT == objJson.MsgType||

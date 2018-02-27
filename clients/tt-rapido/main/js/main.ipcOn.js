@@ -174,12 +174,13 @@ $(function () {
   ipcRenderer.on('shake-window', (event, arg) => {
     // 打开聊天窗口
     if (arg) {
-      console.log('sessionWindow 抖动')
-      ipcRenderer.send('open-session', arg, SESSION_TYPE_USER, (sessionWindow) => {
-        // FIXME: 抖动
-        console.log('sessionWindow 抖动')
-        console.log(sessionWindow)
-      });
+      ipcRenderer.send('open-session', arg, SESSION_TYPE_USER);
+
+      // FIXME: 抖动
+      const dialog = require('electron').dialog;
+      dialog.showMessageBox({browserWindow: sessionWindow,  title: 'shake', message: 'shake message from another'})
+      console.log('sessionWindow 抖动');
+      console.log(sessionWindow);
     }
   })
 

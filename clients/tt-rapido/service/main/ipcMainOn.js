@@ -36,8 +36,9 @@ exports.ipcInit = function() {
     groupAction.getAllGroupInfo();
   })
 
-  ipc.on('open-session', (event, sessionId, sessionType, callback) => {
-    sessionAction.openSession(sessionId, sessionType, callback);
+  ipc.on('open-session', (event, sessionId, sessionType) => {
+    let sessionWindon = sessionAction.openSession(sessionId, sessionType);
+    event.returnValue = sessionWindon;
   })
 
   ipc.on('setting-Win', (event) => {

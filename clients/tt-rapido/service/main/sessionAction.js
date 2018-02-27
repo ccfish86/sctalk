@@ -79,7 +79,7 @@ function showHistoryMsg(sessionType, sessionId, msgList){
 }
 
 
-function openSession(sessionId, sessionType, callback){
+function openSession(sessionId, sessionType){
   let myUserId = global.myUserId;
   //打开除了自己以外其他openSession窗口
   if(sessionId != myUserId){
@@ -93,13 +93,14 @@ function openSession(sessionId, sessionType, callback){
       console.log("正在打开对话页面");
     }else{
       creatingSession = true;
-      creatNewSession(sessionId, sessionType, callback);
+      openWindow = creatNewSession(sessionId, sessionType);
       creatingSession = false;
     }
+    return openWindow;
   }
 }
 
-function creatNewSession(sessionId, sessionType, callback){
+function creatNewSession(sessionId, sessionType){
   let sessLocalId = sessionId + "_" + sessionType;
   let objInfoJson = {};
   let sessionWinJson = {};
@@ -175,13 +176,10 @@ function creatNewSession(sessionId, sessionType, callback){
 
     sessionWindow.setMinimumSize(config.sessWinWidth,config.sessWinHeight); //设置窗口最小化的宽高值
 
-    if (callback) {
-      callback(sessionWindow);
-    }
-
     // 更新未读消息数
     global.mainWindow.send("itemNewMsg-clear", objInfoJson);
     // global.mainWindow.send("allMsgCnt-sub", unreadMsgJson.unreadCnt);
+    return sessionWindow;
   })
 }
 
