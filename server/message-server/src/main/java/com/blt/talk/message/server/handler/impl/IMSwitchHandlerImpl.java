@@ -64,11 +64,11 @@ public class IMSwitchHandlerImpl extends AbstractUserHandlerImpl implements IMSw
                
         //处理是否正确需要确认？
         if (toClientUser != null ){
-        	toClientUser.broadcast(swithP2pMsg, ctx);
+        	toClientUser.broadcast(swithP2pMsg, null);
         }
         
         if (fromClientUser != null) {
-        	fromClientUser.broadcast(swithP2pMsg, null);
+        	fromClientUser.broadcast(swithP2pMsg, ctx);
         }
         
         ClientUserManager.broadCast(swithP2pMsg, SysConstant.CLIENT_TYPE_FLAG_BOTH);

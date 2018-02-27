@@ -180,6 +180,7 @@ public class MyClusterMessageListener implements MessageListener<MyClusterMessag
             switch (commandId) {
                 case SwitchServiceCmdID.CID_SWITCH_P2P_CMD_VALUE:// todebug
                     switchP2p(header, body);
+                    break;
                 default:
                     logger.warn("Unsupport command id {}", commandId);
                     break;
