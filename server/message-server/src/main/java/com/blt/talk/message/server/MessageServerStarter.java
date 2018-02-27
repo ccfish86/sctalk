@@ -187,6 +187,8 @@ public class MessageServerStarter {
                 IMOther.IMHeartBeat::parseFrom, IMOther.IMHeartBeat.class);
         ProtobufParseMap.register(ServiceID.SID_OTHER_VALUE, OtherCmdID.CID_OTHER_SERVER_KICK_USER_VALUE,
                 IMServer.IMServerKickUser::parseFrom, IMServer.IMServerKickUser.class); 
+        ProtobufParseMap.register(ServiceID.SID_OTHER_VALUE, OtherCmdID.CID_OTHER_LOGIN_STATUS_NOTIFY_VALUE,
+                IMServer.IMServerPCLoginStatusNotify::parseFrom, IMServer.IMServerPCLoginStatusNotify.class); 
         
         // CID_SWITCH_P2P_CMD
         ProtobufParseMap.register(ServiceID.SID_SWITCH_SERVICE_VALUE, SwitchServiceCmdID.CID_SWITCH_P2P_CMD_VALUE,

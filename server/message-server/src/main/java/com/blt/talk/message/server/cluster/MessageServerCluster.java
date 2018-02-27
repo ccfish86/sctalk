@@ -17,22 +17,25 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 
+import com.blt.talk.common.code.DefaultIMHeader;
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.proto.IMBaseDefine;
 import com.blt.talk.common.code.proto.IMBaseDefine.AVCallCmdId;
 import com.blt.talk.common.code.proto.IMBaseDefine.ClientType;
 import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserStatType;
+import com.blt.talk.common.code.proto.IMBuddy.IMUserStatNotify;
+import com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify;
 import com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq;
+import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.message.server.MessageServerStarter;
-import com.blt.talk.message.server.cluster.MessageServerManager.MessageServerInfo;
 import com.blt.talk.message.server.cluster.UserClientInfoManager.IMAVCall;
 import com.blt.talk.message.server.cluster.UserClientInfoManager.UserClientInfo;
 import com.blt.talk.message.server.cluster.task.MessageToUserTask;
 import com.blt.talk.message.server.manager.ClientUser;
-import com.google.protobuf.ByteString;
 import com.google.protobuf.MessageLite;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.ILock;
 import com.hazelcast.core.ITopic;
 import com.hazelcast.core.Member;
 
@@ -116,6 +119,7 @@ public class MessageServerCluster implements InitializingBean {
      * 更新用户状态
      * 
      * @param userId 用户ID
+     * @param clientType 客户端类型
      * @param msgCtx 用户与消息服务器的Netty连接
      * @param status 状态
      * @return
@@ -125,45 +129,103 @@ public class MessageServerCluster implements InitializingBean {
     public ListenableFuture<?> userStatusUpdate(Long userId, ChannelHandlerContext msgCtx,
             UserStatType status) {
 
-        UserClientInfoManager.UserClientInfo userClientInfo =
-                userClientInfoManager.getUserInfo(userId);
         ClientType clientType = msgCtx.attr(ClientUser.CLIENT_TYPE).get();
         long handleId = msgCtx.attr(ClientUser.HANDLE_ID).get();
         String nodeId = hazelcastInstance.getCluster().getLocalMember().getUuid();
-
-        // 处理服务器与连接关联
-        if (status == IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
-            messageServerManager.addConnect(nodeId, handleId);
-        } else {
-            messageServerManager.removeConnect(nodeId, handleId);
-        }
-
-        if (userClientInfo != null) {
-            // 现存连接
-            if (userClientInfo.findRouteConn(handleId)) {
-                if (status != IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
-                    userClientInfo.removeClient(clientType, handleId);
-                    userClientInfoManager.erase(userId, handleId);
+        
+        String userStatusLockKey = "user_status_" + userId;
+        ILock lock = hazelcastInstance.getLock(userStatusLockKey);
+        
+        try {
+            // 用户状态改变，同期处理，避免MAP更新时出现脏数据
+            lock.lock();
+            
+            UserClientInfoManager.UserClientInfo userClientInfo =
+                    userClientInfoManager.getUserInfo(userId);
+            
+            // 处理服务器与连接关联
+            if (status == IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
+                messageServerManager.addConnect(nodeId, handleId);
+            } else {
+                messageServerManager.removeConnect(nodeId, handleId);
+            }
+    
+            if (userClientInfo != null) {
+                // 现存连接
+                if (userClientInfo.findRouteConn(handleId)) {
+                    if (status != IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
+                        userClientInfo.removeClient(clientType, handleId);
+                        userClientInfoManager.erase(userId, handleId);
+                    } else {
+                        userClientInfo.addClientType(clientType);
+                    }
                 } else {
-                    userClientInfo.addClientType(clientType);
+                    if (status != IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
+                        userClientInfo.addClientType(clientType);
+                        userClientInfo.addRouteConn(handleId);
+                    }
                 }
+                userClientInfoManager.update(userId, userClientInfo);
+                
+                
             } else {
                 if (status != IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
+                    userClientInfo = new UserClientInfoManager.UserClientInfo();
                     userClientInfo.addClientType(clientType);
                     userClientInfo.addRouteConn(handleId);
+                    // userClientInfo.setUuid(nodeId);
+                    userClientInfo.setUserId(userId);
+    
+                    userClientInfoManager.insert(userId, userClientInfo);
                 }
             }
-            userClientInfoManager.update(userId, userClientInfo);
-        } else {
-            if (status != IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
-                userClientInfo = new UserClientInfoManager.UserClientInfo();
-                userClientInfo.addClientType(clientType);
-                userClientInfo.addRouteConn(handleId);
-                // userClientInfo.setUuid(nodeId);
-                userClientInfo.setUserId(userId);
 
-                userClientInfoManager.insert(userId, userClientInfo);
+            userClientInfo = userClientInfoManager.getUserInfo(userId);
+
+            // 用于通知客户端,同一用户在pc端的登录情况
+            if (userClientInfo != null) {
+                IMHeader header = new DefaultIMHeader(IMBaseDefine.ServiceID.SID_OTHER_VALUE,
+                        IMBaseDefine.OtherCmdID.CID_OTHER_LOGIN_STATUS_NOTIFY_VALUE);
+                IMServerPCLoginStatusNotify.Builder pcLoginStatusNotifyBuilder = 
+                        IMServerPCLoginStatusNotify.newBuilder().setUserId(userId);
+                if (status == IMBaseDefine.UserStatType.USER_STATUS_OFFLINE) {
+                    pcLoginStatusNotifyBuilder.setLoginStatus(0);
+                    
+                    // pc端下线且无pc端存在，则给msg_server发送一个通知
+                    if (CommonUtils.isPc(clientType) && !userClientInfo.isPCClientLogin()) {
+                        send(header, pcLoginStatusNotifyBuilder.build());
+                    }
+                } else {
+                    // 在线
+                    pcLoginStatusNotifyBuilder.setLoginStatus(1);
+                    if (userClientInfo.isPCClientLogin()) {
+                        send(header, pcLoginStatusNotifyBuilder.build());
+                    }
+                }
             }
+            
+            // 状态更新的是pc client端，则通知给所有其他人
+            if (CommonUtils.isPc(clientType)) {
+                IMHeader header = new DefaultIMHeader(IMBaseDefine.ServiceID.SID_BUDDY_LIST_VALUE,
+                        IMBaseDefine.BuddyListCmdID.CID_BUDDY_LIST_STATUS_NOTIFY_VALUE);
+                IMBaseDefine.UserStat userStat = userStat(userId, status);
+                IMUserStatNotify userStatNotify = IMUserStatNotify.newBuilder().setUserStat(userStat).build();
+                
+                if (userClientInfo != null) {
+                    //如果是pc客户端离线，但是仍然存在pc客户端，则不发送离线通知
+                    //此种情况一般是pc客户端多点登录时引起
+                    if (status == IMBaseDefine.UserStatType.USER_STATUS_OFFLINE && userClientInfo.isPCClientLogin()) {
+                        // 不发送离线通知
+                    } else {
+                        send(header, userStatNotify);
+                    }
+                } else {
+                    send(header, userStatNotify);
+                }
+            }
+
+        } finally {
+            lock.unlock();
         }
 
         AsyncResult<?> result = new AsyncResult<>(nodeId);
@@ -335,5 +397,12 @@ public class MessageServerCluster implements InitializingBean {
             return rmembers;
         }
         return null;
+    }
+    
+    private IMBaseDefine.UserStat userStat(long userId, UserStatType status) {
+        IMBaseDefine.UserStat.Builder userStatBuiler = IMBaseDefine.UserStat.newBuilder();
+        userStatBuiler.setUserId(userId);
+        userStatBuiler.setStatus(status);
+        return userStatBuiler.build();
     }
 }
