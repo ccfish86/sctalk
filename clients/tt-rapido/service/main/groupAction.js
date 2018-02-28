@@ -32,9 +32,12 @@ function doGroupListRsp(imPdu){
   console.log("doGroupListRsp!!!");
   let groupListRsp = normalGroupListRsp.deserializeBinary(new Uint8Array(imPdu.getPbBody()));
   let userGroupList = groupListRsp.getGroupVersionListList();
-
   let ttpbHeader = helper.getPBHeader(BaseDefine.ServiceID.SID_GROUP,
-      BaseDefine.GroupCmdID.CID_GROUP_INFO_REQUEST);
+    BaseDefine.GroupCmdID.CID_GROUP_INFO_REQUEST);
+  getGroupInfoList(ttpbHeader, userGroupList)
+}
+
+function getGroupInfoList(ttpbHeader, userGroupList) {
   let gInfoListReq = new groupInfoListReq();
   gInfoListReq.setUserId(global.myUserId);
   for (let item of userGroupList){
@@ -54,6 +57,7 @@ function doGroupInfoListRsp(imPdu){
     groupInfoList.push(gInfoJson);
     groupMap.set(item.getGroupId(), gInfoJson);
   }
+  helper.doCallback(imPdu.getSeqNum(), groupInfoList);
   global.mainWindow.send('groupinfo-reply', groupInfoList);
 }
 
@@ -81,8 +85,8 @@ function groupRoute(imPdu){
       console.log("BaseDefine_pb.GroupCmdID, Can't get CMDId:", imPdu.getCmdid());
   }
 }
-
 exports.getGroupInfo = getGroupInfo;
+exports.getGroupInfoList = getGroupInfoList;
 exports.setGroupInfo = setGroupInfo;
 exports.getAllGroupInfo = getAllGroupInfo;
 exports.groupRoute = groupRoute;

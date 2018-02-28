@@ -18,8 +18,8 @@ var config = {
 }
 
 var proconfig = {
-  msgHost: '101.251.226.156',
-  msgPort: '8801',
+  msgHost: '192.168.20.251',
+  msgPort: '63674',
   msfsHost:"tt.hifipi.com",
   msfsPort: '80',
   msfsPath: '/upload',
@@ -37,5 +37,5 @@ var proconfig = {
   isDev:true,
 }
 
-//exports = module.exports = config;
-exports = module.exports = proconfig;
+exports = module.exports = config;
+//exports = module.exports = proconfig;

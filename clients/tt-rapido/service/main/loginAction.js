@@ -106,6 +106,9 @@ function doLoginRsp(imPdu){
     otherAction.startHeartBeat();
     global.mainWindow.loadURL('file://' + global.maindir + '/main/main.html')
     global.mainWindow.webContents.on('did-finish-load', function(){
+      // 获取所有人信息
+      buddyAction.getAllUser();
+      // 获取部门信息
       buddyAction.getAllDeptList();
       buddyAction.getRecentSession();
     });

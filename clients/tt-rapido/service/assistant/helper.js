@@ -10,6 +10,7 @@ moment.locale('zh-cn');
 var net = require('net');
 var constant = require('./constant.js');
 
+// 管理seq，处理回调
 var seqNumMap = new Map();
 
 // TOTO 添加日志模块
@@ -111,12 +112,15 @@ function getDateStr(datetimeUnix){
 }
 
 function addCallback(seqNum, callback){
+  console.warn('addCallback: ' + seqNum);
   seqNumMap.set(seqNum, callback);
 }
 
 function doCallback(seqNum, ...values){
+  console.info('doCallback: ' + seqNum);
   if(seqNumMap.has(seqNum)){
     seqNumMap.get(seqNum)(...values);
+    seqNumMap.delete(seqNum);
   }
 }
 

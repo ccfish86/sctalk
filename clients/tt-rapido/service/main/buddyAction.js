@@ -1,9 +1,12 @@
 var BaseDefine_pb = require("../pb/IM.BaseDefine_pb.js");
 var Buddy_pb = require("../pb/IM.Buddy_pb.js");
+var AllUserListReq = Buddy_pb["IMAllUserReq"];
+var AllUserListRsp = Buddy_pb["IMAllUserRsp"];
 var BuddyListRsp = Buddy_pb["IMRecentContactSessionRsp"];
 var BuddyListReq = Buddy_pb['IMRecentContactSessionReq'];
 var DepartmentReq = Buddy_pb['IMDepartmentReq'];
 var DepartmentRsp = Buddy_pb['IMDepartmentRsp'];
+var GroupVersionInfo = BaseDefine_pb['GroupVersionInfo'];
 
 var Messg_pb = require("../pb/IM.Message_pb.js");
 var UnreadMsgCntReq = Messg_pb["IMUnreadMsgCntReq"];
@@ -60,6 +63,7 @@ function doBuddyListRsp(imPdu) {
   let buddyListRsp = BuddyListRsp.deserializeBinary(new Uint8Array(imPdu.getPbBody()));
   let buddyList = buddyListRsp.getContactSessionListList();
   let sessinfoList = [];
+  let groupVersionList = [];
   for (let item of buddyList) {
     let sessJson = {
       "toSessionId": item.getSessionId(),
@@ -74,10 +78,24 @@ function doBuddyListRsp(imPdu) {
       userSessionMap.set(item.getSessionId(), sessJson);
     } else if (item.getSessionType() == BaseDefine_pb.SessionType.SESSION_TYPE_GROUP) {
       groupSessionMap.set(item.getSessionId(), sessJson);
+      // 如果是讨论组的话，需要更新讨论组的信息
+      let groupVersion = new GroupVersionInfo();
+      groupVersion.setGroupId(item.getSessionId());
+      groupVersion.setVersion(0);
+      groupVersionList.push(groupVersion);
     }
   }
-
-  global.mainWindow.send('session-reply', sessinfoList);
+  if (groupVersionList.length > 0) {
+    let ttpbHeader = helper.getPBHeader(BaseDefine_pb.ServiceID.SID_GROUP,
+      BaseDefine_pb.GroupCmdID.CID_GROUP_INFO_REQUEST);
+    helper.addCallback(ttpbHeader.getSeqNum(), function(groupInfoList) {
+      console.log('Callback groupInfoList');
+      global.mainWindow.send('session-reply', sessinfoList)
+    });
+    groupAction.getGroupInfoList(ttpbHeader, groupVersionList);
+  } else {
+    global.mainWindow.send('session-reply', sessinfoList);
+  }
   UserInfoAction.getUserInf_Online([...userSessionMap.keys()], global.mainWindow);
   // 获取离线消息;
   setTimeout(function () {
@@ -121,8 +139,34 @@ function doAllDeptListRsp(imPdu) {
   global.mainWindow.send('dept-reply', deptNameList);
 }
 
+function getAllUser() {
+  let ttpbHeader = helper.getPBHeader(BaseDefine_pb.ServiceID.SID_BUDDY_LIST,
+    BaseDefine_pb.BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_REQUEST);
+  let user_list = new AllUserListReq();
+  user_list.setUserId(global.myUserId);
+  user_list.setLatestUpdateTime(0);
+  tcpClientModule.sendPacket(ttpbHeader, user_list);
+}
+function doAllUserRsp(imPdu) {
+  let userListRsp = AllUserListRsp.deserializeBinary(new Uint8Array(imPdu.getPbBody()));
+  let userList = userListRsp.getUserListList();
+  for (let item of userList){
+    let itemobj ={
+      "userId":item.getUserId(),
+      "nickName":item.getUserNickName(),
+      "signInfo":item.getSignInfo(),
+      "avatar":item.getAvatarUrl(),
+      "departmentId": item.getDepartmentId()
+    }
+    UserInfoAction.setUserInfo(item.getUserId(),itemobj);
+  }
+}
+
 function buddyListRoute(imPdu) {
   switch (imPdu.getCmdid()) {
+    case BaseDefine_pb.BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_RESPONSE:
+      doAllUserRsp(imPdu);
+      break;
     case BaseDefine_pb.BuddyListCmdID.CID_BUDDY_LIST_STATUS_NOTIFY:
       UserInfoAction.doUserStatNotify(imPdu);
       break;
@@ -151,3 +195,4 @@ exports.setLatestMsgId = setLatestMsgId;
 exports.getRecentSession = getRecentSession;
 exports.getAllDeptList = getAllDeptList;
 exports.buddyListRoute = buddyListRoute;
+exports.getAllUser = getAllUser;
