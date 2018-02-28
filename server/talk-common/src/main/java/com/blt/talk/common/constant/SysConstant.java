@@ -71,4 +71,5 @@ public class SysConstant {
     public static int CLIENT_TYPE_FLAG_MOBILE = 0x02;
     /** 客户端类型-全 */
     public static int CLIENT_TYPE_FLAG_BOTH = 0x03;
+    
 }

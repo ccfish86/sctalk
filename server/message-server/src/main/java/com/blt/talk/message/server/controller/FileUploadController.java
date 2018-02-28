@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
-import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.common.model.BaseUnwrappedModel;
 import com.blt.talk.message.server.config.MessageServerConfig;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -43,7 +43,7 @@ public class FileUploadController {
     }
     
     @PostMapping(path = "/upload")
-    public BaseModel<FileUploadRsp> upload(HttpServletRequest request) {
+    public BaseUnwrappedModel<FileUploadRsp> upload(HttpServletRequest request) {
 
         if (request instanceof MultipartRequest) {
             MultipartRequest multipartRequest = (MultipartRequest)request;
@@ -65,24 +65,24 @@ public class FileUploadController {
                         }
                     }
                     
-                    BaseModel<FileUploadRsp> rsp = new BaseModel<>();
+                    BaseUnwrappedModel<FileUploadRsp> rsp = new BaseUnwrappedModel<>();
                     FileUploadRsp fileRsp = new FileUploadRsp(fileId);
                     rsp.setData(fileRsp);
                     return rsp;
                 } catch (Exception e) {
-                    BaseModel<FileUploadRsp> rsp = new BaseModel<>();
+                    BaseUnwrappedModel<FileUploadRsp> rsp = new BaseUnwrappedModel<>();
                     rsp.setCode(1);
                     rsp.setMsg("图片上传失败！");
                     return rsp;
                 }
             } else {
-                BaseModel<FileUploadRsp> rsp = new BaseModel<>();
+                BaseUnwrappedModel<FileUploadRsp> rsp = new BaseUnwrappedModel<>();
                 rsp.setCode(1);
                 rsp.setMsg("请选择图片上传！");
                 return rsp;
             }
         } else {
-            BaseModel<FileUploadRsp> rsp = new BaseModel<>();
+            BaseUnwrappedModel<FileUploadRsp> rsp = new BaseUnwrappedModel<>();
             rsp.setCode(1);
             rsp.setMsg("请选择图片上传！");
             return rsp;

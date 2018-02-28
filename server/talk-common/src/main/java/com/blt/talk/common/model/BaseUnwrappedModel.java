@@ -4,16 +4,19 @@
 
 package com.blt.talk.common.model;
 
-import com.blt.talk.common.result.ResultEnum;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 /**
  * 各消息/服务间用通用Model
+ * <br>
+ * 仅对外接口使用，但还是推荐使用BaseModel
  * 
  * @author 袁贵
  * @version 1.0
  * @since 1.0
+ * @see BaseModel
  */
-public class BaseModel<T> {
+public class BaseUnwrappedModel<T> {
 
     /** status code */
     private Integer code = 0;
@@ -23,6 +26,16 @@ public class BaseModel<T> {
 
     /** return data */
     private T data;
+    
+    public BaseUnwrappedModel() {
+
+    }
+
+    public BaseUnwrappedModel(BaseModel<T> baseModel) {
+        this.code = baseModel.getCode();
+        this.msg = baseModel.getMsg();
+        this.data = baseModel.getData();
+    }
 
     /**
      * @return the code
@@ -55,6 +68,7 @@ public class BaseModel<T> {
     /**
      * @return the data
      */
+    @JsonUnwrapped
     public T getData() {
         return data;
     }
@@ -62,19 +76,9 @@ public class BaseModel<T> {
     /**
      * @param data the data to set
      */
+    @JsonUnwrapped
     public void setData(T data) {
         this.data = data;
     }
 
-    /**
-     * Set then execute result with a enum
-     * @param result then result enum to set
-     * @return a reference to this object.
-     * @since  1.0
-     */
-    public BaseModel<T> setResult(ResultEnum result) {
-        this.code = result.getCode();
-        this.msg = result.getMessage();
-        return this;
-    }
 }

@@ -285,6 +285,32 @@ public class MessageServerCluster implements InitializingBean {
     }
 
     /**
+     * 查询用户在线状态
+     * 
+     * @param userId 用户ID
+     * @return 用户状态
+     * @since 1.1
+     */
+    @Async
+    public ListenableFuture<IMBaseDefine.UserStat> userStatusReq(Long userId) {
+
+        logger.debug("查询用户在线状态, user_id={}", userId);
+
+        UserClientInfoManager.UserClientInfo userClientInfo =
+                userClientInfoManager.getUserInfo(userId);
+        IMBaseDefine.UserStat.Builder userStatBuiler = IMBaseDefine.UserStat.newBuilder();
+        userStatBuiler.setUserId(userId);
+        if (userClientInfo != null) {
+            userStatBuiler.setStatus(userClientInfo.getStatus());
+        } else {
+            userStatBuiler.setStatus(IMBaseDefine.UserStatType.USER_STATUS_OFFLINE);
+        }
+
+        AsyncResult<IMBaseDefine.UserStat> result = new AsyncResult<>(userStatBuiler.build());
+        return result;
+    }
+
+    /**
      * @param messageServerStarter
      * @since 1.0
      */

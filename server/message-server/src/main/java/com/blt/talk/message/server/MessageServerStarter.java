@@ -277,9 +277,15 @@ public class MessageServerStarter {
                 IMBuddy.IMUserInfoChangedNotify.class);
         
         // FileCmdID
+        ProtobufParseMap.register(ServiceID.SID_FILE_VALUE, FileCmdID.CID_FILE_REQUEST_VALUE,
+                IMFile.IMFileReq::parseFrom, IMFile.IMFileReq.class);
         ProtobufParseMap.register(ServiceID.SID_FILE_VALUE,
-                FileCmdID.CID_FILE_HAS_OFFLINE_REQ_VALUE,
-                IMFile.IMFileHasOfflineReq::parseFrom, IMFile.IMFileHasOfflineReq.class);
+                FileCmdID.CID_FILE_HAS_OFFLINE_REQ_VALUE, IMFile.IMFileHasOfflineReq::parseFrom,
+                IMFile.IMFileHasOfflineReq.class);
+        ProtobufParseMap.register(ServiceID.SID_FILE_VALUE, FileCmdID.CID_FILE_ADD_OFFLINE_REQ_VALUE,
+                IMFile.IMFileAddOfflineReq::parseFrom, IMFile.IMFileAddOfflineReq.class);
+        ProtobufParseMap.register(ServiceID.SID_FILE_VALUE, FileCmdID.CID_FILE_DEL_OFFLINE_REQ_VALUE,
+                IMFile.IMFileDelOfflineReq::parseFrom, IMFile.IMFileDelOfflineReq.class);
         
         // For webrtc(audio/vedio call)
         ProtobufParseMap.register(ServiceID.SID_AVCALL_VALUE,

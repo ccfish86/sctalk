@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.common.model.BaseUnwrappedModel;
 import com.blt.talk.message.server.cluster.MessageServerManager;
 import com.blt.talk.message.server.cluster.MessageServerManager.MessageServerInfo;
 import com.blt.talk.message.server.cluster.UserClientInfoManager;
@@ -46,11 +46,11 @@ public class TalkOnlineController {
      * @since  1.0
      */
     @RequestMapping(value = "/online/{id}", method={RequestMethod.GET})
-    public BaseModel<UserClientInfoManager.UserClientInfo> online(@PathVariable("id") Long id) {
+    public BaseUnwrappedModel<UserClientInfoManager.UserClientInfo> online(@PathVariable("id") Long id) {
         
         UserClientInfoManager.UserClientInfo clientInfo = userClientInfoManager.getUserInfo(id);
         
-        BaseModel<UserClientInfoManager.UserClientInfo> result = new BaseModel<>();
+        BaseUnwrappedModel<UserClientInfoManager.UserClientInfo> result = new BaseUnwrappedModel<>();
         result.setData(clientInfo);
         return result;
     }
@@ -63,7 +63,7 @@ public class TalkOnlineController {
      * @since  1.0
      */
     @RequestMapping(value = "/onlines", method={RequestMethod.GET})
-    public BaseModel<Map<Long, List<MessageServerInfo>>> allOnline() {
+    public BaseUnwrappedModel<Map<Long, List<MessageServerInfo>>> allOnline() {
         
         Collection<UserClientInfoManager.UserClientInfo> clientInfos = userClientInfoManager.allUsers();
         
@@ -82,7 +82,7 @@ public class TalkOnlineController {
             
         }
         
-        BaseModel<Map<Long, List<MessageServerInfo>>> result = new BaseModel<>();
+        BaseUnwrappedModel<Map<Long, List<MessageServerInfo>>> result = new BaseUnwrappedModel<>();
         result.setData(userConnMapList);
         return result;
     }

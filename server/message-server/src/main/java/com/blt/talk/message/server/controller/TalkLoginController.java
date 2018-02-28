@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blt.talk.common.model.BaseModel;
+import com.blt.talk.common.model.BaseUnwrappedModel;
 import com.blt.talk.common.param.RegistReq;
 import com.blt.talk.message.server.cluster.MessageServerManager;
 import com.blt.talk.message.server.model.LoginResponse;
@@ -51,7 +52,7 @@ public class TalkLoginController {
      * @since 1.0
      */
     @RequestMapping(value = "/", method = {RequestMethod.GET})
-    public BaseModel<List<TalkServerResponse>> getServers() {
+    public BaseUnwrappedModel<List<TalkServerResponse>> getServers() {
         List<String> serverIds = messageServerManager.allServerIds();
         List<TalkServerResponse> servers = new ArrayList<>();
         
@@ -69,15 +70,16 @@ public class TalkLoginController {
             }
         }
         
-        BaseModel<List<TalkServerResponse>> model = new BaseModel<>();
+        BaseUnwrappedModel<List<TalkServerResponse>> model = new BaseUnwrappedModel<>();
         model.setData(servers);
         return model;
     }
     
     @PostMapping(value = "/regist")
-    public BaseModel<?> regist(@RequestBody RegistReq req) {
+    public BaseUnwrappedModel<?> regist(@RequestBody RegistReq req) {
         BaseModel<?> res = loginService.regist(req);
-        return res;
+        BaseUnwrappedModel<?> unwrappedModel = new BaseUnwrappedModel<>(res);
+        return unwrappedModel;
     }
 
     /**
@@ -88,12 +90,12 @@ public class TalkLoginController {
      * @since 1.0
      */
     @RequestMapping(value = "/msg_server", method = {RequestMethod.GET})
-    public BaseModel<LoginResponse> login(HttpServletRequest request) {
+    public BaseUnwrappedModel<LoginResponse> login(HttpServletRequest request) {
         
         List<String> servers = messageServerManager.allServerIds();
 
         // MessageServerManager.MessageServerInfo
-        BaseModel<LoginResponse> model = new BaseModel<>();
+        BaseUnwrappedModel<LoginResponse> model = new BaseUnwrappedModel<>();
         if (servers == null || servers.isEmpty()) {
             model.setCode(1);
             model.setMsg("没有服务");
