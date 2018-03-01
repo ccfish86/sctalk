@@ -60,7 +60,11 @@ function postByBuffer(imageBuffer, fileName, mime, rspCallback){
 
   let post_req = http.request(post_options, function(res) {
     res.setEncoding('utf8');
-    res.on('data', rspCallback);
+    if (res.statusCode == 200) {
+      res.on('data', rspCallback);
+    } else {
+      // TODO 异常
+    }
   });
 
   post_req.write(bodyHead);

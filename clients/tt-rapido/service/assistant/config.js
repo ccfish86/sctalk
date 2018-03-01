@@ -1,7 +1,7 @@
 var config = {
   msgHost: '101.251.226.156',
   msgPort: '8801',
-  msfsHost:"101.251.226.156",
+  msfsHost:"tt.hifipi.com",
   msfsPort: '80',
   msfsPath: '/upload',
   msfsMethod: 'POST',
