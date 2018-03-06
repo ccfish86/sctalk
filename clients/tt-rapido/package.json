@@ -10,9 +10,9 @@
     "installer": "node build_installer.js"
   },
   "dependencies": {
-    "electron": "1.4.15",
+    "electron": "^1.8.2",
     "google-protobuf": "3.4.0",
-    "moment": "2.17.1"
+    "moment": "^2.21.0"
   },
   "devDependencies": {
     "electron-winstaller": "^2.5.2"
