@@ -23,10 +23,8 @@ import com.blt.talk.common.code.proto.IMBaseDefine.ServiceID;
 import com.blt.talk.common.code.proto.IMBaseDefine.SessionType;
 import com.blt.talk.common.code.proto.IMBaseDefine.UserInfo;
 import com.blt.talk.common.code.proto.IMBuddy;
-import com.blt.talk.common.code.proto.IMBuddy.IMRecentContactSessionReq;
 import com.blt.talk.common.code.proto.IMBuddy.IMUsersStatReq;
 import com.blt.talk.common.code.proto.helper.JavaBean2ProtoBuf;
-import com.blt.talk.common.constant.SysConstant;
 import com.blt.talk.common.model.BaseModel;
 import com.blt.talk.common.model.entity.ContactSessionEntity;
 import com.blt.talk.common.model.entity.DepartmentEntity;
@@ -297,7 +295,6 @@ public class IMBuddyListHandlerImpl extends AbstractUserHandlerImpl implements I
     public void userStatusReq(IMHeader header, MessageLite body, ChannelHandlerContext ctx) {
 
         // CID_BUDDY_LIST_USERS_STATUS_REQUEST
-        logger.debug("Send the users status request to router");
         long userId = super.getUserId(ctx);
 
         IMUsersStatReq usersStatReq = (IMUsersStatReq) body;

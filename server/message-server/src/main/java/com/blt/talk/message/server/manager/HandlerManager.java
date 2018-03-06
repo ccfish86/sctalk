@@ -75,7 +75,7 @@ public class HandlerManager {
      * @since 1.0
      */
     public void doLogin(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) throws Exception {
-        logger.info("doLogin");
+        logger.debug("doLogin commandId: {}", commandId);
         switch (commandId) {
             case LoginCmdID.CID_LOGIN_REQ_MSGSERVER_VALUE:
                 // this was do at login_server
@@ -84,22 +84,22 @@ public class HandlerManager {
             case LoginCmdID.CID_LOGIN_REQ_USERLOGIN_VALUE:
                 imLoginHandler.login(header, body, ctx);
                 break;
-            case LoginCmdID.CID_LOGIN_REQ_LOGINOUT_VALUE: //todebug
+            case LoginCmdID.CID_LOGIN_REQ_LOGINOUT_VALUE: 
                 imLoginHandler.logOut(header, body, ctx);
                 break;
-            case LoginCmdID.CID_LOGIN_KICK_USER_VALUE: //todebug
+            case LoginCmdID.CID_LOGIN_KICK_USER_VALUE: 
                 imLoginHandler.kickUser(header, body, ctx);
                 break;
-            case LoginCmdID.CID_LOGIN_REQ_DEVICETOKEN_VALUE: //todebug
+            case LoginCmdID.CID_LOGIN_REQ_DEVICETOKEN_VALUE: 
                 imLoginHandler.deviceToken(header, body, ctx);
                 break;
-            case LoginCmdID.CID_LOGIN_REQ_KICKPCCLIENT_VALUE:  //todebug
+            case LoginCmdID.CID_LOGIN_REQ_KICKPCCLIENT_VALUE:  
                 imLoginHandler.kickPcClient(header, body, ctx);
                 break;
-            case LoginCmdID.CID_LOGIN_REQ_PUSH_SHIELD_VALUE: //todebug
+            case LoginCmdID.CID_LOGIN_REQ_PUSH_SHIELD_VALUE: 
                 imLoginHandler.pushShield(header, body, ctx);
                 break;
-            case LoginCmdID.CID_LOGIN_REQ_QUERY_PUSH_SHIELD_VALUE: //todebug
+            case LoginCmdID.CID_LOGIN_REQ_QUERY_PUSH_SHIELD_VALUE: 
                 imLoginHandler.queryPushShield(header, body, ctx);
                 break;
             default:
@@ -123,7 +123,7 @@ public class HandlerManager {
         if (!hasLogin(ctx)) {
             return ;
         }
-        logger.info("doBuddyList");
+        logger.debug("doBuddyList commandId: {}", commandId);
         switch (commandId) {
             case BuddyListCmdID.CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST_VALUE:
                 imBuddyListHandler.recentContactReq(header, body, ctx);
@@ -132,7 +132,7 @@ public class HandlerManager {
                 imBuddyListHandler.userInfoReq(header, body, ctx);
                 break;
             case BuddyListCmdID.CID_BUDDY_LIST_REMOVE_SESSION_REQ_VALUE:
-                imBuddyListHandler.removeSessionReq(header, body, ctx); //todebug
+                imBuddyListHandler.removeSessionReq(header, body, ctx); 
                 break;
             case BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_REQUEST_VALUE:
                 imBuddyListHandler.allUserReq(header, body, ctx);
@@ -141,7 +141,7 @@ public class HandlerManager {
                 imBuddyListHandler.userStatusReq(header, body, ctx);
                 break;
             case BuddyListCmdID.CID_BUDDY_LIST_CHANGE_AVATAR_REQUEST_VALUE:
-                imBuddyListHandler.changeAvaterReq(header, body, ctx); //todebug
+                imBuddyListHandler.changeAvaterReq(header, body, ctx); 
                 break;
             case BuddyListCmdID.CID_BUDDY_LIST_DEPARTMENT_REQUEST_VALUE:
                 imBuddyListHandler.departmentReq(header, body, ctx);
@@ -174,7 +174,7 @@ public class HandlerManager {
             return ;
         }
         
-        logger.info("doMessage");
+        logger.debug("doMessage commandId: {}", commandId);
         switch (commandId) {
             case MessageCmdID.CID_MSG_DATA_VALUE:
                 // 消息发送
@@ -186,7 +186,7 @@ public class HandlerManager {
             case MessageCmdID.CID_MSG_READ_ACK_VALUE:
                 imMessageHandler.readMessage(header, body, ctx);
                 break;
-            case MessageCmdID.CID_MSG_TIME_REQUEST_VALUE: //todebug
+            case MessageCmdID.CID_MSG_TIME_REQUEST_VALUE: 
             	imMessageHandler.clientTimeReq(header, body, ctx); 
                 break;
             case MessageCmdID.CID_MSG_UNREAD_CNT_REQUEST_VALUE:
@@ -222,23 +222,23 @@ public class HandlerManager {
         if (!hasLogin(ctx)) {
             return ;
         }
-        logger.info("doGroup");
+        logger.debug("doGroup commandId: {}", commandId);
         switch (commandId) {
             case GroupCmdID.CID_GROUP_NORMAL_LIST_REQUEST_VALUE:
                 imGroupHandler.normalListReq(header, body, ctx);
                 break;
-            case GroupCmdID.CID_GROUP_INFO_REQUEST_VALUE:  //todebug
+            case GroupCmdID.CID_GROUP_INFO_REQUEST_VALUE:  
                 imGroupHandler.groupInfoReq(header, body, ctx);
                 break;
-            case GroupCmdID.CID_GROUP_CREATE_REQUEST_VALUE: //todebug
+            case GroupCmdID.CID_GROUP_CREATE_REQUEST_VALUE: 
 //            	imGroupHandler.groupCreateReq(header, body, ctx);
                 imGroupHandler.createGroupReq(header, body, ctx);
                 break;
-            case GroupCmdID.CID_GROUP_CHANGE_MEMBER_REQUEST_VALUE: //todebug
+            case GroupCmdID.CID_GROUP_CHANGE_MEMBER_REQUEST_VALUE: 
 //            	imGroupHandler.groupChangeMemberReq(header, body, ctx);
                 imGroupHandler.changeMemberReq(header, body, ctx);
                 break;
-            case GroupCmdID.CID_GROUP_SHIELD_GROUP_REQUEST_VALUE://todebug
+            case GroupCmdID.CID_GROUP_SHIELD_GROUP_REQUEST_VALUE:
             	imGroupHandler.groupShieldReq(header, body, ctx);
                 break;
             default:
@@ -257,7 +257,7 @@ public class HandlerManager {
      * @since 1.0
      */
     public void doOther(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
-        logger.info("doOther");
+        logger.trace("doOther commandId: {}", commandId);
         switch (commandId) {
             case OtherCmdID.CID_OTHER_HEARTBEAT_VALUE:
                 imOtherHandler.hearBeat(header, body, ctx);
@@ -280,10 +280,10 @@ public class HandlerManager {
      * @since  1.0
      */
     public void doSwitch(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
-        logger.info("doSwitch");
+        logger.debug("doSwitch commandId: {}", commandId);
         switch (commandId) {
             case SwitchServiceCmdID.CID_SWITCH_P2P_CMD_VALUE:
-                imSwitchHandler.switchP2p(header, body, ctx); //todebug
+                imSwitchHandler.switchP2p(header, body, ctx); 
                 break; 
             default:
                 logger.warn("Unsupport command id {}", commandId);
@@ -300,16 +300,16 @@ public class HandlerManager {
      * @since  1.0
      */
     public void doWebrtc(ChannelHandlerContext ctx, short commandId, IMHeader header, MessageLite body) {
-        logger.info("doWebrtc");
+        logger.debug("doWebrtc commandId: {}", commandId);
         switch (commandId) {
             case AVCallCmdId.CID_AVCALL_INITIATE_REQ_VALUE:
-                imWebrtcHandler.initiateReq(header, body, ctx); //todebug
+                imWebrtcHandler.initiateReq(header, body, ctx); 
                 break; 
             case AVCallCmdId.CID_AVCALL_INITIATE_RES_VALUE:
-                imWebrtcHandler.initiateRes(header, body, ctx); //todebug
+                imWebrtcHandler.initiateRes(header, body, ctx); 
                 break; 
             case AVCallCmdId.CID_AVCALL_HUNGUP_REQ_VALUE:
-                imWebrtcHandler.hungupCall(header, body, ctx); //todebug
+                imWebrtcHandler.hungupCall(header, body, ctx); 
                 break; 
             default:
                 logger.warn("Unsupport command id {}", commandId);
@@ -331,6 +331,7 @@ public class HandlerManager {
         if (!hasLogin(ctx)) {
             return ;
         }
+        logger.debug("doFile commandId: {}", commandId);
         switch (commandId) {
             case FileCmdID.CID_FILE_REQUEST_VALUE:
                 imFileHandle.fileReq(header, body, ctx);

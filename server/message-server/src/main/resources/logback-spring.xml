@@ -3,7 +3,7 @@
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/base.xml" />
 
-    <logger name="com.blt.talk" level="debug" />
+    <logger name="com.blt.talk" level="info" />
     <logger name="com.google.protobuf" level="info" />
     <logger name="io.netty" level="info"></logger>
 

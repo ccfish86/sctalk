@@ -66,9 +66,6 @@ public class MessageServerHandler extends ChannelInboundHandlerAdapter {
         IMProtoMessage<MessageLite> message = (IMProtoMessage<MessageLite>) object;
 
         // ctx.fireChannelReadComplete();
-        logger.info("channel#channelReadComplete");
-        
-        logger.info("channel#channelRead0");
         IMHeader header = message.getHeader();
         
         // 处理请求分发
