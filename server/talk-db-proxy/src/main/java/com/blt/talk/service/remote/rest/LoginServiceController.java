@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,6 +72,7 @@ public class LoginServiceController {
      * @since  1.1
      */
     @PostMapping(path = "/regist")
+    @Transactional
     public BaseModel<Long> regist(@RequestBody RegistReq param) {
         BaseModel<Long> userRes = new BaseModel<>();
         SearchCriteria<IMUser> userSearchCriteria = new SearchCriteria<>();
