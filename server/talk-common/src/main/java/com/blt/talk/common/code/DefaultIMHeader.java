@@ -12,6 +12,7 @@ public class DefaultIMHeader extends IMHeader {
     public DefaultIMHeader(int commandId) {
         setVersion((short) SysConstant.PROTOCOL_VERSION);
         setFlag((short) SysConstant.PROTOCOL_FLAG);
+        setServiceId(commandId >> 8);
         setCommandId((short)commandId);
         short seqNo = (short)0;
         setSeqnum(seqNo);

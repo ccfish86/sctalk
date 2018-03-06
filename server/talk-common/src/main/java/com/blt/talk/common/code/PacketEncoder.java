@@ -27,7 +27,7 @@ public final class PacketEncoder extends MessageToByteEncoder<IMProtoMessage<Mes
     protected void encode(final ChannelHandlerContext ctx, final IMProtoMessage<MessageLite> protoMessage, final ByteBuf out) throws Exception {
 
         try {
-            logger.debug("Protobuf encode started.");
+            logger.trace("Protobuf encode started.");
             
             // [HEADER] data
             IMHeader header = protoMessage.getHeader();
@@ -46,11 +46,11 @@ public final class PacketEncoder extends MessageToByteEncoder<IMProtoMessage<Mes
             }
             
             out.writeBytes(allbytes);
-            logger.debug("Sent protobuf: commandId={}", header.getCommandId());
+            logger.trace("Sent protobuf: commandId={}", header.getCommandId());
         } catch (Exception e) {
             logger.error("编码异常", e);
         } finally {
-            logger.debug("Protobuf encode finished.");
+            logger.trace("Protobuf encode finished.");
         }
     }
 }

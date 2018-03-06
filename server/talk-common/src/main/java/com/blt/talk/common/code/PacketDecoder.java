@@ -29,10 +29,10 @@ public final class PacketDecoder extends ByteToMessageDecoder {
 
         try {
 
-            logger.debug("Protobuf decode started.");
+            logger.trace("Protobuf decode started.");
             in.markReaderIndex();
             if (in.readableBytes() < 4) {
-                logger.info("Readable Bytes length less than 4 bytes, ignored");
+                logger.debug("Readable Bytes length less than 4 bytes, ignored");
                 in.resetReaderIndex();
                 return;
             }
@@ -64,11 +64,11 @@ public final class PacketDecoder extends ByteToMessageDecoder {
             IMProtoMessage<MessageLite> protoMessage = new IMProtoMessage<>(header, msg);
             out.add(protoMessage);
             
-            logger.debug("Received protobuf : length={}, commandId={}", header.getLength(), header.getCommandId());
+            logger.trace("Received protobuf : length={}, commandId={}", header.getLength(), header.getCommandId());
         } catch (Exception e) {
             logger.error(ctx.channel().remoteAddress() + ",decode failed.", e);
         } finally {
-            logger.debug("Protobuf decode finished.");
+            logger.trace("Protobuf decode finished.");
         }
     }
 
