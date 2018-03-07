@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +49,8 @@ public class BuddyListServiceController {
     private IMUserRepository userRepository;
     @Autowired
     private SessionService sessionService;
+    
+    final int MAX_USER_FETCH = 1000;
 
     /**
      * 更新用户签名
@@ -120,10 +126,12 @@ public class BuddyListServiceController {
     public BaseModel<List<UserEntity>> getAllUser(@RequestParam("userId") long userId,
             @RequestParam("updateTime") int lastUpdateTime) {
         SearchCriteria<IMUser> userSearchCriteria = new SearchCriteria<>();
+        userSearchCriteria.add(JpaRestrictions.gte("updated", lastUpdateTime, false));
         userSearchCriteria.add(JpaRestrictions.ne("status", DBConstant.USER_STATUS_LEAVE, false));
-        userSearchCriteria.add(JpaRestrictions.gt("updated", lastUpdateTime, false));
-
-        List<IMUser> users = userRepository.findAll(userSearchCriteria);
+        Sort sortUser = new Sort(Sort.Direction.ASC, "updated", "id");
+        Pageable pageable = new PageRequest(0, MAX_USER_FETCH, sortUser);
+        
+        Page<IMUser> users = userRepository.findAll(userSearchCriteria, pageable);
 
         List<UserEntity> userInfoList = new ArrayList<>();
         for (IMUser user : users) {
