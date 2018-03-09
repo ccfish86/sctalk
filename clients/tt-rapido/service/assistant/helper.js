@@ -80,8 +80,10 @@ function decryption(data){
     let decryStr = cipherChunks.join('');
     // 取正文长度(后4位)
     let aa = new Buffer(decryStr, "utf8")
-    let len = aa.readInt32BE(aa.length - 4)
-    let dstr = decryStr.substr(0,len);
+    //console.info('aa.length  %d,', aa.length)
+    let len = aa.readIntBE(aa.length - 4,4)
+    //let dstr = decryStr.substr(0, len);
+    let dstr = aa.slice(0, len).toString()
     // console.info('aes %s, %d, %d',dstr, dstr.length, len)
     return dstr
     //return decryStr;

@@ -119,7 +119,7 @@ function doLoginRsp(imPdu){
       signInfo: myInfo.getSignInfo()
     };
     // TODO  UserInfoAction.saveLoginUser(myInfo);
-    Tbl.User.findOrCreate({where: {userId: myInfo.userId}, defaults: user}); //insertOrUpdate
+    Tbl.User.findOrCreate({where: {userId: myInfo.getUserId()}, defaults: user}); //insertOrUpdate
 
     otherAction.startHeartBeat();
     global.mainWindow.loadURL('file://' + global.maindir + '/main/main.html')
