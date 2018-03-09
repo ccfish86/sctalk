@@ -156,12 +156,13 @@ async function creatNewSession(sessionId, sessionType){
     console.log("sessionWindow: closed!!!");
   })
 
-  sessionWindow.webContents.on('did-finish-load', function(){
+  sessionWindow.webContents.on('did-finish-load', async function(){
     console.log("openssesion success!!!");
     // 加载对话信息；
     //let objInfo = buddyAction.getUserInfo(sessionId);
     sessionWindow.send('objInfo-load',objInfoJson,global.myUserId);
-    sessionWindow.send('myInfo-load', UserInfoAction.getUserInfo(global.myUserId));
+    let myInfo = await UserInfoAction.getUserInfo(global.myUserId);
+    sessionWindow.send('myInfo-load', myInfo);
     if (BaseDefine_pb.SessionType.SESSION_TYPE_GROUP == sessionType){
       // objInfoJson.groupMemberListList
       console.info('loading user list:')

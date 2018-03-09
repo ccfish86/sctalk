@@ -2,7 +2,8 @@ const Sequelize = require('sequelize');
 //const sqlite = require('sqlite3');
 const SequelizeDao = new Sequelize('sqlite:./tt.sqlite', {
   dialect: 'sqlite',
-  'sync': true
+  sync: true,
+  logging: false
 });
 const User = SequelizeDao.import('./model/User.js');
 const RecentSession = SequelizeDao.import('./model/RecentSession.js');

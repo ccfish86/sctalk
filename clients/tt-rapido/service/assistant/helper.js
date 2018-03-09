@@ -50,7 +50,7 @@ function encryption(data){
         data.copy(tmpBuffer,0, i*16,(i+1)*16);
       }
       // 最后
-      tmpBuffer.writeInt32(tmpBuffer.length - 4, data.length)
+      tmpBuffer.writeInt32BE(tmpBuffer.length - 4, data.length)
       cipherChunks.push(cipher.update(tmpBuffer, clearEncoding, cipherEncoding));
     }
 
