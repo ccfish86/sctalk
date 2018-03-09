@@ -109,6 +109,7 @@ function totalCntSub(cnt){
 // }
 
 function loadMyinfo(event, myInfoJson){
+  console.info('loadMyinfo' + myInfoJson)
   if(myInfoJson.nickName){
     $("#myNameSpan").html(myInfoJson.nickName);
   }
@@ -127,10 +128,17 @@ $(function(){
   $("#groupDiv").hide();
   $('#allNewMsgSpan').hide();
   // 加载个人信息;
-  let myInfo = ipcRenderer.sendSync('get-myinfo', 'todo');
-  let myJson = $.parseJSON(myInfo);
-  loadMyinfo(null, myJson);
-  $("#myGroupLi").children("img").attr('src', ICON_LIST_DOWN);
-  $("#myDiscusLi").children("img").attr('src', ICON_LIST_DOWN);
-  // ipcRenderer.send('get-groupInfo', 'todo')
+  // let myInfo = ipcRenderer.sendSync('get-myinfo', 'todo');
+  // let myJson = $.parseJSON(myInfo);
+  // loadMyinfo(null, myJson);
+  // $("#myGroupLi").children("img").attr('src', ICON_LIST_DOWN);
+  // $("#myDiscusLi").children("img").attr('src', ICON_LIST_DOWN);
+  // // ipcRenderer.send('get-groupInfo', 'todo')
+  ipcRenderer.on('get-myinfo-rsp', (event,myInfo) => {
+    console.info('ipcRenderer get-myinfo-rsp' )
+    loadMyinfo(null, myInfo);
+    $("#myGroupLi").children("img").attr('src', ICON_LIST_DOWN);
+    $("#myDiscusLi").children("img").attr('src', ICON_LIST_DOWN);
+  })
+  ipcRenderer.send('get-myinfo', 'todo');
 })

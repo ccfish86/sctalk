@@ -96,6 +96,8 @@ ipcRenderer.on('gmember-replace-load', (event, arg) => {
         userInfo = userInfoMap.get(item.fromUserId);
         mtype =MSG_FROM_OTHER;
       }
+      console.info('userInfoMap):'+ userInfoMap)
+
       let showMsg = getMsgJson(userInfo.nickName, userInfo.userId, item.msgTime, userInfo.avatar, MSG_DISPLAY_TYPE_TEXT, item.msgData, mtype);
       sendMessage(JSON.stringify(showMsg));
     }

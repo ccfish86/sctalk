@@ -49,6 +49,8 @@ function encryption(data){
       }else{
         data.copy(tmpBuffer,0, i*16,(i+1)*16);
       }
+      // 最后
+      tmpBuffer.writeInt32(tmpBuffer.length - 4, data.length)
       cipherChunks.push(cipher.update(tmpBuffer, clearEncoding, cipherEncoding));
     }
 
@@ -74,11 +76,14 @@ function decryption(data){
     // }
     cipherChunks.push(decipher.update(data, cipherEncoding, clearEncoding));
     cipherChunks.push(decipher.final(clearEncoding));
-
+    // 解密
     let decryStr = cipherChunks.join('');
-    // let aa = new Buffer(decryStr, "utf8")
-    // console.log("aa:", buffer2arr(aa));
-    return decryStr.substr(0,decryStr.length-4);
+    // 取正文长度(后4位)
+    let aa = new Buffer(decryStr, "utf8")
+    let len = aa.readInt32BE(aa.length - 4)
+    let dstr = decryStr.substr(0,len);
+    // console.info('aes %s, %d, %d',dstr, dstr.length, len)
+    return dstr
     //return decryStr;
 }
 

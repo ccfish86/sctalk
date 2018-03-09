@@ -100,13 +100,15 @@ function openSession(sessionId, sessionType){
   }
 }
 
-function creatNewSession(sessionId, sessionType){
+async function creatNewSession(sessionId, sessionType){
   let sessLocalId = sessionId + "_" + sessionType;
   let objInfoJson = {};
   let sessionWinJson = {};
   switch (sessionType) {
     case BaseDefine_pb.SessionType.SESSION_TYPE_SINGLE:
-      objInfoJson = UserInfoAction.getUserInfo(sessionId);
+      //objInfoJson = UserInfoAction.getUserInfo(sessionId);
+      let objInfoAsynResult = await UserInfoAction.getUserInfo(sessionId);
+      objInfoJson = objInfoAsynResult
       // 创建个人对话窗口
       sessionWinJson = {
         width: config.sessWinWidth,
@@ -164,7 +166,6 @@ function creatNewSession(sessionId, sessionType){
       // objInfoJson.groupMemberListList
       console.info('loading user list:')
       console.info(objInfoJson)
-      console.trace('loading user list:' + objInfoJson.groupMemberListList)
       UserInfoAction.loadUserInfo(objInfoJson.groupMemberListList, function(userInfoList){
         sessionWindow.send('gmember-load', userInfoList);
         getUnreadMsg(sessLocalId);

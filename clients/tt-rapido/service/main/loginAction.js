@@ -16,7 +16,9 @@ var tcpClientModule = require('../assistant/TcpClientModuleImpl.js');
 var buddyAction = require('./buddyAction.js');
 var otherAction = require('./otherAction.js');
 var UserInfoAction = require("./userInfoAction.js");
-
+const dao = require('../dao/index.js')
+const SequelizeDao = dao['SequelizeDao']
+const Tbl = dao['Tbl']
 
 function checkAutoLogin(){
   fs.exists(global.datadir+'/'+ constant.LOGIN_CONF, (exists) => {
@@ -103,6 +105,22 @@ function doLoginRsp(imPdu){
       "tel":myInfo.getUserTel(),  //用户电话
     }
     UserInfoAction.setUserInfo(myInfo.getUserId(),myobj);
+    // 保存至DB
+    let user = {
+      userId: myInfo.getUserId(),
+      name: myInfo.getUserRealName(),
+      nickName: myInfo.getUserNickName(),
+      avatarUrl: myInfo.getAvatarUrl(),
+      departmentId: myInfo.getDepartmentId(),
+      email: myInfo.getEmail(),
+      gender: myInfo.getUserGender(),
+      telephone: myInfo.getUserTel(),
+      status: myInfo.getStatus(),
+      signInfo: myInfo.getSignInfo()
+    };
+    // TODO  UserInfoAction.saveLoginUser(myInfo);
+    Tbl.User.findOrCreate({where: {userId: myInfo.userId}, defaults: user}); //insertOrUpdate
+
     otherAction.startHeartBeat();
     global.mainWindow.loadURL('file://' + global.maindir + '/main/main.html')
     global.mainWindow.webContents.on('did-finish-load', function(){

@@ -20,6 +20,10 @@ var groupAction = require('./groupAction.js');
 var userSessionMap = new Map();
 var groupSessionMap = new Map();
 
+const dao = require('../dao/index.js')
+const SequelizeDao = dao['SequelizeDao']
+const Tbl = dao['Tbl']
+
 function getSessJson(sessionId, sessionType) {
   if (BaseDefine_pb.SessionType.SESSION_TYPE_SINGLE == sessionType) {
     return userSessionMap.get(sessionId);
@@ -88,7 +92,7 @@ function doBuddyListRsp(imPdu) {
   if (groupVersionList.length > 0) {
     let ttpbHeader = helper.getPBHeader(BaseDefine_pb.ServiceID.SID_GROUP,
       BaseDefine_pb.GroupCmdID.CID_GROUP_INFO_REQUEST);
-    helper.addCallback(ttpbHeader.getSeqNum(), function(groupInfoList) {
+    helper.addCallback(ttpbHeader.getSeqNum(), function (groupInfoList) {
       console.log('Callback groupInfoList');
       global.mainWindow.send('session-reply', sessinfoList)
     });
@@ -140,25 +144,54 @@ function doAllDeptListRsp(imPdu) {
 }
 
 function getAllUser() {
-  let ttpbHeader = helper.getPBHeader(BaseDefine_pb.ServiceID.SID_BUDDY_LIST,
-    BaseDefine_pb.BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_REQUEST);
-  let user_list = new AllUserListReq();
-  user_list.setUserId(global.myUserId);
-  user_list.setLatestUpdateTime(0);
-  tcpClientModule.sendPacket(ttpbHeader, user_list);
+  Tbl.SysConfig.findOrCreate({where: {section:'user',name:'LastUpdateTime'},defaults: {section:'user',name:'LastUpdateTime',value: 0}}).spread((userLastUpdate, created)=>{
+    let ttpbHeader = helper.getPBHeader(BaseDefine_pb.ServiceID.SID_BUDDY_LIST,
+      BaseDefine_pb.BuddyListCmdID.CID_BUDDY_LIST_ALL_USER_REQUEST);
+    let user_list = new AllUserListReq();
+    user_list.setUserId(global.myUserId);
+    user_list.setLatestUpdateTime(userLastUpdate.value);
+    tcpClientModule.sendPacket(ttpbHeader, user_list);
+  });
 }
+
 function doAllUserRsp(imPdu) {
   let userListRsp = AllUserListRsp.deserializeBinary(new Uint8Array(imPdu.getPbBody()));
   let userList = userListRsp.getUserListList();
-  for (let item of userList){
-    let itemobj ={
-      "userId":item.getUserId(),
-      "nickName":item.getUserNickName(),
-      "signInfo":item.getSignInfo(),
-      "avatar":item.getAvatarUrl(),
-      "departmentId": item.getDepartmentId()
+  if (userList.length > 0) {
+    for (let item of userList) {
+      let itemobj = {
+        "userId": item.getUserId(),
+        "nickName": item.getUserNickName(),
+        "signInfo": item.getSignInfo(),
+        "avatar": item.getAvatarUrl(),
+        "departmentId": item.getDepartmentId()
+      }
+      UserInfoAction.setUserInfo(item.getUserId(), itemobj);
     }
-    UserInfoAction.setUserInfo(item.getUserId(),itemobj);
+    ;
+    let latestUpdateTime = userListRsp.getLatestUpdateTime();
+    Tbl.SysConfig.update({value:latestUpdateTime}, {where: {section:'user',name:'LastUpdateTime'}});
+    //保存DB 保存用户信息
+    let users = []
+    for (let item of userList) {
+      let user = {
+        userId: item.getUserId(),
+        name: item.getUserRealName(),
+        nickName: item.getUserNickName(),
+        avatarUrl: item.getAvatarUrl(),
+        departmentId: item.getDepartmentId(),
+        email: item.getEmail(),
+        gender: item.getUserGender(),
+        telephone: item.getUserTel(),
+        status: item.getStatus(),
+        signInfo: item.getSignInfo()
+      };
+      users.push(user);
+    }
+
+    SequelizeDao.transaction((t) => {
+      return Tbl.User.bulkCreate(users, {transaction: t});
+    });
   }
 }
 

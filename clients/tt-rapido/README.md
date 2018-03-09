@@ -11,6 +11,10 @@ teamtalk-nodejs 版本，该版为以后客户端的主要版本
     ```
     npm install electron-packager
     ```
+    安装(需要配置) sqlite3
+    npm install -g windows-build-tools node-pre-gyp
+    #sqlite3 for windows
+    npm install sqlite3  --runtime=electron --target=1.8.2 --dist-url=https://atom.io/download/electron
 
 2. 编译exe文件
     在应用的根目录执行以下命令:

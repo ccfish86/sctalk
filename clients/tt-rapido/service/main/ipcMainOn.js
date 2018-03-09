@@ -24,8 +24,17 @@ exports.ipcInit = function() {
   });
 
   ipc.on('get-myinfo', (event, arg) => {
-    myInfoObj = UserInfoAction.getUserInfo(global.myUserId);
-    event.returnValue = JSON.stringify(myInfoObj);
+    // myInfoObj = UserInfoAction.getUserInfo(global.myUserId);
+    let myInfoAsynResult = UserInfoAction.getUserInfo(global.myUserId);
+    myInfoAsynResult.then(infoObj => {
+      console.info('myInfoAsynResult ' + global.myUserId)
+      // event.returnValue = JSON.stringify(myInfoObj);
+      global.mainWindow.send('get-myinfo-rsp', infoObj)
+    }).catch(err=>{
+      // 加载个人信息异常
+      // event.returnValue = {}
+      global.mainWindow.send('get-myinfo-rsp', {})
+    })
   })
 
   ipc.on('load-userOnlineStat', (event, userIdList) => {
@@ -128,7 +137,7 @@ exports.ipcInit = function() {
   // My info window
   //加载自己详细信息
   ipc.on('user-info', (event) => {
-    UserInfoAction.openUserInfo(global.myUserId);
+     UserInfoAction.openUserInfo(global.myUserId);
   })
   //修改自己资料(电话、邮箱和签名)
   ipc.on('user-edit', (event, userId, tel, email, signInfo, avatar) => {
