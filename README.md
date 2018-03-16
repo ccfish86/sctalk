@@ -3,6 +3,8 @@
 - [第三方说明及测试环境](#第三方说明及测试环境)
 - [项目更新](#项目更新)
 - [项目说明](#项目说明)
+- [关联项目](#关联项目)
+- [关联QQ群](#关联QQ群)
 
 ## 概述
 当前项目是由蘑菇街的TeamTalk改造而来
@@ -10,16 +12,16 @@
 开源促进人类进步，`公司`也比较支持，只是想请各位朋友多多提BUG。
 具体文档见doc目录下,安装之前请仔细阅读相关文档。
 
+线上测试地址：`http://tt.hifipi.com/msg_server` 用户名密码 10~99
+
 ## 第三方说明及测试环境
 
 建议大家在开发过程中遇到问题,提交issues到[https://github.com/ccfish86/sctalk/issues](https://github.com/ccfish86/sctalk/issues/)
 
-由于该项目是个人维护，不一定有时间及时上传最新代码，另外代码借鉴了部分开源项目（可能没来得及修改注释，如果侵犯了你的利益。可联系我，我会及时改正）。
+由于该项目是个人维护，不一定有时间及时上传最新代码，另外代码借鉴了部分开源项目。本处代码完全免费使用，相关问题皆免费提供解答（任何收费行为皆为假冒），暂不接受定制开发。
 
 * 其他问题可加qq:88624053或Email进行交流。
-* EMAL: ccfish@ccfish.net
-
-线上测试地址：`http://tt.hifipi.com/msg_server` 用户名密码 10~99
+* EMAIL: ccfish@ccfish.net
 
 另外，推荐一个java版的管理后台：[Seeyouenough/TeamTalkOverwrite](https://github.com/Seeyouenough/TeamTalkOverwrite)
 >> 测试地址：[http://tt.hifipi.com/admin/](http://tt.hifipi.com/admin/)
@@ -31,7 +33,7 @@ web端地址:[teamtalk_websocket_client](http://tt.hifipi.com/teamtalk_websocket
 
 websocket使用客户端：[xiaominfc/teamtalk_websocket_client](https://github.com/xiaominfc/teamtalk_websocket_client)
 
-版本[0.1.0-RELEASE]使用了router-server作为消息中转服务（这点跟原TT是相似的），0.2以后将使用hazelcast等分布式中间件取代router-server来处理消息的“漫游”。
+版本[0.1.0-RELEASE]使用了router-server作为消息中转服务（这点跟原TT是相似的），0.2以后将使用hazelcast等分布式中间件取代router-server来处理消息的“路由”。
 
 取消“router-server”，更多的是为了解决路由服务的单点故障的问题，之后会追加zuul来对外提供服务。
 
@@ -67,3 +69,13 @@ websocket使用客户端：[xiaominfc/teamtalk_websocket_client](https://github.
 希望大家一起努力，把这个项目完善起来。
 
 多提供意见也是对我们最大的支持。
+
+## 关联项目
+[蘑菇街Teamtalk] (https://github.com/meili/TeamTalk)
+[Teamtalk之Java版管理后台] (https://github.com/Seeyouenough/TeamTalkOverwrite)
+[Teamtalk之Web版前台] (https://github.com/xiaominfc/teamtalk_websocket_client)
+[Teamtalk之Node版前台] (https://gitee.com/mayuehehe/rapido/tree/master/)
+
+##关联QQ群
+TeamTalk交流群: 462424781
+TeamTalk第一小队: 419850589
