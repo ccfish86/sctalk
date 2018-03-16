@@ -1,30 +1,44 @@
 ## 索引
 - [概述](#概述)
-- [第三方说明及测试环境](#第三方说明及测试环境)
+- [开源及环境说明](#开源及环境说明)
 - [项目更新](#项目更新)
 - [项目说明](#项目说明)
 - [关联项目](#关联项目)
 - [关联QQ群](#关联QQ群)
 
 ## 概述
-当前项目是由蘑菇街的TeamTalk改造而来
 
-开源促进人类进步，`公司`也比较支持，只是想请各位朋友多多提BUG。
+当前项目是由蘑菇街的TeamTalk协议，完全用JAVA生态重构而成。以用于线上业务使用，并适当进行了调整，基本上还是与原Teamtalk协议保持兼容。
+
+大家在开发过程中遇到问题，请提交到[issues](https://github.com/ccfish86/sctalk/issues/)。
 具体文档见doc目录下,安装之前请仔细阅读相关文档。
 
-线上测试地址：`http://tt.hifipi.com/msg_server` 用户名密码 10~99
+### 线上测试地址：
+* 登录服务器`http://tt.hifipi.com/msg_server` 用户名密码 10~99
+* [管理后台](http://tt.hifipi.com/admin/)
 
-## 第三方说明及测试环境
-
-建议大家在开发过程中遇到问题,提交issues到[https://github.com/ccfish86/sctalk/issues](https://github.com/ccfish86/sctalk/issues/)
-
-由于该项目是个人维护，不一定有时间及时上传最新代码，另外代码借鉴了部分开源项目。本处代码完全免费使用，相关问题皆免费提供解答（任何收费行为皆为假冒），暂不接受定制开发。
-
-* 其他问题可加qq:88624053或Email进行交流。
+### 联系方式：
+* qq:88624053
 * EMAIL: ccfish@ccfish.net
+* 亦可加入[QQ群](#关联QQ群)与其他Teamtalk用户进行交流
 
-另外，推荐一个java版的管理后台：[Seeyouenough/TeamTalkOverwrite](https://github.com/Seeyouenough/TeamTalkOverwrite)
->> 测试地址：[http://tt.hifipi.com/admin/](http://tt.hifipi.com/admin/)
+## 开源及环境说明
+
+### 免责声明
+
+该项目是个人维护，尽量继续维护下去，此外代码借鉴了部分[开源项目](#关联项目)。
+
+本项目完全免费使用，相关问题皆免费提供解答（任何收费行为皆为假冒），暂不接受定制开发。
+
+本人不对使用此代码所造成的损失承担连带责任。
+
+当然如果引用的第三方开源代码，侵犯了您的权益，请及时联系，会在第一时间删除。
+
+### 环境
+
+本项目中的服务器环境，使用JDK8 + PostgreSQL/MySQL + Redis + Fastdfs(图片及语音消息使用) + nginx。
+
+内存2G以上即可，对系统其他组件的版本无要求。
 
 ## 项目更新
 
@@ -65,15 +79,14 @@ websocket使用客户端：[xiaominfc/teamtalk_websocket_client](https://github.
  - 同时支持socket和websocket连接，并能互发消息。
  - 整理了一些TT相关的第三方开源项目，并做了测试服务器。
 
-
-希望大家一起努力，把这个项目完善起来。
-
-多提供意见也是对我们最大的支持。
-
 ## 关联项目
+
 [蘑菇街Teamtalk] (https://github.com/meili/TeamTalk)
+
 [Teamtalk之Java版管理后台] (https://github.com/Seeyouenough/TeamTalkOverwrite)
+
 [Teamtalk之Web版前台] (https://github.com/xiaominfc/teamtalk_websocket_client)
+
 [Teamtalk之Node版前台] (https://gitee.com/mayuehehe/rapido/tree/master/)
 
 ##关联QQ群
