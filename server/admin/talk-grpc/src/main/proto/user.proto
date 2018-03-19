@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.user.grpc;
+
+message User{
+    int32 id=1;
+
+    string name=2;
+
+    int32 sex=3;
+
+    string domain=4;
+
+    string nick=5;
+
+    string password=6;
+
+    string salt=7;
+
+    string phone=8;
+
+    string email=9;
+
+    int32 departid=10;
+
+    string avatar=11;
+
+    int32 status=12;
+
+    int32 created=13;
+
+    int32 updated=14;
+
+    int32 push_shield_status=15;
+
+    string sign_info=16;
+}
+
+message UserRequest {
+    int32 id=1;
+
+    string name=2;
+
+    int32 sex=9;
+
+    string nick=3;
+
+    string password=4;
+
+    string salt=5;
+
+    string phone=6;
+
+    string email=7;
+
+    int32 departid=8;
+
+    repeated User user=10;
+}
+
+message UserResponse {
+    int32 id=1;
+
+    string name=2;
+
+    int32 sex=10;
+
+    string nick=3;
+
+    string pwd=4;
+
+    string salt=5;
+
+    string phone=6;
+
+    string email=7;
+
+    int32 departid=8;
+
+    int32 status_id=9;
+
+    repeated User user=11;
+
+}
+
+service UserService{
+    rpc listUser(UserRequest) returns (UserResponse);
+    rpc addUser(UserRequest) returns (UserResponse);
+    rpc modifyPassword(UserRequest) returns (UserResponse);
+    rpc removeUser(UserRequest) returns (UserResponse);
+    rpc modifyUser(UserRequest) returns (UserResponse);
+}

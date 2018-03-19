@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.group.grpc;
+
+message Group{
+
+    int32 id=1;
+
+    string name=2;
+
+    int32 creator=3;
+
+    int32 userCnt=4;
+
+    int32 status=5;
+
+    int32 updated=6;
+
+    int32 created=7;
+}
+
+message GroupRequest {
+    int32 id=1;
+
+    string name=2;
+
+    int32 creator=3;
+
+    int32 userCnt=4;
+
+    repeated Group group=5;
+}
+
+message GroupResponse {
+    int32 id=1;
+
+    string name=2;
+
+    int32 creator=3;
+
+    int32 userCnt=4;
+
+    int32 status_id=5;
+
+    repeated Group group=6;
+
+}
+
+service GroupService{
+    rpc listGroup(GroupRequest) returns (GroupResponse);
+    rpc addGroup(GroupRequest) returns (GroupResponse);
+    rpc removeGroup(GroupRequest) returns (GroupResponse);
+    rpc modifyGroup(GroupRequest) returns (GroupResponse);
+}

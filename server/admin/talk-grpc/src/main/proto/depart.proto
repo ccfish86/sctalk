@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.depart.grpc;
+
+message Depart{
+    int32 id=1;
+
+    string departname=2;
+
+    int32 priority=3;
+
+    int32 parentid=4;
+
+    int32 status=5;
+
+    int32 created=6;
+
+    int32 updated=7;
+
+}
+
+message DepartRequest {
+    int32 id=1;
+
+    string departname=2;
+
+    int32 priority=3;
+
+    int32 parentid=4;
+
+    repeated Depart depart=5;
+}
+
+message DepartResponse {
+    int32 id=1;
+
+    string departname=2;
+
+    int32 priority=3;
+
+    int32 parentid=4;
+
+    int32 status_id=5;
+
+    repeated Depart depart=6;
+
+}
+
+service DepartService{
+    rpc listDepart(DepartRequest) returns (DepartResponse);
+    rpc addDepart(DepartRequest) returns (DepartResponse);
+    rpc removeDepart(DepartRequest) returns (DepartResponse);
+    rpc modifyDepart(DepartRequest) returns (DepartResponse);
+}

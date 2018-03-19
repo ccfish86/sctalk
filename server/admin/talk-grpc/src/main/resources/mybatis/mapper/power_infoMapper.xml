@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grpc.java.kernel.mybatis.mapper.power_infoMapper">
+  <resultMap id="BaseResultMap" type="com.grpc.java.kernel.entity.power_info">
+    <constructor>
+      <idArg column="power_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="power_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="power_url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="parent_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    power_id, power_name, power_url, parent_id
+  </sql>
+
+  <select id="selectById" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from power_info where power_id = #{id}
+  </select>
+
+  <select id="selectByName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from power_info where power_name = #{name}
+    limit 1
+  </select>
+
+  <select id="selectByUrl" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from power_info where power_url = #{url}
+    limit 1
+  </select>
+
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from power_info
+  </select>
+
+  <delete id="deleteByPrimaryKey">
+    delete from power_info
+    where power_id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.grpc.java.kernel.entity.power_info">
+    insert into power_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="powerId != null">
+        power_id,
+      </if>
+      <if test="powerName != null">
+        power_name,
+      </if>
+      <if test="powerUrl != null">
+        power_url,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="powerId != null">
+        #{powerId,jdbcType=INTEGER},
+      </if>
+      <if test="powerName != null">
+        #{powerName,jdbcType=VARCHAR},
+      </if>
+      <if test="powerUrl != null">
+        #{powerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.grpc.java.kernel.entity.power_info">
+    update power_info
+    <set>
+      <if test="powerName != null">
+        power_name = #{powerName,jdbcType=VARCHAR},
+      </if>
+      <if test="powerUrl != null">
+        power_url = #{powerUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where power_id = #{powerId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

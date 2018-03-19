@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>-</title>
+	<link rel="stylesheet" href="css/lib/bootstrap.css">
+	<link rel="stylesheet" href="css/main.css">
+<body class="main_body">
+<div class="main_top text-right drag">
+	<!-- <img id ="title_bar_max" class="setting no-drag" src='css/img/session/setting.png' title="设置" onmouseover="this.src='css/img/session/setting_h.png'" onmouseout="this.src='css/img/session/setting.png'" onclick="settingWindow();"> -->
+  <img id ="title_bar_max" class="setting no-drag" src='css/img/session/setting.png' title="设置" onmouseover="this.src='css/img/session/setting_h.png'" onmouseout="this.src='css/img/session/setting.png'" onclick="alert('目前未完成');">
+  <img id ="title_bar_mini" class="setting no-drag" src='css/img/session/minimize.png' title="最小化" onmouseover="this.src='css/img/session/minimize_h.png'" onmouseout="this.src='css/img/session/minimize.png'" onclick="miniWindow();">
+	<img id ="title_bar_close" class="setting no-drag" src='css/img/session/close.png' title="关闭" onmouseover="this.src='css/img/session/close_h.png'" onmouseout="this.src='css/img/session/close.png'" onclick="miniWindow();">
+</div>
+<div class="container main_userinfo drag">
+	<div class="col-xs-3 no-drag text-center" style="padding: 0px;">
+		<img id="myAvatImg" width="55px" height="55px" onclick="myMessage();" style="cursor:pointer;border-radius: 50%;">
+	</div>
+	<div class="col-xs-9 drag" style="padding:5px 0 0 10px;line-height:25px;">
+		<div class="btn-group">
+			<div class="dropdown-toggle no-drag" data-toggle="dropdown">
+				<img id="switch" src="../images/main/status_online.png" height="14px">
+			</div>
+			<ul class="dropdown-menu no-drag" role="menu">
+				<li>
+					<a href="#" style="padding-left:6px" onclick="Online();">
+						<img id="Online-img" src="../images/main/status_online.png" height="14px"> 在线
+					</a>
+				</li>
+				<li >
+					<a href="#" style="padding-left:6px" onclick="Offline();">
+						<img id="Offline-img" src="../images/main/status_offline.png" height="14px"> 离线
+					</a>
+				</li>
+			</ul>
+		</div>
+		<span id="myNameSpan" style="font-weight:bold;"></span>
+		<div id="mySignDiv" class="no-drag" style="width:100%;height:25px;cursor:pointer;overflow:hidden;"></div>
+	</div>
+</div>
+<div class="text-center">
+	<input type="text" id="Search" class="form-control" style="width:99%;height:30px;font-size:12px;" placeholder="搜索:员工、讨论组、群-未完成" disabled="disabled" />
+</div>
+<ul class="container nav nav-tabs" role="tablist" style="height:36px">
+	<li role="presentation" class="active" style="width: 32%;cursor:pointer;">
+		<div id="sessNavDiv" class="icon-nav icon-session-activ" onclick="activNav(this)" title="最近联系人">&nbsp;
+			<span id="allNewMsgSpan" class="badge" style="margin-left:58px;padding-right:5px;padding-left:5px;background-color:#ec0b0b"></span>
+		</div>
+	</li>
+	<li role="presentation" style="width: 32%;cursor:pointer;" title="组织架构">
+		<div id="deptNavDiv" class="icon-nav icon-dept" onclick="activNav(this)">&nbsp;</div>
+	</li>
+  	<li role="presentation" style="width: 32%;cursor:pointer;" title="群/讨论组">
+		<div id="groupNavDiv" class="icon-nav icon-group" onclick="activNav(this)">&nbsp;</div>
+	</li>
+</ul>
+
+<div id="sessionDiv" class="container main_list">
+	<ul class="nav nav-list" style="-moz-user-select:-moz-none;" onselectstart="return false;">
+		<li id="mysessionLi" class="nav-header"></li>
+	</ul>
+</div>
+
+<div id="deptDiv" class="container main_list" style="-moz-user-select:-moz-none;" onselectstart="return false;"></div>
+
+<div id="groupDiv" class="container main_list" style="-moz-user-select:-moz-none;" onselectstart="return false;">
+	<ul class="nav nav-list">
+		<li id="myGroupLi" class="nav-header" onclick="groupBacClick(this)">
+			<img width="9px" height="9px"> 我的群
+		</li>
+	</ul>
+	<ul class="nav nav-list">
+		<li id="myDiscusLi" class="nav-header" onclick="groupBacClick(this)">
+			<img width="9px" height="9px" style="margin-top:10px; float:left" /><div style="float:left"> 我的讨论组</div>
+			<div class="creatGroup"><img src="css/img/session/creatGroup.png" title="创建讨论组" onclick="makeGroup();" /></div>
+			<div style="clear:both;"></div>
+		</li>
+	</ul>
+</div>
+<script>
+	window.nodeRequire = require;
+	delete window.require;
+	delete window.exports;
+	delete window.module;
+</script>
+<script type="text/javascript" src="js/lib/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/main.onload.js"></script>
+<script type="text/javascript" src="js/main.ipcOn.js"></script>
+<script type="text/javascript" src="js/main.action.js"></script>
+<script type="text/javascript" src="js/userdept.action.js"></script>
+</body>
+</html>

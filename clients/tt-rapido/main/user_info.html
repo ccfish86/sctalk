@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="css/lib/bootstrap.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="container main_userinfo drag" style="margin:0px;border:1px solid #999;">
+	<div class="col-xs-12" style="height:45px;line-height:45px;padding: 0">
+		<b>详细信息</b><button type="button" class="close  no-drag" id="closeWindow"><span aria-hidden="true">×</span></button>
+	</div>
+	<div id="userImg" class="col-xs-4 text-right no-drag">
+		<input type="file" id="avatar" onchange="sendUserPicture(this);"/>
+	</div>
+	<div class="col-xs-8 no-drag">
+		<div><b>姓名：</b><span id="nickName"></span></div>
+		<div><b>性别：</b><span id="gender"></span></div>
+		<div><b>部门：</b><span id="department"></span></div>
+		<div>
+			<b>电话：</b><input type="text" id="tel" class="form-user" style="outline:none;" placeholder="请输入电话" />
+		</div>
+		<div>
+			<b>邮箱：</b><input type="text" id="email" class="form-user" style="outline:none;" placeholder="请输入邮箱" />
+		</div>
+		<div><b>签名：</b><input type="text" id="signInfo" class="form-user" style="outline:none;" placeholder="请输入签名" /></div>
+	</div>
+	<div class="col-xs-12 text-center no-drag" style="height:39px;padding: 0">
+		<input type="hidden" id="userId" />
+		<div class="col-xs-7"><span id="error_info"></span></div>
+		<div class="col-xs-5 text-right">
+			<button type="button" class="btn btn-default" id="closeButton" style="padding: 2px 15px;margin-right: 10px;">关闭</button>
+			<button type="button" class="btn btn-primary" onclick="editUserInfo();" style="padding: 2px 15px;">确定</button>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	window.nodeRequire = require;
+	delete window.require;
+	delete window.exports;
+	delete window.module;
+</script>
+<script type="text/javascript" src="js/lib/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/userInfo.action.js"></script>
+</body>
+</html>

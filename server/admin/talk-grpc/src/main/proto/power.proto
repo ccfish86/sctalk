@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.power.grpc;
+
+message Power{
+    int32 power_id=4;
+
+    string power_name=1;
+
+    string power_url=2;
+
+    int32 parent_id=3;
+}
+
+message PowerRequest{
+    int32 id=10;
+
+    int32 power_id=4;
+
+    string power_name=1;
+
+    string power_url=2;
+
+    int32 parent_id=3;
+
+    string token=6;
+
+    repeated Power power=5;
+}
+
+message PowerResponse{
+    int32 id=10;
+
+    int32 power_id=4;
+
+    string power_name=1;
+
+    string power_url=2;
+
+    int32 parent_id=3;
+
+    repeated Power power=5;
+
+    int32 status_id=6;
+
+}
+
+service PowerService{
+    rpc listPower(PowerRequest) returns (PowerResponse);
+    rpc addPower(PowerRequest) returns (PowerResponse);
+    rpc removePower(PowerRequest) returns (PowerResponse);
+    rpc modifyPower(PowerRequest) returns (PowerResponse);
+    rpc getRoute(PowerRequest) returns (PowerResponse);
+    rpc getPower(PowerRequest) returns (PowerResponse);
+}

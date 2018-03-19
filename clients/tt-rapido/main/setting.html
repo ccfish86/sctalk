@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>系统设置</title>
+    <link rel="stylesheet" href="css/lib/bootstrap.css">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="container main_userinfo drag" style="margin:0px;border:1px solid #999;color: #999">
+	<div class="col-xs-12" style="padding: 5px 0px;">
+		<b>基本设置</b>
+		<button type="button" class="close no-drag" id="closeWindow"><span aria-hidden="true">×</span></button>
+	</div>
+	<ul class="setting_box">
+		<li>
+			<div><b>系统设置</b></div>
+			<ul style="width:100%;height:auto;list-style-type:none;padding: 0 10px;">
+				<li class="setting_li setting_li_checked"><input type="checkbox" checked="checked" /> 始终保持在其他窗口前端</li>
+				<li class="setting_li"><input type="checkbox" /> 当有新消息时，弹出提示框</li>
+				<li class="setting_li"><input type="checkbox" /> 开机启动</li>
+			</ul>
+		</li>
+		<li>
+			<div><b>声音设置</b></div>
+			<div class="col-xs-12 no-drag" style="padding: 0 10px;">
+				<div class="col-xs-12 setting_li no-drag" style="padding: 0px;"><input type="checkbox" /> 开启消息声</div>
+				<div class="col-xs-9 no-drag" style="padding: 0px;">
+					<span class="setting_li"><input type="radio" name="voice" /> 叮咚声</span>
+					<span class="setting_li"><input type="radio" name="voice" /> 呼叫声</span>
+					<span class="setting_li"><input type="radio" name="voice" /> 键盘声</span>
+					<span class="setting_li"><input type="radio" name="voice" /> 丁玲声</span>
+				</div>
+				<div class="col-xs-3 no-drag text-right" style="padding: 0px;">
+					<button type="button" class="btn btn-primary" style="padding: 2px 15px;">试听</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div><b>快捷设置</b></div>
+			<div class="no-drag" style="padding: 0 10px">
+				发送消息
+				<span class="setting_li"><input type="radio" name="Shortcut" /> Alt + S</span>
+				<span class="setting_li"><input type="radio" name="Shortcut" /> Enter</span>
+			</div>
+		</li>
+		<li>
+			<div><b>更新设置</b></div>
+			<div class="col-xs-12 no-drag" style="padding: 0 10px;">
+				<div class="col-xs-9 no-drag" style="padding: 0px;">
+					<span class="setting_li"><input type="checkbox" /> 开启自动更新 </span>  当前版本：1.0.1
+				</div>
+				<div class="col-xs-3 no-drag text-right" style="padding: 0px;">
+					<button type="button" class="btn btn-primary" style="padding: 2px 15px;">更新</button>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<div class="col-xs-12 text-right no-drag" style="height:40px;">
+		<input type="hidden" id="userId" />
+		<button type="button" class="btn btn-primary" style="padding: 2px 15px;margin-right: 10px;">保存</button>
+		<button type="button" class="btn btn-default" id="closeButton" style="padding: 2px 15px;">关闭</button>
+	</div>
+</div>
+<script type="text/javascript">
+	window.nodeRequire = require;
+	delete window.require;	
+	delete window.exports;
+	delete window.module;
+</script>
+<script type="text/javascript" src="js/lib/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/setting.action.js"></script>
+</body>
+</html>

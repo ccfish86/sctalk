@@ -1,0 +1,59 @@
+/* 表情包 */
+.com_form{width:100%; position:relative}
+.qqFace{bottom:185px;margin-top:4px;background:#fff;padding:2px;border:1px solid #dfe6f6;}
+.qqFace table td{padding:0px;}
+.qqFace table td img{cursor:pointer;border:1px #fff solid;}
+.qqFace table td img:hover{border:1px #0066cc solid;}
+
+/* 进度条 */
+.progress-out {
+    position: relative;
+    height: 10px;
+    border: 1px solid #13C2B6;
+    background-color: #fff;
+}
+.progress-in {
+    position: absolute;
+    height: 9px;
+    width: 0%;
+    border: none;
+    background-color: #13C2B6;
+    background-image: -webkit-linear-gradient(top, #15E5D8 0%, #12EADE 40%, #1ABFB4 100%);
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+}
+
+.percent-show {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -4px;
+    left: 0;
+    color: #000;
+    text-align: center;
+    z-index: 2;
+    font-size: 12px;
+}
+
+/* 工具栏 */
+.icon-toolbar{
+    background: url(img/session/toolbtn.png) no-repeat;
+    display: inline-block;
+}
+.icon-toolbar-item{
+  position:absolute;
+  top:2px;
+  width:20px;
+  height:20px;
+  cursor:pointer;
+  border:1px solid #F7F7F7;
+}
+.icon-toolbar-item:hover{
+  position:absolute;
+  top:2px;
+  width:20px;
+  height:20px;
+  cursor:pointer;
+  border:1px solid #ccc;
+}

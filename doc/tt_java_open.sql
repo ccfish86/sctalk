@@ -100,7 +100,7 @@ CREATE TABLE `im_group` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '群名称',
   `avatar` varchar(256) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '群头像',
-  `creator` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建者用户id',
+  `creator` bigint(20) NOT NULL DEFAULT '0' COMMENT '创建者用户id',
   `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '群组类型，1-固定;2-临时群',
   `user_cnt` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '成员人数',
   `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否删除,0-正常，1-删除',
