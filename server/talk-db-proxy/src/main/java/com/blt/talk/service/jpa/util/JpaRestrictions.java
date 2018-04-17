@@ -161,9 +161,11 @@ public class JpaRestrictions {
     /**
      * 或者
      * 
+     * @Deprecated 集成分表中间件后，不再支持OR查询
      * @param criterions 多条件
      * @return 条件表达式（条件1 OR 条件2 OR 条件3...）
      */
+    @Deprecated
     public static LogicalExpression or(Criterion... criterions) {
         return new LogicalExpression(criterions, Operator.OR);
     }
@@ -177,17 +179,14 @@ public class JpaRestrictions {
      * @return 条件表达式
      */
     @SuppressWarnings("rawtypes")
-    public static LogicalExpression in(String fieldName, Collection value, boolean ignoreNull) {
+    public static InExpression in(String fieldName, Collection<? extends Object> value, boolean ignoreNull) {
         if (ignoreNull && (value == null || value.isEmpty())) {
             return null;
         }
-        SimpleExpression[] ses = new SimpleExpression[value.size()];
-        int i = 0;
-        for (Object obj : value) {
-            ses[i] = new SimpleExpression(fieldName, obj, Operator.EQ);
-            i++;
-        }
-        return new LogicalExpression(ses, Operator.OR);
+        
+        SimpleExpression expression = new SimpleExpression(fieldName, Operator.IN);
+        
+        return new InExpression(expression, value);
     }
 
     /**

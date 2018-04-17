@@ -17,7 +17,7 @@ public interface Criterion {
     
     /** 操作类型 */
     public enum Operator {
-        EQ, NE, LIKE, GT, LT, GTE, LTE, AND, OR, ISNULL, NOTNULL, RLIKE, LLIKE
+        EQ, NE, LIKE, GT, LT, GTE, LTE, AND, OR, ISNULL, NOTNULL, RLIKE, LLIKE, IN
     }
 
     /**

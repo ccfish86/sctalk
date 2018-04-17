@@ -33,7 +33,6 @@ import com.blt.talk.common.param.RegistReq;
 import com.blt.talk.common.param.UserToken;
 import com.blt.talk.common.result.LoginCmdResult;
 import com.blt.talk.common.util.CommonUtils;
-import com.blt.talk.common.util.SecurityUtils;
 import com.blt.talk.service.internal.DepartmentService;
 import com.blt.talk.service.jpa.entity.IMUser;
 import com.blt.talk.service.jpa.repository.IMUserRepository;
@@ -76,8 +75,7 @@ public class LoginServiceController {
     public BaseModel<Long> regist(@RequestBody RegistReq param) {
         BaseModel<Long> userRes = new BaseModel<>();
         SearchCriteria<IMUser> userSearchCriteria = new SearchCriteria<>();
-        userSearchCriteria.add(JpaRestrictions.or(JpaRestrictions.eq("name", param.getName(), false),
-                JpaRestrictions.eq("phone", param.getName(), false)));
+        userSearchCriteria.add(JpaRestrictions.eq("name", param.getName(), false));
         userSearchCriteria.add(JpaRestrictions.ne("status", DBConstant.USER_STATUS_LEAVE, false));
         List<IMUser> users = userRepository.findAll(userSearchCriteria);
         
@@ -138,8 +136,7 @@ public class LoginServiceController {
         
         // 改为：用户名或手机号皆可登录
         SearchCriteria<IMUser> userSearchCriteria = new SearchCriteria<>();
-        userSearchCriteria.add(JpaRestrictions.or(JpaRestrictions.eq("name", param.getName(), false),
-                JpaRestrictions.eq("phone", param.getName(), false)));
+        userSearchCriteria.add(JpaRestrictions.eq("name", param.getName(), false));
         userSearchCriteria.add(JpaRestrictions.ne("status", DBConstant.USER_STATUS_LEAVE, false));
         List<IMUser> users = userRepository.findAll(userSearchCriteria);
         

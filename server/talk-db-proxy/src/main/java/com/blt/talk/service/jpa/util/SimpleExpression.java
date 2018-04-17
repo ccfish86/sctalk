@@ -83,6 +83,8 @@ public class SimpleExpression implements Criterion {
             return builder.isNull(expression);
         case NOTNULL:
             return builder.isNotNull(expression);
+        case IN:
+            return builder.in(expression);
         default:
             return null;
         }
