@@ -89,6 +89,6 @@ websocket使用客户端：[xiaominfc/teamtalk_websocket_client](https://github.
 
 [Teamtalk之Node版前台] (https://gitee.com/mayuehehe/rapido/tree/master/)
 
-##关联QQ群
+## 关联QQ群
 TeamTalk交流群: 462424781
 TeamTalk第一小队: 419850589

@@ -21,45 +21,7 @@ public abstract class IMGroupMessageEntity extends IMAbstractMessage {
      * @since 1.0
      */
     public static IMGroupMessageEntity getInstance(long groupId) {
-
-        Long splt = groupId % 10;
-        IMGroupMessageEntity entity;
-        switch (splt.intValue()) {
-            case 0:
-                entity = new IMGroupMessage0();
-                break;
-            case 1:
-                entity = new IMGroupMessage1();
-                break;
-            case 2:
-                entity = new IMGroupMessage2();
-                break;
-            case 3:
-                entity = new IMGroupMessage3();
-                break;
-            case 4:
-                entity = new IMGroupMessage4();
-                break;
-            case 5:
-                entity = new IMGroupMessage5();
-                break;
-            case 6:
-                entity = new IMGroupMessage6();
-                break;
-            case 7:
-                entity = new IMGroupMessage7();
-                break;
-            case 8:
-                entity = new IMGroupMessage8();
-                break;
-            case 9:
-                entity = new IMGroupMessage9();
-                break;
-            default:
-                entity = null;
-                break;
-        }
-        return entity;
+        return new IMGroupMessage();
     }
 
     @Column(name = "group_id", nullable = false)

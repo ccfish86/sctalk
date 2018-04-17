@@ -20,44 +20,7 @@ public abstract class IMMessageEntity extends IMAbstractMessage {
      * @since 1.0
      */
     public static IMMessageEntity getInstance(long relateId) {
-        Long splt = relateId % 10;
-        IMMessageEntity entity;
-        switch (splt.intValue()) {
-            case 0:
-                entity = new IMMessage0();
-                break;
-            case 1:
-                entity = new IMMessage1();
-                break;
-            case 2:
-                entity = new IMMessage2();
-                break;
-            case 3:
-                entity = new IMMessage3();
-                break;
-            case 4:
-                entity = new IMMessage4();
-                break;
-            case 5:
-                entity = new IMMessage5();
-                break;
-            case 6:
-                entity = new IMMessage6();
-                break;
-            case 7:
-                entity = new IMMessage7();
-                break;
-            case 8:
-                entity = new IMMessage8();
-                break;
-            case 9:
-                entity = new IMMessage9();
-                break;
-            default:
-                entity = null;
-                break;
-        }
-        return entity;
+        return new IMMessage();
     }
 
     @Column(name = "relate_id", nullable = false)
