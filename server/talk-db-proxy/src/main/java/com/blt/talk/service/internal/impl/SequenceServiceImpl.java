@@ -9,7 +9,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import com.blt.talk.service.internal.SequenceService;
 
@@ -37,7 +36,6 @@ public class SequenceServiceImpl implements SequenceService {
         return sequence; 
     }
     
-    @GetMapping(path = "/addAndGet/integer")
     @Override
     public Integer addAndGetInteger(String key, int step) {
         RedisAtomicInteger counter = 
