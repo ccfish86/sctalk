@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package IM.SwitchService;
+option java_package = "com.blt.talk.common.code.proto";
+
+option optimize_for = LITE_RUNTIME;
+
+//service id: 0x0006
+
+message IMP2PCmdMsg{
+	//cmd id:		0x0601
+	uint64 from_user_id = 1;
+	uint64 to_user_id = 2;
+	string cmd_msg_data = 3;
+}
+
+

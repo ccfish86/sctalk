@@ -1,0 +1,194 @@
+syntax = "proto3";
+
+package IM.Buddy;
+import "IM.BaseDefine.proto";
+option java_package = "com.blt.talk.common.code.proto";
+
+option optimize_for = LITE_RUNTIME;
+
+//service id   0x0002
+
+message IMRecentContactSessionReq{
+	//cmd id:		0x0201
+	uint64 user_id = 1;
+	uint32 latest_update_time = 2;
+	bytes attach_data = 20;
+}
+
+message IMRecentContactSessionRsp{
+	//cmd id:		0x0202
+	uint64 user_id = 1;
+	repeated IM.BaseDefine.ContactSessionInfo contact_session_list = 2;
+	bytes attach_data = 20;
+}
+
+message IMUserStatNotify{
+	//cmd id:		0x0203
+	IM.BaseDefine.UserStat user_stat = 1;
+}
+
+message IMUsersInfoReq{
+	//cmd id:		0x0204
+	uint64 user_id = 1;
+	repeated uint64 user_id_list = 2;
+	bytes attach_data = 20;
+}
+
+message IMUsersInfoRsp{
+	//cmd id:		0x0205
+	uint64 user_id = 1;
+	repeated IM.BaseDefine.UserInfo user_info_list = 2;
+	bytes attach_data = 20;
+}
+
+message IMRemoveSessionReq{
+	//cmd id:		0x0206
+	uint64 user_id = 1;
+	IM.BaseDefine.SessionType session_type = 2;
+	uint64 session_id = 3;
+	bytes attach_data = 20;
+}
+
+message IMRemoveSessionRsp{
+	//cmd id:		0x0207
+	uint64 user_id = 1;
+	uint32 result_code = 2;
+	IM.BaseDefine.SessionType session_type = 3;
+	uint64 session_id = 4;
+	bytes attach_data = 20;
+}
+
+message IMAllUserReq{
+	//cmd id:		0x0208
+	uint64 user_id = 1;
+	uint32 latest_update_time = 2;
+	bytes attach_data = 20;
+}
+
+message IMAllUserRsp{
+	//cmd id:		0x0209
+	uint64 user_id = 1;
+	uint32 latest_update_time = 2;
+	repeated IM.BaseDefine.UserInfo user_list = 3;
+	bytes attach_data = 20;
+}
+
+message IMUsersStatReq{
+	//cmd id:		0x020a
+	uint64 user_id = 1;
+	repeated uint64 user_id_list = 2;
+	bytes attach_data = 20;
+}
+
+message IMUsersStatRsp{
+	//cmd id:		0x020b
+	uint64 user_id = 1;
+	repeated IM.BaseDefine.UserStat user_stat_list = 2;
+	bytes attach_data = 20;
+}
+
+message IMChangeAvatarReq{
+	//cmd id:		0x020c
+	uint64 user_id = 1;
+	string avatar_url = 2;
+	bytes attach_data = 20;
+}
+
+message IMChangeAvatarRsp{
+	//cmd id:		0x020d
+	uint64 user_id = 1;
+	uint32 result_code = 2;
+	bytes attach_data = 20;
+}
+
+//只给移动端通知
+message IMPCLoginStatusNotify{
+	//cmd id:		0x020e
+	uint64 user_id = 1;
+	IM.BaseDefine.UserStatType login_stat = 2;
+}
+
+ message IMRemoveSessionNotify{
+ 	//cmd id:		0x020f
+ 	uint64 user_id = 1;
+	IM.BaseDefine.SessionType session_type = 2;
+	uint64 session_id = 3;
+ }
+
+message IMDepartmentReq{
+	//cmd id:		0x0210
+	uint64 user_id = 1;
+	uint32 latest_update_time = 2;
+	bytes attach_data = 20;
+}
+
+message IMDepartmentRsp{
+	//cmd id:		0x0211
+	uint64 user_id = 1;
+	uint32 latest_update_time = 2;
+	repeated IM.BaseDefine.DepartInfo dept_list = 3;
+	bytes attach_data = 20;
+}
+
+message IMAvatarChangedNotify {
+
+    //cmd id:		0x02012
+    uint64 changed_user_id = 1;      // 谁修改了avatar
+    string avatar_url = 2;           //
+}
+
+message IMChangeSignInfoReq{
+   //cmd id:		0x0213
+
+    uint64 user_id = 1;
+    string sign_info = 2;
+    bytes attach_data = 20;
+}
+
+message IMChangeSignInfoRsp{
+    //cmd id:		0x0214
+    uint64 user_id = 1;
+    uint32 result_code = 2;
+    string sign_info = 3;      // 此字段服务端用，客户端直接忽略
+    bytes attach_data = 20;
+}
+
+    // 个性签名修改通知（广播）
+message IMSignInfoChangedNotify {
+    //cmd id:		0x0215
+    uint64 changed_user_id = 1;     // 谁修改了个性签名
+    string sign_info = 2;
+}
+
+// 修改用户信息REQ
+message IMChangeUserInfoReq{
+	//cmd id:		0x0216
+	uint64 user_id = 1;
+	string telephone_num = 2;
+    string email_address = 3;
+    string sign_info = 4;
+	string avatar_url = 5;
+	bytes attach_data = 20;
+}
+// 修改用户信息RSP
+message IMChangeUserInfoRsp{
+	//cmd id:		0x0217
+	uint64 user_id = 1;
+	uint32 result_code = 2;
+	string telephone_num = 3;
+    string email_address = 4;
+    string sign_info = 5;
+	string avatar_url = 6;
+	bytes attach_data = 20;
+}
+
+// 用户信息修改通知（广播）
+message IMUserInfoChangedNotify {
+    //cmd id:		0x0218
+    uint64 changed_user_id = 1;     // 谁修改了个人信息
+	uint32 result_code = 2;
+	string telephone_num = 3;
+    string email_address = 4;
+    string sign_info = 5;
+	string avatar_url = 6;
+}

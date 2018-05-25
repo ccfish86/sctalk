@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package IM.Login;
+import "IM.BaseDefine.proto";
+option java_package = "com.blt.talk.common.code.proto";
+
+option optimize_for = LITE_RUNTIME;
+
+//service id:	0x0001
+
+message IMMsgServReq{
+	//cmd id:		0x0101
+}
+
+message IMMsgServRsp{
+	//cmd id:		0x0102
+	IM.BaseDefine.ResultType result_code = 1;
+	string prior_ip = 2;
+	string backip_ip = 3;
+	uint32 port = 4;
+}
+
+message IMLoginReq{
+	//cmd id:		0x0103
+	string user_name = 1;
+	string password = 2;
+	IM.BaseDefine.UserStatType online_status = 3;
+	IM.BaseDefine.ClientType client_type = 4;
+	string client_version = 5;
+}
+
+message IMLoginRes{
+	//cmd id:		0x0104
+	uint32 server_time = 1;
+	IM.BaseDefine.ResultType result_code = 2;
+	string result_string = 3;
+	IM.BaseDefine.UserStatType online_status = 4;
+	IM.BaseDefine.UserInfo user_info = 5;
+}
+
+message IMLogoutReq{
+	//cmd id:		0x0105
+}
+
+message IMLogoutRsp{
+	//cmd id:		0x0106
+	uint32 result_code = 1;
+}
+
+message IMKickUser{
+	//cmd id:		0x0107
+	uint64 user_id = 1;
+	IM.BaseDefine.KickReasonType kick_reason = 2;
+}
+
+message IMDeviceTokenReq{
+	//cmd id:		0x0108
+	uint64 user_id = 1;
+	string device_token = 2;
+	IM.BaseDefine.ClientType client_type = 3;
+	bytes attach_data = 20;
+}
+
+message IMDeviceTokenRsp{
+	//cmd id: 		0x0109
+	uint64 user_id = 1;
+	bytes attach_data = 20;
+}
+
+//只给移动端请求
+message IMKickPCClientReq{
+	//cmd id:		0x010a
+	uint64 user_id = 1;
+}
+
+message IMKickPCClientRsp{
+	//cmd id: 		0x010b
+	uint64 user_id = 1;
+	uint32 result_code = 2;
+}
+
+
+// 一旦设置以后，22:00 -- 07:00不发送
+message IMPushShieldReq {
+    //cmd id:			0x010c
+    uint64 user_id = 1;
+    uint32 shield_status = 2;// 1:开启，0：关闭
+    bytes attach_data = 20;  // 服务端用，客户端不用设置
+}
+
+message IMPushShieldRsp {
+    //cmd id:			0x010d
+    uint64 user_id = 1;
+    uint32 result_code = 2;			// 值： 0:successed 1:failed
+    uint32 shield_status = 3;          // 值： 如果result_code值为0(successed)，则shield_status值设置， 1:开启， 0:关闭
+
+    bytes attach_data = 20;            // 服务端用，客户端不用设置
+}
+
+// 如果用户重新安装app，第一次启动登录成功后，app主动查询
+// 服务端返回IMQueryPushShieldRsp
+message IMQueryPushShieldReq {
+    //cmd id:			0x010e
+    uint64 user_id = 1;
+    bytes attach_data = 20;// 服务端用，客户端不用设置
+}
+
+message IMQueryPushShieldRsp {
+    //cmd id:			0x010f
+    uint64 user_id = 1;
+    uint32 result_code = 2;			// 值： 0:successed 1:failed
+    uint32 shield_status = 3;          // 值： 如果result_code值为0(successed)，则shield_status值设置， 1:开启， 0:关闭
+    bytes attach_data = 20;
+}

@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package IM.File;
+import "IM.BaseDefine.proto";
+option java_package = "com.blt.talk.common.code.proto";
+
+option optimize_for = LITE_RUNTIME;
+
+message IMFileLoginReq{
+	//cmd id:	0x0501
+	uint64 user_id = 1;
+	string task_id = 2;
+	IM.BaseDefine.ClientFileRole file_role= 3;
+}
+
+message IMFileLoginRsp{
+	//cmd id:	0x0502
+	uint32 result_code = 1;		//0:successed    1:failed
+	string task_id = 2;
+}
+
+message IMFileState{
+	//cmd id: 	0x0503
+	IM.BaseDefine.ClientFileState state = 1;
+	string task_id = 2;
+	uint64 user_id = 3;
+}
+
+message IMFilePullDataReq{
+	//cmd id:	0x0504
+	string task_id = 1;
+	uint64 user_id = 2;
+	IM.BaseDefine.TransferFileType trans_mode = 3;
+	uint32 offset = 4;
+	uint32 data_size = 5;
+}
+
+message IMFilePullDataRsp{
+	//cmd id: 	0x0505
+	uint32 result_code = 1;
+	string task_id = 2;
+	uint64 user_id = 3;
+	uint32 offset = 4;
+	bytes file_data = 5;
+}
+
+message IMFileReq{
+	//cmd id: 	0x0506
+	uint64 from_user_id = 1;
+	uint64 to_user_id = 2;
+	string file_name = 3;
+	uint32 file_size = 4;
+	IM.BaseDefine.TransferFileType trans_mode = 5;
+}
+
+message IMFileRsp{
+	//cmd id: 	0x0507
+	uint32	result_code = 1;			//1: 失败 0:成功
+	uint64 from_user_id = 2;
+	uint64 to_user_id = 3;
+	string file_name = 4;
+	string task_id = 5;
+	repeated IM.BaseDefine.IpAddr ip_addr_list = 6;
+	IM.BaseDefine.TransferFileType trans_mode = 7;
+}
+
+message IMFileNotify{
+	//cmd id: 	0x0508
+	uint64 from_user_id = 1;
+	uint64 to_user_id = 2;
+	string file_name = 3;
+	uint32 file_size = 4;
+	string task_id = 5;
+	repeated IM.BaseDefine.IpAddr ip_addr_list = 6;
+	IM.BaseDefine.TransferFileType trans_mode = 7;
+	uint32 offline_ready = 8;				//1:True 0:False
+}
+
+message IMFileHasOfflineReq{
+	//cmd id: 	0x0509
+	uint64 user_id = 1;
+	bytes attach_data = 20;
+}
+
+message IMFileHasOfflineRsp{
+	//cmd id:	0x050a
+	uint64 user_id = 1;
+	repeated IM.BaseDefine.OfflineFileInfo offline_file_list = 2;
+	repeated IM.BaseDefine.IpAddr ip_addr_list = 3;
+	bytes attach_data = 20;
+}
+
+message IMFileAddOfflineReq{
+	//cmd id:	0x050b
+	uint64 from_user_id = 1;
+	uint64 to_user_id = 2;
+	string task_id = 3;
+	string file_name = 4;
+	uint32 file_size = 5;
+}
+
+message IMFileDelOfflineReq{
+	//cmd id:	0x050c
+	uint64 from_user_id = 1;
+	uint64 to_user_id = 2;
+	string task_id = 3;
+}
