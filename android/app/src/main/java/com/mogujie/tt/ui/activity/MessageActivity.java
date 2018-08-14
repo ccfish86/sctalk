@@ -302,7 +302,9 @@ public class MessageActivity extends TTBaseActivity
         imServiceConnector.disconnect(this);
         EventBus.getDefault().unregister(this);
         adapter.clearItem();
-        albumList.clear();
+        if (albumList != null) {
+            albumList.clear();
+        }
         sensorManager.unregisterListener(this, sensor);
         ImageMessage.clearImageMessageList();
         unregisterReceiver(receiver);
