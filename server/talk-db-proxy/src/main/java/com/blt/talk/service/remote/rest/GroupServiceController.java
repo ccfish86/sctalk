@@ -99,6 +99,11 @@ public class GroupServiceController {
     @GetMapping(path = "/groupInfoList")
     public BaseModel<List<GroupEntity>> groupInfoList(@RequestParam("groupIdList") List<Long> groupIdList) {
         
+    	 if (groupIdList.isEmpty()) {
+         	// 避免SQL错误
+             return BaseModel.ok(new ArrayList<>());
+         }
+    	 
         SearchCriteria<IMGroup> groupSearchCriteria = new SearchCriteria<>();
         groupSearchCriteria.add(JpaRestrictions.in("id", groupIdList, false));
         Sort sort = new Sort(Sort.Direction.DESC, "updated");
@@ -191,6 +196,14 @@ public class GroupServiceController {
     @PostMapping(path = "/infoList")
     @Transactional(readOnly = true)
     public BaseModel<List<GroupEntity>> groupInfoList(@RequestBody Map<String, Integer> groupIdList) {
+        
+        if (groupIdList.isEmpty()) {
+        	// 避免SQL错误
+            return BaseModel.ok(new ArrayList<>());
+        }
+        
+    	
+   	 	// TODO 这里是否需要根据version查数据
         
         List<Long> groupIds = new ArrayList<>();
         for (String id: groupIdList.keySet()) {
