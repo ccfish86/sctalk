@@ -305,7 +305,7 @@ public class MessageServiceController {
         SearchCriteria<IMMessage> messageSearchCriteria = new SearchCriteria<>();
         messageSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
         messageSearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
-        messageSearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
+        messageSearchCriteria.add(JpaRestrictions.gte("msgId", messageId, false));
         Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
         Pageable pageable = new PageRequest(0, messageCount, sortMessage);
         Page<IMMessage> messagePageList = messageRepository.findAll(messageSearchCriteria, pageable);
