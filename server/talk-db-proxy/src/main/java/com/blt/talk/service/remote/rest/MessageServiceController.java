@@ -317,7 +317,10 @@ public class MessageServiceController {
         SearchCriteria<IMMessage> messageSearchCriteria = new SearchCriteria<>();
         messageSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
         messageSearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
-        messageSearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
+        if (messageId > 0) {
+        	//当消息ID参数指定了的时候
+        	messageSearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
+        }
         Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
         Pageable pageable = new PageRequest(0, messageCount, sortMessage);
         Page<IMMessage> messagePageList = messageRepository.findAll(messageSearchCriteria, pageable);
@@ -351,7 +354,10 @@ public class MessageServiceController {
         SearchCriteria<IMGroupMessage> groupMessageSearchCriteria = new SearchCriteria<>();
         groupMessageSearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
         groupMessageSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
-        groupMessageSearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
+        if (messageId > 0) {
+        	//当消息ID参数指定了的时候
+        	groupMessageSearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
+        }
         Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
         Pageable pageable = new PageRequest(0, messageCount, sortMessage);
         Page<IMGroupMessage> groupMessageList =
