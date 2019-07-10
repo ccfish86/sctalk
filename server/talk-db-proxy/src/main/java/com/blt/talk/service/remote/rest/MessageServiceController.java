@@ -210,8 +210,20 @@ public class MessageServiceController {
             sessionId = sessionService.addSession(messageSendReq.getUserId(), messageSendReq.getToId(),
                     SessionType.SESSION_TYPE_SINGLE_VALUE);
         }
-        
+
         sessionService.update(sessionId, messageSendReq.getCreateTime());
+        
+        // 2019-7-9 update start
+        // 参考\db_proxy_server\business\MessageContent.cpp sendMessage
+        long peersessionId = sessionService.getSessionId(messageSendReq.getToId(), messageSendReq.getUserId(), 
+                SessionType.SESSION_TYPE_SINGLE_VALUE, false);
+        if (peersessionId == DBConstant.INVALIAD_VALUE) {
+        	peersessionId = sessionService.addSession(messageSendReq.getToId(), messageSendReq.getUserId(),
+                    SessionType.SESSION_TYPE_SINGLE_VALUE);
+        }
+
+        // 2019-7-9 update end
+        sessionService.update(peersessionId, messageSendReq.getCreateTime());
 
         // 计数
         // 存储用户信息及未读信息
