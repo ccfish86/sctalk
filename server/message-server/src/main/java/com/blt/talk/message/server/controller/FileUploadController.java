@@ -9,22 +9,19 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.blt.talk.common.io.MinioClientComponent;
 import com.blt.talk.common.model.BaseUnwrappedModel;
 import com.blt.talk.message.server.config.MessageServerConfig;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import net.mikesu.fastdfs.FastdfsClient;
-import net.mikesu.fastdfs.FastdfsClientFactory;
-import net.mikesu.fastdfs.data.BufferFile;
 
 /**
  * 文件上传
@@ -37,6 +34,9 @@ import net.mikesu.fastdfs.data.BufferFile;
 public class FileUploadController {
 
     private static String imageServer;
+    
+    @Autowired
+    private MinioClientComponent minioComponent;
     
     public FileUploadController(MessageServerConfig messageServerConfig) {
         imageServer = messageServerConfig.getFileServer();
@@ -52,21 +52,24 @@ public class FileUploadController {
             
             if (fileMap.size() > 0) {
                 try {
-                    FastdfsClient fastdfsClient = FastdfsClientFactory.getFastdfsClient();
-                    String fileId=null;
+//                    FastdfsClient fastdfsClient = FastdfsClientFactory.getFastdfsClient();
+//                    String fileId=null;
+                    String url = null;
                     for (MultipartFile file : fileMap.values()) {
                         if (file.getSize() > 0) {
-                            BufferFile fdfsFile = new BufferFile();
-                            fdfsFile.setName(file.getOriginalFilename());
-                            fdfsFile.setFiledata(file.getBytes());
-                            fileId = fastdfsClient.upload(fdfsFile);
+//                            BufferFile fdfsFile = new BufferFile();
+//                            fdfsFile.setName(file.getOriginalFilename());
+//                            fdfsFile.setFiledata(file.getBytes());
+//                            fileId = fastdfsClient.upload(fdfsFile);
+
+                            url = minioComponent.saveImage(file.getInputStream(), file.getOriginalFilename());
 
                             break;
                         }
                     }
                     
                     BaseUnwrappedModel<FileUploadRsp> rsp = new BaseUnwrappedModel<>();
-                    FileUploadRsp fileRsp = new FileUploadRsp(fileId);
+                    FileUploadRsp fileRsp = new FileUploadRsp(url);
                     rsp.setData(fileRsp);
                     return rsp;
                 } catch (Exception e) {
@@ -115,14 +118,13 @@ public class FileUploadController {
          * @param string
          */
         public FileUploadRsp(String path) {
-            // TODO Auto-generated constructor stub
             this.path= path;
         }
 
         /**
          * @return the url
          */
-        @JsonSerialize(using = FileUrlJsonSerializer.class)
+//        @JsonSerialize(using = FileUrlJsonSerializer.class)
         public String getUrl() {
             return path;
         }

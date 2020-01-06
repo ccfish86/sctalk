@@ -17,17 +17,39 @@
             <url>http://192.168.10.9/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+    <properties>
+        <protobuf.version>3.4.0</protobuf.version>
+        <common-lang.version>2.6</common-lang.version>
+        <netty.version>4.1.42.Final</netty.version>
+        <minio.version>6.0.11</minio.version>
+        <commons-io.version>2.6</commons-io.version>
+   </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>[4.3.1.RELEASE, 4.3.25.RELEASE)</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>[4.3.1.RELEASE, 4.3.25.RELEASE)</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>[1.5.9.RELEASE, 1.5.22.RELEASE)</version>
+        </dependency>
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>3.4.0</version>
+            <version>${protobuf.version}</version>
         </dependency>
         <!-- Netty -->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.42.Final</version>
+            <version>${netty.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -47,14 +69,24 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+            <version>${common-lang.version}</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15on</artifactId>
             <version>1.55</version>
         </dependency>
-
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <!-- minio -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>${minio.version}</version>
+        </dependency>
         <!-- just for test -->
         <dependency>
             <groupId>junit</groupId>
