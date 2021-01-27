@@ -4,9 +4,12 @@
 
 package com.blt.talk.service.internal.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.bouncycastle.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +18,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.blt.talk.common.constant.DBConstant;
+import com.blt.talk.common.io.MinioClientComponent;
+import com.blt.talk.common.io.model.FileEntity;
 import com.blt.talk.common.util.CommonUtils;
 import com.blt.talk.service.internal.AudioInternalService;
 import com.blt.talk.service.jpa.entity.IMAudio;
 import com.blt.talk.service.jpa.repository.IMAudioRepository;
-
-import net.mikesu.fastdfs.FastdfsClient;
-import net.mikesu.fastdfs.FastdfsClientFactory;
-import net.mikesu.fastdfs.data.BufferFile;
 
 /**
  * 语音处理Service
@@ -38,6 +39,9 @@ public class AudioInternalServiceImpl implements AudioInternalService {
     
     @Autowired
     private IMAudioRepository audioRepository;
+    
+    @Autowired
+    private MinioClientComponent minioComponent;
     
     /* (non-Javadoc)
      * @see com.blt.talk.service.internal.AudioInternalService#saveAudioInfo(long, long, int, com.google.protobuf.ByteString)
@@ -59,25 +63,27 @@ public class AudioInternalServiceImpl implements AudioInternalService {
         
         // 上传文件
         try {
-            FastdfsClient fastdfsClient = FastdfsClientFactory.getFastdfsClient();
-            BufferFile fdfsFile = new BufferFile();
-            fdfsFile.setName(fileName);
-            fdfsFile.setFiledata(content);
-            String fileId = fastdfsClient.upload(fdfsFile);
-
-            String path = fileId;
-            // 存DB
-            IMAudio audio = new IMAudio();
-            audio.setFromId(fromId);
-            audio.setToId(toId);
-            audio.setCreated(time);
-            audio.setDuration(costTime);
-            audio.setPath(path);
-            audio.setSize(realLen);
-            
-            audio = audioRepository.save(audio);
-
-            return audio.getId();
+//            FastdfsClient fastdfsClient = FastdfsClientFactory.getFastdfsClient();
+//            BufferFile fdfsFile = new BufferFile();
+//            fdfsFile.setName(fileName);
+//            fdfsFile.setFiledata(content);
+//            String fileId = fastdfsClient.upload(fdfsFile);
+            try (InputStream inputStream = new ByteArrayInputStream(content)) {
+                
+                String path = minioComponent.saveAuthFile(inputStream, fileName, "audio/x-speex");
+                // 存DB
+                IMAudio audio = new IMAudio();
+                audio.setFromId(fromId);
+                audio.setToId(toId);
+                audio.setCreated(time);
+                audio.setDuration(costTime);
+                audio.setPath(path);
+                audio.setSize(realLen);
+                
+                audio = audioRepository.save(audio);
+    
+                return audio.getId();
+            }
         } catch (Exception e) {
             logger.warn("语音上传失败！", e);
         }
@@ -99,10 +105,10 @@ public class AudioInternalServiceImpl implements AudioInternalService {
         
         // 下载文件
         try {
-            FastdfsClient fastdfsClient = FastdfsClientFactory.getFastdfsClient();
-            BufferFile audioFile = fastdfsClient.download(audio.getPath());
-
-            return audioFile.getFiledata();
+//            FastdfsClient fastdfsClient = FastdfsClientFactory.getFastdfsClient();
+//            BufferFile audioFile = fastdfsClient.download(audio.getPath());
+            FileEntity file = minioComponent.getAuthFileContent(audio.getPath());
+            return IOUtils.toByteArray(file.getContent());
         } catch (Exception e) {
             logger.warn("语音读取失败！", e);
         }

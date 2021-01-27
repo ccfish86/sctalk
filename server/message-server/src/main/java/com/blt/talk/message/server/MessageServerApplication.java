@@ -7,12 +7,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @Configuration
 @EnableAsync
+@ComponentScan(basePackages = {"com.blt.talk.common.io", "com.blt.talk.message.server"})
 @EnableFeignClients
 @EnableDiscoveryClient
 public class MessageServerApplication {

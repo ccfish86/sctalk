@@ -149,7 +149,12 @@ public final class UserClientInfoManager implements InitializingBean {
      * @since 1.0
      */
     public void erase(Long userId, Long netid) {
-        if (userClientInfoMap.containsKey(userId)) {
+        // 2020-07-20 修复客户端重连后删除一个超时连接时，把整个Client信息从在线Clients删除的问题
+//        if (userClientInfoMap.containsKey(userId)) {
+//            userClientInfoMap.remove(userId);
+//        }
+        UserClientInfo userClientInfo = userClientInfoMap.get(userId);
+        if (userClientInfo != null && userClientInfo.netConnects.isEmpty()) {
             userClientInfoMap.remove(userId);
         }
         serverUserMap.remove(netid, userId);

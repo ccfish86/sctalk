@@ -36,7 +36,7 @@
 
 ### 环境
 
-本项目中的服务器环境，使用JDK8 + PostgreSQL/MySQL + Redis + Fastdfs(图片及语音消息使用) + nginx。
+本项目中的服务器环境，使用JDK8 + PostgreSQL/MySQL + Redis + minio(图片及语音消息使用) + nginx。
 
 内存2G以上即可，对系统其他组件的版本无要求。
 

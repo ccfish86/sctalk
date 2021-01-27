@@ -1,0 +1,32 @@
+eureka:
+  client:
+    fetch-registry: true
+    instance-info-replication-interval-seconds: 10
+    register-with-eureka: true
+    registry-fetch-interval-seconds: 10
+    service-url:
+      defaultZone: ${eureka.server:http://localhost:8800/eureka}
+  instance:
+    prefer-ip-address: true
+server:
+  port: ${port:8080}
+spring:
+  application:
+    name: message-server
+  http:
+    multipart:
+      max-file-size: 10Mb
+talk:
+  message:
+    fileServer: ${imageUrl:http://www.100902.com/}
+    hazelcast:
+      backup-count: 1
+      time-to-live-seconds: 3600
+    ip: ${message.ip:192.168.20.251}
+    port: ${message.port:0}
+minio:
+  endpoint: http://192.168.10.74:9000
+  port: 9000
+  default-bucket: public
+  access-key: admin
+  secret-key: admin123456

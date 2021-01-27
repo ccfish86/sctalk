@@ -1,0 +1,81 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: ${eureka.server:http://localhost:8800/eureka}
+  instance:
+    ip-address: ${host:localhost}
+    metadata-map:
+      instanceId: ${spring.application.name}:${random.value}
+    prefer-ip-address: true
+server:
+  port: ${port:10062}
+sharding:
+  jdbc:
+    config:
+      sharding:
+        tables:
+          im_group_message:
+            actual-data-nodes: teamtalk.im_group_message_${0..9}
+            key-generator-column-name: id
+            table-strategy:
+              inline:
+                algorithm-expression: im_group_message_${group_id % 10}
+                sharding-column: group_id
+          im_message:
+            actual-data-nodes: teamtalk.im_message_${0..9}
+            key-generator-column-name: id
+            table-strategy:
+              inline:
+                algorithm-expression: im_message_${relate_id % 10}
+                sharding-column: relate_id
+    datasource:
+      names: teamtalk
+      teamtalk:
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbcUrl: jdbc:mysql://localhost:3306/teamtalk?useSSL=false&useUnicode=true&characterEncoding=utf-8
+        password: teamtalk123
+        type: com.zaxxer.hikari.HikariDataSource
+        username: teamtalk
+spring:
+  application:
+    name: talk-db-server
+  datasource:
+    hikari:
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+      idle-timeout: 30000
+      max-lifetime: 30000
+      maximum-pool-size: 20
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        hbm2ddl:
+          auto: none
+        show_sql: true
+  redis:
+    database: 2
+    host: ${redis.host:192.168.10.22}
+    password: ''
+    pool:
+      maxActive: 50
+      maxIdle: 300
+      maxWait: -1
+      minIdle: 10
+    port: 6379
+    timeout: 5000
+talk:
+  push:
+    ios:
+      certKeyPath: the path of .p12 for ios
+      certPassword: ''
+    testMode: true
+minio:
+  endpoint: http://192.168.10.74:9000
+  port: 9000
+  default-bucket: public
+  access-key: admin
+  secret-key: admin123456

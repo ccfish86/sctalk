@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
  * @since 1.0
  */
 @EnableDiscoveryClient
+@ComponentScan(basePackages = {"com.blt.talk.common.io", "com.blt.talk.service"})
 @EnableAutoConfiguration
 @SpringBootApplication
 public class TalkDbProxyApplication {
