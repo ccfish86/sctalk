@@ -38,7 +38,7 @@ public final class PacketEncoder extends MessageToByteEncoder<IMProtoMessage<Mes
             // Set the length of bytebuf
             header.setLength(SysConstant.PROTOCOL_HEADER_LENGTH + length);
             
-            byte[] allbytes = header.encode().array();
+            byte[] allbytes = header.encode();
             allbytes = Arrays.copyOf(allbytes, SysConstant.PROTOCOL_HEADER_LENGTH + length);
             
             for (int i = 0; i < length; i++) {

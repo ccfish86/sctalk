@@ -4,6 +4,7 @@
 
 package com.blt.talk.common.code;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -49,11 +50,14 @@ public class PacketWsFrameEncoder extends MessageToMessageEncoder<IMProtoMessage
             // Set the length of bytebuf
             header.setLength(SysConstant.PROTOCOL_HEADER_LENGTH + length);
             
-            ByteBuf allbytes = header.encode().buffer;
-            allbytes.writeBytes(bytes);
+            ByteBuf byteBuf = ctx.alloc().buffer(header.getLength());
+            byte[] headerBytes = header.encode();
+            
+            byteBuf.writeBytes(headerBytes);
+            byteBuf.writeBytes(bytes);
             
             // allbytes
-            BinaryWebSocketFrame wsFrame = new BinaryWebSocketFrame(allbytes);
+            BinaryWebSocketFrame wsFrame = new BinaryWebSocketFrame(byteBuf);
             
             out.add(wsFrame);
             logger.debug("Sent protobuf: commandId={}", header.getCommandId());

@@ -37,10 +37,11 @@ public final class PacketDecoder extends ByteToMessageDecoder {
                 return;
             }
 
-            DataBuffer dataBuf = new DataBuffer(in);
-
+            ByteBuf headerBuf = ctx.alloc().buffer(SysConstant.PROTOCOL_HEADER_LENGTH);
+            in.readBytes(headerBuf);
+            
             IMHeader header = new IMHeader();
-            header.decode(dataBuf);
+            header.decode(headerBuf);
 
             if (header.getLength() < 0) {
                 ctx.close();
