@@ -23,6 +23,6 @@ import com.blt.talk.service.jpa.entity.IMGroup;
  */
 public interface IMGroupRepository extends JpaRepository<IMGroup, Long>, PagingAndSortingRepository<IMGroup, Long>, JpaSpecificationExecutor<IMGroup> {
 
-    @Query("from IMGroup as g inner join fetch g.groupMemberList e where e.userId = ? and g.type=1")
+    @Query("from IMGroup as g inner join fetch g.groupMemberList e where e.userId = ?1 and g.type=1")
     List<IMGroup> findByUserId(@Param("userId") long userId);
 }
