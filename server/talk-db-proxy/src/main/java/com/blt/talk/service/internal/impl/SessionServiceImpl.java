@@ -47,7 +47,7 @@ public class SessionServiceImpl implements SessionService {
         recentSessionCriteria.add(JpaRestrictions.eq("type", type, false));
 
         List<IMRecentSession> recentSessions =
-                recentSessionRepository.findAll(recentSessionCriteria, new Sort(Sort.Direction.DESC, "updated"));
+                recentSessionRepository.findAll(recentSessionCriteria, Sort.by(Sort.Direction.DESC, "updated"));
 
         IMRecentSession recentSession;
         if (!recentSessions.isEmpty()) {
@@ -89,7 +89,7 @@ public class SessionServiceImpl implements SessionService {
         }
 
         List<IMRecentSession> recentSessions =
-                recentSessionRepository.findAll(recentSessionCriteria, new Sort(Sort.Direction.DESC, "updated"));
+                recentSessionRepository.findAll(recentSessionCriteria, Sort.by(Sort.Direction.DESC, "updated"));
 
         if (!recentSessions.isEmpty()) {
             recentSessions.get(0).getId();
@@ -104,7 +104,7 @@ public class SessionServiceImpl implements SessionService {
     @Transactional
     public void remove(long sessionId) {
         int time = CommonUtils.currentTimeSeconds();
-        IMRecentSession session = recentSessionRepository.findOne(sessionId);
+        IMRecentSession session = recentSessionRepository.getOne(sessionId);
         if (session != null) {
             session.setStatus(DBConstant.DELETE_STATUS_DELETE);
             session.setUpdated(time);
@@ -118,7 +118,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     @Transactional
     public void update(long sessionId, int time) {
-        IMRecentSession session = recentSessionRepository.findOne(sessionId);
+        IMRecentSession session = recentSessionRepository.getOne(sessionId);
         session.setUpdated(time);
 
         recentSessionRepository.save(session);

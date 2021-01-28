@@ -4,6 +4,7 @@
 
 package com.blt.talk.service.jpa.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -16,6 +17,6 @@ import com.blt.talk.service.jpa.entity.IMRecentSession;
  * @version 1.0
  * @since  1.0
  */
-public interface IMRecentSessionRepository extends PagingAndSortingRepository<IMRecentSession, Long>, JpaSpecificationExecutor<IMRecentSession>  {
+public interface IMRecentSessionRepository extends JpaRepository<IMRecentSession, Long>, PagingAndSortingRepository<IMRecentSession, Long>, JpaSpecificationExecutor<IMRecentSession>  {
 
 }

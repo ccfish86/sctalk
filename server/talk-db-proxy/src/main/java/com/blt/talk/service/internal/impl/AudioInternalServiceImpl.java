@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.util.Arrays;
@@ -98,7 +99,7 @@ public class AudioInternalServiceImpl implements AudioInternalService {
     @Transactional(readOnly = true)
     public byte[] readAudioInfo(long id) {
 
-        IMAudio audio = audioRepository.findOne(id);
+        IMAudio audio = audioRepository.getOne(id);
         if (audio == null) {
             return null;
         }

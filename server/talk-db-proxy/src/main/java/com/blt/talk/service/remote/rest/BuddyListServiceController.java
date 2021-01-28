@@ -63,7 +63,7 @@ public class BuddyListServiceController {
     public BaseModel<?> updateUserSignInfo(@RequestBody final BuddyListUserSignInfoReq signInfo) {
 
         int time = CommonUtils.currentTimeSeconds();
-        IMUser imuser = userRepository.findOne(signInfo.getUserId());
+        IMUser imuser = userRepository.getOne(signInfo.getUserId());
         imuser.setSignInfo(signInfo.getSignInfo());
         imuser.setUpdated(time);
 
@@ -82,7 +82,7 @@ public class BuddyListServiceController {
     public BaseModel<?> updateUserAvatar(@RequestBody BuddyListUserAvatarReq userAvatarReq) {
 
         int time = CommonUtils.currentTimeSeconds();
-        IMUser imuser = userRepository.findOne(userAvatarReq.getUserId());
+        IMUser imuser = userRepository.getOne(userAvatarReq.getUserId());
         imuser.setAvatar(userAvatarReq.getAvatarUrl());
         imuser.setUpdated(time);
 
@@ -101,7 +101,7 @@ public class BuddyListServiceController {
     public BaseModel<?> updateUserInfo(@RequestBody BuddyListUserInfoReq userInfoReq) {
 
         int time = CommonUtils.currentTimeSeconds();
-        IMUser imuser = userRepository.findOne(userInfoReq.getUserId());
+        IMUser imuser = userRepository.getOne(userInfoReq.getUserId());
         imuser.setPhone(userInfoReq.getTelephone());
         imuser.setEmail(userInfoReq.getEmail());
         imuser.setSignInfo(userInfoReq.getSignInfo());
@@ -128,8 +128,8 @@ public class BuddyListServiceController {
         SearchCriteria<IMUser> userSearchCriteria = new SearchCriteria<>();
         userSearchCriteria.add(JpaRestrictions.gte("updated", lastUpdateTime, false));
         userSearchCriteria.add(JpaRestrictions.ne("status", DBConstant.USER_STATUS_LEAVE, false));
-        Sort sortUser = new Sort(Sort.Direction.ASC, "updated", "id");
-        Pageable pageable = new PageRequest(0, MAX_USER_FETCH, sortUser);
+        Sort sortUser = Sort.by(Sort.Direction.ASC, "updated", "id");
+        Pageable pageable = PageRequest.of(0, MAX_USER_FETCH, sortUser);
         
         Page<IMUser> users = userRepository.findAll(userSearchCriteria, pageable);
 
