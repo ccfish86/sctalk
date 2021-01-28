@@ -26,7 +26,7 @@ import com.blt.talk.common.param.MessageSendReq;
  * @version 1.0
  * @since  1.0
  */
-@FeignClient("talk-db-server")
+@FeignClient(name = "talk-db-server", contextId = "message")
 public interface MessageService {
 
     /**

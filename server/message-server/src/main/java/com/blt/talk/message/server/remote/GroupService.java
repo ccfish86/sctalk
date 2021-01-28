@@ -27,7 +27,7 @@ import com.blt.talk.common.param.GroupUpdateMemberReq;
  * @version 1.0
  * @since  1.0
  */
-@FeignClient("talk-db-server")
+@FeignClient(name = "talk-db-server", contextId = "group")
 public interface GroupService {
 
     /**

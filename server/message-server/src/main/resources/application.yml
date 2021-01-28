@@ -1,29 +1,21 @@
-eureka:
-  client:
-    fetch-registry: true
-    instance-info-replication-interval-seconds: 10
-    register-with-eureka: true
-    registry-fetch-interval-seconds: 10
-    service-url:
-      defaultZone: ${eureka.server:http://localhost:8800/eureka}
-  instance:
-    prefer-ip-address: true
 server:
   port: ${port:8080}
 spring:
   application:
     name: message-server
-  http:
-    multipart:
-      max-file-size: 10Mb
+  servlet:    multipart:      max-file-size: 10MB
+  cloud:    consul:      host: 127.0.0.1
+      port: 8500
+      discovery:        prefer-ip-address: true
+    inetutils:      preferred-networks:      - 192.168 # 注册时使用的网络
 talk:
   message:
     fileServer: ${imageUrl:http://www.100902.com/}
     hazelcast:
       backup-count: 1
       time-to-live-seconds: 3600
-    ip: ${message.ip:192.168.20.251}
-    port: ${message.port:0}
+    ip: ${message.ip:192.168.124.24}
+    port: ${message.port:8009}
     
 minio:
   endpoint: http://192.168.10.74:9000

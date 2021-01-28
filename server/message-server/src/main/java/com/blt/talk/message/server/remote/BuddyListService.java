@@ -26,7 +26,7 @@ import com.blt.talk.common.param.SessionRemoveReq;
  * @version 1.0
  * @since  1.0
  */
-@FeignClient("talk-db-server")
+@FeignClient(name = "talk-db-server", contextId = "buddy")
 public interface BuddyListService {
 
     @PostMapping(path = "/buddyList/updateUserSignInfo")

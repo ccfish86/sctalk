@@ -25,7 +25,7 @@ import com.blt.talk.common.param.UserToken;
  * @since  1.0
  */
 
-@FeignClient("talk-db-server")
+@FeignClient(name = "talk-db-server", contextId = "login")
 public interface LoginService {
 
     @PostMapping(path = "/login")

@@ -1,44 +1,46 @@
-eureka:
-  client:
-    service-url:
-      defaultZone: ${eureka.server:http://localhost:8800/eureka}
-  instance:
-    ip-address: ${host:localhost}
-    metadata-map:
-      instanceId: ${spring.application.name}:${random.value}
-    prefer-ip-address: true
 server:
-  port: ${port:10062}
-sharding:
-  jdbc:
-    config:
-      sharding:
-        tables:
-          im_group_message:
-            actual-data-nodes: teamtalk.im_group_message_${0..9}
-            key-generator-column-name: id
-            table-strategy:
-              inline:
-                algorithm-expression: im_group_message_${group_id % 10}
-                sharding-column: group_id
-          im_message:
-            actual-data-nodes: teamtalk.im_message_${0..9}
-            key-generator-column-name: id
-            table-strategy:
-              inline:
-                algorithm-expression: im_message_${relate_id % 10}
-                sharding-column: relate_id
-    datasource:
-      names: teamtalk
-      teamtalk:
-        driver-class-name: com.mysql.jdbc.Driver
-        jdbcUrl: jdbc:mysql://localhost:3306/teamtalk?useSSL=false&useUnicode=true&characterEncoding=utf-8
-        password: teamtalk123
-        type: com.zaxxer.hikari.HikariDataSource
-        username: teamtalk
+  port: ${port:8091}
 spring:
   application:
     name: talk-db-server
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+    inetutils:
+      preferred-networks:
+      - 192.168 # 注册时使用的网络
+  shardingsphere:    enabled: true
+    props:
+      sql:
+        show: true
+    datasource:
+      names: teamtalk
+      teamtalk:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://localhost:3306/teamtalk?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+        password: teamtalk123
+        username: teamtalk
+        type: com.zaxxer.hikari.HikariDataSource
+        maxPoolSize: 10
+        minPoolSize: 2
+        idleTimeoutMilliseconds: 10000
+    sharding:
+      tables:
+        im_group_message:
+          actual-data-nodes: teamtalk.im_group_message_${0..9}
+          table-strategy:
+            inline:
+              algorithm-expression: im_group_message_${group_id % 10}
+              sharding-column: group_id
+        im_message:
+          actual-data-nodes: teamtalk.im_message_${0..9}
+          table-strategy:
+            inline:
+              algorithm-expression: im_message_${relate_id % 10}
+              sharding-column: relate_id
   datasource:
     hikari:
       data-source-properties:
@@ -52,13 +54,13 @@ spring:
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
         hbm2ddl:
           auto: none
         show_sql: true
   redis:
     database: 2
-    host: ${redis.host:192.168.10.22}
+    host: ${redis.host:127.0.0.1}
     password: ''
     pool:
       maxActive: 50
@@ -67,6 +69,8 @@ spring:
       minIdle: 10
     port: 6379
     timeout: 5000
+management:
+  health:    db:      enabled: false
 talk:
   push:
     ios:

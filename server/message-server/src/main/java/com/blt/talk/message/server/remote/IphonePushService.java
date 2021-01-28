@@ -22,7 +22,7 @@ import com.blt.talk.common.param.IosPushReq;
  * @version 3.0
  * @since  3.0
  */
-@FeignClient("talk-db-server")
+@FeignClient(name = "talk-db-server", contextId = "iphone")
 public interface IphonePushService {
 
     /**

@@ -20,7 +20,7 @@ import com.blt.talk.common.model.entity.ContactSessionEntity;
  * @version 1.0
  * @since  1.0
  */
-@FeignClient("talk-db-server")
+@FeignClient(name = "talk-db-server", contextId = "recent")
 public interface RecentSessionService {
 
     @GetMapping(path = "/session/recentSession")

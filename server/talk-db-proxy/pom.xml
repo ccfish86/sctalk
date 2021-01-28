@@ -35,7 +35,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
+        <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
         <java.version>11</java.version>
         <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
     </properties>
@@ -46,6 +46,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-consul-discovery</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -61,10 +66,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- <dependency> -->
-        <!-- <groupId>org.springframework.boot</groupId> -->
-        <!-- <artifactId>spring-boot-starter-security</artifactId> -->
-        <!-- </dependency> -->
 
         <!-- -IOS推送 -->
         <dependency>
@@ -79,8 +80,8 @@
             <scope>runtime</scope>
         </dependency>
        <dependency>
-            <groupId>io.shardingjdbc</groupId>
-            <artifactId>sharding-jdbc-core-spring-boot-starter</artifactId>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
             <version>${sharding-jdbc.version}</version>
         </dependency>
         <!-- mysql -->

@@ -20,7 +20,7 @@ import com.blt.talk.common.model.entity.DepartmentEntity;
  * @version 1.0
  * @since  1.0
  */
-@FeignClient("talk-db-server")
+@FeignClient(name = "talk-db-server", contextId = "dept")
 public interface DepartmentService {
 
     /**
