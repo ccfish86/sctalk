@@ -6,6 +6,7 @@ package com.blt.talk.service.jpa.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -20,8 +21,8 @@ import com.blt.talk.service.jpa.entity.IMGroup;
  * @version 1.0
  * @since  1.0
  */
-public interface IMGroupRepository extends PagingAndSortingRepository<IMGroup, Long>, JpaSpecificationExecutor<IMGroup> {
+public interface IMGroupRepository extends JpaRepository<IMGroup, Long>, PagingAndSortingRepository<IMGroup, Long>, JpaSpecificationExecutor<IMGroup> {
 
-    @Query("from IMGroup as g inner join fetch g.groupMemberList e where e.userId = ? and g.type=1")
+    @Query("from IMGroup as g inner join fetch g.groupMemberList e where e.userId = ?1 and g.type=1")
     List<IMGroup> findByUserId(@Param("userId") long userId);
 }

@@ -47,7 +47,7 @@ public class DepartmentServiceController {
         SearchCriteria<IMDepart> departSearchCriteria = new SearchCriteria<>();
         departSearchCriteria.add(JpaRestrictions.gte("updated", lastTime, false));
         
-        Sort sort = new Sort(Sort.Direction.ASC, "updated");
+        Sort sort = Sort.by(Sort.Direction.ASC, "updated");
         
         List<IMDepart> depts = departRepository.findAll(departSearchCriteria, sort);
         

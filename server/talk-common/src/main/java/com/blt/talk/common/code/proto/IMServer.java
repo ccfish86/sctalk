@@ -8,9 +8,15 @@ public final class IMServer {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
   }
+
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
   public interface IMStopReceivePacketOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMStopReceivePacket)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -18,6 +24,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 result = 1;</code>
+     * @return Whether the result field is set.
      */
     boolean hasResult();
     /**
@@ -26,6 +33,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 result = 1;</code>
+     * @return The result.
      */
     int getResult();
   }
@@ -36,13 +44,86 @@ public final class IMServer {
    *
    * Protobuf type {@code IM.Server.IMStopReceivePacket}
    */
-  public  static final class IMStopReceivePacket extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMStopReceivePacket, IMStopReceivePacket.Builder> implements
+  public static final class IMStopReceivePacket extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMStopReceivePacket)
       IMStopReceivePacketOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMStopReceivePacket.newBuilder() to construct.
+    private IMStopReceivePacket(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMStopReceivePacket() {
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMStopReceivePacket();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMStopReceivePacket(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              result_ = input.readUInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMStopReceivePacket_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMStopReceivePacket_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket.class, com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket.Builder.class);
+    }
+
     private int bitField0_;
     public static final int RESULT_FIELD_NUMBER = 1;
     private int result_;
@@ -52,9 +133,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 result = 1;</code>
+     * @return Whether the result field is set.
      */
+    @java.lang.Override
     public boolean hasResult() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -62,136 +145,177 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 result = 1;</code>
+     * @return The result.
      */
+    @java.lang.Override
     public int getResult() {
       return result_;
     }
-    /**
-     * <pre>
-     *cmd id:   0x0702
-     * </pre>
-     *
-     * <code>required uint32 result = 1;</code>
-     */
-    private void setResult(int value) {
-      bitField0_ |= 0x00000001;
-      result_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:   0x0702
-     * </pre>
-     *
-     * <code>required uint32 result = 1;</code>
-     */
-    private void clearResult() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      result_ = 0;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasResult()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt32(1, result_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, result_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket other = (com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket) obj;
+
+      if (hasResult() != other.hasResult()) return false;
+      if (hasResult()) {
+        if (getResult()
+            != other.getResult()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasResult()) {
+        hash = (37 * hash) + RESULT_FIELD_NUMBER;
+        hash = (53 * hash) + getResult();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * <pre>
      *db_proxy
@@ -200,25 +324,171 @@ public final class IMServer {
      * Protobuf type {@code IM.Server.IMStopReceivePacket}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMStopReceivePacket)
         com.blt.talk.common.code.proto.IMServer.IMStopReceivePacketOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMStopReceivePacket_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMStopReceivePacket_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket.class, com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        result_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMStopReceivePacket_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket build() {
+        com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket result = new com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.result_ = result_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket.getDefaultInstance()) return this;
+        if (other.hasResult()) {
+          setResult(other.getResult());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasResult()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int result_ ;
       /**
        * <pre>
        *cmd id:   0x0702
        * </pre>
        *
        * <code>required uint32 result = 1;</code>
+       * @return Whether the result field is set.
        */
+      @java.lang.Override
       public boolean hasResult() {
-        return instance.hasResult();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -226,9 +496,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 result = 1;</code>
+       * @return The result.
        */
+      @java.lang.Override
       public int getResult() {
-        return instance.getResult();
+        return result_;
       }
       /**
        * <pre>
@@ -236,10 +508,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 result = 1;</code>
+       * @param value The result to set.
+       * @return This builder for chaining.
        */
       public Builder setResult(int value) {
-        copyOnWrite();
-        instance.setResult(value);
+        bitField0_ |= 0x00000001;
+        result_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -248,132 +523,70 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 result = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearResult() {
-        copyOnWrite();
-        instance.clearResult();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        result_ = 0;
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMStopReceivePacket)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasResult()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket other = (com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket) arg1;
-          result_ = visitor.visitInt(
-              hasResult(), result_,
-              other.hasResult(), other.result_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  result_ = input.readUInt32();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMStopReceivePacket)
     private static final com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMStopReceivePacket();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMStopReceivePacket> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMStopReceivePacket>
+        PARSER = new com.google.protobuf.AbstractParser<IMStopReceivePacket>() {
+      @java.lang.Override
+      public IMStopReceivePacket parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMStopReceivePacket(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMStopReceivePacket> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMStopReceivePacket> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMStopReceivePacket getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMValidateReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMValidateReq)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -381,6 +594,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return Whether the userName field is set.
      */
     boolean hasUserName();
     /**
@@ -389,6 +603,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return The userName.
      */
     java.lang.String getUserName();
     /**
@@ -397,30 +612,36 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return The bytes for userName.
      */
     com.google.protobuf.ByteString
         getUserNameBytes();
 
     /**
      * <code>required string password = 2;</code>
+     * @return Whether the password field is set.
      */
     boolean hasPassword();
     /**
      * <code>required string password = 2;</code>
+     * @return The password.
      */
     java.lang.String getPassword();
     /**
      * <code>required string password = 2;</code>
+     * @return The bytes for password.
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
@@ -431,28 +652,115 @@ public final class IMServer {
    *
    * Protobuf type {@code IM.Server.IMValidateReq}
    */
-  public  static final class IMValidateReq extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMValidateReq, IMValidateReq.Builder> implements
+  public static final class IMValidateReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMValidateReq)
       IMValidateReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMValidateReq.newBuilder() to construct.
+    private IMValidateReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMValidateReq() {
       userName_ = "";
       password_ = "";
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMValidateReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMValidateReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              userName_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              password_ = bs;
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000004;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMValidateReq.class, com.blt.talk.common.code.proto.IMServer.IMValidateReq.Builder.class);
+    }
+
     private int bitField0_;
     public static final int USER_NAME_FIELD_NUMBER = 1;
-    private java.lang.String userName_;
+    private volatile java.lang.Object userName_;
     /**
      * <pre>
      *cmd id:	0x0703
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return Whether the userName field is set.
      */
+    @java.lang.Override
     public boolean hasUserName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -460,9 +768,22 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return The userName.
      */
+    @java.lang.Override
     public java.lang.String getUserName() {
-      return userName_;
+      java.lang.Object ref = userName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          userName_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <pre>
@@ -470,253 +791,288 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return The bytes for userName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUserNameBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(userName_);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0703
-     * </pre>
-     *
-     * <code>required string user_name = 1;</code>
-     */
-    private void setUserName(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      userName_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0703
-     * </pre>
-     *
-     * <code>required string user_name = 1;</code>
-     */
-    private void clearUserName() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      userName_ = getDefaultInstance().getUserName();
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0703
-     * </pre>
-     *
-     * <code>required string user_name = 1;</code>
-     */
-    private void setUserNameBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      userName_ = value.toStringUtf8();
+      java.lang.Object ref = userName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int PASSWORD_FIELD_NUMBER = 2;
-    private java.lang.String password_;
+    private volatile java.lang.Object password_;
     /**
      * <code>required string password = 2;</code>
+     * @return Whether the password field is set.
      */
+    @java.lang.Override
     public boolean hasPassword() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required string password = 2;</code>
+     * @return The password.
      */
+    @java.lang.Override
     public java.lang.String getPassword() {
-      return password_;
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          password_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <code>required string password = 2;</code>
+     * @return The bytes for password.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPasswordBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(password_);
-    }
-    /**
-     * <code>required string password = 2;</code>
-     */
-    private void setPassword(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-      password_ = value;
-    }
-    /**
-     * <code>required string password = 2;</code>
-     */
-    private void clearPassword() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      password_ = getDefaultInstance().getPassword();
-    }
-    /**
-     * <code>required string password = 2;</code>
-     */
-    private void setPasswordBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-      password_ = value.toStringUtf8();
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        password_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPassword()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeString(1, getUserName());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userName_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeString(2, getPassword());
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(1, getUserName());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userName_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(2, getPassword());
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMValidateReq)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMValidateReq other = (com.blt.talk.common.code.proto.IMServer.IMValidateReq) obj;
+
+      if (hasUserName() != other.hasUserName()) return false;
+      if (hasUserName()) {
+        if (!getUserName()
+            .equals(other.getUserName())) return false;
+      }
+      if (hasPassword() != other.hasPassword()) return false;
+      if (hasPassword()) {
+        if (!getPassword()
+            .equals(other.getPassword())) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasUserName()) {
+        hash = (37 * hash) + USER_NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getUserName().hashCode();
+      }
+      if (hasPassword()) {
+        hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
+        hash = (53 * hash) + getPassword().hashCode();
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMValidateReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * <pre>
      *db_proxy
@@ -725,25 +1081,195 @@ public final class IMServer {
      * Protobuf type {@code IM.Server.IMValidateReq}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMValidateReq, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMValidateReq)
         com.blt.talk.common.code.proto.IMServer.IMValidateReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMValidateReq.class, com.blt.talk.common.code.proto.IMServer.IMValidateReq.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMValidateReq.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        userName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        password_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMValidateReq getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMValidateReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMValidateReq build() {
+        com.blt.talk.common.code.proto.IMServer.IMValidateReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMValidateReq buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMValidateReq result = new com.blt.talk.common.code.proto.IMServer.IMValidateReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userName_ = userName_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.password_ = password_;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMValidateReq) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMValidateReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMValidateReq other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMValidateReq.getDefaultInstance()) return this;
+        if (other.hasUserName()) {
+          bitField0_ |= 0x00000001;
+          userName_ = other.userName_;
+          onChanged();
+        }
+        if (other.hasPassword()) {
+          bitField0_ |= 0x00000002;
+          password_ = other.password_;
+          onChanged();
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasUserName()) {
+          return false;
+        }
+        if (!hasPassword()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMValidateReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMValidateReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object userName_ = "";
       /**
        * <pre>
        *cmd id:	0x0703
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @return Whether the userName field is set.
        */
       public boolean hasUserName() {
-        return instance.hasUserName();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -751,9 +1277,21 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @return The userName.
        */
       public java.lang.String getUserName() {
-        return instance.getUserName();
+        java.lang.Object ref = userName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            userName_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <pre>
@@ -761,10 +1299,20 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @return The bytes for userName.
        */
       public com.google.protobuf.ByteString
           getUserNameBytes() {
-        return instance.getUserNameBytes();
+        java.lang.Object ref = userName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <pre>
@@ -772,11 +1320,17 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @param value The userName to set.
+       * @return This builder for chaining.
        */
       public Builder setUserName(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setUserName(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        userName_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -785,10 +1339,12 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserName() {
-        copyOnWrite();
-        instance.clearUserName();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userName_ = getDefaultInstance().getUserName();
+        onChanged();
         return this;
       }
       /**
@@ -797,232 +1353,201 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @param value The bytes for userName to set.
+       * @return This builder for chaining.
        */
       public Builder setUserNameBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setUserNameBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        userName_ = value;
+        onChanged();
         return this;
       }
 
+      private java.lang.Object password_ = "";
       /**
        * <code>required string password = 2;</code>
+       * @return Whether the password field is set.
        */
       public boolean hasPassword() {
-        return instance.hasPassword();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required string password = 2;</code>
+       * @return The password.
        */
       public java.lang.String getPassword() {
-        return instance.getPassword();
+        java.lang.Object ref = password_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            password_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <code>required string password = 2;</code>
+       * @return The bytes for password.
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
-        return instance.getPasswordBytes();
+        java.lang.Object ref = password_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          password_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <code>required string password = 2;</code>
+       * @param value The password to set.
+       * @return This builder for chaining.
        */
       public Builder setPassword(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setPassword(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        password_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required string password = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPassword() {
-        copyOnWrite();
-        instance.clearPassword();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        password_ = getDefaultInstance().getPassword();
+        onChanged();
         return this;
       }
       /**
        * <code>required string password = 2;</code>
+       * @param value The bytes for password to set.
+       * @return This builder for chaining.
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setPasswordBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        password_ = value;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMValidateReq)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMValidateReq();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasUserName()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasPassword()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMValidateReq other = (com.blt.talk.common.code.proto.IMServer.IMValidateReq) arg1;
-          userName_ = visitor.visitString(
-              hasUserName(), userName_,
-              other.hasUserName(), other.userName_);
-          password_ = visitor.visitString(
-              hasPassword(), password_,
-              other.hasPassword(), other.password_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 10: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000001;
-                  userName_ = s;
-                  break;
-                }
-                case 18: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000002;
-                  password_ = s;
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000004;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMValidateReq.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMValidateReq)
     private static final com.blt.talk.common.code.proto.IMServer.IMValidateReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMValidateReq();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMValidateReq();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMValidateReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMValidateReq> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMValidateReq>
+        PARSER = new com.google.protobuf.AbstractParser<IMValidateReq>() {
+      @java.lang.Override
+      public IMValidateReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMValidateReq(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMValidateReq> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMValidateReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMValidateReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMValidateRspOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMValidateRsp)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -1030,6 +1555,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return Whether the userName field is set.
      */
     boolean hasUserName();
     /**
@@ -1038,6 +1564,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return The userName.
      */
     java.lang.String getUserName();
     /**
@@ -1046,48 +1573,62 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return The bytes for userName.
      */
     com.google.protobuf.ByteString
         getUserNameBytes();
 
     /**
      * <code>required uint32 result_code = 2;</code>
+     * @return Whether the resultCode field is set.
      */
     boolean hasResultCode();
     /**
      * <code>required uint32 result_code = 2;</code>
+     * @return The resultCode.
      */
     int getResultCode();
 
     /**
      * <code>optional string result_string = 3;</code>
+     * @return Whether the resultString field is set.
      */
     boolean hasResultString();
     /**
      * <code>optional string result_string = 3;</code>
+     * @return The resultString.
      */
     java.lang.String getResultString();
     /**
      * <code>optional string result_string = 3;</code>
+     * @return The bytes for resultString.
      */
     com.google.protobuf.ByteString
         getResultStringBytes();
 
     /**
      * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+     * @return Whether the userInfo field is set.
      */
     boolean hasUserInfo();
     /**
      * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+     * @return The userInfo.
      */
     com.blt.talk.common.code.proto.IMBaseDefine.UserInfo getUserInfo();
+    /**
+     * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+     */
+    com.blt.talk.common.code.proto.IMBaseDefine.UserInfoOrBuilder getUserInfoOrBuilder();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
@@ -1098,28 +1639,133 @@ public final class IMServer {
    *
    * Protobuf type {@code IM.Server.IMValidateRsp}
    */
-  public  static final class IMValidateRsp extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMValidateRsp, IMValidateRsp.Builder> implements
+  public static final class IMValidateRsp extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMValidateRsp)
       IMValidateRspOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMValidateRsp.newBuilder() to construct.
+    private IMValidateRsp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMValidateRsp() {
       userName_ = "";
       resultString_ = "";
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMValidateRsp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMValidateRsp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              userName_ = bs;
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              resultCode_ = input.readUInt32();
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              resultString_ = bs;
+              break;
+            }
+            case 34: {
+              com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000008) != 0)) {
+                subBuilder = userInfo_.toBuilder();
+              }
+              userInfo_ = input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(userInfo_);
+                userInfo_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000008;
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000010;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateRsp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateRsp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMValidateRsp.class, com.blt.talk.common.code.proto.IMServer.IMValidateRsp.Builder.class);
+    }
+
     private int bitField0_;
     public static final int USER_NAME_FIELD_NUMBER = 1;
-    private java.lang.String userName_;
+    private volatile java.lang.Object userName_;
     /**
      * <pre>
      *cmd id:	0x0704
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return Whether the userName field is set.
      */
+    @java.lang.Override
     public boolean hasUserName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -1127,9 +1773,22 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return The userName.
      */
+    @java.lang.Override
     public java.lang.String getUserName() {
-      return userName_;
+      java.lang.Object ref = userName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          userName_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <pre>
@@ -1137,348 +1796,371 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string user_name = 1;</code>
+     * @return The bytes for userName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUserNameBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(userName_);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0704
-     * </pre>
-     *
-     * <code>required string user_name = 1;</code>
-     */
-    private void setUserName(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      userName_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0704
-     * </pre>
-     *
-     * <code>required string user_name = 1;</code>
-     */
-    private void clearUserName() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      userName_ = getDefaultInstance().getUserName();
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0704
-     * </pre>
-     *
-     * <code>required string user_name = 1;</code>
-     */
-    private void setUserNameBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      userName_ = value.toStringUtf8();
+      java.lang.Object ref = userName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int RESULT_CODE_FIELD_NUMBER = 2;
     private int resultCode_;
     /**
      * <code>required uint32 result_code = 2;</code>
+     * @return Whether the resultCode field is set.
      */
+    @java.lang.Override
     public boolean hasResultCode() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required uint32 result_code = 2;</code>
+     * @return The resultCode.
      */
+    @java.lang.Override
     public int getResultCode() {
       return resultCode_;
     }
-    /**
-     * <code>required uint32 result_code = 2;</code>
-     */
-    private void setResultCode(int value) {
-      bitField0_ |= 0x00000002;
-      resultCode_ = value;
-    }
-    /**
-     * <code>required uint32 result_code = 2;</code>
-     */
-    private void clearResultCode() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      resultCode_ = 0;
-    }
 
     public static final int RESULT_STRING_FIELD_NUMBER = 3;
-    private java.lang.String resultString_;
+    private volatile java.lang.Object resultString_;
     /**
      * <code>optional string result_string = 3;</code>
+     * @return Whether the resultString field is set.
      */
+    @java.lang.Override
     public boolean hasResultString() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>optional string result_string = 3;</code>
+     * @return The resultString.
      */
+    @java.lang.Override
     public java.lang.String getResultString() {
-      return resultString_;
+      java.lang.Object ref = resultString_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          resultString_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <code>optional string result_string = 3;</code>
+     * @return The bytes for resultString.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getResultStringBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(resultString_);
-    }
-    /**
-     * <code>optional string result_string = 3;</code>
-     */
-    private void setResultString(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-      resultString_ = value;
-    }
-    /**
-     * <code>optional string result_string = 3;</code>
-     */
-    private void clearResultString() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      resultString_ = getDefaultInstance().getResultString();
-    }
-    /**
-     * <code>optional string result_string = 3;</code>
-     */
-    private void setResultStringBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-      resultString_ = value.toStringUtf8();
+      java.lang.Object ref = resultString_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        resultString_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int USER_INFO_FIELD_NUMBER = 4;
     private com.blt.talk.common.code.proto.IMBaseDefine.UserInfo userInfo_;
     /**
      * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+     * @return Whether the userInfo field is set.
      */
+    @java.lang.Override
     public boolean hasUserInfo() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+     * @return The userInfo.
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.UserInfo getUserInfo() {
       return userInfo_ == null ? com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.getDefaultInstance() : userInfo_;
     }
     /**
      * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
      */
-    private void setUserInfo(com.blt.talk.common.code.proto.IMBaseDefine.UserInfo value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      userInfo_ = value;
-      bitField0_ |= 0x00000008;
-      }
-    /**
-     * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
-     */
-    private void setUserInfo(
-        com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.Builder builderForValue) {
-      userInfo_ = builderForValue.build();
-      bitField0_ |= 0x00000008;
-    }
-    /**
-     * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
-     */
-    private void mergeUserInfo(com.blt.talk.common.code.proto.IMBaseDefine.UserInfo value) {
-      if (userInfo_ != null &&
-          userInfo_ != com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.getDefaultInstance()) {
-        userInfo_ =
-          com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.newBuilder(userInfo_).mergeFrom(value).buildPartial();
-      } else {
-        userInfo_ = value;
-      }
-      bitField0_ |= 0x00000008;
-    }
-    /**
-     * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
-     */
-    private void clearUserInfo() {  userInfo_ = null;
-      bitField0_ = (bitField0_ & ~0x00000008);
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMBaseDefine.UserInfoOrBuilder getUserInfoOrBuilder() {
+      return userInfo_ == null ? com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.getDefaultInstance() : userInfo_;
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000010;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000010);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasResultCode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (hasUserInfo()) {
+        if (!getUserInfo().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeString(1, getUserName());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userName_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt32(2, resultCode_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeString(3, getResultString());
+      if (((bitField0_ & 0x00000004) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, resultString_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeMessage(4, getUserInfo());
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(1, getUserName());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userName_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(2, resultCode_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(3, getResultString());
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, resultString_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, getUserInfo());
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMValidateRsp)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMValidateRsp other = (com.blt.talk.common.code.proto.IMServer.IMValidateRsp) obj;
+
+      if (hasUserName() != other.hasUserName()) return false;
+      if (hasUserName()) {
+        if (!getUserName()
+            .equals(other.getUserName())) return false;
+      }
+      if (hasResultCode() != other.hasResultCode()) return false;
+      if (hasResultCode()) {
+        if (getResultCode()
+            != other.getResultCode()) return false;
+      }
+      if (hasResultString() != other.hasResultString()) return false;
+      if (hasResultString()) {
+        if (!getResultString()
+            .equals(other.getResultString())) return false;
+      }
+      if (hasUserInfo() != other.hasUserInfo()) return false;
+      if (hasUserInfo()) {
+        if (!getUserInfo()
+            .equals(other.getUserInfo())) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasUserName()) {
+        hash = (37 * hash) + USER_NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getUserName().hashCode();
+      }
+      if (hasResultCode()) {
+        hash = (37 * hash) + RESULT_CODE_FIELD_NUMBER;
+        hash = (53 * hash) + getResultCode();
+      }
+      if (hasResultString()) {
+        hash = (37 * hash) + RESULT_STRING_FIELD_NUMBER;
+        hash = (53 * hash) + getResultString().hashCode();
+      }
+      if (hasUserInfo()) {
+        hash = (37 * hash) + USER_INFO_FIELD_NUMBER;
+        hash = (53 * hash) + getUserInfo().hashCode();
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMValidateRsp prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * <pre>
      *db_proxy
@@ -1487,25 +2169,227 @@ public final class IMServer {
      * Protobuf type {@code IM.Server.IMValidateRsp}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMValidateRsp, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMValidateRsp)
         com.blt.talk.common.code.proto.IMServer.IMValidateRspOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateRsp_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateRsp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMValidateRsp.class, com.blt.talk.common.code.proto.IMServer.IMValidateRsp.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMValidateRsp.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getUserInfoFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        userName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        resultCode_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        resultString_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (userInfoBuilder_ == null) {
+          userInfo_ = null;
+        } else {
+          userInfoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMValidateRsp_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMValidateRsp getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMValidateRsp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMValidateRsp build() {
+        com.blt.talk.common.code.proto.IMServer.IMValidateRsp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMValidateRsp buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMValidateRsp result = new com.blt.talk.common.code.proto.IMServer.IMValidateRsp(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.userName_ = userName_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.resultCode_ = resultCode_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.resultString_ = resultString_;
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          if (userInfoBuilder_ == null) {
+            result.userInfo_ = userInfo_;
+          } else {
+            result.userInfo_ = userInfoBuilder_.build();
+          }
+          to_bitField0_ |= 0x00000008;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMValidateRsp) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMValidateRsp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMValidateRsp other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMValidateRsp.getDefaultInstance()) return this;
+        if (other.hasUserName()) {
+          bitField0_ |= 0x00000001;
+          userName_ = other.userName_;
+          onChanged();
+        }
+        if (other.hasResultCode()) {
+          setResultCode(other.getResultCode());
+        }
+        if (other.hasResultString()) {
+          bitField0_ |= 0x00000004;
+          resultString_ = other.resultString_;
+          onChanged();
+        }
+        if (other.hasUserInfo()) {
+          mergeUserInfo(other.getUserInfo());
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasUserName()) {
+          return false;
+        }
+        if (!hasResultCode()) {
+          return false;
+        }
+        if (hasUserInfo()) {
+          if (!getUserInfo().isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMValidateRsp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMValidateRsp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object userName_ = "";
       /**
        * <pre>
        *cmd id:	0x0704
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @return Whether the userName field is set.
        */
       public boolean hasUserName() {
-        return instance.hasUserName();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -1513,9 +2397,21 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @return The userName.
        */
       public java.lang.String getUserName() {
-        return instance.getUserName();
+        java.lang.Object ref = userName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            userName_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <pre>
@@ -1523,10 +2419,20 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @return The bytes for userName.
        */
       public com.google.protobuf.ByteString
           getUserNameBytes() {
-        return instance.getUserNameBytes();
+        java.lang.Object ref = userName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <pre>
@@ -1534,11 +2440,17 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @param value The userName to set.
+       * @return This builder for chaining.
        */
       public Builder setUserName(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setUserName(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        userName_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -1547,10 +2459,12 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserName() {
-        copyOnWrite();
-        instance.clearUserName();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userName_ = getDefaultInstance().getUserName();
+        onChanged();
         return this;
       }
       /**
@@ -1559,336 +2473,360 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string user_name = 1;</code>
+       * @param value The bytes for userName to set.
+       * @return This builder for chaining.
        */
       public Builder setUserNameBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setUserNameBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        userName_ = value;
+        onChanged();
         return this;
       }
 
+      private int resultCode_ ;
       /**
        * <code>required uint32 result_code = 2;</code>
+       * @return Whether the resultCode field is set.
        */
+      @java.lang.Override
       public boolean hasResultCode() {
-        return instance.hasResultCode();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required uint32 result_code = 2;</code>
+       * @return The resultCode.
        */
+      @java.lang.Override
       public int getResultCode() {
-        return instance.getResultCode();
+        return resultCode_;
       }
       /**
        * <code>required uint32 result_code = 2;</code>
+       * @param value The resultCode to set.
+       * @return This builder for chaining.
        */
       public Builder setResultCode(int value) {
-        copyOnWrite();
-        instance.setResultCode(value);
+        bitField0_ |= 0x00000002;
+        resultCode_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint32 result_code = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearResultCode() {
-        copyOnWrite();
-        instance.clearResultCode();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        resultCode_ = 0;
+        onChanged();
         return this;
       }
 
+      private java.lang.Object resultString_ = "";
       /**
        * <code>optional string result_string = 3;</code>
+       * @return Whether the resultString field is set.
        */
       public boolean hasResultString() {
-        return instance.hasResultString();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>optional string result_string = 3;</code>
+       * @return The resultString.
        */
       public java.lang.String getResultString() {
-        return instance.getResultString();
+        java.lang.Object ref = resultString_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            resultString_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <code>optional string result_string = 3;</code>
+       * @return The bytes for resultString.
        */
       public com.google.protobuf.ByteString
           getResultStringBytes() {
-        return instance.getResultStringBytes();
+        java.lang.Object ref = resultString_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          resultString_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <code>optional string result_string = 3;</code>
+       * @param value The resultString to set.
+       * @return This builder for chaining.
        */
       public Builder setResultString(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setResultString(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        resultString_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional string result_string = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearResultString() {
-        copyOnWrite();
-        instance.clearResultString();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        resultString_ = getDefaultInstance().getResultString();
+        onChanged();
         return this;
       }
       /**
        * <code>optional string result_string = 3;</code>
+       * @param value The bytes for resultString to set.
+       * @return This builder for chaining.
        */
       public Builder setResultStringBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setResultStringBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        resultString_ = value;
+        onChanged();
         return this;
       }
 
+      private com.blt.talk.common.code.proto.IMBaseDefine.UserInfo userInfo_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.UserInfo, com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.Builder, com.blt.talk.common.code.proto.IMBaseDefine.UserInfoOrBuilder> userInfoBuilder_;
       /**
        * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+       * @return Whether the userInfo field is set.
        */
       public boolean hasUserInfo() {
-        return instance.hasUserInfo();
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+       * @return The userInfo.
        */
       public com.blt.talk.common.code.proto.IMBaseDefine.UserInfo getUserInfo() {
-        return instance.getUserInfo();
+        if (userInfoBuilder_ == null) {
+          return userInfo_ == null ? com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.getDefaultInstance() : userInfo_;
+        } else {
+          return userInfoBuilder_.getMessage();
+        }
       }
       /**
        * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
        */
       public Builder setUserInfo(com.blt.talk.common.code.proto.IMBaseDefine.UserInfo value) {
-        copyOnWrite();
-        instance.setUserInfo(value);
-        return this;
+        if (userInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          userInfo_ = value;
+          onChanged();
+        } else {
+          userInfoBuilder_.setMessage(value);
         }
+        bitField0_ |= 0x00000008;
+        return this;
+      }
       /**
        * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
        */
       public Builder setUserInfo(
           com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.Builder builderForValue) {
-        copyOnWrite();
-        instance.setUserInfo(builderForValue);
+        if (userInfoBuilder_ == null) {
+          userInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          userInfoBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
        * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
        */
       public Builder mergeUserInfo(com.blt.talk.common.code.proto.IMBaseDefine.UserInfo value) {
-        copyOnWrite();
-        instance.mergeUserInfo(value);
+        if (userInfoBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+              userInfo_ != null &&
+              userInfo_ != com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.getDefaultInstance()) {
+            userInfo_ =
+              com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.newBuilder(userInfo_).mergeFrom(value).buildPartial();
+          } else {
+            userInfo_ = value;
+          }
+          onChanged();
+        } else {
+          userInfoBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
        * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
        */
-      public Builder clearUserInfo() {  copyOnWrite();
-        instance.clearUserInfo();
+      public Builder clearUserInfo() {
+        if (userInfoBuilder_ == null) {
+          userInfo_ = null;
+          onChanged();
+        } else {
+          userInfoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
+      }
+      /**
+       * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.Builder getUserInfoBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getUserInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserInfoOrBuilder getUserInfoOrBuilder() {
+        if (userInfoBuilder_ != null) {
+          return userInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return userInfo_ == null ?
+              com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.getDefaultInstance() : userInfo_;
+        }
+      }
+      /**
+       * <code>optional .IM.BaseDefine.UserInfo user_info = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.UserInfo, com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.Builder, com.blt.talk.common.code.proto.IMBaseDefine.UserInfoOrBuilder> 
+          getUserInfoFieldBuilder() {
+        if (userInfoBuilder_ == null) {
+          userInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.blt.talk.common.code.proto.IMBaseDefine.UserInfo, com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.Builder, com.blt.talk.common.code.proto.IMBaseDefine.UserInfoOrBuilder>(
+                  getUserInfo(),
+                  getParentForChildren(),
+                  isClean());
+          userInfo_ = null;
+        }
+        return userInfoBuilder_;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMValidateRsp)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMValidateRsp();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasUserName()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasResultCode()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (hasUserInfo()) {
-            if (!getUserInfo().isInitialized()) {
-              if (shouldMemoize) {
-                memoizedIsInitialized = 0;
-              }
-              return null;
-            }
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMValidateRsp other = (com.blt.talk.common.code.proto.IMServer.IMValidateRsp) arg1;
-          userName_ = visitor.visitString(
-              hasUserName(), userName_,
-              other.hasUserName(), other.userName_);
-          resultCode_ = visitor.visitInt(
-              hasResultCode(), resultCode_,
-              other.hasResultCode(), other.resultCode_);
-          resultString_ = visitor.visitString(
-              hasResultString(), resultString_,
-              other.hasResultString(), other.resultString_);
-          userInfo_ = visitor.visitMessage(userInfo_, other.userInfo_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 10: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000001;
-                  userName_ = s;
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  resultCode_ = input.readUInt32();
-                  break;
-                }
-                case 26: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000004;
-                  resultString_ = s;
-                  break;
-                }
-                case 34: {
-                  com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.Builder subBuilder = null;
-                  if (((bitField0_ & 0x00000008) == 0x00000008)) {
-                    subBuilder = userInfo_.toBuilder();
-                  }
-                  userInfo_ = input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.UserInfo.parser(), extensionRegistry);
-                  if (subBuilder != null) {
-                    subBuilder.mergeFrom(userInfo_);
-                    userInfo_ = subBuilder.buildPartial();
-                  }
-                  bitField0_ |= 0x00000008;
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000010;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMValidateRsp.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMValidateRsp)
     private static final com.blt.talk.common.code.proto.IMServer.IMValidateRsp DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMValidateRsp();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMValidateRsp();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMValidateRsp getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMValidateRsp> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMValidateRsp>
+        PARSER = new com.google.protobuf.AbstractParser<IMValidateRsp>() {
+      @java.lang.Override
+      public IMValidateRsp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMValidateRsp(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMValidateRsp> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMValidateRsp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMValidateRsp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMGetDeviceTokenReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMGetDeviceTokenReq)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -1896,6 +2834,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>repeated uint64 user_id = 1;</code>
+     * @return A list containing the userId.
      */
     java.util.List<java.lang.Long> getUserIdList();
     /**
@@ -1904,6 +2843,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>repeated uint64 user_id = 1;</code>
+     * @return The count of userId.
      */
     int getUserIdCount();
     /**
@@ -1912,15 +2852,19 @@ public final class IMServer {
      * </pre>
      *
      * <code>repeated uint64 user_id = 1;</code>
+     * @param index The index of the element to return.
+     * @return The userId at the given index.
      */
     long getUserId(int index);
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
@@ -1931,15 +2875,112 @@ public final class IMServer {
    *
    * Protobuf type {@code IM.Server.IMGetDeviceTokenReq}
    */
-  public  static final class IMGetDeviceTokenReq extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMGetDeviceTokenReq, IMGetDeviceTokenReq.Builder> implements
+  public static final class IMGetDeviceTokenReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMGetDeviceTokenReq)
       IMGetDeviceTokenReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMGetDeviceTokenReq.newBuilder() to construct.
+    private IMGetDeviceTokenReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMGetDeviceTokenReq() {
       userId_ = emptyLongList();
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMGetDeviceTokenReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMGetDeviceTokenReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                userId_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              userId_.addLong(input.readUInt64());
+              break;
+            }
+            case 10: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
+                userId_ = newLongList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                userId_.addLong(input.readUInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000001;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          userId_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq.class, com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq.Builder.class);
+    }
+
     private int bitField0_;
     public static final int USER_ID_FIELD_NUMBER = 1;
     private com.google.protobuf.Internal.LongList userId_;
@@ -1949,7 +2990,9 @@ public final class IMServer {
      * </pre>
      *
      * <code>repeated uint64 user_id = 1;</code>
+     * @return A list containing the userId.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Long>
         getUserIdList() {
       return userId_;
@@ -1960,6 +3003,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>repeated uint64 user_id = 1;</code>
+     * @return The count of userId.
      */
     public int getUserIdCount() {
       return userId_.size();
@@ -1970,108 +3014,58 @@ public final class IMServer {
      * </pre>
      *
      * <code>repeated uint64 user_id = 1;</code>
+     * @param index The index of the element to return.
+     * @return The userId at the given index.
      */
     public long getUserId(int index) {
       return userId_.getLong(index);
-    }
-    private void ensureUserIdIsMutable() {
-      if (!userId_.isModifiable()) {
-        userId_ =
-            com.google.protobuf.GeneratedMessageLite.mutableCopy(userId_);
-       }
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0705
-     * </pre>
-     *
-     * <code>repeated uint64 user_id = 1;</code>
-     */
-    private void setUserId(
-        int index, long value) {
-      ensureUserIdIsMutable();
-      userId_.setLong(index, value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0705
-     * </pre>
-     *
-     * <code>repeated uint64 user_id = 1;</code>
-     */
-    private void addUserId(long value) {
-      ensureUserIdIsMutable();
-      userId_.addLong(value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0705
-     * </pre>
-     *
-     * <code>repeated uint64 user_id = 1;</code>
-     */
-    private void addAllUserId(
-        java.lang.Iterable<? extends java.lang.Long> values) {
-      ensureUserIdIsMutable();
-      com.google.protobuf.AbstractMessageLite.addAll(
-          values, userId_);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0705
-     * </pre>
-     *
-     * <code>repeated uint64 user_id = 1;</code>
-     */
-    private void clearUserId() {
-      userId_ = emptyLongList();
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       for (int i = 0; i < userId_.size(); i++) {
         output.writeUInt64(1, userId_.getLong(i));
       }
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -2084,96 +3078,146 @@ public final class IMServer {
         size += dataSize;
         size += 1 * getUserIdList().size();
       }
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq other = (com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq) obj;
+
+      if (!getUserIdList()
+          .equals(other.getUserIdList())) return false;
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getUserIdCount() > 0) {
+        hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getUserIdList().hashCode();
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * <pre>
      *db_proxy
@@ -2182,27 +3226,192 @@ public final class IMServer {
      * Protobuf type {@code IM.Server.IMGetDeviceTokenReq}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMGetDeviceTokenReq)
         com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReqOrBuilder {
-      // Construct using com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq.newBuilder()
-      private Builder() {
-        super(DEFAULT_INSTANCE);
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenReq_descriptor;
       }
 
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq.class, com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq.Builder.class);
+      }
 
+      // Construct using com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        userId_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq build() {
+        com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq result = new com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          userId_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq.getDefaultInstance()) return this;
+        if (!other.userId_.isEmpty()) {
+          if (userId_.isEmpty()) {
+            userId_ = other.userId_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureUserIdIsMutable();
+            userId_.addAll(other.userId_);
+          }
+          onChanged();
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.Internal.LongList userId_ = emptyLongList();
+      private void ensureUserIdIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          userId_ = mutableCopy(userId_);
+          bitField0_ |= 0x00000001;
+         }
+      }
       /**
        * <pre>
        *cmd id:	0x0705
        * </pre>
        *
        * <code>repeated uint64 user_id = 1;</code>
+       * @return A list containing the userId.
        */
       public java.util.List<java.lang.Long>
           getUserIdList() {
-        return java.util.Collections.unmodifiableList(
-            instance.getUserIdList());
+        return ((bitField0_ & 0x00000001) != 0) ?
+                 java.util.Collections.unmodifiableList(userId_) : userId_;
       }
       /**
        * <pre>
@@ -2210,9 +3419,10 @@ public final class IMServer {
        * </pre>
        *
        * <code>repeated uint64 user_id = 1;</code>
+       * @return The count of userId.
        */
       public int getUserIdCount() {
-        return instance.getUserIdCount();
+        return userId_.size();
       }
       /**
        * <pre>
@@ -2220,9 +3430,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>repeated uint64 user_id = 1;</code>
+       * @param index The index of the element to return.
+       * @return The userId at the given index.
        */
       public long getUserId(int index) {
-        return instance.getUserId(index);
+        return userId_.getLong(index);
       }
       /**
        * <pre>
@@ -2230,11 +3442,15 @@ public final class IMServer {
        * </pre>
        *
        * <code>repeated uint64 user_id = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The userId to set.
+       * @return This builder for chaining.
        */
       public Builder setUserId(
           int index, long value) {
-        copyOnWrite();
-        instance.setUserId(index, value);
+        ensureUserIdIsMutable();
+        userId_.setLong(index, value);
+        onChanged();
         return this;
       }
       /**
@@ -2243,10 +3459,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>repeated uint64 user_id = 1;</code>
+       * @param value The userId to add.
+       * @return This builder for chaining.
        */
       public Builder addUserId(long value) {
-        copyOnWrite();
-        instance.addUserId(value);
+        ensureUserIdIsMutable();
+        userId_.addLong(value);
+        onChanged();
         return this;
       }
       /**
@@ -2255,11 +3474,15 @@ public final class IMServer {
        * </pre>
        *
        * <code>repeated uint64 user_id = 1;</code>
+       * @param values The userId to add.
+       * @return This builder for chaining.
        */
       public Builder addAllUserId(
           java.lang.Iterable<? extends java.lang.Long> values) {
-        copyOnWrite();
-        instance.addAllUserId(values);
+        ensureUserIdIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, userId_);
+        onChanged();
         return this;
       }
       /**
@@ -2268,170 +3491,112 @@ public final class IMServer {
        * </pre>
        *
        * <code>repeated uint64 user_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserId() {
-        copyOnWrite();
-        instance.clearUserId();
+        userId_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMGetDeviceTokenReq)
     }
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq();
-        }
-        case IS_INITIALIZED: {
-          return DEFAULT_INSTANCE;
-        }
-        case MAKE_IMMUTABLE: {
-          userId_.makeImmutable();
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq other = (com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq) arg1;
-          userId_= visitor.visitLongList(userId_, other.userId_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  if (!userId_.isModifiable()) {
-                    userId_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(userId_);
-                  }
-                  userId_.addLong(input.readUInt64());
-                  break;
-                }
-                case 10: {
-                  int length = input.readRawVarint32();
-                  int limit = input.pushLimit(length);
-                  if (!userId_.isModifiable() && input.getBytesUntilLimit() > 0) {
-                    userId_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(userId_);
-                  }
-                  while (input.getBytesUntilLimit() > 0) {
-                    userId_.addLong(input.readUInt64());
-                  }
-                  input.popLimit(limit);
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000001;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMGetDeviceTokenReq)
     private static final com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMGetDeviceTokenReq();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMGetDeviceTokenReq> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMGetDeviceTokenReq>
+        PARSER = new com.google.protobuf.AbstractParser<IMGetDeviceTokenReq>() {
+      @java.lang.Override
+      public IMGetDeviceTokenReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMGetDeviceTokenReq(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMGetDeviceTokenReq> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMGetDeviceTokenReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMGetDeviceTokenRspOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMGetDeviceTokenRsp)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -2458,13 +3623,33 @@ public final class IMServer {
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
      */
     int getUserTokenInfoCount();
+    /**
+     * <pre>
+     *cmd id:	0x0706
+     * </pre>
+     *
+     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
+     */
+    java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> 
+        getUserTokenInfoOrBuilderList();
+    /**
+     * <pre>
+     *cmd id:	0x0706
+     * </pre>
+     *
+     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
+     */
+    com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder getUserTokenInfoOrBuilder(
+        int index);
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
@@ -2475,18 +3660,103 @@ public final class IMServer {
    *
    * Protobuf type {@code IM.Server.IMGetDeviceTokenRsp}
    */
-  public  static final class IMGetDeviceTokenRsp extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMGetDeviceTokenRsp, IMGetDeviceTokenRsp.Builder> implements
+  public static final class IMGetDeviceTokenRsp extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMGetDeviceTokenRsp)
       IMGetDeviceTokenRspOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMGetDeviceTokenRsp.newBuilder() to construct.
+    private IMGetDeviceTokenRsp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMGetDeviceTokenRsp() {
-      userTokenInfo_ = emptyProtobufList();
+      userTokenInfo_ = java.util.Collections.emptyList();
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMGetDeviceTokenRsp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMGetDeviceTokenRsp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                userTokenInfo_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              userTokenInfo_.add(
+                  input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.PARSER, extensionRegistry));
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000001;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          userTokenInfo_ = java.util.Collections.unmodifiableList(userTokenInfo_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenRsp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenRsp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp.class, com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp.Builder.class);
+    }
+
     private int bitField0_;
     public static final int USER_TOKEN_INFO_FIELD_NUMBER = 1;
-    private com.google.protobuf.Internal.ProtobufList<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> userTokenInfo_;
+    private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> userTokenInfo_;
     /**
      * <pre>
      *cmd id:	0x0706
@@ -2494,6 +3764,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> getUserTokenInfoList() {
       return userTokenInfo_;
     }
@@ -2504,6 +3775,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> 
         getUserTokenInfoOrBuilderList() {
       return userTokenInfo_;
@@ -2515,6 +3787,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
      */
+    @java.lang.Override
     public int getUserTokenInfoCount() {
       return userTokenInfo_.size();
     }
@@ -2525,6 +3798,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo getUserTokenInfo(int index) {
       return userTokenInfo_.get(index);
     }
@@ -2535,177 +3809,63 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder getUserTokenInfoOrBuilder(
         int index) {
       return userTokenInfo_.get(index);
-    }
-    private void ensureUserTokenInfoIsMutable() {
-      if (!userTokenInfo_.isModifiable()) {
-        userTokenInfo_ =
-            com.google.protobuf.GeneratedMessageLite.mutableCopy(userTokenInfo_);
-       }
-    }
-
-    /**
-     * <pre>
-     *cmd id:	0x0706
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
-     */
-    private void setUserTokenInfo(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureUserTokenInfoIsMutable();
-      userTokenInfo_.set(index, value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0706
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
-     */
-    private void setUserTokenInfo(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-      ensureUserTokenInfoIsMutable();
-      userTokenInfo_.set(index, builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0706
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
-     */
-    private void addUserTokenInfo(com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureUserTokenInfoIsMutable();
-      userTokenInfo_.add(value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0706
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
-     */
-    private void addUserTokenInfo(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureUserTokenInfoIsMutable();
-      userTokenInfo_.add(index, value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0706
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
-     */
-    private void addUserTokenInfo(
-        com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-      ensureUserTokenInfoIsMutable();
-      userTokenInfo_.add(builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0706
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
-     */
-    private void addUserTokenInfo(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-      ensureUserTokenInfoIsMutable();
-      userTokenInfo_.add(index, builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0706
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
-     */
-    private void addAllUserTokenInfo(
-        java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> values) {
-      ensureUserTokenInfoIsMutable();
-      com.google.protobuf.AbstractMessageLite.addAll(
-          values, userTokenInfo_);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0706
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
-     */
-    private void clearUserTokenInfo() {
-      userTokenInfo_ = emptyProtobufList();
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0706
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
-     */
-    private void removeUserTokenInfo(int index) {
-      ensureUserTokenInfoIsMutable();
-      userTokenInfo_.remove(index);
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getUserTokenInfoCount(); i++) {
+        if (!getUserTokenInfo(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       for (int i = 0; i < userTokenInfo_.size(); i++) {
         output.writeMessage(1, userTokenInfo_.get(i));
       }
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -2713,96 +3873,146 @@ public final class IMServer {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, userTokenInfo_.get(i));
       }
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp other = (com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp) obj;
+
+      if (!getUserTokenInfoList()
+          .equals(other.getUserTokenInfoList())) return false;
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getUserTokenInfoCount() > 0) {
+        hash = (37 * hash) + USER_TOKEN_INFO_FIELD_NUMBER;
+        hash = (53 * hash) + getUserTokenInfoList().hashCode();
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * <pre>
      *db_proxy
@@ -2811,15 +4021,214 @@ public final class IMServer {
      * Protobuf type {@code IM.Server.IMGetDeviceTokenRsp}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMGetDeviceTokenRsp)
         com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRspOrBuilder {
-      // Construct using com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp.newBuilder()
-      private Builder() {
-        super(DEFAULT_INSTANCE);
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenRsp_descriptor;
       }
 
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenRsp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp.class, com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp.Builder.class);
+      }
+
+      // Construct using com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getUserTokenInfoFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (userTokenInfoBuilder_ == null) {
+          userTokenInfo_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          userTokenInfoBuilder_.clear();
+        }
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGetDeviceTokenRsp_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp build() {
+        com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp result = new com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (userTokenInfoBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            userTokenInfo_ = java.util.Collections.unmodifiableList(userTokenInfo_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.userTokenInfo_ = userTokenInfo_;
+        } else {
+          result.userTokenInfo_ = userTokenInfoBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp.getDefaultInstance()) return this;
+        if (userTokenInfoBuilder_ == null) {
+          if (!other.userTokenInfo_.isEmpty()) {
+            if (userTokenInfo_.isEmpty()) {
+              userTokenInfo_ = other.userTokenInfo_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureUserTokenInfoIsMutable();
+              userTokenInfo_.addAll(other.userTokenInfo_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.userTokenInfo_.isEmpty()) {
+            if (userTokenInfoBuilder_.isEmpty()) {
+              userTokenInfoBuilder_.dispose();
+              userTokenInfoBuilder_ = null;
+              userTokenInfo_ = other.userTokenInfo_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              userTokenInfoBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getUserTokenInfoFieldBuilder() : null;
+            } else {
+              userTokenInfoBuilder_.addAllMessages(other.userTokenInfo_);
+            }
+          }
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        for (int i = 0; i < getUserTokenInfoCount(); i++) {
+          if (!getUserTokenInfo(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> userTokenInfo_ =
+        java.util.Collections.emptyList();
+      private void ensureUserTokenInfoIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          userTokenInfo_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo>(userTokenInfo_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> userTokenInfoBuilder_;
 
       /**
        * <pre>
@@ -2829,8 +4238,11 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
        */
       public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> getUserTokenInfoList() {
-        return java.util.Collections.unmodifiableList(
-            instance.getUserTokenInfoList());
+        if (userTokenInfoBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(userTokenInfo_);
+        } else {
+          return userTokenInfoBuilder_.getMessageList();
+        }
       }
       /**
        * <pre>
@@ -2840,8 +4252,13 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
        */
       public int getUserTokenInfoCount() {
-        return instance.getUserTokenInfoCount();
-      }/**
+        if (userTokenInfoBuilder_ == null) {
+          return userTokenInfo_.size();
+        } else {
+          return userTokenInfoBuilder_.getCount();
+        }
+      }
+      /**
        * <pre>
        *cmd id:	0x0706
        * </pre>
@@ -2849,7 +4266,11 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
        */
       public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo getUserTokenInfo(int index) {
-        return instance.getUserTokenInfo(index);
+        if (userTokenInfoBuilder_ == null) {
+          return userTokenInfo_.get(index);
+        } else {
+          return userTokenInfoBuilder_.getMessage(index);
+        }
       }
       /**
        * <pre>
@@ -2860,8 +4281,16 @@ public final class IMServer {
        */
       public Builder setUserTokenInfo(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-        copyOnWrite();
-        instance.setUserTokenInfo(index, value);
+        if (userTokenInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserTokenInfoIsMutable();
+          userTokenInfo_.set(index, value);
+          onChanged();
+        } else {
+          userTokenInfoBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
@@ -2873,8 +4302,13 @@ public final class IMServer {
        */
       public Builder setUserTokenInfo(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-        copyOnWrite();
-        instance.setUserTokenInfo(index, builderForValue);
+        if (userTokenInfoBuilder_ == null) {
+          ensureUserTokenInfoIsMutable();
+          userTokenInfo_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          userTokenInfoBuilder_.setMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -2885,8 +4319,16 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
        */
       public Builder addUserTokenInfo(com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-        copyOnWrite();
-        instance.addUserTokenInfo(value);
+        if (userTokenInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserTokenInfoIsMutable();
+          userTokenInfo_.add(value);
+          onChanged();
+        } else {
+          userTokenInfoBuilder_.addMessage(value);
+        }
         return this;
       }
       /**
@@ -2898,8 +4340,16 @@ public final class IMServer {
        */
       public Builder addUserTokenInfo(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-        copyOnWrite();
-        instance.addUserTokenInfo(index, value);
+        if (userTokenInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserTokenInfoIsMutable();
+          userTokenInfo_.add(index, value);
+          onChanged();
+        } else {
+          userTokenInfoBuilder_.addMessage(index, value);
+        }
         return this;
       }
       /**
@@ -2911,8 +4361,13 @@ public final class IMServer {
        */
       public Builder addUserTokenInfo(
           com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-        copyOnWrite();
-        instance.addUserTokenInfo(builderForValue);
+        if (userTokenInfoBuilder_ == null) {
+          ensureUserTokenInfoIsMutable();
+          userTokenInfo_.add(builderForValue.build());
+          onChanged();
+        } else {
+          userTokenInfoBuilder_.addMessage(builderForValue.build());
+        }
         return this;
       }
       /**
@@ -2924,8 +4379,13 @@ public final class IMServer {
        */
       public Builder addUserTokenInfo(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-        copyOnWrite();
-        instance.addUserTokenInfo(index, builderForValue);
+        if (userTokenInfoBuilder_ == null) {
+          ensureUserTokenInfoIsMutable();
+          userTokenInfo_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          userTokenInfoBuilder_.addMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -2937,8 +4397,14 @@ public final class IMServer {
        */
       public Builder addAllUserTokenInfo(
           java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> values) {
-        copyOnWrite();
-        instance.addAllUserTokenInfo(values);
+        if (userTokenInfoBuilder_ == null) {
+          ensureUserTokenInfoIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, userTokenInfo_);
+          onChanged();
+        } else {
+          userTokenInfoBuilder_.addAllMessages(values);
+        }
         return this;
       }
       /**
@@ -2949,8 +4415,13 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
        */
       public Builder clearUserTokenInfo() {
-        copyOnWrite();
-        instance.clearUserTokenInfo();
+        if (userTokenInfoBuilder_ == null) {
+          userTokenInfo_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          userTokenInfoBuilder_.clear();
+        }
         return this;
       }
       /**
@@ -2961,172 +4432,201 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
        */
       public Builder removeUserTokenInfo(int index) {
-        copyOnWrite();
-        instance.removeUserTokenInfo(index);
+        if (userTokenInfoBuilder_ == null) {
+          ensureUserTokenInfoIsMutable();
+          userTokenInfo_.remove(index);
+          onChanged();
+        } else {
+          userTokenInfoBuilder_.remove(index);
+        }
         return this;
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0706
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder getUserTokenInfoBuilder(
+          int index) {
+        return getUserTokenInfoFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0706
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder getUserTokenInfoOrBuilder(
+          int index) {
+        if (userTokenInfoBuilder_ == null) {
+          return userTokenInfo_.get(index);  } else {
+          return userTokenInfoBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0706
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
+       */
+      public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> 
+           getUserTokenInfoOrBuilderList() {
+        if (userTokenInfoBuilder_ != null) {
+          return userTokenInfoBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(userTokenInfo_);
+        }
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0706
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder addUserTokenInfoBuilder() {
+        return getUserTokenInfoFieldBuilder().addBuilder(
+            com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0706
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder addUserTokenInfoBuilder(
+          int index) {
+        return getUserTokenInfoFieldBuilder().addBuilder(
+            index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0706
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_info = 1;</code>
+       */
+      public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder> 
+           getUserTokenInfoBuilderList() {
+        return getUserTokenInfoFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> 
+          getUserTokenInfoFieldBuilder() {
+        if (userTokenInfoBuilder_ == null) {
+          userTokenInfoBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder>(
+                  userTokenInfo_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          userTokenInfo_ = null;
+        }
+        return userTokenInfoBuilder_;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMGetDeviceTokenRsp)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          for (int i = 0; i < getUserTokenInfoCount(); i++) {
-            if (!getUserTokenInfo(i).isInitialized()) {
-              if (shouldMemoize) {
-                memoizedIsInitialized = 0;
-              }
-              return null;
-            }
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          userTokenInfo_.makeImmutable();
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp other = (com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp) arg1;
-          userTokenInfo_= visitor.visitList(userTokenInfo_, other.userTokenInfo_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 10: {
-                  if (!userTokenInfo_.isModifiable()) {
-                    userTokenInfo_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(userTokenInfo_);
-                  }
-                  userTokenInfo_.add(
-                      input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.parser(), extensionRegistry));
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000001;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMGetDeviceTokenRsp)
     private static final com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMGetDeviceTokenRsp();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMGetDeviceTokenRsp> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMGetDeviceTokenRsp>
+        PARSER = new com.google.protobuf.AbstractParser<IMGetDeviceTokenRsp>() {
+      @java.lang.Override
+      public IMGetDeviceTokenRsp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMGetDeviceTokenRsp(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMGetDeviceTokenRsp> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMGetDeviceTokenRsp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMGetDeviceTokenRsp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMRoleSetOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMRoleSet)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -3134,6 +4634,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 master = 1;</code>
+     * @return Whether the master field is set.
      */
     boolean hasMaster();
     /**
@@ -3142,19 +4643,93 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 master = 1;</code>
+     * @return The master.
      */
     int getMaster();
   }
   /**
    * Protobuf type {@code IM.Server.IMRoleSet}
    */
-  public  static final class IMRoleSet extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMRoleSet, IMRoleSet.Builder> implements
+  public static final class IMRoleSet extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMRoleSet)
       IMRoleSetOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMRoleSet.newBuilder() to construct.
+    private IMRoleSet(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMRoleSet() {
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMRoleSet();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMRoleSet(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              master_ = input.readUInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMRoleSet_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMRoleSet_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMRoleSet.class, com.blt.talk.common.code.proto.IMServer.IMRoleSet.Builder.class);
+    }
+
     private int bitField0_;
     public static final int MASTER_FIELD_NUMBER = 1;
     private int master_;
@@ -3164,9 +4739,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 master = 1;</code>
+     * @return Whether the master field is set.
      */
+    @java.lang.Override
     public boolean hasMaster() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -3174,159 +4751,346 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 master = 1;</code>
+     * @return The master.
      */
+    @java.lang.Override
     public int getMaster() {
       return master_;
     }
-    /**
-     * <pre>
-     *cmd id:	0x0707
-     * </pre>
-     *
-     * <code>required uint32 master = 1;</code>
-     */
-    private void setMaster(int value) {
-      bitField0_ |= 0x00000001;
-      master_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0707
-     * </pre>
-     *
-     * <code>required uint32 master = 1;</code>
-     */
-    private void clearMaster() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      master_ = 0;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasMaster()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt32(1, master_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, master_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMRoleSet)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMRoleSet other = (com.blt.talk.common.code.proto.IMServer.IMRoleSet) obj;
+
+      if (hasMaster() != other.hasMaster()) return false;
+      if (hasMaster()) {
+        if (getMaster()
+            != other.getMaster()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasMaster()) {
+        hash = (37 * hash) + MASTER_FIELD_NUMBER;
+        hash = (53 * hash) + getMaster();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMRoleSet prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMRoleSet}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMRoleSet, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMRoleSet)
         com.blt.talk.common.code.proto.IMServer.IMRoleSetOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMRoleSet_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMRoleSet_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMRoleSet.class, com.blt.talk.common.code.proto.IMServer.IMRoleSet.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMRoleSet.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        master_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMRoleSet_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMRoleSet getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMRoleSet.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMRoleSet build() {
+        com.blt.talk.common.code.proto.IMServer.IMRoleSet result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMRoleSet buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMRoleSet result = new com.blt.talk.common.code.proto.IMServer.IMRoleSet(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.master_ = master_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMRoleSet) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMRoleSet)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMRoleSet other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMRoleSet.getDefaultInstance()) return this;
+        if (other.hasMaster()) {
+          setMaster(other.getMaster());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasMaster()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMRoleSet parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMRoleSet) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int master_ ;
       /**
        * <pre>
        *cmd id:	0x0707
        * </pre>
        *
        * <code>required uint32 master = 1;</code>
+       * @return Whether the master field is set.
        */
+      @java.lang.Override
       public boolean hasMaster() {
-        return instance.hasMaster();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -3334,9 +5098,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 master = 1;</code>
+       * @return The master.
        */
+      @java.lang.Override
       public int getMaster() {
-        return instance.getMaster();
+        return master_;
       }
       /**
        * <pre>
@@ -3344,10 +5110,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 master = 1;</code>
+       * @param value The master to set.
+       * @return This builder for chaining.
        */
       public Builder setMaster(int value) {
-        copyOnWrite();
-        instance.setMaster(value);
+        bitField0_ |= 0x00000001;
+        master_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -3356,132 +5125,70 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 master = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMaster() {
-        copyOnWrite();
-        instance.clearMaster();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        master_ = 0;
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMRoleSet)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMRoleSet();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasMaster()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMRoleSet other = (com.blt.talk.common.code.proto.IMServer.IMRoleSet) arg1;
-          master_ = visitor.visitInt(
-              hasMaster(), master_,
-              other.hasMaster(), other.master_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  master_ = input.readUInt32();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMRoleSet.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMRoleSet)
     private static final com.blt.talk.common.code.proto.IMServer.IMRoleSet DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMRoleSet();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMRoleSet();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMRoleSet getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMRoleSet> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMRoleSet>
+        PARSER = new com.google.protobuf.AbstractParser<IMRoleSet>() {
+      @java.lang.Override
+      public IMRoleSet parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMRoleSet(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMRoleSet> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMRoleSet> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMRoleSet getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMOnlineUserInfoOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMOnlineUserInfo)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -3508,20 +5215,6 @@ public final class IMServer {
      * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
      */
     int getUserStatListCount();
-  }
-  /**
-   * Protobuf type {@code IM.Server.IMOnlineUserInfo}
-   */
-  public  static final class IMOnlineUserInfo extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMOnlineUserInfo, IMOnlineUserInfo.Builder> implements
-      // @@protoc_insertion_point(message_implements:IM.Server.IMOnlineUserInfo)
-      IMOnlineUserInfoOrBuilder {
-    private IMOnlineUserInfo() {
-      userStatList_ = emptyProtobufList();
-    }
-    public static final int USER_STAT_LIST_FIELD_NUMBER = 1;
-    private com.google.protobuf.Internal.ProtobufList<com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat> userStatList_;
     /**
      * <pre>
      *cmd id:	0x0708
@@ -3529,6 +5222,119 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
      */
+    java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStatOrBuilder> 
+        getUserStatListOrBuilderList();
+    /**
+     * <pre>
+     *cmd id:	0x0708
+     * </pre>
+     *
+     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
+     */
+    com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStatOrBuilder getUserStatListOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code IM.Server.IMOnlineUserInfo}
+   */
+  public static final class IMOnlineUserInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:IM.Server.IMOnlineUserInfo)
+      IMOnlineUserInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMOnlineUserInfo.newBuilder() to construct.
+    private IMOnlineUserInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private IMOnlineUserInfo() {
+      userStatList_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMOnlineUserInfo();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMOnlineUserInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                userStatList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              userStatList_.add(
+                  input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          userStatList_ = java.util.Collections.unmodifiableList(userStatList_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMOnlineUserInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMOnlineUserInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo.class, com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo.Builder.class);
+    }
+
+    public static final int USER_STAT_LIST_FIELD_NUMBER = 1;
+    private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat> userStatList_;
+    /**
+     * <pre>
+     *cmd id:	0x0708
+     * </pre>
+     *
+     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
+     */
+    @java.lang.Override
     public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat> getUserStatListList() {
       return userStatList_;
     }
@@ -3539,6 +5345,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStatOrBuilder> 
         getUserStatListOrBuilderList() {
       return userStatList_;
@@ -3550,6 +5357,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
      */
+    @java.lang.Override
     public int getUserStatListCount() {
       return userStatList_.size();
     }
@@ -3560,6 +5368,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat getUserStatList(int index) {
       return userStatList_.get(index);
     }
@@ -3570,132 +5379,30 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStatOrBuilder getUserStatListOrBuilder(
         int index) {
       return userStatList_.get(index);
     }
-    private void ensureUserStatListIsMutable() {
-      if (!userStatList_.isModifiable()) {
-        userStatList_ =
-            com.google.protobuf.GeneratedMessageLite.mutableCopy(userStatList_);
-       }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getUserStatListCount(); i++) {
+        if (!getUserStatList(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
-    /**
-     * <pre>
-     *cmd id:	0x0708
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
-     */
-    private void setUserStatList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureUserStatListIsMutable();
-      userStatList_.set(index, value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0708
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
-     */
-    private void setUserStatList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder builderForValue) {
-      ensureUserStatListIsMutable();
-      userStatList_.set(index, builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0708
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
-     */
-    private void addUserStatList(com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureUserStatListIsMutable();
-      userStatList_.add(value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0708
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
-     */
-    private void addUserStatList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureUserStatListIsMutable();
-      userStatList_.add(index, value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0708
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
-     */
-    private void addUserStatList(
-        com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder builderForValue) {
-      ensureUserStatListIsMutable();
-      userStatList_.add(builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0708
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
-     */
-    private void addUserStatList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder builderForValue) {
-      ensureUserStatListIsMutable();
-      userStatList_.add(index, builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0708
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
-     */
-    private void addAllUserStatList(
-        java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat> values) {
-      ensureUserStatListIsMutable();
-      com.google.protobuf.AbstractMessageLite.addAll(
-          values, userStatList_);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0708
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
-     */
-    private void clearUserStatList() {
-      userStatList_ = emptyProtobufList();
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0708
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
-     */
-    private void removeUserStatList(int index) {
-      ensureUserStatListIsMutable();
-      userStatList_.remove(index);
-    }
-
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       for (int i = 0; i < userStatList_.size(); i++) {
@@ -3704,8 +5411,9 @@ public final class IMServer {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -3714,104 +5422,333 @@ public final class IMServer {
           .computeMessageSize(1, userStatList_.get(i));
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo other = (com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo) obj;
+
+      if (!getUserStatListList()
+          .equals(other.getUserStatListList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getUserStatListCount() > 0) {
+        hash = (37 * hash) + USER_STAT_LIST_FIELD_NUMBER;
+        hash = (53 * hash) + getUserStatListList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMOnlineUserInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMOnlineUserInfo)
         com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfoOrBuilder {
-      // Construct using com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo.newBuilder()
-      private Builder() {
-        super(DEFAULT_INSTANCE);
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMOnlineUserInfo_descriptor;
       }
 
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMOnlineUserInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo.class, com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo.Builder.class);
+      }
+
+      // Construct using com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getUserStatListFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (userStatListBuilder_ == null) {
+          userStatList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          userStatListBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMOnlineUserInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo build() {
+        com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo result = new com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo(this);
+        int from_bitField0_ = bitField0_;
+        if (userStatListBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            userStatList_ = java.util.Collections.unmodifiableList(userStatList_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.userStatList_ = userStatList_;
+        } else {
+          result.userStatList_ = userStatListBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo.getDefaultInstance()) return this;
+        if (userStatListBuilder_ == null) {
+          if (!other.userStatList_.isEmpty()) {
+            if (userStatList_.isEmpty()) {
+              userStatList_ = other.userStatList_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureUserStatListIsMutable();
+              userStatList_.addAll(other.userStatList_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.userStatList_.isEmpty()) {
+            if (userStatListBuilder_.isEmpty()) {
+              userStatListBuilder_.dispose();
+              userStatListBuilder_ = null;
+              userStatList_ = other.userStatList_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              userStatListBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getUserStatListFieldBuilder() : null;
+            } else {
+              userStatListBuilder_.addAllMessages(other.userStatList_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        for (int i = 0; i < getUserStatListCount(); i++) {
+          if (!getUserStatList(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat> userStatList_ =
+        java.util.Collections.emptyList();
+      private void ensureUserStatListIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          userStatList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat>(userStatList_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStatOrBuilder> userStatListBuilder_;
 
       /**
        * <pre>
@@ -3821,8 +5758,11 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
        */
       public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat> getUserStatListList() {
-        return java.util.Collections.unmodifiableList(
-            instance.getUserStatListList());
+        if (userStatListBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(userStatList_);
+        } else {
+          return userStatListBuilder_.getMessageList();
+        }
       }
       /**
        * <pre>
@@ -3832,8 +5772,13 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
        */
       public int getUserStatListCount() {
-        return instance.getUserStatListCount();
-      }/**
+        if (userStatListBuilder_ == null) {
+          return userStatList_.size();
+        } else {
+          return userStatListBuilder_.getCount();
+        }
+      }
+      /**
        * <pre>
        *cmd id:	0x0708
        * </pre>
@@ -3841,7 +5786,11 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
        */
       public com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat getUserStatList(int index) {
-        return instance.getUserStatList(index);
+        if (userStatListBuilder_ == null) {
+          return userStatList_.get(index);
+        } else {
+          return userStatListBuilder_.getMessage(index);
+        }
       }
       /**
        * <pre>
@@ -3852,8 +5801,16 @@ public final class IMServer {
        */
       public Builder setUserStatList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat value) {
-        copyOnWrite();
-        instance.setUserStatList(index, value);
+        if (userStatListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserStatListIsMutable();
+          userStatList_.set(index, value);
+          onChanged();
+        } else {
+          userStatListBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
@@ -3865,8 +5822,13 @@ public final class IMServer {
        */
       public Builder setUserStatList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder builderForValue) {
-        copyOnWrite();
-        instance.setUserStatList(index, builderForValue);
+        if (userStatListBuilder_ == null) {
+          ensureUserStatListIsMutable();
+          userStatList_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          userStatListBuilder_.setMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -3877,8 +5839,16 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
        */
       public Builder addUserStatList(com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat value) {
-        copyOnWrite();
-        instance.addUserStatList(value);
+        if (userStatListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserStatListIsMutable();
+          userStatList_.add(value);
+          onChanged();
+        } else {
+          userStatListBuilder_.addMessage(value);
+        }
         return this;
       }
       /**
@@ -3890,8 +5860,16 @@ public final class IMServer {
        */
       public Builder addUserStatList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat value) {
-        copyOnWrite();
-        instance.addUserStatList(index, value);
+        if (userStatListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserStatListIsMutable();
+          userStatList_.add(index, value);
+          onChanged();
+        } else {
+          userStatListBuilder_.addMessage(index, value);
+        }
         return this;
       }
       /**
@@ -3903,8 +5881,13 @@ public final class IMServer {
        */
       public Builder addUserStatList(
           com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder builderForValue) {
-        copyOnWrite();
-        instance.addUserStatList(builderForValue);
+        if (userStatListBuilder_ == null) {
+          ensureUserStatListIsMutable();
+          userStatList_.add(builderForValue.build());
+          onChanged();
+        } else {
+          userStatListBuilder_.addMessage(builderForValue.build());
+        }
         return this;
       }
       /**
@@ -3916,8 +5899,13 @@ public final class IMServer {
        */
       public Builder addUserStatList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder builderForValue) {
-        copyOnWrite();
-        instance.addUserStatList(index, builderForValue);
+        if (userStatListBuilder_ == null) {
+          ensureUserStatListIsMutable();
+          userStatList_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          userStatListBuilder_.addMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -3929,8 +5917,14 @@ public final class IMServer {
        */
       public Builder addAllUserStatList(
           java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat> values) {
-        copyOnWrite();
-        instance.addAllUserStatList(values);
+        if (userStatListBuilder_ == null) {
+          ensureUserStatListIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, userStatList_);
+          onChanged();
+        } else {
+          userStatListBuilder_.addAllMessages(values);
+        }
         return this;
       }
       /**
@@ -3941,8 +5935,13 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
        */
       public Builder clearUserStatList() {
-        copyOnWrite();
-        instance.clearUserStatList();
+        if (userStatListBuilder_ == null) {
+          userStatList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          userStatListBuilder_.clear();
+        }
         return this;
       }
       /**
@@ -3953,134 +5952,159 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
        */
       public Builder removeUserStatList(int index) {
-        copyOnWrite();
-        instance.removeUserStatList(index);
+        if (userStatListBuilder_ == null) {
+          ensureUserStatListIsMutable();
+          userStatList_.remove(index);
+          onChanged();
+        } else {
+          userStatListBuilder_.remove(index);
+        }
         return this;
       }
+      /**
+       * <pre>
+       *cmd id:	0x0708
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder getUserStatListBuilder(
+          int index) {
+        return getUserStatListFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0708
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStatOrBuilder getUserStatListOrBuilder(
+          int index) {
+        if (userStatListBuilder_ == null) {
+          return userStatList_.get(index);  } else {
+          return userStatListBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0708
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
+       */
+      public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStatOrBuilder> 
+           getUserStatListOrBuilderList() {
+        if (userStatListBuilder_ != null) {
+          return userStatListBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(userStatList_);
+        }
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0708
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder addUserStatListBuilder() {
+        return getUserStatListFieldBuilder().addBuilder(
+            com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0708
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder addUserStatListBuilder(
+          int index) {
+        return getUserStatListFieldBuilder().addBuilder(
+            index, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0708
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.ServerUserStat user_stat_list = 1;</code>
+       */
+      public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder> 
+           getUserStatListBuilderList() {
+        return getUserStatListFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStatOrBuilder> 
+          getUserStatListFieldBuilder() {
+        if (userStatListBuilder_ == null) {
+          userStatListBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.Builder, com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStatOrBuilder>(
+                  userStatList_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          userStatList_ = null;
+        }
+        return userStatListBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMOnlineUserInfo)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          for (int i = 0; i < getUserStatListCount(); i++) {
-            if (!getUserStatList(i).isInitialized()) {
-              if (shouldMemoize) {
-                memoizedIsInitialized = 0;
-              }
-              return null;
-            }
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          userStatList_.makeImmutable();
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo other = (com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo) arg1;
-          userStatList_= visitor.visitList(userStatList_, other.userStatList_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 10: {
-                  if (!userStatList_.isModifiable()) {
-                    userStatList_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(userStatList_);
-                  }
-                  userStatList_.add(
-                      input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.ServerUserStat.parser(), extensionRegistry));
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMOnlineUserInfo)
     private static final com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMOnlineUserInfo();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMOnlineUserInfo> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMOnlineUserInfo>
+        PARSER = new com.google.protobuf.AbstractParser<IMOnlineUserInfo>() {
+      @java.lang.Override
+      public IMOnlineUserInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMOnlineUserInfo(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMOnlineUserInfo> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMOnlineUserInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMOnlineUserInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMMsgServInfoOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMMsgServInfo)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -4088,6 +6112,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string ip1 = 1;</code>
+     * @return Whether the ip1 field is set.
      */
     boolean hasIp1();
     /**
@@ -4096,6 +6121,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string ip1 = 1;</code>
+     * @return The ip1.
      */
     java.lang.String getIp1();
     /**
@@ -4104,61 +6130,74 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string ip1 = 1;</code>
+     * @return The bytes for ip1.
      */
     com.google.protobuf.ByteString
         getIp1Bytes();
 
     /**
      * <code>required string ip2 = 2;</code>
+     * @return Whether the ip2 field is set.
      */
     boolean hasIp2();
     /**
      * <code>required string ip2 = 2;</code>
+     * @return The ip2.
      */
     java.lang.String getIp2();
     /**
      * <code>required string ip2 = 2;</code>
+     * @return The bytes for ip2.
      */
     com.google.protobuf.ByteString
         getIp2Bytes();
 
     /**
      * <code>required uint32 port = 3;</code>
+     * @return Whether the port field is set.
      */
     boolean hasPort();
     /**
      * <code>required uint32 port = 3;</code>
+     * @return The port.
      */
     int getPort();
 
     /**
      * <code>required uint32 max_conn_cnt = 4;</code>
+     * @return Whether the maxConnCnt field is set.
      */
     boolean hasMaxConnCnt();
     /**
      * <code>required uint32 max_conn_cnt = 4;</code>
+     * @return The maxConnCnt.
      */
     int getMaxConnCnt();
 
     /**
      * <code>required uint32 cur_conn_cnt = 5;</code>
+     * @return Whether the curConnCnt field is set.
      */
     boolean hasCurConnCnt();
     /**
      * <code>required uint32 cur_conn_cnt = 5;</code>
+     * @return The curConnCnt.
      */
     int getCurConnCnt();
 
     /**
      * <code>required string host_name = 6;</code>
+     * @return Whether the hostName field is set.
      */
     boolean hasHostName();
     /**
      * <code>required string host_name = 6;</code>
+     * @return The hostName.
      */
     java.lang.String getHostName();
     /**
      * <code>required string host_name = 6;</code>
+     * @return The bytes for hostName.
      */
     com.google.protobuf.ByteString
         getHostNameBytes();
@@ -4166,28 +6205,131 @@ public final class IMServer {
   /**
    * Protobuf type {@code IM.Server.IMMsgServInfo}
    */
-  public  static final class IMMsgServInfo extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMMsgServInfo, IMMsgServInfo.Builder> implements
+  public static final class IMMsgServInfo extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMMsgServInfo)
       IMMsgServInfoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMMsgServInfo.newBuilder() to construct.
+    private IMMsgServInfo(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMMsgServInfo() {
       ip1_ = "";
       ip2_ = "";
       hostName_ = "";
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMMsgServInfo();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMMsgServInfo(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              ip1_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              ip2_ = bs;
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              port_ = input.readUInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              maxConnCnt_ = input.readUInt32();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              curConnCnt_ = input.readUInt32();
+              break;
+            }
+            case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000020;
+              hostName_ = bs;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMMsgServInfo_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMMsgServInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMMsgServInfo.class, com.blt.talk.common.code.proto.IMServer.IMMsgServInfo.Builder.class);
+    }
+
     private int bitField0_;
     public static final int IP1_FIELD_NUMBER = 1;
-    private java.lang.String ip1_;
+    private volatile java.lang.Object ip1_;
     /**
      * <pre>
      *cmd id:	0x0709
      * </pre>
      *
      * <code>required string ip1 = 1;</code>
+     * @return Whether the ip1 field is set.
      */
+    @java.lang.Override
     public boolean hasIp1() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -4195,9 +6337,22 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string ip1 = 1;</code>
+     * @return The ip1.
      */
+    @java.lang.Override
     public java.lang.String getIp1() {
-      return ip1_;
+      java.lang.Object ref = ip1_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          ip1_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <pre>
@@ -4205,403 +6360,671 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string ip1 = 1;</code>
+     * @return The bytes for ip1.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIp1Bytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(ip1_);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0709
-     * </pre>
-     *
-     * <code>required string ip1 = 1;</code>
-     */
-    private void setIp1(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      ip1_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0709
-     * </pre>
-     *
-     * <code>required string ip1 = 1;</code>
-     */
-    private void clearIp1() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      ip1_ = getDefaultInstance().getIp1();
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0709
-     * </pre>
-     *
-     * <code>required string ip1 = 1;</code>
-     */
-    private void setIp1Bytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      ip1_ = value.toStringUtf8();
+      java.lang.Object ref = ip1_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip1_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int IP2_FIELD_NUMBER = 2;
-    private java.lang.String ip2_;
+    private volatile java.lang.Object ip2_;
     /**
      * <code>required string ip2 = 2;</code>
+     * @return Whether the ip2 field is set.
      */
+    @java.lang.Override
     public boolean hasIp2() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required string ip2 = 2;</code>
+     * @return The ip2.
      */
+    @java.lang.Override
     public java.lang.String getIp2() {
-      return ip2_;
+      java.lang.Object ref = ip2_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          ip2_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <code>required string ip2 = 2;</code>
+     * @return The bytes for ip2.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIp2Bytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(ip2_);
-    }
-    /**
-     * <code>required string ip2 = 2;</code>
-     */
-    private void setIp2(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-      ip2_ = value;
-    }
-    /**
-     * <code>required string ip2 = 2;</code>
-     */
-    private void clearIp2() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      ip2_ = getDefaultInstance().getIp2();
-    }
-    /**
-     * <code>required string ip2 = 2;</code>
-     */
-    private void setIp2Bytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-      ip2_ = value.toStringUtf8();
+      java.lang.Object ref = ip2_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip2_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int PORT_FIELD_NUMBER = 3;
     private int port_;
     /**
      * <code>required uint32 port = 3;</code>
+     * @return Whether the port field is set.
      */
+    @java.lang.Override
     public boolean hasPort() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required uint32 port = 3;</code>
+     * @return The port.
      */
+    @java.lang.Override
     public int getPort() {
       return port_;
-    }
-    /**
-     * <code>required uint32 port = 3;</code>
-     */
-    private void setPort(int value) {
-      bitField0_ |= 0x00000004;
-      port_ = value;
-    }
-    /**
-     * <code>required uint32 port = 3;</code>
-     */
-    private void clearPort() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      port_ = 0;
     }
 
     public static final int MAX_CONN_CNT_FIELD_NUMBER = 4;
     private int maxConnCnt_;
     /**
      * <code>required uint32 max_conn_cnt = 4;</code>
+     * @return Whether the maxConnCnt field is set.
      */
+    @java.lang.Override
     public boolean hasMaxConnCnt() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>required uint32 max_conn_cnt = 4;</code>
+     * @return The maxConnCnt.
      */
+    @java.lang.Override
     public int getMaxConnCnt() {
       return maxConnCnt_;
-    }
-    /**
-     * <code>required uint32 max_conn_cnt = 4;</code>
-     */
-    private void setMaxConnCnt(int value) {
-      bitField0_ |= 0x00000008;
-      maxConnCnt_ = value;
-    }
-    /**
-     * <code>required uint32 max_conn_cnt = 4;</code>
-     */
-    private void clearMaxConnCnt() {
-      bitField0_ = (bitField0_ & ~0x00000008);
-      maxConnCnt_ = 0;
     }
 
     public static final int CUR_CONN_CNT_FIELD_NUMBER = 5;
     private int curConnCnt_;
     /**
      * <code>required uint32 cur_conn_cnt = 5;</code>
+     * @return Whether the curConnCnt field is set.
      */
+    @java.lang.Override
     public boolean hasCurConnCnt() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <code>required uint32 cur_conn_cnt = 5;</code>
+     * @return The curConnCnt.
      */
+    @java.lang.Override
     public int getCurConnCnt() {
       return curConnCnt_;
     }
-    /**
-     * <code>required uint32 cur_conn_cnt = 5;</code>
-     */
-    private void setCurConnCnt(int value) {
-      bitField0_ |= 0x00000010;
-      curConnCnt_ = value;
-    }
-    /**
-     * <code>required uint32 cur_conn_cnt = 5;</code>
-     */
-    private void clearCurConnCnt() {
-      bitField0_ = (bitField0_ & ~0x00000010);
-      curConnCnt_ = 0;
-    }
 
     public static final int HOST_NAME_FIELD_NUMBER = 6;
-    private java.lang.String hostName_;
+    private volatile java.lang.Object hostName_;
     /**
      * <code>required string host_name = 6;</code>
+     * @return Whether the hostName field is set.
      */
+    @java.lang.Override
     public boolean hasHostName() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
      * <code>required string host_name = 6;</code>
+     * @return The hostName.
      */
+    @java.lang.Override
     public java.lang.String getHostName() {
-      return hostName_;
+      java.lang.Object ref = hostName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          hostName_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <code>required string host_name = 6;</code>
+     * @return The bytes for hostName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHostNameBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(hostName_);
-    }
-    /**
-     * <code>required string host_name = 6;</code>
-     */
-    private void setHostName(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
-      hostName_ = value;
-    }
-    /**
-     * <code>required string host_name = 6;</code>
-     */
-    private void clearHostName() {
-      bitField0_ = (bitField0_ & ~0x00000020);
-      hostName_ = getDefaultInstance().getHostName();
-    }
-    /**
-     * <code>required string host_name = 6;</code>
-     */
-    private void setHostNameBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
-      hostName_ = value.toStringUtf8();
+      java.lang.Object ref = hostName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        hostName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasIp1()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIp2()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPort()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMaxConnCnt()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCurConnCnt()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasHostName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeString(1, getIp1());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ip1_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeString(2, getIp2());
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ip2_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt32(3, port_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeUInt32(4, maxConnCnt_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeUInt32(5, curConnCnt_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeString(6, getHostName());
+      if (((bitField0_ & 0x00000020) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, hostName_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(1, getIp1());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ip1_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(2, getIp2());
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ip2_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(3, port_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(4, maxConnCnt_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(5, curConnCnt_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(6, getHostName());
+      if (((bitField0_ & 0x00000020) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, hostName_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMMsgServInfo)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMMsgServInfo other = (com.blt.talk.common.code.proto.IMServer.IMMsgServInfo) obj;
+
+      if (hasIp1() != other.hasIp1()) return false;
+      if (hasIp1()) {
+        if (!getIp1()
+            .equals(other.getIp1())) return false;
+      }
+      if (hasIp2() != other.hasIp2()) return false;
+      if (hasIp2()) {
+        if (!getIp2()
+            .equals(other.getIp2())) return false;
+      }
+      if (hasPort() != other.hasPort()) return false;
+      if (hasPort()) {
+        if (getPort()
+            != other.getPort()) return false;
+      }
+      if (hasMaxConnCnt() != other.hasMaxConnCnt()) return false;
+      if (hasMaxConnCnt()) {
+        if (getMaxConnCnt()
+            != other.getMaxConnCnt()) return false;
+      }
+      if (hasCurConnCnt() != other.hasCurConnCnt()) return false;
+      if (hasCurConnCnt()) {
+        if (getCurConnCnt()
+            != other.getCurConnCnt()) return false;
+      }
+      if (hasHostName() != other.hasHostName()) return false;
+      if (hasHostName()) {
+        if (!getHostName()
+            .equals(other.getHostName())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasIp1()) {
+        hash = (37 * hash) + IP1_FIELD_NUMBER;
+        hash = (53 * hash) + getIp1().hashCode();
+      }
+      if (hasIp2()) {
+        hash = (37 * hash) + IP2_FIELD_NUMBER;
+        hash = (53 * hash) + getIp2().hashCode();
+      }
+      if (hasPort()) {
+        hash = (37 * hash) + PORT_FIELD_NUMBER;
+        hash = (53 * hash) + getPort();
+      }
+      if (hasMaxConnCnt()) {
+        hash = (37 * hash) + MAX_CONN_CNT_FIELD_NUMBER;
+        hash = (53 * hash) + getMaxConnCnt();
+      }
+      if (hasCurConnCnt()) {
+        hash = (37 * hash) + CUR_CONN_CNT_FIELD_NUMBER;
+        hash = (53 * hash) + getCurConnCnt();
+      }
+      if (hasHostName()) {
+        hash = (37 * hash) + HOST_NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getHostName().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMMsgServInfo prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMMsgServInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMMsgServInfo, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMMsgServInfo)
         com.blt.talk.common.code.proto.IMServer.IMMsgServInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMMsgServInfo_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMMsgServInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMMsgServInfo.class, com.blt.talk.common.code.proto.IMServer.IMMsgServInfo.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMMsgServInfo.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        ip1_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        ip2_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        port_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        maxConnCnt_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        curConnCnt_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        hostName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMMsgServInfo_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMMsgServInfo getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMMsgServInfo.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMMsgServInfo build() {
+        com.blt.talk.common.code.proto.IMServer.IMMsgServInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMMsgServInfo buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMMsgServInfo result = new com.blt.talk.common.code.proto.IMServer.IMMsgServInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.ip1_ = ip1_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.ip2_ = ip2_;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.port_ = port_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.maxConnCnt_ = maxConnCnt_;
+          to_bitField0_ |= 0x00000008;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.curConnCnt_ = curConnCnt_;
+          to_bitField0_ |= 0x00000010;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.hostName_ = hostName_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMMsgServInfo) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMMsgServInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMMsgServInfo other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMMsgServInfo.getDefaultInstance()) return this;
+        if (other.hasIp1()) {
+          bitField0_ |= 0x00000001;
+          ip1_ = other.ip1_;
+          onChanged();
+        }
+        if (other.hasIp2()) {
+          bitField0_ |= 0x00000002;
+          ip2_ = other.ip2_;
+          onChanged();
+        }
+        if (other.hasPort()) {
+          setPort(other.getPort());
+        }
+        if (other.hasMaxConnCnt()) {
+          setMaxConnCnt(other.getMaxConnCnt());
+        }
+        if (other.hasCurConnCnt()) {
+          setCurConnCnt(other.getCurConnCnt());
+        }
+        if (other.hasHostName()) {
+          bitField0_ |= 0x00000020;
+          hostName_ = other.hostName_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasIp1()) {
+          return false;
+        }
+        if (!hasIp2()) {
+          return false;
+        }
+        if (!hasPort()) {
+          return false;
+        }
+        if (!hasMaxConnCnt()) {
+          return false;
+        }
+        if (!hasCurConnCnt()) {
+          return false;
+        }
+        if (!hasHostName()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMMsgServInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMMsgServInfo) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object ip1_ = "";
       /**
        * <pre>
        *cmd id:	0x0709
        * </pre>
        *
        * <code>required string ip1 = 1;</code>
+       * @return Whether the ip1 field is set.
        */
       public boolean hasIp1() {
-        return instance.hasIp1();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -4609,9 +7032,21 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string ip1 = 1;</code>
+       * @return The ip1.
        */
       public java.lang.String getIp1() {
-        return instance.getIp1();
+        java.lang.Object ref = ip1_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            ip1_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <pre>
@@ -4619,10 +7054,20 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string ip1 = 1;</code>
+       * @return The bytes for ip1.
        */
       public com.google.protobuf.ByteString
           getIp1Bytes() {
-        return instance.getIp1Bytes();
+        java.lang.Object ref = ip1_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip1_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <pre>
@@ -4630,11 +7075,17 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string ip1 = 1;</code>
+       * @param value The ip1 to set.
+       * @return This builder for chaining.
        */
       public Builder setIp1(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setIp1(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        ip1_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -4643,10 +7094,12 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string ip1 = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIp1() {
-        copyOnWrite();
-        instance.clearIp1();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        ip1_ = getDefaultInstance().getIp1();
+        onChanged();
         return this;
       }
       /**
@@ -4655,385 +7108,360 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string ip1 = 1;</code>
+       * @param value The bytes for ip1 to set.
+       * @return This builder for chaining.
        */
       public Builder setIp1Bytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setIp1Bytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        ip1_ = value;
+        onChanged();
         return this;
       }
 
+      private java.lang.Object ip2_ = "";
       /**
        * <code>required string ip2 = 2;</code>
+       * @return Whether the ip2 field is set.
        */
       public boolean hasIp2() {
-        return instance.hasIp2();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required string ip2 = 2;</code>
+       * @return The ip2.
        */
       public java.lang.String getIp2() {
-        return instance.getIp2();
+        java.lang.Object ref = ip2_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            ip2_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <code>required string ip2 = 2;</code>
+       * @return The bytes for ip2.
        */
       public com.google.protobuf.ByteString
           getIp2Bytes() {
-        return instance.getIp2Bytes();
+        java.lang.Object ref = ip2_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip2_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <code>required string ip2 = 2;</code>
+       * @param value The ip2 to set.
+       * @return This builder for chaining.
        */
       public Builder setIp2(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setIp2(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        ip2_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required string ip2 = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearIp2() {
-        copyOnWrite();
-        instance.clearIp2();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        ip2_ = getDefaultInstance().getIp2();
+        onChanged();
         return this;
       }
       /**
        * <code>required string ip2 = 2;</code>
+       * @param value The bytes for ip2 to set.
+       * @return This builder for chaining.
        */
       public Builder setIp2Bytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setIp2Bytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        ip2_ = value;
+        onChanged();
         return this;
       }
 
+      private int port_ ;
       /**
        * <code>required uint32 port = 3;</code>
+       * @return Whether the port field is set.
        */
+      @java.lang.Override
       public boolean hasPort() {
-        return instance.hasPort();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required uint32 port = 3;</code>
+       * @return The port.
        */
+      @java.lang.Override
       public int getPort() {
-        return instance.getPort();
+        return port_;
       }
       /**
        * <code>required uint32 port = 3;</code>
+       * @param value The port to set.
+       * @return This builder for chaining.
        */
       public Builder setPort(int value) {
-        copyOnWrite();
-        instance.setPort(value);
+        bitField0_ |= 0x00000004;
+        port_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint32 port = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearPort() {
-        copyOnWrite();
-        instance.clearPort();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        port_ = 0;
+        onChanged();
         return this;
       }
 
+      private int maxConnCnt_ ;
       /**
        * <code>required uint32 max_conn_cnt = 4;</code>
+       * @return Whether the maxConnCnt field is set.
        */
+      @java.lang.Override
       public boolean hasMaxConnCnt() {
-        return instance.hasMaxConnCnt();
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>required uint32 max_conn_cnt = 4;</code>
+       * @return The maxConnCnt.
        */
+      @java.lang.Override
       public int getMaxConnCnt() {
-        return instance.getMaxConnCnt();
+        return maxConnCnt_;
       }
       /**
        * <code>required uint32 max_conn_cnt = 4;</code>
+       * @param value The maxConnCnt to set.
+       * @return This builder for chaining.
        */
       public Builder setMaxConnCnt(int value) {
-        copyOnWrite();
-        instance.setMaxConnCnt(value);
+        bitField0_ |= 0x00000008;
+        maxConnCnt_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint32 max_conn_cnt = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearMaxConnCnt() {
-        copyOnWrite();
-        instance.clearMaxConnCnt();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        maxConnCnt_ = 0;
+        onChanged();
         return this;
       }
 
+      private int curConnCnt_ ;
       /**
        * <code>required uint32 cur_conn_cnt = 5;</code>
+       * @return Whether the curConnCnt field is set.
        */
+      @java.lang.Override
       public boolean hasCurConnCnt() {
-        return instance.hasCurConnCnt();
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>required uint32 cur_conn_cnt = 5;</code>
+       * @return The curConnCnt.
        */
+      @java.lang.Override
       public int getCurConnCnt() {
-        return instance.getCurConnCnt();
+        return curConnCnt_;
       }
       /**
        * <code>required uint32 cur_conn_cnt = 5;</code>
+       * @param value The curConnCnt to set.
+       * @return This builder for chaining.
        */
       public Builder setCurConnCnt(int value) {
-        copyOnWrite();
-        instance.setCurConnCnt(value);
+        bitField0_ |= 0x00000010;
+        curConnCnt_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint32 cur_conn_cnt = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCurConnCnt() {
-        copyOnWrite();
-        instance.clearCurConnCnt();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        curConnCnt_ = 0;
+        onChanged();
         return this;
       }
 
+      private java.lang.Object hostName_ = "";
       /**
        * <code>required string host_name = 6;</code>
+       * @return Whether the hostName field is set.
        */
       public boolean hasHostName() {
-        return instance.hasHostName();
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <code>required string host_name = 6;</code>
+       * @return The hostName.
        */
       public java.lang.String getHostName() {
-        return instance.getHostName();
+        java.lang.Object ref = hostName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            hostName_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <code>required string host_name = 6;</code>
+       * @return The bytes for hostName.
        */
       public com.google.protobuf.ByteString
           getHostNameBytes() {
-        return instance.getHostNameBytes();
+        java.lang.Object ref = hostName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          hostName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <code>required string host_name = 6;</code>
+       * @param value The hostName to set.
+       * @return This builder for chaining.
        */
       public Builder setHostName(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setHostName(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        hostName_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required string host_name = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearHostName() {
-        copyOnWrite();
-        instance.clearHostName();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        hostName_ = getDefaultInstance().getHostName();
+        onChanged();
         return this;
       }
       /**
        * <code>required string host_name = 6;</code>
+       * @param value The bytes for hostName to set.
+       * @return This builder for chaining.
        */
       public Builder setHostNameBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setHostNameBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        hostName_ = value;
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMMsgServInfo)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMMsgServInfo();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasIp1()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasIp2()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasPort()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasMaxConnCnt()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCurConnCnt()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasHostName()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMMsgServInfo other = (com.blt.talk.common.code.proto.IMServer.IMMsgServInfo) arg1;
-          ip1_ = visitor.visitString(
-              hasIp1(), ip1_,
-              other.hasIp1(), other.ip1_);
-          ip2_ = visitor.visitString(
-              hasIp2(), ip2_,
-              other.hasIp2(), other.ip2_);
-          port_ = visitor.visitInt(
-              hasPort(), port_,
-              other.hasPort(), other.port_);
-          maxConnCnt_ = visitor.visitInt(
-              hasMaxConnCnt(), maxConnCnt_,
-              other.hasMaxConnCnt(), other.maxConnCnt_);
-          curConnCnt_ = visitor.visitInt(
-              hasCurConnCnt(), curConnCnt_,
-              other.hasCurConnCnt(), other.curConnCnt_);
-          hostName_ = visitor.visitString(
-              hasHostName(), hostName_,
-              other.hasHostName(), other.hostName_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 10: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000001;
-                  ip1_ = s;
-                  break;
-                }
-                case 18: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000002;
-                  ip2_ = s;
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  port_ = input.readUInt32();
-                  break;
-                }
-                case 32: {
-                  bitField0_ |= 0x00000008;
-                  maxConnCnt_ = input.readUInt32();
-                  break;
-                }
-                case 40: {
-                  bitField0_ |= 0x00000010;
-                  curConnCnt_ = input.readUInt32();
-                  break;
-                }
-                case 50: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000020;
-                  hostName_ = s;
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMMsgServInfo.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMMsgServInfo)
     private static final com.blt.talk.common.code.proto.IMServer.IMMsgServInfo DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMMsgServInfo();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMMsgServInfo();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMMsgServInfo getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMMsgServInfo> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMMsgServInfo>
+        PARSER = new com.google.protobuf.AbstractParser<IMMsgServInfo>() {
+      @java.lang.Override
+      public IMMsgServInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMMsgServInfo(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMMsgServInfo> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMMsgServInfo> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMMsgServInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMUserStatusUpdateOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMUserStatusUpdate)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -5041,6 +7469,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 user_status = 1;</code>
+     * @return Whether the userStatus field is set.
      */
     boolean hasUserStatus();
     /**
@@ -5049,38 +7478,133 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 user_status = 1;</code>
+     * @return The userStatus.
      */
     int getUserStatus();
 
     /**
      * <code>required uint64 user_id = 2;</code>
+     * @return Whether the userId field is set.
      */
     boolean hasUserId();
     /**
      * <code>required uint64 user_id = 2;</code>
+     * @return The userId.
      */
     long getUserId();
 
     /**
      * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
+     * @return Whether the clientType field is set.
      */
     boolean hasClientType();
     /**
      * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
+     * @return The clientType.
      */
     com.blt.talk.common.code.proto.IMBaseDefine.ClientType getClientType();
   }
   /**
    * Protobuf type {@code IM.Server.IMUserStatusUpdate}
    */
-  public  static final class IMUserStatusUpdate extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMUserStatusUpdate, IMUserStatusUpdate.Builder> implements
+  public static final class IMUserStatusUpdate extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMUserStatusUpdate)
       IMUserStatusUpdateOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMUserStatusUpdate.newBuilder() to construct.
+    private IMUserStatusUpdate(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMUserStatusUpdate() {
       clientType_ = 1;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMUserStatusUpdate();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMUserStatusUpdate(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userStatus_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              userId_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
+              com.blt.talk.common.code.proto.IMBaseDefine.ClientType value = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(3, rawValue);
+              } else {
+                bitField0_ |= 0x00000004;
+                clientType_ = rawValue;
+              }
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserStatusUpdate_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserStatusUpdate_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate.class, com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate.Builder.class);
+    }
+
     private int bitField0_;
     public static final int USER_STATUS_FIELD_NUMBER = 1;
     private int userStatus_;
@@ -5090,9 +7614,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 user_status = 1;</code>
+     * @return Whether the userStatus field is set.
      */
+    @java.lang.Override
     public boolean hasUserStatus() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -5100,235 +7626,448 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 user_status = 1;</code>
+     * @return The userStatus.
      */
+    @java.lang.Override
     public int getUserStatus() {
       return userStatus_;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070a
-     * </pre>
-     *
-     * <code>required uint32 user_status = 1;</code>
-     */
-    private void setUserStatus(int value) {
-      bitField0_ |= 0x00000001;
-      userStatus_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070a
-     * </pre>
-     *
-     * <code>required uint32 user_status = 1;</code>
-     */
-    private void clearUserStatus() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      userStatus_ = 0;
     }
 
     public static final int USER_ID_FIELD_NUMBER = 2;
     private long userId_;
     /**
      * <code>required uint64 user_id = 2;</code>
+     * @return Whether the userId field is set.
      */
+    @java.lang.Override
     public boolean hasUserId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required uint64 user_id = 2;</code>
+     * @return The userId.
      */
+    @java.lang.Override
     public long getUserId() {
       return userId_;
-    }
-    /**
-     * <code>required uint64 user_id = 2;</code>
-     */
-    private void setUserId(long value) {
-      bitField0_ |= 0x00000002;
-      userId_ = value;
-    }
-    /**
-     * <code>required uint64 user_id = 2;</code>
-     */
-    private void clearUserId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      userId_ = 0L;
     }
 
     public static final int CLIENT_TYPE_FIELD_NUMBER = 3;
     private int clientType_;
     /**
      * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
+     * @return Whether the clientType field is set.
      */
-    public boolean hasClientType() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+    @java.lang.Override public boolean hasClientType() {
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
+     * @return The clientType.
      */
-    public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getClientType() {
-      com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.forNumber(clientType_);
+    @java.lang.Override public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getClientType() {
+      @SuppressWarnings("deprecation")
+      com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(clientType_);
       return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.ClientType.CLIENT_TYPE_WINDOWS : result;
     }
-    /**
-     * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
-     */
-    private void setClientType(com.blt.talk.common.code.proto.IMBaseDefine.ClientType value) {
-      if (value == null) {
-        throw new NullPointerException();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
       }
-      bitField0_ |= 0x00000004;
-      clientType_ = value.getNumber();
-    }
-    /**
-     * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
-     */
-    private void clearClientType() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      clientType_ = 1;
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasClientType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt32(1, userStatus_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt64(2, userId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeEnum(3, clientType_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, userStatus_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, userId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(3, clientType_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate other = (com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate) obj;
+
+      if (hasUserStatus() != other.hasUserStatus()) return false;
+      if (hasUserStatus()) {
+        if (getUserStatus()
+            != other.getUserStatus()) return false;
+      }
+      if (hasUserId() != other.hasUserId()) return false;
+      if (hasUserId()) {
+        if (getUserId()
+            != other.getUserId()) return false;
+      }
+      if (hasClientType() != other.hasClientType()) return false;
+      if (hasClientType()) {
+        if (clientType_ != other.clientType_) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasUserStatus()) {
+        hash = (37 * hash) + USER_STATUS_FIELD_NUMBER;
+        hash = (53 * hash) + getUserStatus();
+      }
+      if (hasUserId()) {
+        hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getUserId());
+      }
+      if (hasClientType()) {
+        hash = (37 * hash) + CLIENT_TYPE_FIELD_NUMBER;
+        hash = (53 * hash) + clientType_;
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMUserStatusUpdate}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMUserStatusUpdate)
         com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdateOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserStatusUpdate_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserStatusUpdate_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate.class, com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        userStatus_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        clientType_ = 1;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserStatusUpdate_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate build() {
+        com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate result = new com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.userStatus_ = userStatus_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.userId_ = userId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.clientType_ = clientType_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate.getDefaultInstance()) return this;
+        if (other.hasUserStatus()) {
+          setUserStatus(other.getUserStatus());
+        }
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasClientType()) {
+          setClientType(other.getClientType());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasUserStatus()) {
+          return false;
+        }
+        if (!hasUserId()) {
+          return false;
+        }
+        if (!hasClientType()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int userStatus_ ;
       /**
        * <pre>
        *cmd id:	0x070a
        * </pre>
        *
        * <code>required uint32 user_status = 1;</code>
+       * @return Whether the userStatus field is set.
        */
+      @java.lang.Override
       public boolean hasUserStatus() {
-        return instance.hasUserStatus();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -5336,9 +8075,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 user_status = 1;</code>
+       * @return The userStatus.
        */
+      @java.lang.Override
       public int getUserStatus() {
-        return instance.getUserStatus();
+        return userStatus_;
       }
       /**
        * <pre>
@@ -5346,10 +8087,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 user_status = 1;</code>
+       * @param value The userStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setUserStatus(int value) {
-        copyOnWrite();
-        instance.setUserStatus(value);
+        bitField0_ |= 0x00000001;
+        userStatus_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -5358,223 +8102,152 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 user_status = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserStatus() {
-        copyOnWrite();
-        instance.clearUserStatus();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userStatus_ = 0;
+        onChanged();
         return this;
       }
 
+      private long userId_ ;
       /**
        * <code>required uint64 user_id = 2;</code>
+       * @return Whether the userId field is set.
        */
+      @java.lang.Override
       public boolean hasUserId() {
-        return instance.hasUserId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required uint64 user_id = 2;</code>
+       * @return The userId.
        */
+      @java.lang.Override
       public long getUserId() {
-        return instance.getUserId();
+        return userId_;
       }
       /**
        * <code>required uint64 user_id = 2;</code>
+       * @param value The userId to set.
+       * @return This builder for chaining.
        */
       public Builder setUserId(long value) {
-        copyOnWrite();
-        instance.setUserId(value);
+        bitField0_ |= 0x00000002;
+        userId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 user_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserId() {
-        copyOnWrite();
-        instance.clearUserId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        userId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private int clientType_ = 1;
       /**
        * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
+       * @return Whether the clientType field is set.
        */
-      public boolean hasClientType() {
-        return instance.hasClientType();
+      @java.lang.Override public boolean hasClientType() {
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
+       * @return The clientType.
        */
+      @java.lang.Override
       public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getClientType() {
-        return instance.getClientType();
+        @SuppressWarnings("deprecation")
+        com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(clientType_);
+        return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.ClientType.CLIENT_TYPE_WINDOWS : result;
       }
       /**
        * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
+       * @param value The clientType to set.
+       * @return This builder for chaining.
        */
       public Builder setClientType(com.blt.talk.common.code.proto.IMBaseDefine.ClientType value) {
-        copyOnWrite();
-        instance.setClientType(value);
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
+        clientType_ = value.getNumber();
+        onChanged();
         return this;
       }
       /**
        * <code>required .IM.BaseDefine.ClientType client_type = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearClientType() {
-        copyOnWrite();
-        instance.clearClientType();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        clientType_ = 1;
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMUserStatusUpdate)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasUserStatus()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasUserId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasClientType()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate other = (com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate) arg1;
-          userStatus_ = visitor.visitInt(
-              hasUserStatus(), userStatus_,
-              other.hasUserStatus(), other.userStatus_);
-          userId_ = visitor.visitLong(
-              hasUserId(), userId_,
-              other.hasUserId(), other.userId_);
-          clientType_ = visitor.visitInt(hasClientType(), clientType_,
-              other.hasClientType(), other.clientType_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  userStatus_ = input.readUInt32();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  userId_ = input.readUInt64();
-                  break;
-                }
-                case 24: {
-                  int rawValue = input.readEnum();
-                  com.blt.talk.common.code.proto.IMBaseDefine.ClientType value = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.forNumber(rawValue);
-                  if (value == null) {
-                    super.mergeVarintField(3, rawValue);
-                  } else {
-                    bitField0_ |= 0x00000004;
-                    clientType_ = rawValue;
-                  }
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMUserStatusUpdate)
     private static final com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMUserStatusUpdate();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMUserStatusUpdate> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMUserStatusUpdate>
+        PARSER = new com.google.protobuf.AbstractParser<IMUserStatusUpdate>() {
+      @java.lang.Override
+      public IMUserStatusUpdate parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMUserStatusUpdate(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMUserStatusUpdate> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMUserStatusUpdate> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMUserStatusUpdate getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMUserCntUpdateOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMUserCntUpdate)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -5582,6 +8255,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 user_action = 1;</code>
+     * @return Whether the userAction field is set.
      */
     boolean hasUserAction();
     /**
@@ -5590,28 +8264,109 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 user_action = 1;</code>
+     * @return The userAction.
      */
     int getUserAction();
 
     /**
      * <code>required uint64 user_id = 2;</code>
+     * @return Whether the userId field is set.
      */
     boolean hasUserId();
     /**
      * <code>required uint64 user_id = 2;</code>
+     * @return The userId.
      */
     long getUserId();
   }
   /**
    * Protobuf type {@code IM.Server.IMUserCntUpdate}
    */
-  public  static final class IMUserCntUpdate extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMUserCntUpdate, IMUserCntUpdate.Builder> implements
+  public static final class IMUserCntUpdate extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMUserCntUpdate)
       IMUserCntUpdateOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMUserCntUpdate.newBuilder() to construct.
+    private IMUserCntUpdate(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMUserCntUpdate() {
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMUserCntUpdate();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMUserCntUpdate(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userAction_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              userId_ = input.readUInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserCntUpdate_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserCntUpdate_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate.class, com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate.Builder.class);
+    }
+
     private int bitField0_;
     public static final int USER_ACTION_FIELD_NUMBER = 1;
     private int userAction_;
@@ -5621,9 +8376,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 user_action = 1;</code>
+     * @return Whether the userAction field is set.
      */
+    @java.lang.Override
     public boolean hasUserAction() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -5631,195 +8388,398 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 user_action = 1;</code>
+     * @return The userAction.
      */
+    @java.lang.Override
     public int getUserAction() {
       return userAction_;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070b
-     * </pre>
-     *
-     * <code>required uint32 user_action = 1;</code>
-     */
-    private void setUserAction(int value) {
-      bitField0_ |= 0x00000001;
-      userAction_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070b
-     * </pre>
-     *
-     * <code>required uint32 user_action = 1;</code>
-     */
-    private void clearUserAction() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      userAction_ = 0;
     }
 
     public static final int USER_ID_FIELD_NUMBER = 2;
     private long userId_;
     /**
      * <code>required uint64 user_id = 2;</code>
+     * @return Whether the userId field is set.
      */
+    @java.lang.Override
     public boolean hasUserId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required uint64 user_id = 2;</code>
+     * @return The userId.
      */
+    @java.lang.Override
     public long getUserId() {
       return userId_;
     }
-    /**
-     * <code>required uint64 user_id = 2;</code>
-     */
-    private void setUserId(long value) {
-      bitField0_ |= 0x00000002;
-      userId_ = value;
-    }
-    /**
-     * <code>required uint64 user_id = 2;</code>
-     */
-    private void clearUserId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      userId_ = 0L;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserAction()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt32(1, userAction_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt64(2, userId_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, userAction_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, userId_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate other = (com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate) obj;
+
+      if (hasUserAction() != other.hasUserAction()) return false;
+      if (hasUserAction()) {
+        if (getUserAction()
+            != other.getUserAction()) return false;
+      }
+      if (hasUserId() != other.hasUserId()) return false;
+      if (hasUserId()) {
+        if (getUserId()
+            != other.getUserId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasUserAction()) {
+        hash = (37 * hash) + USER_ACTION_FIELD_NUMBER;
+        hash = (53 * hash) + getUserAction();
+      }
+      if (hasUserId()) {
+        hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getUserId());
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMUserCntUpdate}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMUserCntUpdate)
         com.blt.talk.common.code.proto.IMServer.IMUserCntUpdateOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserCntUpdate_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserCntUpdate_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate.class, com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        userAction_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMUserCntUpdate_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate build() {
+        com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate result = new com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.userAction_ = userAction_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.userId_ = userId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate.getDefaultInstance()) return this;
+        if (other.hasUserAction()) {
+          setUserAction(other.getUserAction());
+        }
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasUserAction()) {
+          return false;
+        }
+        if (!hasUserId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int userAction_ ;
       /**
        * <pre>
        *cmd id:	0x070b
        * </pre>
        *
        * <code>required uint32 user_action = 1;</code>
+       * @return Whether the userAction field is set.
        */
+      @java.lang.Override
       public boolean hasUserAction() {
-        return instance.hasUserAction();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -5827,9 +8787,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 user_action = 1;</code>
+       * @return The userAction.
        */
+      @java.lang.Override
       public int getUserAction() {
-        return instance.getUserAction();
+        return userAction_;
       }
       /**
        * <pre>
@@ -5837,10 +8799,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 user_action = 1;</code>
+       * @param value The userAction to set.
+       * @return This builder for chaining.
        */
       public Builder setUserAction(int value) {
-        copyOnWrite();
-        instance.setUserAction(value);
+        bitField0_ |= 0x00000001;
+        userAction_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -5849,175 +8814,109 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 user_action = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserAction() {
-        copyOnWrite();
-        instance.clearUserAction();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userAction_ = 0;
+        onChanged();
         return this;
       }
 
+      private long userId_ ;
       /**
        * <code>required uint64 user_id = 2;</code>
+       * @return Whether the userId field is set.
        */
+      @java.lang.Override
       public boolean hasUserId() {
-        return instance.hasUserId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required uint64 user_id = 2;</code>
+       * @return The userId.
        */
+      @java.lang.Override
       public long getUserId() {
-        return instance.getUserId();
+        return userId_;
       }
       /**
        * <code>required uint64 user_id = 2;</code>
+       * @param value The userId to set.
+       * @return This builder for chaining.
        */
       public Builder setUserId(long value) {
-        copyOnWrite();
-        instance.setUserId(value);
+        bitField0_ |= 0x00000002;
+        userId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 user_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserId() {
-        copyOnWrite();
-        instance.clearUserId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        userId_ = 0L;
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMUserCntUpdate)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasUserAction()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasUserId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate other = (com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate) arg1;
-          userAction_ = visitor.visitInt(
-              hasUserAction(), userAction_,
-              other.hasUserAction(), other.userAction_);
-          userId_ = visitor.visitLong(
-              hasUserId(), userId_,
-              other.hasUserId(), other.userId_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  userAction_ = input.readUInt32();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  userId_ = input.readUInt64();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMUserCntUpdate)
     private static final com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMUserCntUpdate();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMUserCntUpdate> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMUserCntUpdate>
+        PARSER = new com.google.protobuf.AbstractParser<IMUserCntUpdate>() {
+      @java.lang.Override
+      public IMUserCntUpdate parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMUserCntUpdate(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMUserCntUpdate> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMUserCntUpdate> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMUserCntUpdate getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMServerKickUserOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMServerKickUser)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -6025,6 +8924,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 user_id = 1;</code>
+     * @return Whether the userId field is set.
      */
     boolean hasUserId();
     /**
@@ -6033,15 +8933,18 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 user_id = 1;</code>
+     * @return The userId.
      */
     long getUserId();
 
     /**
      * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
+     * @return Whether the clientType field is set.
      */
     boolean hasClientType();
     /**
      * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
+     * @return The clientType.
      */
     com.blt.talk.common.code.proto.IMBaseDefine.ClientType getClientType();
 
@@ -6051,6 +8954,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 reason = 3;</code>
+     * @return Whether the reason field is set.
      */
     boolean hasReason();
     /**
@@ -6059,20 +8963,111 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 reason = 3;</code>
+     * @return The reason.
      */
     int getReason();
   }
   /**
    * Protobuf type {@code IM.Server.IMServerKickUser}
    */
-  public  static final class IMServerKickUser extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMServerKickUser, IMServerKickUser.Builder> implements
+  public static final class IMServerKickUser extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMServerKickUser)
       IMServerKickUserOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMServerKickUser.newBuilder() to construct.
+    private IMServerKickUser(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMServerKickUser() {
       clientType_ = 1;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMServerKickUser();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMServerKickUser(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+              int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
+              com.blt.talk.common.code.proto.IMBaseDefine.ClientType value = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000002;
+                clientType_ = rawValue;
+              }
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              reason_ = input.readUInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerKickUser_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerKickUser_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMServerKickUser.class, com.blt.talk.common.code.proto.IMServer.IMServerKickUser.Builder.class);
+    }
+
     private int bitField0_;
     public static final int USER_ID_FIELD_NUMBER = 1;
     private long userId_;
@@ -6082,9 +9077,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 user_id = 1;</code>
+     * @return Whether the userId field is set.
      */
+    @java.lang.Override
     public boolean hasUserId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -6092,64 +9089,30 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 user_id = 1;</code>
+     * @return The userId.
      */
+    @java.lang.Override
     public long getUserId() {
       return userId_;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070d
-     * </pre>
-     *
-     * <code>required uint64 user_id = 1;</code>
-     */
-    private void setUserId(long value) {
-      bitField0_ |= 0x00000001;
-      userId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070d
-     * </pre>
-     *
-     * <code>required uint64 user_id = 1;</code>
-     */
-    private void clearUserId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      userId_ = 0L;
     }
 
     public static final int CLIENT_TYPE_FIELD_NUMBER = 2;
     private int clientType_;
     /**
      * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
+     * @return Whether the clientType field is set.
      */
-    public boolean hasClientType() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+    @java.lang.Override public boolean hasClientType() {
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
+     * @return The clientType.
      */
-    public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getClientType() {
-      com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.forNumber(clientType_);
+    @java.lang.Override public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getClientType() {
+      @SuppressWarnings("deprecation")
+      com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(clientType_);
       return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.ClientType.CLIENT_TYPE_WINDOWS : result;
-    }
-    /**
-     * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
-     */
-    private void setClientType(com.blt.talk.common.code.proto.IMBaseDefine.ClientType value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      bitField0_ |= 0x00000002;
-      clientType_ = value.getNumber();
-    }
-    /**
-     * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
-     */
-    private void clearClientType() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      clientType_ = 1;
     }
 
     public static final int REASON_FIELD_NUMBER = 3;
@@ -6160,9 +9123,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 reason = 3;</code>
+     * @return Whether the reason field is set.
      */
+    @java.lang.Override
     public boolean hasReason() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <pre>
@@ -6170,173 +9135,410 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 reason = 3;</code>
+     * @return The reason.
      */
+    @java.lang.Override
     public int getReason() {
       return reason_;
     }
-    /**
-     * <pre>
-     *KICK_REASON_DUPLICATE_USER = 1;
-     * </pre>
-     *
-     * <code>required uint32 reason = 3;</code>
-     */
-    private void setReason(int value) {
-      bitField0_ |= 0x00000004;
-      reason_ = value;
-    }
-    /**
-     * <pre>
-     *KICK_REASON_DUPLICATE_USER = 1;
-     * </pre>
-     *
-     * <code>required uint32 reason = 3;</code>
-     */
-    private void clearReason() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      reason_ = 0;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasClientType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasReason()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, userId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeEnum(2, clientType_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt32(3, reason_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, userId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, clientType_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(3, reason_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMServerKickUser)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMServerKickUser other = (com.blt.talk.common.code.proto.IMServer.IMServerKickUser) obj;
+
+      if (hasUserId() != other.hasUserId()) return false;
+      if (hasUserId()) {
+        if (getUserId()
+            != other.getUserId()) return false;
+      }
+      if (hasClientType() != other.hasClientType()) return false;
+      if (hasClientType()) {
+        if (clientType_ != other.clientType_) return false;
+      }
+      if (hasReason() != other.hasReason()) return false;
+      if (hasReason()) {
+        if (getReason()
+            != other.getReason()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasUserId()) {
+        hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getUserId());
+      }
+      if (hasClientType()) {
+        hash = (37 * hash) + CLIENT_TYPE_FIELD_NUMBER;
+        hash = (53 * hash) + clientType_;
+      }
+      if (hasReason()) {
+        hash = (37 * hash) + REASON_FIELD_NUMBER;
+        hash = (53 * hash) + getReason();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMServerKickUser prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMServerKickUser}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMServerKickUser, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMServerKickUser)
         com.blt.talk.common.code.proto.IMServer.IMServerKickUserOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerKickUser_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerKickUser_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMServerKickUser.class, com.blt.talk.common.code.proto.IMServer.IMServerKickUser.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMServerKickUser.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        userId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        clientType_ = 1;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        reason_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerKickUser_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMServerKickUser getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMServerKickUser.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMServerKickUser build() {
+        com.blt.talk.common.code.proto.IMServer.IMServerKickUser result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMServerKickUser buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMServerKickUser result = new com.blt.talk.common.code.proto.IMServer.IMServerKickUser(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.userId_ = userId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.clientType_ = clientType_;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.reason_ = reason_;
+          to_bitField0_ |= 0x00000004;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMServerKickUser) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMServerKickUser)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMServerKickUser other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMServerKickUser.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasClientType()) {
+          setClientType(other.getClientType());
+        }
+        if (other.hasReason()) {
+          setReason(other.getReason());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          return false;
+        }
+        if (!hasClientType()) {
+          return false;
+        }
+        if (!hasReason()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMServerKickUser parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMServerKickUser) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long userId_ ;
       /**
        * <pre>
        *cmd id:	0x070d
        * </pre>
        *
        * <code>required uint64 user_id = 1;</code>
+       * @return Whether the userId field is set.
        */
+      @java.lang.Override
       public boolean hasUserId() {
-        return instance.hasUserId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -6344,9 +9546,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 user_id = 1;</code>
+       * @return The userId.
        */
+      @java.lang.Override
       public long getUserId() {
-        return instance.getUserId();
+        return userId_;
       }
       /**
        * <pre>
@@ -6354,10 +9558,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 user_id = 1;</code>
+       * @param value The userId to set.
+       * @return This builder for chaining.
        */
       public Builder setUserId(long value) {
-        copyOnWrite();
-        instance.setUserId(value);
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -6366,51 +9573,70 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 user_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserId() {
-        copyOnWrite();
-        instance.clearUserId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private int clientType_ = 1;
       /**
        * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
+       * @return Whether the clientType field is set.
        */
-      public boolean hasClientType() {
-        return instance.hasClientType();
+      @java.lang.Override public boolean hasClientType() {
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
+       * @return The clientType.
        */
+      @java.lang.Override
       public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getClientType() {
-        return instance.getClientType();
+        @SuppressWarnings("deprecation")
+        com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(clientType_);
+        return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.ClientType.CLIENT_TYPE_WINDOWS : result;
       }
       /**
        * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
+       * @param value The clientType to set.
+       * @return This builder for chaining.
        */
       public Builder setClientType(com.blt.talk.common.code.proto.IMBaseDefine.ClientType value) {
-        copyOnWrite();
-        instance.setClientType(value);
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        clientType_ = value.getNumber();
+        onChanged();
         return this;
       }
       /**
        * <code>required .IM.BaseDefine.ClientType client_type = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearClientType() {
-        copyOnWrite();
-        instance.clearClientType();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        clientType_ = 1;
+        onChanged();
         return this;
       }
 
+      private int reason_ ;
       /**
        * <pre>
        *KICK_REASON_DUPLICATE_USER = 1;
        * </pre>
        *
        * <code>required uint32 reason = 3;</code>
+       * @return Whether the reason field is set.
        */
+      @java.lang.Override
       public boolean hasReason() {
-        return instance.hasReason();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <pre>
@@ -6418,9 +9644,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 reason = 3;</code>
+       * @return The reason.
        */
+      @java.lang.Override
       public int getReason() {
-        return instance.getReason();
+        return reason_;
       }
       /**
        * <pre>
@@ -6428,10 +9656,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 reason = 3;</code>
+       * @param value The reason to set.
+       * @return This builder for chaining.
        */
       public Builder setReason(int value) {
-        copyOnWrite();
-        instance.setReason(value);
+        bitField0_ |= 0x00000004;
+        reason_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -6440,165 +9671,70 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 reason = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearReason() {
-        copyOnWrite();
-        instance.clearReason();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        reason_ = 0;
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMServerKickUser)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMServerKickUser();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasUserId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasClientType()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasReason()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMServerKickUser other = (com.blt.talk.common.code.proto.IMServer.IMServerKickUser) arg1;
-          userId_ = visitor.visitLong(
-              hasUserId(), userId_,
-              other.hasUserId(), other.userId_);
-          clientType_ = visitor.visitInt(hasClientType(), clientType_,
-              other.hasClientType(), other.clientType_);
-          reason_ = visitor.visitInt(
-              hasReason(), reason_,
-              other.hasReason(), other.reason_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  userId_ = input.readUInt64();
-                  break;
-                }
-                case 16: {
-                  int rawValue = input.readEnum();
-                  com.blt.talk.common.code.proto.IMBaseDefine.ClientType value = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.forNumber(rawValue);
-                  if (value == null) {
-                    super.mergeVarintField(2, rawValue);
-                  } else {
-                    bitField0_ |= 0x00000002;
-                    clientType_ = rawValue;
-                  }
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  reason_ = input.readUInt32();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMServerKickUser.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMServerKickUser)
     private static final com.blt.talk.common.code.proto.IMServer.IMServerKickUser DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMServerKickUser();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMServerKickUser();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMServerKickUser getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMServerKickUser> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMServerKickUser>
+        PARSER = new com.google.protobuf.AbstractParser<IMServerKickUser>() {
+      @java.lang.Override
+      public IMServerKickUser parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMServerKickUser(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMServerKickUser> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMServerKickUser> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMServerKickUser getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMServerPCLoginStatusNotifyOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMServerPCLoginStatusNotify)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -6606,6 +9742,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 user_id = 1;</code>
+     * @return Whether the userId field is set.
      */
     boolean hasUserId();
     /**
@@ -6614,6 +9751,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 user_id = 1;</code>
+     * @return The userId.
      */
     long getUserId();
 
@@ -6623,6 +9761,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 login_status = 2;</code>
+     * @return Whether the loginStatus field is set.
      */
     boolean hasLoginStatus();
     /**
@@ -6631,19 +9770,98 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 login_status = 2;</code>
+     * @return The loginStatus.
      */
     int getLoginStatus();
   }
   /**
    * Protobuf type {@code IM.Server.IMServerPCLoginStatusNotify}
    */
-  public  static final class IMServerPCLoginStatusNotify extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMServerPCLoginStatusNotify, IMServerPCLoginStatusNotify.Builder> implements
+  public static final class IMServerPCLoginStatusNotify extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMServerPCLoginStatusNotify)
       IMServerPCLoginStatusNotifyOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMServerPCLoginStatusNotify.newBuilder() to construct.
+    private IMServerPCLoginStatusNotify(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMServerPCLoginStatusNotify() {
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMServerPCLoginStatusNotify();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMServerPCLoginStatusNotify(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              userId_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              loginStatus_ = input.readUInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerPCLoginStatusNotify_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerPCLoginStatusNotify_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify.class, com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify.Builder.class);
+    }
+
     private int bitField0_;
     public static final int USER_ID_FIELD_NUMBER = 1;
     private long userId_;
@@ -6653,9 +9871,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 user_id = 1;</code>
+     * @return Whether the userId field is set.
      */
+    @java.lang.Override
     public boolean hasUserId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -6663,31 +9883,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 user_id = 1;</code>
+     * @return The userId.
      */
+    @java.lang.Override
     public long getUserId() {
       return userId_;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070e
-     * </pre>
-     *
-     * <code>required uint64 user_id = 1;</code>
-     */
-    private void setUserId(long value) {
-      bitField0_ |= 0x00000001;
-      userId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070e
-     * </pre>
-     *
-     * <code>required uint64 user_id = 1;</code>
-     */
-    private void clearUserId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      userId_ = 0L;
     }
 
     public static final int LOGIN_STATUS_FIELD_NUMBER = 2;
@@ -6698,9 +9898,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 login_status = 2;</code>
+     * @return Whether the loginStatus field is set.
      */
+    @java.lang.Override
     public boolean hasLoginStatus() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <pre>
@@ -6708,166 +9910,379 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 login_status = 2;</code>
+     * @return The loginStatus.
      */
+    @java.lang.Override
     public int getLoginStatus() {
       return loginStatus_;
     }
-    /**
-     * <pre>
-     *1: on   0: off
-     * </pre>
-     *
-     * <code>required uint32 login_status = 2;</code>
-     */
-    private void setLoginStatus(int value) {
-      bitField0_ |= 0x00000002;
-      loginStatus_ = value;
-    }
-    /**
-     * <pre>
-     *1: on   0: off
-     * </pre>
-     *
-     * <code>required uint32 login_status = 2;</code>
-     */
-    private void clearLoginStatus() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      loginStatus_ = 0;
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasLoginStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, userId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt32(2, loginStatus_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, userId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(2, loginStatus_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify other = (com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify) obj;
+
+      if (hasUserId() != other.hasUserId()) return false;
+      if (hasUserId()) {
+        if (getUserId()
+            != other.getUserId()) return false;
+      }
+      if (hasLoginStatus() != other.hasLoginStatus()) return false;
+      if (hasLoginStatus()) {
+        if (getLoginStatus()
+            != other.getLoginStatus()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasUserId()) {
+        hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getUserId());
+      }
+      if (hasLoginStatus()) {
+        hash = (37 * hash) + LOGIN_STATUS_FIELD_NUMBER;
+        hash = (53 * hash) + getLoginStatus();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMServerPCLoginStatusNotify}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMServerPCLoginStatusNotify)
         com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotifyOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerPCLoginStatusNotify_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerPCLoginStatusNotify_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify.class, com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        userId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        loginStatus_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMServerPCLoginStatusNotify_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify build() {
+        com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify result = new com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.userId_ = userId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.loginStatus_ = loginStatus_;
+          to_bitField0_ |= 0x00000002;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify.getDefaultInstance()) return this;
+        if (other.hasUserId()) {
+          setUserId(other.getUserId());
+        }
+        if (other.hasLoginStatus()) {
+          setLoginStatus(other.getLoginStatus());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasUserId()) {
+          return false;
+        }
+        if (!hasLoginStatus()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long userId_ ;
       /**
        * <pre>
        *cmd id:	0x070e
        * </pre>
        *
        * <code>required uint64 user_id = 1;</code>
+       * @return Whether the userId field is set.
        */
+      @java.lang.Override
       public boolean hasUserId() {
-        return instance.hasUserId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -6875,9 +10290,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 user_id = 1;</code>
+       * @return The userId.
        */
+      @java.lang.Override
       public long getUserId() {
-        return instance.getUserId();
+        return userId_;
       }
       /**
        * <pre>
@@ -6885,10 +10302,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 user_id = 1;</code>
+       * @param value The userId to set.
+       * @return This builder for chaining.
        */
       public Builder setUserId(long value) {
-        copyOnWrite();
-        instance.setUserId(value);
+        bitField0_ |= 0x00000001;
+        userId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -6897,22 +10317,27 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 user_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserId() {
-        copyOnWrite();
-        instance.clearUserId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private int loginStatus_ ;
       /**
        * <pre>
        *1: on   0: off
        * </pre>
        *
        * <code>required uint32 login_status = 2;</code>
+       * @return Whether the loginStatus field is set.
        */
+      @java.lang.Override
       public boolean hasLoginStatus() {
-        return instance.hasLoginStatus();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <pre>
@@ -6920,9 +10345,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 login_status = 2;</code>
+       * @return The loginStatus.
        */
+      @java.lang.Override
       public int getLoginStatus() {
-        return instance.getLoginStatus();
+        return loginStatus_;
       }
       /**
        * <pre>
@@ -6930,10 +10357,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 login_status = 2;</code>
+       * @param value The loginStatus to set.
+       * @return This builder for chaining.
        */
       public Builder setLoginStatus(int value) {
-        copyOnWrite();
-        instance.setLoginStatus(value);
+        bitField0_ |= 0x00000002;
+        loginStatus_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -6942,146 +10372,70 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 login_status = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearLoginStatus() {
-        copyOnWrite();
-        instance.clearLoginStatus();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        loginStatus_ = 0;
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMServerPCLoginStatusNotify)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasUserId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasLoginStatus()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify other = (com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify) arg1;
-          userId_ = visitor.visitLong(
-              hasUserId(), userId_,
-              other.hasUserId(), other.userId_);
-          loginStatus_ = visitor.visitInt(
-              hasLoginStatus(), loginStatus_,
-              other.hasLoginStatus(), other.loginStatus_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  userId_ = input.readUInt64();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  loginStatus_ = input.readUInt32();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMServerPCLoginStatusNotify)
     private static final com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMServerPCLoginStatusNotify();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMServerPCLoginStatusNotify> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMServerPCLoginStatusNotify>
+        PARSER = new com.google.protobuf.AbstractParser<IMServerPCLoginStatusNotify>() {
+      @java.lang.Override
+      public IMServerPCLoginStatusNotify parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMServerPCLoginStatusNotify(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMServerPCLoginStatusNotify> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMServerPCLoginStatusNotify> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMServerPCLoginStatusNotify getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMPushToUserReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMPushToUserReq)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -7089,6 +10443,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string flash = 1;</code>
+     * @return Whether the flash field is set.
      */
     boolean hasFlash();
     /**
@@ -7097,6 +10452,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string flash = 1;</code>
+     * @return The flash.
      */
     java.lang.String getFlash();
     /**
@@ -7105,20 +10461,24 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string flash = 1;</code>
+     * @return The bytes for flash.
      */
     com.google.protobuf.ByteString
         getFlashBytes();
 
     /**
      * <code>required string data = 2;</code>
+     * @return Whether the data field is set.
      */
     boolean hasData();
     /**
      * <code>required string data = 2;</code>
+     * @return The data.
      */
     java.lang.String getData();
     /**
      * <code>required string data = 2;</code>
+     * @return The bytes for data.
      */
     com.google.protobuf.ByteString
         getDataBytes();
@@ -7136,32 +10496,136 @@ public final class IMServer {
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
      */
     int getUserTokenListCount();
+    /**
+     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
+     */
+    java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> 
+        getUserTokenListOrBuilderList();
+    /**
+     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
+     */
+    com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder getUserTokenListOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code IM.Server.IMPushToUserReq}
    */
-  public  static final class IMPushToUserReq extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMPushToUserReq, IMPushToUserReq.Builder> implements
+  public static final class IMPushToUserReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMPushToUserReq)
       IMPushToUserReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMPushToUserReq.newBuilder() to construct.
+    private IMPushToUserReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMPushToUserReq() {
       flash_ = "";
       data_ = "";
-      userTokenList_ = emptyProtobufList();
+      userTokenList_ = java.util.Collections.emptyList();
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMPushToUserReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMPushToUserReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              flash_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              data_ = bs;
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
+                userTokenList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              userTokenList_.add(
+                  input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000004) != 0)) {
+          userTokenList_ = java.util.Collections.unmodifiableList(userTokenList_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMPushToUserReq.class, com.blt.talk.common.code.proto.IMServer.IMPushToUserReq.Builder.class);
+    }
+
     private int bitField0_;
     public static final int FLASH_FIELD_NUMBER = 1;
-    private java.lang.String flash_;
+    private volatile java.lang.Object flash_;
     /**
      * <pre>
      *cmd id:	0x070f
      * </pre>
      *
      * <code>required string flash = 1;</code>
+     * @return Whether the flash field is set.
      */
+    @java.lang.Override
     public boolean hasFlash() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -7169,9 +10633,22 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string flash = 1;</code>
+     * @return The flash.
      */
+    @java.lang.Override
     public java.lang.String getFlash() {
-      return flash_;
+      java.lang.Object ref = flash_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          flash_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <pre>
@@ -7179,115 +10656,84 @@ public final class IMServer {
      * </pre>
      *
      * <code>required string flash = 1;</code>
+     * @return The bytes for flash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFlashBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(flash_);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070f
-     * </pre>
-     *
-     * <code>required string flash = 1;</code>
-     */
-    private void setFlash(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      flash_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070f
-     * </pre>
-     *
-     * <code>required string flash = 1;</code>
-     */
-    private void clearFlash() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      flash_ = getDefaultInstance().getFlash();
-    }
-    /**
-     * <pre>
-     *cmd id:	0x070f
-     * </pre>
-     *
-     * <code>required string flash = 1;</code>
-     */
-    private void setFlashBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-      flash_ = value.toStringUtf8();
+      java.lang.Object ref = flash_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        flash_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int DATA_FIELD_NUMBER = 2;
-    private java.lang.String data_;
+    private volatile java.lang.Object data_;
     /**
      * <code>required string data = 2;</code>
+     * @return Whether the data field is set.
      */
+    @java.lang.Override
     public boolean hasData() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required string data = 2;</code>
+     * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
-      return data_;
+      java.lang.Object ref = data_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          data_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <code>required string data = 2;</code>
+     * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(data_);
-    }
-    /**
-     * <code>required string data = 2;</code>
-     */
-    private void setData(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-      data_ = value;
-    }
-    /**
-     * <code>required string data = 2;</code>
-     */
-    private void clearData() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      data_ = getDefaultInstance().getData();
-    }
-    /**
-     * <code>required string data = 2;</code>
-     */
-    private void setDataBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-      data_ = value.toStringUtf8();
+      java.lang.Object ref = data_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        data_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int USER_TOKEN_LIST_FIELD_NUMBER = 3;
-    private com.google.protobuf.Internal.ProtobufList<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> userTokenList_;
+    private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> userTokenList_;
     /**
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> getUserTokenListList() {
       return userTokenList_;
     }
     /**
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> 
         getUserTokenListOrBuilderList() {
       return userTokenList_;
@@ -7295,115 +10741,59 @@ public final class IMServer {
     /**
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
      */
+    @java.lang.Override
     public int getUserTokenListCount() {
       return userTokenList_.size();
     }
     /**
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo getUserTokenList(int index) {
       return userTokenList_.get(index);
     }
     /**
      * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder getUserTokenListOrBuilder(
         int index) {
       return userTokenList_.get(index);
     }
-    private void ensureUserTokenListIsMutable() {
-      if (!userTokenList_.isModifiable()) {
-        userTokenList_ =
-            com.google.protobuf.GeneratedMessageLite.mutableCopy(userTokenList_);
-       }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFlash()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasData()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getUserTokenListCount(); i++) {
+        if (!getUserTokenList(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
-    /**
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
-     */
-    private void setUserTokenList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureUserTokenListIsMutable();
-      userTokenList_.set(index, value);
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
-     */
-    private void setUserTokenList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-      ensureUserTokenListIsMutable();
-      userTokenList_.set(index, builderForValue.build());
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
-     */
-    private void addUserTokenList(com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureUserTokenListIsMutable();
-      userTokenList_.add(value);
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
-     */
-    private void addUserTokenList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureUserTokenListIsMutable();
-      userTokenList_.add(index, value);
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
-     */
-    private void addUserTokenList(
-        com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-      ensureUserTokenListIsMutable();
-      userTokenList_.add(builderForValue.build());
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
-     */
-    private void addUserTokenList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-      ensureUserTokenListIsMutable();
-      userTokenList_.add(index, builderForValue.build());
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
-     */
-    private void addAllUserTokenList(
-        java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> values) {
-      ensureUserTokenListIsMutable();
-      com.google.protobuf.AbstractMessageLite.addAll(
-          values, userTokenList_);
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
-     */
-    private void clearUserTokenList() {
-      userTokenList_ = emptyProtobufList();
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
-     */
-    private void removeUserTokenList(int index) {
-      ensureUserTokenListIsMutable();
-      userTokenList_.remove(index);
-    }
-
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeString(1, getFlash());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, flash_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeString(2, getData());
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, data_);
       }
       for (int i = 0; i < userTokenList_.size(); i++) {
         output.writeMessage(3, userTokenList_.get(i));
@@ -7411,132 +10801,398 @@ public final class IMServer {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(1, getFlash());
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, flash_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(2, getData());
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, data_);
       }
       for (int i = 0; i < userTokenList_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, userTokenList_.get(i));
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMPushToUserReq)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMPushToUserReq other = (com.blt.talk.common.code.proto.IMServer.IMPushToUserReq) obj;
+
+      if (hasFlash() != other.hasFlash()) return false;
+      if (hasFlash()) {
+        if (!getFlash()
+            .equals(other.getFlash())) return false;
+      }
+      if (hasData() != other.hasData()) return false;
+      if (hasData()) {
+        if (!getData()
+            .equals(other.getData())) return false;
+      }
+      if (!getUserTokenListList()
+          .equals(other.getUserTokenListList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasFlash()) {
+        hash = (37 * hash) + FLASH_FIELD_NUMBER;
+        hash = (53 * hash) + getFlash().hashCode();
+      }
+      if (hasData()) {
+        hash = (37 * hash) + DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getData().hashCode();
+      }
+      if (getUserTokenListCount() > 0) {
+        hash = (37 * hash) + USER_TOKEN_LIST_FIELD_NUMBER;
+        hash = (53 * hash) + getUserTokenListList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMPushToUserReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMPushToUserReq}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMPushToUserReq, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMPushToUserReq)
         com.blt.talk.common.code.proto.IMServer.IMPushToUserReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMPushToUserReq.class, com.blt.talk.common.code.proto.IMServer.IMPushToUserReq.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMPushToUserReq.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getUserTokenListFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        flash_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        data_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (userTokenListBuilder_ == null) {
+          userTokenList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          userTokenListBuilder_.clear();
+        }
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMPushToUserReq getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMPushToUserReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMPushToUserReq build() {
+        com.blt.talk.common.code.proto.IMServer.IMPushToUserReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMPushToUserReq buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMPushToUserReq result = new com.blt.talk.common.code.proto.IMServer.IMPushToUserReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.flash_ = flash_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.data_ = data_;
+        if (userTokenListBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0)) {
+            userTokenList_ = java.util.Collections.unmodifiableList(userTokenList_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.userTokenList_ = userTokenList_;
+        } else {
+          result.userTokenList_ = userTokenListBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMPushToUserReq) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMPushToUserReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMPushToUserReq other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMPushToUserReq.getDefaultInstance()) return this;
+        if (other.hasFlash()) {
+          bitField0_ |= 0x00000001;
+          flash_ = other.flash_;
+          onChanged();
+        }
+        if (other.hasData()) {
+          bitField0_ |= 0x00000002;
+          data_ = other.data_;
+          onChanged();
+        }
+        if (userTokenListBuilder_ == null) {
+          if (!other.userTokenList_.isEmpty()) {
+            if (userTokenList_.isEmpty()) {
+              userTokenList_ = other.userTokenList_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureUserTokenListIsMutable();
+              userTokenList_.addAll(other.userTokenList_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.userTokenList_.isEmpty()) {
+            if (userTokenListBuilder_.isEmpty()) {
+              userTokenListBuilder_.dispose();
+              userTokenListBuilder_ = null;
+              userTokenList_ = other.userTokenList_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              userTokenListBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getUserTokenListFieldBuilder() : null;
+            } else {
+              userTokenListBuilder_.addAllMessages(other.userTokenList_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasFlash()) {
+          return false;
+        }
+        if (!hasData()) {
+          return false;
+        }
+        for (int i = 0; i < getUserTokenListCount(); i++) {
+          if (!getUserTokenList(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMPushToUserReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMPushToUserReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object flash_ = "";
       /**
        * <pre>
        *cmd id:	0x070f
        * </pre>
        *
        * <code>required string flash = 1;</code>
+       * @return Whether the flash field is set.
        */
       public boolean hasFlash() {
-        return instance.hasFlash();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -7544,9 +11200,21 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string flash = 1;</code>
+       * @return The flash.
        */
       public java.lang.String getFlash() {
-        return instance.getFlash();
+        java.lang.Object ref = flash_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            flash_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <pre>
@@ -7554,10 +11222,20 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string flash = 1;</code>
+       * @return The bytes for flash.
        */
       public com.google.protobuf.ByteString
           getFlashBytes() {
-        return instance.getFlashBytes();
+        java.lang.Object ref = flash_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          flash_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <pre>
@@ -7565,11 +11243,17 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string flash = 1;</code>
+       * @param value The flash to set.
+       * @return This builder for chaining.
        */
       public Builder setFlash(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setFlash(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        flash_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -7578,10 +11262,12 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string flash = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFlash() {
-        copyOnWrite();
-        instance.clearFlash();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        flash_ = getDefaultInstance().getFlash();
+        onChanged();
         return this;
       }
       /**
@@ -7590,85 +11276,161 @@ public final class IMServer {
        * </pre>
        *
        * <code>required string flash = 1;</code>
+       * @param value The bytes for flash to set.
+       * @return This builder for chaining.
        */
       public Builder setFlashBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setFlashBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        flash_ = value;
+        onChanged();
         return this;
       }
 
+      private java.lang.Object data_ = "";
       /**
        * <code>required string data = 2;</code>
+       * @return Whether the data field is set.
        */
       public boolean hasData() {
-        return instance.hasData();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required string data = 2;</code>
+       * @return The data.
        */
       public java.lang.String getData() {
-        return instance.getData();
+        java.lang.Object ref = data_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            data_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <code>required string data = 2;</code>
+       * @return The bytes for data.
        */
       public com.google.protobuf.ByteString
           getDataBytes() {
-        return instance.getDataBytes();
+        java.lang.Object ref = data_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          data_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <code>required string data = 2;</code>
+       * @param value The data to set.
+       * @return This builder for chaining.
        */
       public Builder setData(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        data_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required string data = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearData() {
-        copyOnWrite();
-        instance.clearData();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        data_ = getDefaultInstance().getData();
+        onChanged();
         return this;
       }
       /**
        * <code>required string data = 2;</code>
+       * @param value The bytes for data to set.
+       * @return This builder for chaining.
        */
       public Builder setDataBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setDataBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        data_ = value;
+        onChanged();
         return this;
       }
+
+      private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> userTokenList_ =
+        java.util.Collections.emptyList();
+      private void ensureUserTokenListIsMutable() {
+        if (!((bitField0_ & 0x00000004) != 0)) {
+          userTokenList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo>(userTokenList_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> userTokenListBuilder_;
 
       /**
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
        */
       public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> getUserTokenListList() {
-        return java.util.Collections.unmodifiableList(
-            instance.getUserTokenListList());
+        if (userTokenListBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(userTokenList_);
+        } else {
+          return userTokenListBuilder_.getMessageList();
+        }
       }
       /**
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
        */
       public int getUserTokenListCount() {
-        return instance.getUserTokenListCount();
-      }/**
+        if (userTokenListBuilder_ == null) {
+          return userTokenList_.size();
+        } else {
+          return userTokenListBuilder_.getCount();
+        }
+      }
+      /**
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
        */
       public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo getUserTokenList(int index) {
-        return instance.getUserTokenList(index);
+        if (userTokenListBuilder_ == null) {
+          return userTokenList_.get(index);
+        } else {
+          return userTokenListBuilder_.getMessage(index);
+        }
       }
       /**
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
        */
       public Builder setUserTokenList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-        copyOnWrite();
-        instance.setUserTokenList(index, value);
+        if (userTokenListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserTokenListIsMutable();
+          userTokenList_.set(index, value);
+          onChanged();
+        } else {
+          userTokenListBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
@@ -7676,16 +11438,29 @@ public final class IMServer {
        */
       public Builder setUserTokenList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-        copyOnWrite();
-        instance.setUserTokenList(index, builderForValue);
+        if (userTokenListBuilder_ == null) {
+          ensureUserTokenListIsMutable();
+          userTokenList_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          userTokenListBuilder_.setMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
        */
       public Builder addUserTokenList(com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-        copyOnWrite();
-        instance.addUserTokenList(value);
+        if (userTokenListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserTokenListIsMutable();
+          userTokenList_.add(value);
+          onChanged();
+        } else {
+          userTokenListBuilder_.addMessage(value);
+        }
         return this;
       }
       /**
@@ -7693,8 +11468,16 @@ public final class IMServer {
        */
       public Builder addUserTokenList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo value) {
-        copyOnWrite();
-        instance.addUserTokenList(index, value);
+        if (userTokenListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureUserTokenListIsMutable();
+          userTokenList_.add(index, value);
+          onChanged();
+        } else {
+          userTokenListBuilder_.addMessage(index, value);
+        }
         return this;
       }
       /**
@@ -7702,8 +11485,13 @@ public final class IMServer {
        */
       public Builder addUserTokenList(
           com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-        copyOnWrite();
-        instance.addUserTokenList(builderForValue);
+        if (userTokenListBuilder_ == null) {
+          ensureUserTokenListIsMutable();
+          userTokenList_.add(builderForValue.build());
+          onChanged();
+        } else {
+          userTokenListBuilder_.addMessage(builderForValue.build());
+        }
         return this;
       }
       /**
@@ -7711,8 +11499,13 @@ public final class IMServer {
        */
       public Builder addUserTokenList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder builderForValue) {
-        copyOnWrite();
-        instance.addUserTokenList(index, builderForValue);
+        if (userTokenListBuilder_ == null) {
+          ensureUserTokenListIsMutable();
+          userTokenList_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          userTokenListBuilder_.addMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -7720,181 +11513,162 @@ public final class IMServer {
        */
       public Builder addAllUserTokenList(
           java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo> values) {
-        copyOnWrite();
-        instance.addAllUserTokenList(values);
+        if (userTokenListBuilder_ == null) {
+          ensureUserTokenListIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, userTokenList_);
+          onChanged();
+        } else {
+          userTokenListBuilder_.addAllMessages(values);
+        }
         return this;
       }
       /**
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
        */
       public Builder clearUserTokenList() {
-        copyOnWrite();
-        instance.clearUserTokenList();
+        if (userTokenListBuilder_ == null) {
+          userTokenList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          userTokenListBuilder_.clear();
+        }
         return this;
       }
       /**
        * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
        */
       public Builder removeUserTokenList(int index) {
-        copyOnWrite();
-        instance.removeUserTokenList(index);
+        if (userTokenListBuilder_ == null) {
+          ensureUserTokenListIsMutable();
+          userTokenList_.remove(index);
+          onChanged();
+        } else {
+          userTokenListBuilder_.remove(index);
+        }
         return this;
       }
+      /**
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder getUserTokenListBuilder(
+          int index) {
+        return getUserTokenListFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder getUserTokenListOrBuilder(
+          int index) {
+        if (userTokenListBuilder_ == null) {
+          return userTokenList_.get(index);  } else {
+          return userTokenListBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
+       */
+      public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> 
+           getUserTokenListOrBuilderList() {
+        if (userTokenListBuilder_ != null) {
+          return userTokenListBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(userTokenList_);
+        }
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder addUserTokenListBuilder() {
+        return getUserTokenListFieldBuilder().addBuilder(
+            com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder addUserTokenListBuilder(
+          int index) {
+        return getUserTokenListFieldBuilder().addBuilder(
+            index, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.UserTokenInfo user_token_list = 3;</code>
+       */
+      public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder> 
+           getUserTokenListBuilderList() {
+        return getUserTokenListFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder> 
+          getUserTokenListFieldBuilder() {
+        if (userTokenListBuilder_ == null) {
+          userTokenListBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.Builder, com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfoOrBuilder>(
+                  userTokenList_,
+                  ((bitField0_ & 0x00000004) != 0),
+                  getParentForChildren(),
+                  isClean());
+          userTokenList_ = null;
+        }
+        return userTokenListBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMPushToUserReq)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMPushToUserReq();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasFlash()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasData()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          for (int i = 0; i < getUserTokenListCount(); i++) {
-            if (!getUserTokenList(i).isInitialized()) {
-              if (shouldMemoize) {
-                memoizedIsInitialized = 0;
-              }
-              return null;
-            }
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          userTokenList_.makeImmutable();
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMPushToUserReq other = (com.blt.talk.common.code.proto.IMServer.IMPushToUserReq) arg1;
-          flash_ = visitor.visitString(
-              hasFlash(), flash_,
-              other.hasFlash(), other.flash_);
-          data_ = visitor.visitString(
-              hasData(), data_,
-              other.hasData(), other.data_);
-          userTokenList_= visitor.visitList(userTokenList_, other.userTokenList_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 10: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000001;
-                  flash_ = s;
-                  break;
-                }
-                case 18: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000002;
-                  data_ = s;
-                  break;
-                }
-                case 26: {
-                  if (!userTokenList_.isModifiable()) {
-                    userTokenList_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(userTokenList_);
-                  }
-                  userTokenList_.add(
-                      input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.UserTokenInfo.parser(), extensionRegistry));
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMPushToUserReq.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMPushToUserReq)
     private static final com.blt.talk.common.code.proto.IMServer.IMPushToUserReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMPushToUserReq();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMPushToUserReq();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMPushToUserReq> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMPushToUserReq>
+        PARSER = new com.google.protobuf.AbstractParser<IMPushToUserReq>() {
+      @java.lang.Override
+      public IMPushToUserReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMPushToUserReq(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMPushToUserReq> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMPushToUserReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMPushToUserReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMPushToUserRspOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMPushToUserRsp)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -7921,20 +11695,6 @@ public final class IMServer {
      * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
      */
     int getPushResultListCount();
-  }
-  /**
-   * Protobuf type {@code IM.Server.IMPushToUserRsp}
-   */
-  public  static final class IMPushToUserRsp extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMPushToUserRsp, IMPushToUserRsp.Builder> implements
-      // @@protoc_insertion_point(message_implements:IM.Server.IMPushToUserRsp)
-      IMPushToUserRspOrBuilder {
-    private IMPushToUserRsp() {
-      pushResultList_ = emptyProtobufList();
-    }
-    public static final int PUSH_RESULT_LIST_FIELD_NUMBER = 1;
-    private com.google.protobuf.Internal.ProtobufList<com.blt.talk.common.code.proto.IMBaseDefine.PushResult> pushResultList_;
     /**
      * <pre>
      *cmd id:	0x0710
@@ -7942,6 +11702,119 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
      */
+    java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.PushResultOrBuilder> 
+        getPushResultListOrBuilderList();
+    /**
+     * <pre>
+     *cmd id:	0x0710
+     * </pre>
+     *
+     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
+     */
+    com.blt.talk.common.code.proto.IMBaseDefine.PushResultOrBuilder getPushResultListOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code IM.Server.IMPushToUserRsp}
+   */
+  public static final class IMPushToUserRsp extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:IM.Server.IMPushToUserRsp)
+      IMPushToUserRspOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMPushToUserRsp.newBuilder() to construct.
+    private IMPushToUserRsp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private IMPushToUserRsp() {
+      pushResultList_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMPushToUserRsp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMPushToUserRsp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                pushResultList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.PushResult>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              pushResultList_.add(
+                  input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.PushResult.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          pushResultList_ = java.util.Collections.unmodifiableList(pushResultList_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserRsp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserRsp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp.class, com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp.Builder.class);
+    }
+
+    public static final int PUSH_RESULT_LIST_FIELD_NUMBER = 1;
+    private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.PushResult> pushResultList_;
+    /**
+     * <pre>
+     *cmd id:	0x0710
+     * </pre>
+     *
+     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
+     */
+    @java.lang.Override
     public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.PushResult> getPushResultListList() {
       return pushResultList_;
     }
@@ -7952,6 +11825,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.PushResultOrBuilder> 
         getPushResultListOrBuilderList() {
       return pushResultList_;
@@ -7963,6 +11837,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
      */
+    @java.lang.Override
     public int getPushResultListCount() {
       return pushResultList_.size();
     }
@@ -7973,6 +11848,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.PushResult getPushResultList(int index) {
       return pushResultList_.get(index);
     }
@@ -7983,132 +11859,30 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.PushResultOrBuilder getPushResultListOrBuilder(
         int index) {
       return pushResultList_.get(index);
     }
-    private void ensurePushResultListIsMutable() {
-      if (!pushResultList_.isModifiable()) {
-        pushResultList_ =
-            com.google.protobuf.GeneratedMessageLite.mutableCopy(pushResultList_);
-       }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getPushResultListCount(); i++) {
+        if (!getPushResultList(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
-    /**
-     * <pre>
-     *cmd id:	0x0710
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
-     */
-    private void setPushResultList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.PushResult value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensurePushResultListIsMutable();
-      pushResultList_.set(index, value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0710
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
-     */
-    private void setPushResultList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder builderForValue) {
-      ensurePushResultListIsMutable();
-      pushResultList_.set(index, builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0710
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
-     */
-    private void addPushResultList(com.blt.talk.common.code.proto.IMBaseDefine.PushResult value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensurePushResultListIsMutable();
-      pushResultList_.add(value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0710
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
-     */
-    private void addPushResultList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.PushResult value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensurePushResultListIsMutable();
-      pushResultList_.add(index, value);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0710
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
-     */
-    private void addPushResultList(
-        com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder builderForValue) {
-      ensurePushResultListIsMutable();
-      pushResultList_.add(builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0710
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
-     */
-    private void addPushResultList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder builderForValue) {
-      ensurePushResultListIsMutable();
-      pushResultList_.add(index, builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0710
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
-     */
-    private void addAllPushResultList(
-        java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.PushResult> values) {
-      ensurePushResultListIsMutable();
-      com.google.protobuf.AbstractMessageLite.addAll(
-          values, pushResultList_);
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0710
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
-     */
-    private void clearPushResultList() {
-      pushResultList_ = emptyProtobufList();
-    }
-    /**
-     * <pre>
-     *cmd id:	0x0710
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
-     */
-    private void removePushResultList(int index) {
-      ensurePushResultListIsMutable();
-      pushResultList_.remove(index);
-    }
-
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       for (int i = 0; i < pushResultList_.size(); i++) {
@@ -8117,8 +11891,9 @@ public final class IMServer {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -8127,104 +11902,333 @@ public final class IMServer {
           .computeMessageSize(1, pushResultList_.get(i));
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp other = (com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp) obj;
+
+      if (!getPushResultListList()
+          .equals(other.getPushResultListList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getPushResultListCount() > 0) {
+        hash = (37 * hash) + PUSH_RESULT_LIST_FIELD_NUMBER;
+        hash = (53 * hash) + getPushResultListList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMPushToUserRsp}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMPushToUserRsp)
         com.blt.talk.common.code.proto.IMServer.IMPushToUserRspOrBuilder {
-      // Construct using com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp.newBuilder()
-      private Builder() {
-        super(DEFAULT_INSTANCE);
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserRsp_descriptor;
       }
 
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserRsp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp.class, com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp.Builder.class);
+      }
+
+      // Construct using com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getPushResultListFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (pushResultListBuilder_ == null) {
+          pushResultList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          pushResultListBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMPushToUserRsp_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp build() {
+        com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp result = new com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp(this);
+        int from_bitField0_ = bitField0_;
+        if (pushResultListBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            pushResultList_ = java.util.Collections.unmodifiableList(pushResultList_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.pushResultList_ = pushResultList_;
+        } else {
+          result.pushResultList_ = pushResultListBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp.getDefaultInstance()) return this;
+        if (pushResultListBuilder_ == null) {
+          if (!other.pushResultList_.isEmpty()) {
+            if (pushResultList_.isEmpty()) {
+              pushResultList_ = other.pushResultList_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePushResultListIsMutable();
+              pushResultList_.addAll(other.pushResultList_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.pushResultList_.isEmpty()) {
+            if (pushResultListBuilder_.isEmpty()) {
+              pushResultListBuilder_.dispose();
+              pushResultListBuilder_ = null;
+              pushResultList_ = other.pushResultList_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              pushResultListBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getPushResultListFieldBuilder() : null;
+            } else {
+              pushResultListBuilder_.addAllMessages(other.pushResultList_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        for (int i = 0; i < getPushResultListCount(); i++) {
+          if (!getPushResultList(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.PushResult> pushResultList_ =
+        java.util.Collections.emptyList();
+      private void ensurePushResultListIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          pushResultList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.PushResult>(pushResultList_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.PushResult, com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder, com.blt.talk.common.code.proto.IMBaseDefine.PushResultOrBuilder> pushResultListBuilder_;
 
       /**
        * <pre>
@@ -8234,8 +12238,11 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
        */
       public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.PushResult> getPushResultListList() {
-        return java.util.Collections.unmodifiableList(
-            instance.getPushResultListList());
+        if (pushResultListBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(pushResultList_);
+        } else {
+          return pushResultListBuilder_.getMessageList();
+        }
       }
       /**
        * <pre>
@@ -8245,8 +12252,13 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
        */
       public int getPushResultListCount() {
-        return instance.getPushResultListCount();
-      }/**
+        if (pushResultListBuilder_ == null) {
+          return pushResultList_.size();
+        } else {
+          return pushResultListBuilder_.getCount();
+        }
+      }
+      /**
        * <pre>
        *cmd id:	0x0710
        * </pre>
@@ -8254,7 +12266,11 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
        */
       public com.blt.talk.common.code.proto.IMBaseDefine.PushResult getPushResultList(int index) {
-        return instance.getPushResultList(index);
+        if (pushResultListBuilder_ == null) {
+          return pushResultList_.get(index);
+        } else {
+          return pushResultListBuilder_.getMessage(index);
+        }
       }
       /**
        * <pre>
@@ -8265,8 +12281,16 @@ public final class IMServer {
        */
       public Builder setPushResultList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.PushResult value) {
-        copyOnWrite();
-        instance.setPushResultList(index, value);
+        if (pushResultListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePushResultListIsMutable();
+          pushResultList_.set(index, value);
+          onChanged();
+        } else {
+          pushResultListBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
@@ -8278,8 +12302,13 @@ public final class IMServer {
        */
       public Builder setPushResultList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder builderForValue) {
-        copyOnWrite();
-        instance.setPushResultList(index, builderForValue);
+        if (pushResultListBuilder_ == null) {
+          ensurePushResultListIsMutable();
+          pushResultList_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          pushResultListBuilder_.setMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -8290,8 +12319,16 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
        */
       public Builder addPushResultList(com.blt.talk.common.code.proto.IMBaseDefine.PushResult value) {
-        copyOnWrite();
-        instance.addPushResultList(value);
+        if (pushResultListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePushResultListIsMutable();
+          pushResultList_.add(value);
+          onChanged();
+        } else {
+          pushResultListBuilder_.addMessage(value);
+        }
         return this;
       }
       /**
@@ -8303,8 +12340,16 @@ public final class IMServer {
        */
       public Builder addPushResultList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.PushResult value) {
-        copyOnWrite();
-        instance.addPushResultList(index, value);
+        if (pushResultListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePushResultListIsMutable();
+          pushResultList_.add(index, value);
+          onChanged();
+        } else {
+          pushResultListBuilder_.addMessage(index, value);
+        }
         return this;
       }
       /**
@@ -8316,8 +12361,13 @@ public final class IMServer {
        */
       public Builder addPushResultList(
           com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder builderForValue) {
-        copyOnWrite();
-        instance.addPushResultList(builderForValue);
+        if (pushResultListBuilder_ == null) {
+          ensurePushResultListIsMutable();
+          pushResultList_.add(builderForValue.build());
+          onChanged();
+        } else {
+          pushResultListBuilder_.addMessage(builderForValue.build());
+        }
         return this;
       }
       /**
@@ -8329,8 +12379,13 @@ public final class IMServer {
        */
       public Builder addPushResultList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder builderForValue) {
-        copyOnWrite();
-        instance.addPushResultList(index, builderForValue);
+        if (pushResultListBuilder_ == null) {
+          ensurePushResultListIsMutable();
+          pushResultList_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          pushResultListBuilder_.addMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -8342,8 +12397,14 @@ public final class IMServer {
        */
       public Builder addAllPushResultList(
           java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.PushResult> values) {
-        copyOnWrite();
-        instance.addAllPushResultList(values);
+        if (pushResultListBuilder_ == null) {
+          ensurePushResultListIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, pushResultList_);
+          onChanged();
+        } else {
+          pushResultListBuilder_.addAllMessages(values);
+        }
         return this;
       }
       /**
@@ -8354,8 +12415,13 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
        */
       public Builder clearPushResultList() {
-        copyOnWrite();
-        instance.clearPushResultList();
+        if (pushResultListBuilder_ == null) {
+          pushResultList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          pushResultListBuilder_.clear();
+        }
         return this;
       }
       /**
@@ -8366,134 +12432,159 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
        */
       public Builder removePushResultList(int index) {
-        copyOnWrite();
-        instance.removePushResultList(index);
+        if (pushResultListBuilder_ == null) {
+          ensurePushResultListIsMutable();
+          pushResultList_.remove(index);
+          onChanged();
+        } else {
+          pushResultListBuilder_.remove(index);
+        }
         return this;
       }
+      /**
+       * <pre>
+       *cmd id:	0x0710
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder getPushResultListBuilder(
+          int index) {
+        return getPushResultListFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0710
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.PushResultOrBuilder getPushResultListOrBuilder(
+          int index) {
+        if (pushResultListBuilder_ == null) {
+          return pushResultList_.get(index);  } else {
+          return pushResultListBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0710
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
+       */
+      public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.PushResultOrBuilder> 
+           getPushResultListOrBuilderList() {
+        if (pushResultListBuilder_ != null) {
+          return pushResultListBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(pushResultList_);
+        }
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0710
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder addPushResultListBuilder() {
+        return getPushResultListFieldBuilder().addBuilder(
+            com.blt.talk.common.code.proto.IMBaseDefine.PushResult.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0710
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder addPushResultListBuilder(
+          int index) {
+        return getPushResultListFieldBuilder().addBuilder(
+            index, com.blt.talk.common.code.proto.IMBaseDefine.PushResult.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *cmd id:	0x0710
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.PushResult push_result_list = 1;</code>
+       */
+      public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder> 
+           getPushResultListBuilderList() {
+        return getPushResultListFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.PushResult, com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder, com.blt.talk.common.code.proto.IMBaseDefine.PushResultOrBuilder> 
+          getPushResultListFieldBuilder() {
+        if (pushResultListBuilder_ == null) {
+          pushResultListBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.blt.talk.common.code.proto.IMBaseDefine.PushResult, com.blt.talk.common.code.proto.IMBaseDefine.PushResult.Builder, com.blt.talk.common.code.proto.IMBaseDefine.PushResultOrBuilder>(
+                  pushResultList_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          pushResultList_ = null;
+        }
+        return pushResultListBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMPushToUserRsp)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          for (int i = 0; i < getPushResultListCount(); i++) {
-            if (!getPushResultList(i).isInitialized()) {
-              if (shouldMemoize) {
-                memoizedIsInitialized = 0;
-              }
-              return null;
-            }
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          pushResultList_.makeImmutable();
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp other = (com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp) arg1;
-          pushResultList_= visitor.visitList(pushResultList_, other.pushResultList_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 10: {
-                  if (!pushResultList_.isModifiable()) {
-                    pushResultList_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(pushResultList_);
-                  }
-                  pushResultList_.add(
-                      input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.PushResult.parser(), extensionRegistry));
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMPushToUserRsp)
     private static final com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMPushToUserRsp();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMPushToUserRsp> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMPushToUserRsp>
+        PARSER = new com.google.protobuf.AbstractParser<IMPushToUserRsp>() {
+      @java.lang.Override
+      public IMPushToUserRsp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMPushToUserRsp(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMPushToUserRsp> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMPushToUserRsp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMPushToUserRsp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMGroupGetShieldReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMGroupGetShieldReq)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -8501,6 +12592,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 group_id = 1;</code>
+     * @return Whether the groupId field is set.
      */
     boolean hasGroupId();
     /**
@@ -8509,43 +12601,152 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 group_id = 1;</code>
+     * @return The groupId.
      */
     long getGroupId();
 
     /**
      * <code>repeated uint64 user_id = 2;</code>
+     * @return A list containing the userId.
      */
     java.util.List<java.lang.Long> getUserIdList();
     /**
      * <code>repeated uint64 user_id = 2;</code>
+     * @return The count of userId.
      */
     int getUserIdCount();
     /**
      * <code>repeated uint64 user_id = 2;</code>
+     * @param index The index of the element to return.
+     * @return The userId at the given index.
      */
     long getUserId(int index);
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.Server.IMGroupGetShieldReq}
    */
-  public  static final class IMGroupGetShieldReq extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMGroupGetShieldReq, IMGroupGetShieldReq.Builder> implements
+  public static final class IMGroupGetShieldReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMGroupGetShieldReq)
       IMGroupGetShieldReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMGroupGetShieldReq.newBuilder() to construct.
+    private IMGroupGetShieldReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMGroupGetShieldReq() {
       userId_ = emptyLongList();
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMGroupGetShieldReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMGroupGetShieldReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              groupId_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                userId_ = newLongList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              userId_.addLong(input.readUInt64());
+              break;
+            }
+            case 18: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000002) != 0) && input.getBytesUntilLimit() > 0) {
+                userId_ = newLongList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                userId_.addLong(input.readUInt64());
+              }
+              input.popLimit(limit);
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000002;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          userId_.makeImmutable(); // C
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq.class, com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq.Builder.class);
+    }
+
     private int bitField0_;
     public static final int GROUP_ID_FIELD_NUMBER = 1;
     private long groupId_;
@@ -8555,9 +12756,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 group_id = 1;</code>
+     * @return Whether the groupId field is set.
      */
+    @java.lang.Override
     public boolean hasGroupId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -8565,143 +12768,96 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 group_id = 1;</code>
+     * @return The groupId.
      */
+    @java.lang.Override
     public long getGroupId() {
       return groupId_;
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0711
-     * </pre>
-     *
-     * <code>required uint64 group_id = 1;</code>
-     */
-    private void setGroupId(long value) {
-      bitField0_ |= 0x00000001;
-      groupId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0711
-     * </pre>
-     *
-     * <code>required uint64 group_id = 1;</code>
-     */
-    private void clearGroupId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      groupId_ = 0L;
     }
 
     public static final int USER_ID_FIELD_NUMBER = 2;
     private com.google.protobuf.Internal.LongList userId_;
     /**
      * <code>repeated uint64 user_id = 2;</code>
+     * @return A list containing the userId.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Long>
         getUserIdList() {
       return userId_;
     }
     /**
      * <code>repeated uint64 user_id = 2;</code>
+     * @return The count of userId.
      */
     public int getUserIdCount() {
       return userId_.size();
     }
     /**
      * <code>repeated uint64 user_id = 2;</code>
+     * @param index The index of the element to return.
+     * @return The userId at the given index.
      */
     public long getUserId(int index) {
       return userId_.getLong(index);
-    }
-    private void ensureUserIdIsMutable() {
-      if (!userId_.isModifiable()) {
-        userId_ =
-            com.google.protobuf.GeneratedMessageLite.mutableCopy(userId_);
-       }
-    }
-    /**
-     * <code>repeated uint64 user_id = 2;</code>
-     */
-    private void setUserId(
-        int index, long value) {
-      ensureUserIdIsMutable();
-      userId_.setLong(index, value);
-    }
-    /**
-     * <code>repeated uint64 user_id = 2;</code>
-     */
-    private void addUserId(long value) {
-      ensureUserIdIsMutable();
-      userId_.addLong(value);
-    }
-    /**
-     * <code>repeated uint64 user_id = 2;</code>
-     */
-    private void addAllUserId(
-        java.lang.Iterable<? extends java.lang.Long> values) {
-      ensureUserIdIsMutable();
-      com.google.protobuf.AbstractMessageLite.addAll(
-          values, userId_);
-    }
-    /**
-     * <code>repeated uint64 user_id = 2;</code>
-     */
-    private void clearUserId() {
-      userId_ = emptyLongList();
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasGroupId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, groupId_);
       }
       for (int i = 0; i < userId_.size(); i++) {
         output.writeUInt64(2, userId_.getLong(i));
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, groupId_);
       }
@@ -8714,119 +12870,351 @@ public final class IMServer {
         size += dataSize;
         size += 1 * getUserIdList().size();
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq other = (com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq) obj;
+
+      if (hasGroupId() != other.hasGroupId()) return false;
+      if (hasGroupId()) {
+        if (getGroupId()
+            != other.getGroupId()) return false;
+      }
+      if (!getUserIdList()
+          .equals(other.getUserIdList())) return false;
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasGroupId()) {
+        hash = (37 * hash) + GROUP_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getGroupId());
+      }
+      if (getUserIdCount() > 0) {
+        hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getUserIdList().hashCode();
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMGroupGetShieldReq}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMGroupGetShieldReq)
         com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq.class, com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        groupId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        userId_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq build() {
+        com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq result = new com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.groupId_ = groupId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          userId_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.userId_ = userId_;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq.getDefaultInstance()) return this;
+        if (other.hasGroupId()) {
+          setGroupId(other.getGroupId());
+        }
+        if (!other.userId_.isEmpty()) {
+          if (userId_.isEmpty()) {
+            userId_ = other.userId_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureUserIdIsMutable();
+            userId_.addAll(other.userId_);
+          }
+          onChanged();
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasGroupId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long groupId_ ;
       /**
        * <pre>
        *cmd id:			0x0711
        * </pre>
        *
        * <code>required uint64 group_id = 1;</code>
+       * @return Whether the groupId field is set.
        */
+      @java.lang.Override
       public boolean hasGroupId() {
-        return instance.hasGroupId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -8834,9 +13222,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 group_id = 1;</code>
+       * @return The groupId.
        */
+      @java.lang.Override
       public long getGroupId() {
-        return instance.getGroupId();
+        return groupId_;
       }
       /**
        * <pre>
@@ -8844,10 +13234,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 group_id = 1;</code>
+       * @param value The groupId to set.
+       * @return This builder for chaining.
        */
       public Builder setGroupId(long value) {
-        copyOnWrite();
-        instance.setGroupId(value);
+        bitField0_ |= 0x00000001;
+        groupId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -8856,247 +13249,191 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 group_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearGroupId() {
-        copyOnWrite();
-        instance.clearGroupId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        groupId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.Internal.LongList userId_ = emptyLongList();
+      private void ensureUserIdIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          userId_ = mutableCopy(userId_);
+          bitField0_ |= 0x00000002;
+         }
+      }
       /**
        * <code>repeated uint64 user_id = 2;</code>
+       * @return A list containing the userId.
        */
       public java.util.List<java.lang.Long>
           getUserIdList() {
-        return java.util.Collections.unmodifiableList(
-            instance.getUserIdList());
+        return ((bitField0_ & 0x00000002) != 0) ?
+                 java.util.Collections.unmodifiableList(userId_) : userId_;
       }
       /**
        * <code>repeated uint64 user_id = 2;</code>
+       * @return The count of userId.
        */
       public int getUserIdCount() {
-        return instance.getUserIdCount();
+        return userId_.size();
       }
       /**
        * <code>repeated uint64 user_id = 2;</code>
+       * @param index The index of the element to return.
+       * @return The userId at the given index.
        */
       public long getUserId(int index) {
-        return instance.getUserId(index);
+        return userId_.getLong(index);
       }
       /**
        * <code>repeated uint64 user_id = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The userId to set.
+       * @return This builder for chaining.
        */
       public Builder setUserId(
           int index, long value) {
-        copyOnWrite();
-        instance.setUserId(index, value);
+        ensureUserIdIsMutable();
+        userId_.setLong(index, value);
+        onChanged();
         return this;
       }
       /**
        * <code>repeated uint64 user_id = 2;</code>
+       * @param value The userId to add.
+       * @return This builder for chaining.
        */
       public Builder addUserId(long value) {
-        copyOnWrite();
-        instance.addUserId(value);
+        ensureUserIdIsMutable();
+        userId_.addLong(value);
+        onChanged();
         return this;
       }
       /**
        * <code>repeated uint64 user_id = 2;</code>
+       * @param values The userId to add.
+       * @return This builder for chaining.
        */
       public Builder addAllUserId(
           java.lang.Iterable<? extends java.lang.Long> values) {
-        copyOnWrite();
-        instance.addAllUserId(values);
+        ensureUserIdIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, userId_);
+        onChanged();
         return this;
       }
       /**
        * <code>repeated uint64 user_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearUserId() {
-        copyOnWrite();
-        instance.clearUserId();
+        userId_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMGroupGetShieldReq)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasGroupId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          userId_.makeImmutable();
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq other = (com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq) arg1;
-          groupId_ = visitor.visitLong(
-              hasGroupId(), groupId_,
-              other.hasGroupId(), other.groupId_);
-          userId_= visitor.visitLongList(userId_, other.userId_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  groupId_ = input.readUInt64();
-                  break;
-                }
-                case 16: {
-                  if (!userId_.isModifiable()) {
-                    userId_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(userId_);
-                  }
-                  userId_.addLong(input.readUInt64());
-                  break;
-                }
-                case 18: {
-                  int length = input.readRawVarint32();
-                  int limit = input.pushLimit(length);
-                  if (!userId_.isModifiable() && input.getBytesUntilLimit() > 0) {
-                    userId_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(userId_);
-                  }
-                  while (input.getBytesUntilLimit() > 0) {
-                    userId_.addLong(input.readUInt64());
-                  }
-                  input.popLimit(limit);
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000002;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMGroupGetShieldReq)
     private static final com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMGroupGetShieldReq();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMGroupGetShieldReq> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMGroupGetShieldReq>
+        PARSER = new com.google.protobuf.AbstractParser<IMGroupGetShieldReq>() {
+      @java.lang.Override
+      public IMGroupGetShieldReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMGroupGetShieldReq(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMGroupGetShieldReq> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMGroupGetShieldReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMGroupGetShieldRspOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMGroupGetShieldRsp)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -9104,6 +13441,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 group_id = 1;</code>
+     * @return Whether the groupId field is set.
      */
     boolean hasGroupId();
     /**
@@ -9112,6 +13450,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 group_id = 1;</code>
+     * @return The groupId.
      */
     long getGroupId();
 
@@ -9128,28 +13467,130 @@ public final class IMServer {
      * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
      */
     int getShieldStatusListCount();
+    /**
+     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
+     */
+    java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatusOrBuilder> 
+        getShieldStatusListOrBuilderList();
+    /**
+     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
+     */
+    com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatusOrBuilder getShieldStatusListOrBuilder(
+        int index);
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.Server.IMGroupGetShieldRsp}
    */
-  public  static final class IMGroupGetShieldRsp extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMGroupGetShieldRsp, IMGroupGetShieldRsp.Builder> implements
+  public static final class IMGroupGetShieldRsp extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMGroupGetShieldRsp)
       IMGroupGetShieldRspOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMGroupGetShieldRsp.newBuilder() to construct.
+    private IMGroupGetShieldRsp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMGroupGetShieldRsp() {
-      shieldStatusList_ = emptyProtobufList();
+      shieldStatusList_ = java.util.Collections.emptyList();
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMGroupGetShieldRsp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMGroupGetShieldRsp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              groupId_ = input.readUInt64();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+                shieldStatusList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              shieldStatusList_.add(
+                  input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.PARSER, extensionRegistry));
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000002;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+          shieldStatusList_ = java.util.Collections.unmodifiableList(shieldStatusList_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldRsp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldRsp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp.class, com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp.Builder.class);
+    }
+
     private int bitField0_;
     public static final int GROUP_ID_FIELD_NUMBER = 1;
     private long groupId_;
@@ -9159,9 +13600,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 group_id = 1;</code>
+     * @return Whether the groupId field is set.
      */
+    @java.lang.Override
     public boolean hasGroupId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -9169,44 +13612,26 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 group_id = 1;</code>
+     * @return The groupId.
      */
+    @java.lang.Override
     public long getGroupId() {
       return groupId_;
     }
-    /**
-     * <pre>
-     *cmd id: 			0x0712
-     * </pre>
-     *
-     * <code>required uint64 group_id = 1;</code>
-     */
-    private void setGroupId(long value) {
-      bitField0_ |= 0x00000001;
-      groupId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id: 			0x0712
-     * </pre>
-     *
-     * <code>required uint64 group_id = 1;</code>
-     */
-    private void clearGroupId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      groupId_ = 0L;
-    }
 
     public static final int SHIELD_STATUS_LIST_FIELD_NUMBER = 2;
-    private com.google.protobuf.Internal.ProtobufList<com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus> shieldStatusList_;
+    private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus> shieldStatusList_;
     /**
      * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus> getShieldStatusListList() {
       return shieldStatusList_;
     }
     /**
      * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatusOrBuilder> 
         getShieldStatusListOrBuilderList() {
       return shieldStatusList_;
@@ -9214,160 +13639,88 @@ public final class IMServer {
     /**
      * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
      */
+    @java.lang.Override
     public int getShieldStatusListCount() {
       return shieldStatusList_.size();
     }
     /**
      * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus getShieldStatusList(int index) {
       return shieldStatusList_.get(index);
     }
     /**
      * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatusOrBuilder getShieldStatusListOrBuilder(
         int index) {
       return shieldStatusList_.get(index);
-    }
-    private void ensureShieldStatusListIsMutable() {
-      if (!shieldStatusList_.isModifiable()) {
-        shieldStatusList_ =
-            com.google.protobuf.GeneratedMessageLite.mutableCopy(shieldStatusList_);
-       }
-    }
-
-    /**
-     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
-     */
-    private void setShieldStatusList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureShieldStatusListIsMutable();
-      shieldStatusList_.set(index, value);
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
-     */
-    private void setShieldStatusList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder builderForValue) {
-      ensureShieldStatusListIsMutable();
-      shieldStatusList_.set(index, builderForValue.build());
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
-     */
-    private void addShieldStatusList(com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureShieldStatusListIsMutable();
-      shieldStatusList_.add(value);
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
-     */
-    private void addShieldStatusList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureShieldStatusListIsMutable();
-      shieldStatusList_.add(index, value);
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
-     */
-    private void addShieldStatusList(
-        com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder builderForValue) {
-      ensureShieldStatusListIsMutable();
-      shieldStatusList_.add(builderForValue.build());
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
-     */
-    private void addShieldStatusList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder builderForValue) {
-      ensureShieldStatusListIsMutable();
-      shieldStatusList_.add(index, builderForValue.build());
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
-     */
-    private void addAllShieldStatusList(
-        java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus> values) {
-      ensureShieldStatusListIsMutable();
-      com.google.protobuf.AbstractMessageLite.addAll(
-          values, shieldStatusList_);
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
-     */
-    private void clearShieldStatusList() {
-      shieldStatusList_ = emptyProtobufList();
-    }
-    /**
-     * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
-     */
-    private void removeShieldStatusList(int index) {
-      ensureShieldStatusListIsMutable();
-      shieldStatusList_.remove(index);
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasGroupId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getShieldStatusListCount(); i++) {
+        if (!getShieldStatusList(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, groupId_);
       }
       for (int i = 0; i < shieldStatusList_.size(); i++) {
         output.writeMessage(2, shieldStatusList_.get(i));
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, groupId_);
       }
@@ -9375,119 +13728,381 @@ public final class IMServer {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, shieldStatusList_.get(i));
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp other = (com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp) obj;
+
+      if (hasGroupId() != other.hasGroupId()) return false;
+      if (hasGroupId()) {
+        if (getGroupId()
+            != other.getGroupId()) return false;
+      }
+      if (!getShieldStatusListList()
+          .equals(other.getShieldStatusListList())) return false;
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasGroupId()) {
+        hash = (37 * hash) + GROUP_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getGroupId());
+      }
+      if (getShieldStatusListCount() > 0) {
+        hash = (37 * hash) + SHIELD_STATUS_LIST_FIELD_NUMBER;
+        hash = (53 * hash) + getShieldStatusListList().hashCode();
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMGroupGetShieldRsp}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMGroupGetShieldRsp)
         com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRspOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldRsp_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldRsp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp.class, com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getShieldStatusListFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        groupId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (shieldStatusListBuilder_ == null) {
+          shieldStatusList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          shieldStatusListBuilder_.clear();
+        }
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMGroupGetShieldRsp_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp build() {
+        com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp result = new com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.groupId_ = groupId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (shieldStatusListBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            shieldStatusList_ = java.util.Collections.unmodifiableList(shieldStatusList_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.shieldStatusList_ = shieldStatusList_;
+        } else {
+          result.shieldStatusList_ = shieldStatusListBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp.getDefaultInstance()) return this;
+        if (other.hasGroupId()) {
+          setGroupId(other.getGroupId());
+        }
+        if (shieldStatusListBuilder_ == null) {
+          if (!other.shieldStatusList_.isEmpty()) {
+            if (shieldStatusList_.isEmpty()) {
+              shieldStatusList_ = other.shieldStatusList_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureShieldStatusListIsMutable();
+              shieldStatusList_.addAll(other.shieldStatusList_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.shieldStatusList_.isEmpty()) {
+            if (shieldStatusListBuilder_.isEmpty()) {
+              shieldStatusListBuilder_.dispose();
+              shieldStatusListBuilder_ = null;
+              shieldStatusList_ = other.shieldStatusList_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              shieldStatusListBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getShieldStatusListFieldBuilder() : null;
+            } else {
+              shieldStatusListBuilder_.addAllMessages(other.shieldStatusList_);
+            }
+          }
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasGroupId()) {
+          return false;
+        }
+        for (int i = 0; i < getShieldStatusListCount(); i++) {
+          if (!getShieldStatusList(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long groupId_ ;
       /**
        * <pre>
        *cmd id: 			0x0712
        * </pre>
        *
        * <code>required uint64 group_id = 1;</code>
+       * @return Whether the groupId field is set.
        */
+      @java.lang.Override
       public boolean hasGroupId() {
-        return instance.hasGroupId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -9495,9 +14110,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 group_id = 1;</code>
+       * @return The groupId.
        */
+      @java.lang.Override
       public long getGroupId() {
-        return instance.getGroupId();
+        return groupId_;
       }
       /**
        * <pre>
@@ -9505,10 +14122,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 group_id = 1;</code>
+       * @param value The groupId to set.
+       * @return This builder for chaining.
        */
       public Builder setGroupId(long value) {
-        copyOnWrite();
-        instance.setGroupId(value);
+        bitField0_ |= 0x00000001;
+        groupId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -9517,38 +14137,72 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 group_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearGroupId() {
-        copyOnWrite();
-        instance.clearGroupId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        groupId_ = 0L;
+        onChanged();
         return this;
       }
+
+      private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus> shieldStatusList_ =
+        java.util.Collections.emptyList();
+      private void ensureShieldStatusListIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          shieldStatusList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus>(shieldStatusList_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatusOrBuilder> shieldStatusListBuilder_;
 
       /**
        * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
        */
       public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus> getShieldStatusListList() {
-        return java.util.Collections.unmodifiableList(
-            instance.getShieldStatusListList());
+        if (shieldStatusListBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(shieldStatusList_);
+        } else {
+          return shieldStatusListBuilder_.getMessageList();
+        }
       }
       /**
        * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
        */
       public int getShieldStatusListCount() {
-        return instance.getShieldStatusListCount();
-      }/**
+        if (shieldStatusListBuilder_ == null) {
+          return shieldStatusList_.size();
+        } else {
+          return shieldStatusListBuilder_.getCount();
+        }
+      }
+      /**
        * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
        */
       public com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus getShieldStatusList(int index) {
-        return instance.getShieldStatusList(index);
+        if (shieldStatusListBuilder_ == null) {
+          return shieldStatusList_.get(index);
+        } else {
+          return shieldStatusListBuilder_.getMessage(index);
+        }
       }
       /**
        * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
        */
       public Builder setShieldStatusList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus value) {
-        copyOnWrite();
-        instance.setShieldStatusList(index, value);
+        if (shieldStatusListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureShieldStatusListIsMutable();
+          shieldStatusList_.set(index, value);
+          onChanged();
+        } else {
+          shieldStatusListBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
@@ -9556,16 +14210,29 @@ public final class IMServer {
        */
       public Builder setShieldStatusList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder builderForValue) {
-        copyOnWrite();
-        instance.setShieldStatusList(index, builderForValue);
+        if (shieldStatusListBuilder_ == null) {
+          ensureShieldStatusListIsMutable();
+          shieldStatusList_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          shieldStatusListBuilder_.setMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
        * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
        */
       public Builder addShieldStatusList(com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus value) {
-        copyOnWrite();
-        instance.addShieldStatusList(value);
+        if (shieldStatusListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureShieldStatusListIsMutable();
+          shieldStatusList_.add(value);
+          onChanged();
+        } else {
+          shieldStatusListBuilder_.addMessage(value);
+        }
         return this;
       }
       /**
@@ -9573,8 +14240,16 @@ public final class IMServer {
        */
       public Builder addShieldStatusList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus value) {
-        copyOnWrite();
-        instance.addShieldStatusList(index, value);
+        if (shieldStatusListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureShieldStatusListIsMutable();
+          shieldStatusList_.add(index, value);
+          onChanged();
+        } else {
+          shieldStatusListBuilder_.addMessage(index, value);
+        }
         return this;
       }
       /**
@@ -9582,8 +14257,13 @@ public final class IMServer {
        */
       public Builder addShieldStatusList(
           com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder builderForValue) {
-        copyOnWrite();
-        instance.addShieldStatusList(builderForValue);
+        if (shieldStatusListBuilder_ == null) {
+          ensureShieldStatusListIsMutable();
+          shieldStatusList_.add(builderForValue.build());
+          onChanged();
+        } else {
+          shieldStatusListBuilder_.addMessage(builderForValue.build());
+        }
         return this;
       }
       /**
@@ -9591,8 +14271,13 @@ public final class IMServer {
        */
       public Builder addShieldStatusList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder builderForValue) {
-        copyOnWrite();
-        instance.addShieldStatusList(index, builderForValue);
+        if (shieldStatusListBuilder_ == null) {
+          ensureShieldStatusListIsMutable();
+          shieldStatusList_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          shieldStatusListBuilder_.addMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -9600,202 +14285,204 @@ public final class IMServer {
        */
       public Builder addAllShieldStatusList(
           java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus> values) {
-        copyOnWrite();
-        instance.addAllShieldStatusList(values);
+        if (shieldStatusListBuilder_ == null) {
+          ensureShieldStatusListIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, shieldStatusList_);
+          onChanged();
+        } else {
+          shieldStatusListBuilder_.addAllMessages(values);
+        }
         return this;
       }
       /**
        * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
        */
       public Builder clearShieldStatusList() {
-        copyOnWrite();
-        instance.clearShieldStatusList();
+        if (shieldStatusListBuilder_ == null) {
+          shieldStatusList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          shieldStatusListBuilder_.clear();
+        }
         return this;
       }
       /**
        * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
        */
       public Builder removeShieldStatusList(int index) {
-        copyOnWrite();
-        instance.removeShieldStatusList(index);
+        if (shieldStatusListBuilder_ == null) {
+          ensureShieldStatusListIsMutable();
+          shieldStatusList_.remove(index);
+          onChanged();
+        } else {
+          shieldStatusListBuilder_.remove(index);
+        }
         return this;
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder getShieldStatusListBuilder(
+          int index) {
+        return getShieldStatusListFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatusOrBuilder getShieldStatusListOrBuilder(
+          int index) {
+        if (shieldStatusListBuilder_ == null) {
+          return shieldStatusList_.get(index);  } else {
+          return shieldStatusListBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
+       */
+      public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatusOrBuilder> 
+           getShieldStatusListOrBuilderList() {
+        if (shieldStatusListBuilder_ != null) {
+          return shieldStatusListBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(shieldStatusList_);
+        }
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder addShieldStatusListBuilder() {
+        return getShieldStatusListFieldBuilder().addBuilder(
+            com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder addShieldStatusListBuilder(
+          int index) {
+        return getShieldStatusListFieldBuilder().addBuilder(
+            index, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .IM.BaseDefine.ShieldStatus shield_status_list = 2;</code>
+       */
+      public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder> 
+           getShieldStatusListBuilderList() {
+        return getShieldStatusListFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatusOrBuilder> 
+          getShieldStatusListFieldBuilder() {
+        if (shieldStatusListBuilder_ == null) {
+          shieldStatusListBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.Builder, com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatusOrBuilder>(
+                  shieldStatusList_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          shieldStatusList_ = null;
+        }
+        return shieldStatusListBuilder_;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMGroupGetShieldRsp)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasGroupId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          for (int i = 0; i < getShieldStatusListCount(); i++) {
-            if (!getShieldStatusList(i).isInitialized()) {
-              if (shouldMemoize) {
-                memoizedIsInitialized = 0;
-              }
-              return null;
-            }
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          shieldStatusList_.makeImmutable();
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp other = (com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp) arg1;
-          groupId_ = visitor.visitLong(
-              hasGroupId(), groupId_,
-              other.hasGroupId(), other.groupId_);
-          shieldStatusList_= visitor.visitList(shieldStatusList_, other.shieldStatusList_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  groupId_ = input.readUInt64();
-                  break;
-                }
-                case 18: {
-                  if (!shieldStatusList_.isModifiable()) {
-                    shieldStatusList_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(shieldStatusList_);
-                  }
-                  shieldStatusList_.add(
-                      input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.ShieldStatus.parser(), extensionRegistry));
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000002;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMGroupGetShieldRsp)
     private static final com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMGroupGetShieldRsp();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMGroupGetShieldRsp> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMGroupGetShieldRsp>
+        PARSER = new com.google.protobuf.AbstractParser<IMGroupGetShieldRsp>() {
+      @java.lang.Override
+      public IMGroupGetShieldRsp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMGroupGetShieldRsp(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMGroupGetShieldRsp> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMGroupGetShieldRsp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMGroupGetShieldRsp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMFileTransferReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMFileTransferReq)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -9803,6 +14490,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 from_user_id = 1;</code>
+     * @return Whether the fromUserId field is set.
      */
     boolean hasFromUserId();
     /**
@@ -9811,72 +14499,190 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 from_user_id = 1;</code>
+     * @return The fromUserId.
      */
     long getFromUserId();
 
     /**
      * <code>required uint64 to_user_id = 2;</code>
+     * @return Whether the toUserId field is set.
      */
     boolean hasToUserId();
     /**
      * <code>required uint64 to_user_id = 2;</code>
+     * @return The toUserId.
      */
     long getToUserId();
 
     /**
      * <code>required string file_name = 3;</code>
+     * @return Whether the fileName field is set.
      */
     boolean hasFileName();
     /**
      * <code>required string file_name = 3;</code>
+     * @return The fileName.
      */
     java.lang.String getFileName();
     /**
      * <code>required string file_name = 3;</code>
+     * @return The bytes for fileName.
      */
     com.google.protobuf.ByteString
         getFileNameBytes();
 
     /**
      * <code>required uint32 file_size = 4;</code>
+     * @return Whether the fileSize field is set.
      */
     boolean hasFileSize();
     /**
      * <code>required uint32 file_size = 4;</code>
+     * @return The fileSize.
      */
     int getFileSize();
 
     /**
      * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
+     * @return Whether the transMode field is set.
      */
     boolean hasTransMode();
     /**
      * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
+     * @return The transMode.
      */
     com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType getTransMode();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.Server.IMFileTransferReq}
    */
-  public  static final class IMFileTransferReq extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMFileTransferReq, IMFileTransferReq.Builder> implements
+  public static final class IMFileTransferReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMFileTransferReq)
       IMFileTransferReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMFileTransferReq.newBuilder() to construct.
+    private IMFileTransferReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMFileTransferReq() {
       fileName_ = "";
       transMode_ = 1;
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMFileTransferReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMFileTransferReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              fromUserId_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              toUserId_ = input.readUInt64();
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              fileName_ = bs;
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              fileSize_ = input.readUInt32();
+              break;
+            }
+            case 40: {
+              int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
+              com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType value = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(5, rawValue);
+              } else {
+                bitField0_ |= 0x00000010;
+                transMode_ = rawValue;
+              }
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000020;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMFileTransferReq.class, com.blt.talk.common.code.proto.IMServer.IMFileTransferReq.Builder.class);
+    }
+
     private int bitField0_;
     public static final int FROM_USER_ID_FIELD_NUMBER = 1;
     private long fromUserId_;
@@ -9886,9 +14692,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 from_user_id = 1;</code>
+     * @return Whether the fromUserId field is set.
      */
+    @java.lang.Override
     public boolean hasFromUserId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -9896,368 +14704,625 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint64 from_user_id = 1;</code>
+     * @return The fromUserId.
      */
+    @java.lang.Override
     public long getFromUserId() {
       return fromUserId_;
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0715
-     * </pre>
-     *
-     * <code>required uint64 from_user_id = 1;</code>
-     */
-    private void setFromUserId(long value) {
-      bitField0_ |= 0x00000001;
-      fromUserId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0715
-     * </pre>
-     *
-     * <code>required uint64 from_user_id = 1;</code>
-     */
-    private void clearFromUserId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      fromUserId_ = 0L;
     }
 
     public static final int TO_USER_ID_FIELD_NUMBER = 2;
     private long toUserId_;
     /**
      * <code>required uint64 to_user_id = 2;</code>
+     * @return Whether the toUserId field is set.
      */
+    @java.lang.Override
     public boolean hasToUserId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required uint64 to_user_id = 2;</code>
+     * @return The toUserId.
      */
+    @java.lang.Override
     public long getToUserId() {
       return toUserId_;
     }
-    /**
-     * <code>required uint64 to_user_id = 2;</code>
-     */
-    private void setToUserId(long value) {
-      bitField0_ |= 0x00000002;
-      toUserId_ = value;
-    }
-    /**
-     * <code>required uint64 to_user_id = 2;</code>
-     */
-    private void clearToUserId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      toUserId_ = 0L;
-    }
 
     public static final int FILE_NAME_FIELD_NUMBER = 3;
-    private java.lang.String fileName_;
+    private volatile java.lang.Object fileName_;
     /**
      * <code>required string file_name = 3;</code>
+     * @return Whether the fileName field is set.
      */
+    @java.lang.Override
     public boolean hasFileName() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required string file_name = 3;</code>
+     * @return The fileName.
      */
+    @java.lang.Override
     public java.lang.String getFileName() {
-      return fileName_;
+      java.lang.Object ref = fileName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          fileName_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <code>required string file_name = 3;</code>
+     * @return The bytes for fileName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFileNameBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(fileName_);
-    }
-    /**
-     * <code>required string file_name = 3;</code>
-     */
-    private void setFileName(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-      fileName_ = value;
-    }
-    /**
-     * <code>required string file_name = 3;</code>
-     */
-    private void clearFileName() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      fileName_ = getDefaultInstance().getFileName();
-    }
-    /**
-     * <code>required string file_name = 3;</code>
-     */
-    private void setFileNameBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-      fileName_ = value.toStringUtf8();
+      java.lang.Object ref = fileName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fileName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int FILE_SIZE_FIELD_NUMBER = 4;
     private int fileSize_;
     /**
      * <code>required uint32 file_size = 4;</code>
+     * @return Whether the fileSize field is set.
      */
+    @java.lang.Override
     public boolean hasFileSize() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>required uint32 file_size = 4;</code>
+     * @return The fileSize.
      */
+    @java.lang.Override
     public int getFileSize() {
       return fileSize_;
-    }
-    /**
-     * <code>required uint32 file_size = 4;</code>
-     */
-    private void setFileSize(int value) {
-      bitField0_ |= 0x00000008;
-      fileSize_ = value;
-    }
-    /**
-     * <code>required uint32 file_size = 4;</code>
-     */
-    private void clearFileSize() {
-      bitField0_ = (bitField0_ & ~0x00000008);
-      fileSize_ = 0;
     }
 
     public static final int TRANS_MODE_FIELD_NUMBER = 5;
     private int transMode_;
     /**
      * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
+     * @return Whether the transMode field is set.
      */
-    public boolean hasTransMode() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+    @java.lang.Override public boolean hasTransMode() {
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
+     * @return The transMode.
      */
-    public com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType getTransMode() {
-      com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType result = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.forNumber(transMode_);
+    @java.lang.Override public com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType getTransMode() {
+      @SuppressWarnings("deprecation")
+      com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType result = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.valueOf(transMode_);
       return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.FILE_TYPE_ONLINE : result;
-    }
-    /**
-     * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
-     */
-    private void setTransMode(com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      bitField0_ |= 0x00000010;
-      transMode_ = value.getNumber();
-    }
-    /**
-     * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
-     */
-    private void clearTransMode() {
-      bitField0_ = (bitField0_ & ~0x00000010);
-      transMode_ = 1;
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000020);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFromUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasToUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasFileName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasFileSize()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTransMode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, fromUserId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt64(2, toUserId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeString(3, getFileName());
+      if (((bitField0_ & 0x00000004) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, fileName_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeUInt32(4, fileSize_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeEnum(5, transMode_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, fromUserId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, toUserId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(3, getFileName());
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, fileName_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(4, fileSize_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(5, transMode_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMFileTransferReq)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMFileTransferReq other = (com.blt.talk.common.code.proto.IMServer.IMFileTransferReq) obj;
+
+      if (hasFromUserId() != other.hasFromUserId()) return false;
+      if (hasFromUserId()) {
+        if (getFromUserId()
+            != other.getFromUserId()) return false;
+      }
+      if (hasToUserId() != other.hasToUserId()) return false;
+      if (hasToUserId()) {
+        if (getToUserId()
+            != other.getToUserId()) return false;
+      }
+      if (hasFileName() != other.hasFileName()) return false;
+      if (hasFileName()) {
+        if (!getFileName()
+            .equals(other.getFileName())) return false;
+      }
+      if (hasFileSize() != other.hasFileSize()) return false;
+      if (hasFileSize()) {
+        if (getFileSize()
+            != other.getFileSize()) return false;
+      }
+      if (hasTransMode() != other.hasTransMode()) return false;
+      if (hasTransMode()) {
+        if (transMode_ != other.transMode_) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasFromUserId()) {
+        hash = (37 * hash) + FROM_USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFromUserId());
+      }
+      if (hasToUserId()) {
+        hash = (37 * hash) + TO_USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getToUserId());
+      }
+      if (hasFileName()) {
+        hash = (37 * hash) + FILE_NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getFileName().hashCode();
+      }
+      if (hasFileSize()) {
+        hash = (37 * hash) + FILE_SIZE_FIELD_NUMBER;
+        hash = (53 * hash) + getFileSize();
+      }
+      if (hasTransMode()) {
+        hash = (37 * hash) + TRANS_MODE_FIELD_NUMBER;
+        hash = (53 * hash) + transMode_;
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMFileTransferReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMFileTransferReq}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMFileTransferReq, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMFileTransferReq)
         com.blt.talk.common.code.proto.IMServer.IMFileTransferReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMFileTransferReq.class, com.blt.talk.common.code.proto.IMServer.IMFileTransferReq.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMFileTransferReq.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fromUserId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        toUserId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        fileName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fileSize_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        transMode_ = 1;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileTransferReq getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMFileTransferReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileTransferReq build() {
+        com.blt.talk.common.code.proto.IMServer.IMFileTransferReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileTransferReq buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMFileTransferReq result = new com.blt.talk.common.code.proto.IMServer.IMFileTransferReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.fromUserId_ = fromUserId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.toUserId_ = toUserId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.fileName_ = fileName_;
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.fileSize_ = fileSize_;
+          to_bitField0_ |= 0x00000008;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.transMode_ = transMode_;
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMFileTransferReq) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMFileTransferReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMFileTransferReq other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMFileTransferReq.getDefaultInstance()) return this;
+        if (other.hasFromUserId()) {
+          setFromUserId(other.getFromUserId());
+        }
+        if (other.hasToUserId()) {
+          setToUserId(other.getToUserId());
+        }
+        if (other.hasFileName()) {
+          bitField0_ |= 0x00000004;
+          fileName_ = other.fileName_;
+          onChanged();
+        }
+        if (other.hasFileSize()) {
+          setFileSize(other.getFileSize());
+        }
+        if (other.hasTransMode()) {
+          setTransMode(other.getTransMode());
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasFromUserId()) {
+          return false;
+        }
+        if (!hasToUserId()) {
+          return false;
+        }
+        if (!hasFileName()) {
+          return false;
+        }
+        if (!hasFileSize()) {
+          return false;
+        }
+        if (!hasTransMode()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMFileTransferReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMFileTransferReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long fromUserId_ ;
       /**
        * <pre>
        *cmd id:			0x0715
        * </pre>
        *
        * <code>required uint64 from_user_id = 1;</code>
+       * @return Whether the fromUserId field is set.
        */
+      @java.lang.Override
       public boolean hasFromUserId() {
-        return instance.hasFromUserId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -10265,9 +15330,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 from_user_id = 1;</code>
+       * @return The fromUserId.
        */
+      @java.lang.Override
       public long getFromUserId() {
-        return instance.getFromUserId();
+        return fromUserId_;
       }
       /**
        * <pre>
@@ -10275,10 +15342,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 from_user_id = 1;</code>
+       * @param value The fromUserId to set.
+       * @return This builder for chaining.
        */
       public Builder setFromUserId(long value) {
-        copyOnWrite();
-        instance.setFromUserId(value);
+        bitField0_ |= 0x00000001;
+        fromUserId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -10287,364 +15357,317 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint64 from_user_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFromUserId() {
-        copyOnWrite();
-        instance.clearFromUserId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fromUserId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long toUserId_ ;
       /**
        * <code>required uint64 to_user_id = 2;</code>
+       * @return Whether the toUserId field is set.
        */
+      @java.lang.Override
       public boolean hasToUserId() {
-        return instance.hasToUserId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required uint64 to_user_id = 2;</code>
+       * @return The toUserId.
        */
+      @java.lang.Override
       public long getToUserId() {
-        return instance.getToUserId();
+        return toUserId_;
       }
       /**
        * <code>required uint64 to_user_id = 2;</code>
+       * @param value The toUserId to set.
+       * @return This builder for chaining.
        */
       public Builder setToUserId(long value) {
-        copyOnWrite();
-        instance.setToUserId(value);
+        bitField0_ |= 0x00000002;
+        toUserId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 to_user_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToUserId() {
-        copyOnWrite();
-        instance.clearToUserId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toUserId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private java.lang.Object fileName_ = "";
       /**
        * <code>required string file_name = 3;</code>
+       * @return Whether the fileName field is set.
        */
       public boolean hasFileName() {
-        return instance.hasFileName();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required string file_name = 3;</code>
+       * @return The fileName.
        */
       public java.lang.String getFileName() {
-        return instance.getFileName();
+        java.lang.Object ref = fileName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            fileName_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <code>required string file_name = 3;</code>
+       * @return The bytes for fileName.
        */
       public com.google.protobuf.ByteString
           getFileNameBytes() {
-        return instance.getFileNameBytes();
+        java.lang.Object ref = fileName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          fileName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <code>required string file_name = 3;</code>
+       * @param value The fileName to set.
+       * @return This builder for chaining.
        */
       public Builder setFileName(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setFileName(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        fileName_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required string file_name = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFileName() {
-        copyOnWrite();
-        instance.clearFileName();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fileName_ = getDefaultInstance().getFileName();
+        onChanged();
         return this;
       }
       /**
        * <code>required string file_name = 3;</code>
+       * @param value The bytes for fileName to set.
+       * @return This builder for chaining.
        */
       public Builder setFileNameBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setFileNameBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        fileName_ = value;
+        onChanged();
         return this;
       }
 
+      private int fileSize_ ;
       /**
        * <code>required uint32 file_size = 4;</code>
+       * @return Whether the fileSize field is set.
        */
+      @java.lang.Override
       public boolean hasFileSize() {
-        return instance.hasFileSize();
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>required uint32 file_size = 4;</code>
+       * @return The fileSize.
        */
+      @java.lang.Override
       public int getFileSize() {
-        return instance.getFileSize();
+        return fileSize_;
       }
       /**
        * <code>required uint32 file_size = 4;</code>
+       * @param value The fileSize to set.
+       * @return This builder for chaining.
        */
       public Builder setFileSize(int value) {
-        copyOnWrite();
-        instance.setFileSize(value);
+        bitField0_ |= 0x00000008;
+        fileSize_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint32 file_size = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFileSize() {
-        copyOnWrite();
-        instance.clearFileSize();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        fileSize_ = 0;
+        onChanged();
         return this;
       }
 
+      private int transMode_ = 1;
       /**
        * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
+       * @return Whether the transMode field is set.
        */
-      public boolean hasTransMode() {
-        return instance.hasTransMode();
+      @java.lang.Override public boolean hasTransMode() {
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
+       * @return The transMode.
        */
+      @java.lang.Override
       public com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType getTransMode() {
-        return instance.getTransMode();
+        @SuppressWarnings("deprecation")
+        com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType result = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.valueOf(transMode_);
+        return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.FILE_TYPE_ONLINE : result;
       }
       /**
        * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
+       * @param value The transMode to set.
+       * @return This builder for chaining.
        */
       public Builder setTransMode(com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType value) {
-        copyOnWrite();
-        instance.setTransMode(value);
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000010;
+        transMode_ = value.getNumber();
+        onChanged();
         return this;
       }
       /**
        * <code>required .IM.BaseDefine.TransferFileType trans_mode = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTransMode() {
-        copyOnWrite();
-        instance.clearTransMode();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        transMode_ = 1;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMFileTransferReq)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMFileTransferReq();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasFromUserId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasToUserId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasFileName()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasFileSize()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasTransMode()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMFileTransferReq other = (com.blt.talk.common.code.proto.IMServer.IMFileTransferReq) arg1;
-          fromUserId_ = visitor.visitLong(
-              hasFromUserId(), fromUserId_,
-              other.hasFromUserId(), other.fromUserId_);
-          toUserId_ = visitor.visitLong(
-              hasToUserId(), toUserId_,
-              other.hasToUserId(), other.toUserId_);
-          fileName_ = visitor.visitString(
-              hasFileName(), fileName_,
-              other.hasFileName(), other.fileName_);
-          fileSize_ = visitor.visitInt(
-              hasFileSize(), fileSize_,
-              other.hasFileSize(), other.fileSize_);
-          transMode_ = visitor.visitInt(hasTransMode(), transMode_,
-              other.hasTransMode(), other.transMode_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  fromUserId_ = input.readUInt64();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  toUserId_ = input.readUInt64();
-                  break;
-                }
-                case 26: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000004;
-                  fileName_ = s;
-                  break;
-                }
-                case 32: {
-                  bitField0_ |= 0x00000008;
-                  fileSize_ = input.readUInt32();
-                  break;
-                }
-                case 40: {
-                  int rawValue = input.readEnum();
-                  com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType value = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.forNumber(rawValue);
-                  if (value == null) {
-                    super.mergeVarintField(5, rawValue);
-                  } else {
-                    bitField0_ |= 0x00000010;
-                    transMode_ = rawValue;
-                  }
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000020;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMFileTransferReq.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMFileTransferReq)
     private static final com.blt.talk.common.code.proto.IMServer.IMFileTransferReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMFileTransferReq();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMFileTransferReq();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMFileTransferReq> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMFileTransferReq>
+        PARSER = new com.google.protobuf.AbstractParser<IMFileTransferReq>() {
+      @java.lang.Override
+      public IMFileTransferReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMFileTransferReq(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMFileTransferReq> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMFileTransferReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMFileTransferReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMFileTransferRspOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMFileTransferRsp)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -10652,6 +15675,7 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 result_code = 1;</code>
+     * @return Whether the resultCode field is set.
      */
     boolean hasResultCode();
     /**
@@ -10660,96 +15684,230 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 result_code = 1;</code>
+     * @return The resultCode.
      */
     int getResultCode();
 
     /**
      * <code>required uint64 from_user_id = 2;</code>
+     * @return Whether the fromUserId field is set.
      */
     boolean hasFromUserId();
     /**
      * <code>required uint64 from_user_id = 2;</code>
+     * @return The fromUserId.
      */
     long getFromUserId();
 
     /**
      * <code>required uint64 to_user_id = 3;</code>
+     * @return Whether the toUserId field is set.
      */
     boolean hasToUserId();
     /**
      * <code>required uint64 to_user_id = 3;</code>
+     * @return The toUserId.
      */
     long getToUserId();
 
     /**
      * <code>optional string file_name = 4;</code>
+     * @return Whether the fileName field is set.
      */
     boolean hasFileName();
     /**
      * <code>optional string file_name = 4;</code>
+     * @return The fileName.
      */
     java.lang.String getFileName();
     /**
      * <code>optional string file_name = 4;</code>
+     * @return The bytes for fileName.
      */
     com.google.protobuf.ByteString
         getFileNameBytes();
 
     /**
      * <code>optional uint32 file_size = 5;</code>
+     * @return Whether the fileSize field is set.
      */
     boolean hasFileSize();
     /**
      * <code>optional uint32 file_size = 5;</code>
+     * @return The fileSize.
      */
     int getFileSize();
 
     /**
      * <code>optional string task_id = 6;</code>
+     * @return Whether the taskId field is set.
      */
     boolean hasTaskId();
     /**
      * <code>optional string task_id = 6;</code>
+     * @return The taskId.
      */
     java.lang.String getTaskId();
     /**
      * <code>optional string task_id = 6;</code>
+     * @return The bytes for taskId.
      */
     com.google.protobuf.ByteString
         getTaskIdBytes();
 
     /**
      * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
+     * @return Whether the transMode field is set.
      */
     boolean hasTransMode();
     /**
      * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
+     * @return The transMode.
      */
     com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType getTransMode();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.Server.IMFileTransferRsp}
    */
-  public  static final class IMFileTransferRsp extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMFileTransferRsp, IMFileTransferRsp.Builder> implements
+  public static final class IMFileTransferRsp extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMFileTransferRsp)
       IMFileTransferRspOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMFileTransferRsp.newBuilder() to construct.
+    private IMFileTransferRsp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMFileTransferRsp() {
       fileName_ = "";
       taskId_ = "";
       transMode_ = 1;
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMFileTransferRsp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMFileTransferRsp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              resultCode_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              fromUserId_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              toUserId_ = input.readUInt64();
+              break;
+            }
+            case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000008;
+              fileName_ = bs;
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              fileSize_ = input.readUInt32();
+              break;
+            }
+            case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000020;
+              taskId_ = bs;
+              break;
+            }
+            case 56: {
+              int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
+              com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType value = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(7, rawValue);
+              } else {
+                bitField0_ |= 0x00000040;
+                transMode_ = rawValue;
+              }
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000080;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferRsp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferRsp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp.class, com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp.Builder.class);
+    }
+
     private int bitField0_;
     public static final int RESULT_CODE_FIELD_NUMBER = 1;
     private int resultCode_;
@@ -10759,9 +15917,11 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 result_code = 1;</code>
+     * @return Whether the resultCode field is set.
      */
+    @java.lang.Override
     public boolean hasResultCode() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -10769,462 +15929,729 @@ public final class IMServer {
      * </pre>
      *
      * <code>required uint32 result_code = 1;</code>
+     * @return The resultCode.
      */
+    @java.lang.Override
     public int getResultCode() {
       return resultCode_;
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0716
-     * </pre>
-     *
-     * <code>required uint32 result_code = 1;</code>
-     */
-    private void setResultCode(int value) {
-      bitField0_ |= 0x00000001;
-      resultCode_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0716
-     * </pre>
-     *
-     * <code>required uint32 result_code = 1;</code>
-     */
-    private void clearResultCode() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      resultCode_ = 0;
     }
 
     public static final int FROM_USER_ID_FIELD_NUMBER = 2;
     private long fromUserId_;
     /**
      * <code>required uint64 from_user_id = 2;</code>
+     * @return Whether the fromUserId field is set.
      */
+    @java.lang.Override
     public boolean hasFromUserId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required uint64 from_user_id = 2;</code>
+     * @return The fromUserId.
      */
+    @java.lang.Override
     public long getFromUserId() {
       return fromUserId_;
-    }
-    /**
-     * <code>required uint64 from_user_id = 2;</code>
-     */
-    private void setFromUserId(long value) {
-      bitField0_ |= 0x00000002;
-      fromUserId_ = value;
-    }
-    /**
-     * <code>required uint64 from_user_id = 2;</code>
-     */
-    private void clearFromUserId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      fromUserId_ = 0L;
     }
 
     public static final int TO_USER_ID_FIELD_NUMBER = 3;
     private long toUserId_;
     /**
      * <code>required uint64 to_user_id = 3;</code>
+     * @return Whether the toUserId field is set.
      */
+    @java.lang.Override
     public boolean hasToUserId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required uint64 to_user_id = 3;</code>
+     * @return The toUserId.
      */
+    @java.lang.Override
     public long getToUserId() {
       return toUserId_;
     }
-    /**
-     * <code>required uint64 to_user_id = 3;</code>
-     */
-    private void setToUserId(long value) {
-      bitField0_ |= 0x00000004;
-      toUserId_ = value;
-    }
-    /**
-     * <code>required uint64 to_user_id = 3;</code>
-     */
-    private void clearToUserId() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      toUserId_ = 0L;
-    }
 
     public static final int FILE_NAME_FIELD_NUMBER = 4;
-    private java.lang.String fileName_;
+    private volatile java.lang.Object fileName_;
     /**
      * <code>optional string file_name = 4;</code>
+     * @return Whether the fileName field is set.
      */
+    @java.lang.Override
     public boolean hasFileName() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>optional string file_name = 4;</code>
+     * @return The fileName.
      */
+    @java.lang.Override
     public java.lang.String getFileName() {
-      return fileName_;
+      java.lang.Object ref = fileName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          fileName_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <code>optional string file_name = 4;</code>
+     * @return The bytes for fileName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFileNameBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(fileName_);
-    }
-    /**
-     * <code>optional string file_name = 4;</code>
-     */
-    private void setFileName(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-      fileName_ = value;
-    }
-    /**
-     * <code>optional string file_name = 4;</code>
-     */
-    private void clearFileName() {
-      bitField0_ = (bitField0_ & ~0x00000008);
-      fileName_ = getDefaultInstance().getFileName();
-    }
-    /**
-     * <code>optional string file_name = 4;</code>
-     */
-    private void setFileNameBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-      fileName_ = value.toStringUtf8();
+      java.lang.Object ref = fileName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fileName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int FILE_SIZE_FIELD_NUMBER = 5;
     private int fileSize_;
     /**
      * <code>optional uint32 file_size = 5;</code>
+     * @return Whether the fileSize field is set.
      */
+    @java.lang.Override
     public boolean hasFileSize() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <code>optional uint32 file_size = 5;</code>
+     * @return The fileSize.
      */
+    @java.lang.Override
     public int getFileSize() {
       return fileSize_;
     }
-    /**
-     * <code>optional uint32 file_size = 5;</code>
-     */
-    private void setFileSize(int value) {
-      bitField0_ |= 0x00000010;
-      fileSize_ = value;
-    }
-    /**
-     * <code>optional uint32 file_size = 5;</code>
-     */
-    private void clearFileSize() {
-      bitField0_ = (bitField0_ & ~0x00000010);
-      fileSize_ = 0;
-    }
 
     public static final int TASK_ID_FIELD_NUMBER = 6;
-    private java.lang.String taskId_;
+    private volatile java.lang.Object taskId_;
     /**
      * <code>optional string task_id = 6;</code>
+     * @return Whether the taskId field is set.
      */
+    @java.lang.Override
     public boolean hasTaskId() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
      * <code>optional string task_id = 6;</code>
+     * @return The taskId.
      */
+    @java.lang.Override
     public java.lang.String getTaskId() {
-      return taskId_;
+      java.lang.Object ref = taskId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          taskId_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <code>optional string task_id = 6;</code>
+     * @return The bytes for taskId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTaskIdBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(taskId_);
-    }
-    /**
-     * <code>optional string task_id = 6;</code>
-     */
-    private void setTaskId(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
-      taskId_ = value;
-    }
-    /**
-     * <code>optional string task_id = 6;</code>
-     */
-    private void clearTaskId() {
-      bitField0_ = (bitField0_ & ~0x00000020);
-      taskId_ = getDefaultInstance().getTaskId();
-    }
-    /**
-     * <code>optional string task_id = 6;</code>
-     */
-    private void setTaskIdBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
-      taskId_ = value.toStringUtf8();
+      java.lang.Object ref = taskId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        taskId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int TRANS_MODE_FIELD_NUMBER = 7;
     private int transMode_;
     /**
      * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
+     * @return Whether the transMode field is set.
      */
-    public boolean hasTransMode() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+    @java.lang.Override public boolean hasTransMode() {
+      return ((bitField0_ & 0x00000040) != 0);
     }
     /**
      * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
+     * @return The transMode.
      */
-    public com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType getTransMode() {
-      com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType result = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.forNumber(transMode_);
+    @java.lang.Override public com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType getTransMode() {
+      @SuppressWarnings("deprecation")
+      com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType result = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.valueOf(transMode_);
       return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.FILE_TYPE_ONLINE : result;
-    }
-    /**
-     * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
-     */
-    private void setTransMode(com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      bitField0_ |= 0x00000040;
-      transMode_ = value.getNumber();
-    }
-    /**
-     * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
-     */
-    private void clearTransMode() {
-      bitField0_ = (bitField0_ & ~0x00000040);
-      transMode_ = 1;
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000080) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000080;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000080);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasResultCode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasFromUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasToUserId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt32(1, resultCode_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt64(2, fromUserId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt64(3, toUserId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeString(4, getFileName());
+      if (((bitField0_ & 0x00000008) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, fileName_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeUInt32(5, fileSize_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeString(6, getTaskId());
+      if (((bitField0_ & 0x00000020) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, taskId_);
       }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+      if (((bitField0_ & 0x00000040) != 0)) {
         output.writeEnum(7, transMode_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, resultCode_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, fromUserId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(3, toUserId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(4, getFileName());
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, fileName_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(5, fileSize_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(6, getTaskId());
+      if (((bitField0_ & 0x00000020) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, taskId_);
       }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+      if (((bitField0_ & 0x00000040) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(7, transMode_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp other = (com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp) obj;
+
+      if (hasResultCode() != other.hasResultCode()) return false;
+      if (hasResultCode()) {
+        if (getResultCode()
+            != other.getResultCode()) return false;
+      }
+      if (hasFromUserId() != other.hasFromUserId()) return false;
+      if (hasFromUserId()) {
+        if (getFromUserId()
+            != other.getFromUserId()) return false;
+      }
+      if (hasToUserId() != other.hasToUserId()) return false;
+      if (hasToUserId()) {
+        if (getToUserId()
+            != other.getToUserId()) return false;
+      }
+      if (hasFileName() != other.hasFileName()) return false;
+      if (hasFileName()) {
+        if (!getFileName()
+            .equals(other.getFileName())) return false;
+      }
+      if (hasFileSize() != other.hasFileSize()) return false;
+      if (hasFileSize()) {
+        if (getFileSize()
+            != other.getFileSize()) return false;
+      }
+      if (hasTaskId() != other.hasTaskId()) return false;
+      if (hasTaskId()) {
+        if (!getTaskId()
+            .equals(other.getTaskId())) return false;
+      }
+      if (hasTransMode() != other.hasTransMode()) return false;
+      if (hasTransMode()) {
+        if (transMode_ != other.transMode_) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasResultCode()) {
+        hash = (37 * hash) + RESULT_CODE_FIELD_NUMBER;
+        hash = (53 * hash) + getResultCode();
+      }
+      if (hasFromUserId()) {
+        hash = (37 * hash) + FROM_USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFromUserId());
+      }
+      if (hasToUserId()) {
+        hash = (37 * hash) + TO_USER_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getToUserId());
+      }
+      if (hasFileName()) {
+        hash = (37 * hash) + FILE_NAME_FIELD_NUMBER;
+        hash = (53 * hash) + getFileName().hashCode();
+      }
+      if (hasFileSize()) {
+        hash = (37 * hash) + FILE_SIZE_FIELD_NUMBER;
+        hash = (53 * hash) + getFileSize();
+      }
+      if (hasTaskId()) {
+        hash = (37 * hash) + TASK_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getTaskId().hashCode();
+      }
+      if (hasTransMode()) {
+        hash = (37 * hash) + TRANS_MODE_FIELD_NUMBER;
+        hash = (53 * hash) + transMode_;
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMFileTransferRsp}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMFileTransferRsp)
         com.blt.talk.common.code.proto.IMServer.IMFileTransferRspOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferRsp_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferRsp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp.class, com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        resultCode_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fromUserId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toUserId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        fileName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        fileSize_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        taskId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
+        transMode_ = 1;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileTransferRsp_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp build() {
+        com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp result = new com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.resultCode_ = resultCode_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.fromUserId_ = fromUserId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.toUserId_ = toUserId_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.fileName_ = fileName_;
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.fileSize_ = fileSize_;
+          to_bitField0_ |= 0x00000010;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.taskId_ = taskId_;
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.transMode_ = transMode_;
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp.getDefaultInstance()) return this;
+        if (other.hasResultCode()) {
+          setResultCode(other.getResultCode());
+        }
+        if (other.hasFromUserId()) {
+          setFromUserId(other.getFromUserId());
+        }
+        if (other.hasToUserId()) {
+          setToUserId(other.getToUserId());
+        }
+        if (other.hasFileName()) {
+          bitField0_ |= 0x00000008;
+          fileName_ = other.fileName_;
+          onChanged();
+        }
+        if (other.hasFileSize()) {
+          setFileSize(other.getFileSize());
+        }
+        if (other.hasTaskId()) {
+          bitField0_ |= 0x00000020;
+          taskId_ = other.taskId_;
+          onChanged();
+        }
+        if (other.hasTransMode()) {
+          setTransMode(other.getTransMode());
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasResultCode()) {
+          return false;
+        }
+        if (!hasFromUserId()) {
+          return false;
+        }
+        if (!hasToUserId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int resultCode_ ;
       /**
        * <pre>
        *cmd id:			0x0716
        * </pre>
        *
        * <code>required uint32 result_code = 1;</code>
+       * @return Whether the resultCode field is set.
        */
+      @java.lang.Override
       public boolean hasResultCode() {
-        return instance.hasResultCode();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -11232,9 +16659,11 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 result_code = 1;</code>
+       * @return The resultCode.
        */
+      @java.lang.Override
       public int getResultCode() {
-        return instance.getResultCode();
+        return resultCode_;
       }
       /**
        * <pre>
@@ -11242,10 +16671,13 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 result_code = 1;</code>
+       * @param value The resultCode to set.
+       * @return This builder for chaining.
        */
       public Builder setResultCode(int value) {
-        copyOnWrite();
-        instance.setResultCode(value);
+        bitField0_ |= 0x00000001;
+        resultCode_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -11254,444 +16686,440 @@ public final class IMServer {
        * </pre>
        *
        * <code>required uint32 result_code = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearResultCode() {
-        copyOnWrite();
-        instance.clearResultCode();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        resultCode_ = 0;
+        onChanged();
         return this;
       }
 
+      private long fromUserId_ ;
       /**
        * <code>required uint64 from_user_id = 2;</code>
+       * @return Whether the fromUserId field is set.
        */
+      @java.lang.Override
       public boolean hasFromUserId() {
-        return instance.hasFromUserId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required uint64 from_user_id = 2;</code>
+       * @return The fromUserId.
        */
+      @java.lang.Override
       public long getFromUserId() {
-        return instance.getFromUserId();
+        return fromUserId_;
       }
       /**
        * <code>required uint64 from_user_id = 2;</code>
+       * @param value The fromUserId to set.
+       * @return This builder for chaining.
        */
       public Builder setFromUserId(long value) {
-        copyOnWrite();
-        instance.setFromUserId(value);
+        bitField0_ |= 0x00000002;
+        fromUserId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 from_user_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFromUserId() {
-        copyOnWrite();
-        instance.clearFromUserId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        fromUserId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long toUserId_ ;
       /**
        * <code>required uint64 to_user_id = 3;</code>
+       * @return Whether the toUserId field is set.
        */
+      @java.lang.Override
       public boolean hasToUserId() {
-        return instance.hasToUserId();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required uint64 to_user_id = 3;</code>
+       * @return The toUserId.
        */
+      @java.lang.Override
       public long getToUserId() {
-        return instance.getToUserId();
+        return toUserId_;
       }
       /**
        * <code>required uint64 to_user_id = 3;</code>
+       * @param value The toUserId to set.
+       * @return This builder for chaining.
        */
       public Builder setToUserId(long value) {
-        copyOnWrite();
-        instance.setToUserId(value);
+        bitField0_ |= 0x00000004;
+        toUserId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 to_user_id = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToUserId() {
-        copyOnWrite();
-        instance.clearToUserId();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        toUserId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private java.lang.Object fileName_ = "";
       /**
        * <code>optional string file_name = 4;</code>
+       * @return Whether the fileName field is set.
        */
       public boolean hasFileName() {
-        return instance.hasFileName();
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional string file_name = 4;</code>
+       * @return The fileName.
        */
       public java.lang.String getFileName() {
-        return instance.getFileName();
+        java.lang.Object ref = fileName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            fileName_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <code>optional string file_name = 4;</code>
+       * @return The bytes for fileName.
        */
       public com.google.protobuf.ByteString
           getFileNameBytes() {
-        return instance.getFileNameBytes();
+        java.lang.Object ref = fileName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          fileName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <code>optional string file_name = 4;</code>
+       * @param value The fileName to set.
+       * @return This builder for chaining.
        */
       public Builder setFileName(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setFileName(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        fileName_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional string file_name = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFileName() {
-        copyOnWrite();
-        instance.clearFileName();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        fileName_ = getDefaultInstance().getFileName();
+        onChanged();
         return this;
       }
       /**
        * <code>optional string file_name = 4;</code>
+       * @param value The bytes for fileName to set.
+       * @return This builder for chaining.
        */
       public Builder setFileNameBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setFileNameBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        fileName_ = value;
+        onChanged();
         return this;
       }
 
+      private int fileSize_ ;
       /**
        * <code>optional uint32 file_size = 5;</code>
+       * @return Whether the fileSize field is set.
        */
+      @java.lang.Override
       public boolean hasFileSize() {
-        return instance.hasFileSize();
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>optional uint32 file_size = 5;</code>
+       * @return The fileSize.
        */
+      @java.lang.Override
       public int getFileSize() {
-        return instance.getFileSize();
+        return fileSize_;
       }
       /**
        * <code>optional uint32 file_size = 5;</code>
+       * @param value The fileSize to set.
+       * @return This builder for chaining.
        */
       public Builder setFileSize(int value) {
-        copyOnWrite();
-        instance.setFileSize(value);
+        bitField0_ |= 0x00000010;
+        fileSize_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional uint32 file_size = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFileSize() {
-        copyOnWrite();
-        instance.clearFileSize();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        fileSize_ = 0;
+        onChanged();
         return this;
       }
 
+      private java.lang.Object taskId_ = "";
       /**
        * <code>optional string task_id = 6;</code>
+       * @return Whether the taskId field is set.
        */
       public boolean hasTaskId() {
-        return instance.hasTaskId();
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <code>optional string task_id = 6;</code>
+       * @return The taskId.
        */
       public java.lang.String getTaskId() {
-        return instance.getTaskId();
+        java.lang.Object ref = taskId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            taskId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <code>optional string task_id = 6;</code>
+       * @return The bytes for taskId.
        */
       public com.google.protobuf.ByteString
           getTaskIdBytes() {
-        return instance.getTaskIdBytes();
+        java.lang.Object ref = taskId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          taskId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <code>optional string task_id = 6;</code>
+       * @param value The taskId to set.
+       * @return This builder for chaining.
        */
       public Builder setTaskId(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setTaskId(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        taskId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional string task_id = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTaskId() {
-        copyOnWrite();
-        instance.clearTaskId();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        taskId_ = getDefaultInstance().getTaskId();
+        onChanged();
         return this;
       }
       /**
        * <code>optional string task_id = 6;</code>
+       * @param value The bytes for taskId to set.
+       * @return This builder for chaining.
        */
       public Builder setTaskIdBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setTaskIdBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        taskId_ = value;
+        onChanged();
         return this;
       }
 
+      private int transMode_ = 1;
       /**
        * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
+       * @return Whether the transMode field is set.
        */
-      public boolean hasTransMode() {
-        return instance.hasTransMode();
+      @java.lang.Override public boolean hasTransMode() {
+        return ((bitField0_ & 0x00000040) != 0);
       }
       /**
        * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
+       * @return The transMode.
        */
+      @java.lang.Override
       public com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType getTransMode() {
-        return instance.getTransMode();
+        @SuppressWarnings("deprecation")
+        com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType result = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.valueOf(transMode_);
+        return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.FILE_TYPE_ONLINE : result;
       }
       /**
        * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
+       * @param value The transMode to set.
+       * @return This builder for chaining.
        */
       public Builder setTransMode(com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType value) {
-        copyOnWrite();
-        instance.setTransMode(value);
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000040;
+        transMode_ = value.getNumber();
+        onChanged();
         return this;
       }
       /**
        * <code>optional .IM.BaseDefine.TransferFileType trans_mode = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearTransMode() {
-        copyOnWrite();
-        instance.clearTransMode();
+        bitField0_ = (bitField0_ & ~0x00000040);
+        transMode_ = 1;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000080) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000080;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000080);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMFileTransferRsp)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasResultCode()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasFromUserId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasToUserId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp other = (com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp) arg1;
-          resultCode_ = visitor.visitInt(
-              hasResultCode(), resultCode_,
-              other.hasResultCode(), other.resultCode_);
-          fromUserId_ = visitor.visitLong(
-              hasFromUserId(), fromUserId_,
-              other.hasFromUserId(), other.fromUserId_);
-          toUserId_ = visitor.visitLong(
-              hasToUserId(), toUserId_,
-              other.hasToUserId(), other.toUserId_);
-          fileName_ = visitor.visitString(
-              hasFileName(), fileName_,
-              other.hasFileName(), other.fileName_);
-          fileSize_ = visitor.visitInt(
-              hasFileSize(), fileSize_,
-              other.hasFileSize(), other.fileSize_);
-          taskId_ = visitor.visitString(
-              hasTaskId(), taskId_,
-              other.hasTaskId(), other.taskId_);
-          transMode_ = visitor.visitInt(hasTransMode(), transMode_,
-              other.hasTransMode(), other.transMode_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  resultCode_ = input.readUInt32();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  fromUserId_ = input.readUInt64();
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  toUserId_ = input.readUInt64();
-                  break;
-                }
-                case 34: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000008;
-                  fileName_ = s;
-                  break;
-                }
-                case 40: {
-                  bitField0_ |= 0x00000010;
-                  fileSize_ = input.readUInt32();
-                  break;
-                }
-                case 50: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000020;
-                  taskId_ = s;
-                  break;
-                }
-                case 56: {
-                  int rawValue = input.readEnum();
-                  com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType value = com.blt.talk.common.code.proto.IMBaseDefine.TransferFileType.forNumber(rawValue);
-                  if (value == null) {
-                    super.mergeVarintField(7, rawValue);
-                  } else {
-                    bitField0_ |= 0x00000040;
-                    transMode_ = rawValue;
-                  }
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000080;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMFileTransferRsp)
     private static final com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMFileTransferRsp();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMFileTransferRsp> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMFileTransferRsp>
+        PARSER = new com.google.protobuf.AbstractParser<IMFileTransferRsp>() {
+      @java.lang.Override
+      public IMFileTransferRsp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMFileTransferRsp(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMFileTransferRsp> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMFileTransferRsp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMFileTransferRsp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMFileServerIPReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMFileServerIPReq)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
   }
   /**
    * <pre>
@@ -11700,109 +17128,224 @@ public final class IMServer {
    *
    * Protobuf type {@code IM.Server.IMFileServerIPReq}
    */
-  public  static final class IMFileServerIPReq extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMFileServerIPReq, IMFileServerIPReq.Builder> implements
+  public static final class IMFileServerIPReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.Server.IMFileServerIPReq)
       IMFileServerIPReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMFileServerIPReq.newBuilder() to construct.
+    private IMFileServerIPReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMFileServerIPReq() {
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMFileServerIPReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMFileServerIPReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq.class, com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq other = (com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq) obj;
+
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * <pre>
      *cmd id:			0x0717
@@ -11811,112 +17354,198 @@ public final class IMServer {
      * Protobuf type {@code IM.Server.IMFileServerIPReq}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMFileServerIPReq)
         com.blt.talk.common.code.proto.IMServer.IMFileServerIPReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq.class, com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq build() {
+        com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq result = new com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
       }
 
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMFileServerIPReq)
     }
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq();
-        }
-        case IS_INITIALIZED: {
-          return DEFAULT_INSTANCE;
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq other = (com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq) arg1;
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMFileServerIPReq)
     private static final com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMFileServerIPReq();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMFileServerIPReq> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMFileServerIPReq>
+        PARSER = new com.google.protobuf.AbstractParser<IMFileServerIPReq>() {
+      @java.lang.Override
+      public IMFileServerIPReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMFileServerIPReq(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMFileServerIPReq> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMFileServerIPReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMFileServerIPReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMFileServerIPRspOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.Server.IMFileServerIPRsp)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -11943,20 +17572,6 @@ public final class IMServer {
      * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
      */
     int getIpAddrListCount();
-  }
-  /**
-   * Protobuf type {@code IM.Server.IMFileServerIPRsp}
-   */
-  public  static final class IMFileServerIPRsp extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMFileServerIPRsp, IMFileServerIPRsp.Builder> implements
-      // @@protoc_insertion_point(message_implements:IM.Server.IMFileServerIPRsp)
-      IMFileServerIPRspOrBuilder {
-    private IMFileServerIPRsp() {
-      ipAddrList_ = emptyProtobufList();
-    }
-    public static final int IP_ADDR_LIST_FIELD_NUMBER = 1;
-    private com.google.protobuf.Internal.ProtobufList<com.blt.talk.common.code.proto.IMBaseDefine.IpAddr> ipAddrList_;
     /**
      * <pre>
      *cmd id:			0x0718
@@ -11964,6 +17579,119 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
      */
+    java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.IpAddrOrBuilder> 
+        getIpAddrListOrBuilderList();
+    /**
+     * <pre>
+     *cmd id:			0x0718
+     * </pre>
+     *
+     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
+     */
+    com.blt.talk.common.code.proto.IMBaseDefine.IpAddrOrBuilder getIpAddrListOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code IM.Server.IMFileServerIPRsp}
+   */
+  public static final class IMFileServerIPRsp extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:IM.Server.IMFileServerIPRsp)
+      IMFileServerIPRspOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMFileServerIPRsp.newBuilder() to construct.
+    private IMFileServerIPRsp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private IMFileServerIPRsp() {
+      ipAddrList_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMFileServerIPRsp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMFileServerIPRsp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                ipAddrList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.IpAddr>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              ipAddrList_.add(
+                  input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          ipAddrList_ = java.util.Collections.unmodifiableList(ipAddrList_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPRsp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPRsp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp.class, com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp.Builder.class);
+    }
+
+    public static final int IP_ADDR_LIST_FIELD_NUMBER = 1;
+    private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.IpAddr> ipAddrList_;
+    /**
+     * <pre>
+     *cmd id:			0x0718
+     * </pre>
+     *
+     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
+     */
+    @java.lang.Override
     public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.IpAddr> getIpAddrListList() {
       return ipAddrList_;
     }
@@ -11974,6 +17702,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.IpAddrOrBuilder> 
         getIpAddrListOrBuilderList() {
       return ipAddrList_;
@@ -11985,6 +17714,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
      */
+    @java.lang.Override
     public int getIpAddrListCount() {
       return ipAddrList_.size();
     }
@@ -11995,6 +17725,7 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.IpAddr getIpAddrList(int index) {
       return ipAddrList_.get(index);
     }
@@ -12005,132 +17736,30 @@ public final class IMServer {
      *
      * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
      */
+    @java.lang.Override
     public com.blt.talk.common.code.proto.IMBaseDefine.IpAddrOrBuilder getIpAddrListOrBuilder(
         int index) {
       return ipAddrList_.get(index);
     }
-    private void ensureIpAddrListIsMutable() {
-      if (!ipAddrList_.isModifiable()) {
-        ipAddrList_ =
-            com.google.protobuf.GeneratedMessageLite.mutableCopy(ipAddrList_);
-       }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      for (int i = 0; i < getIpAddrListCount(); i++) {
+        if (!getIpAddrList(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
-    /**
-     * <pre>
-     *cmd id:			0x0718
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
-     */
-    private void setIpAddrList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureIpAddrListIsMutable();
-      ipAddrList_.set(index, value);
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0718
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
-     */
-    private void setIpAddrList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder builderForValue) {
-      ensureIpAddrListIsMutable();
-      ipAddrList_.set(index, builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0718
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
-     */
-    private void addIpAddrList(com.blt.talk.common.code.proto.IMBaseDefine.IpAddr value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureIpAddrListIsMutable();
-      ipAddrList_.add(value);
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0718
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
-     */
-    private void addIpAddrList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      ensureIpAddrListIsMutable();
-      ipAddrList_.add(index, value);
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0718
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
-     */
-    private void addIpAddrList(
-        com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder builderForValue) {
-      ensureIpAddrListIsMutable();
-      ipAddrList_.add(builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0718
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
-     */
-    private void addIpAddrList(
-        int index, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder builderForValue) {
-      ensureIpAddrListIsMutable();
-      ipAddrList_.add(index, builderForValue.build());
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0718
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
-     */
-    private void addAllIpAddrList(
-        java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.IpAddr> values) {
-      ensureIpAddrListIsMutable();
-      com.google.protobuf.AbstractMessageLite.addAll(
-          values, ipAddrList_);
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0718
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
-     */
-    private void clearIpAddrList() {
-      ipAddrList_ = emptyProtobufList();
-    }
-    /**
-     * <pre>
-     *cmd id:			0x0718
-     * </pre>
-     *
-     * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
-     */
-    private void removeIpAddrList(int index) {
-      ensureIpAddrListIsMutable();
-      ipAddrList_.remove(index);
-    }
-
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       for (int i = 0; i < ipAddrList_.size(); i++) {
@@ -12139,8 +17768,9 @@ public final class IMServer {
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -12149,104 +17779,333 @@ public final class IMServer {
           .computeMessageSize(1, ipAddrList_.get(i));
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp other = (com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp) obj;
+
+      if (!getIpAddrListList()
+          .equals(other.getIpAddrListList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getIpAddrListCount() > 0) {
+        hash = (37 * hash) + IP_ADDR_LIST_FIELD_NUMBER;
+        hash = (53 * hash) + getIpAddrListList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.Server.IMFileServerIPRsp}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.Server.IMFileServerIPRsp)
         com.blt.talk.common.code.proto.IMServer.IMFileServerIPRspOrBuilder {
-      // Construct using com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp.newBuilder()
-      private Builder() {
-        super(DEFAULT_INSTANCE);
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPRsp_descriptor;
       }
 
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPRsp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp.class, com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp.Builder.class);
+      }
+
+      // Construct using com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getIpAddrListFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (ipAddrListBuilder_ == null) {
+          ipAddrList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          ipAddrListBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMServer.internal_static_IM_Server_IMFileServerIPRsp_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp build() {
+        com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp buildPartial() {
+        com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp result = new com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp(this);
+        int from_bitField0_ = bitField0_;
+        if (ipAddrListBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            ipAddrList_ = java.util.Collections.unmodifiableList(ipAddrList_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.ipAddrList_ = ipAddrList_;
+        } else {
+          result.ipAddrList_ = ipAddrListBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp other) {
+        if (other == com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp.getDefaultInstance()) return this;
+        if (ipAddrListBuilder_ == null) {
+          if (!other.ipAddrList_.isEmpty()) {
+            if (ipAddrList_.isEmpty()) {
+              ipAddrList_ = other.ipAddrList_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureIpAddrListIsMutable();
+              ipAddrList_.addAll(other.ipAddrList_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.ipAddrList_.isEmpty()) {
+            if (ipAddrListBuilder_.isEmpty()) {
+              ipAddrListBuilder_.dispose();
+              ipAddrListBuilder_ = null;
+              ipAddrList_ = other.ipAddrList_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              ipAddrListBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getIpAddrListFieldBuilder() : null;
+            } else {
+              ipAddrListBuilder_.addAllMessages(other.ipAddrList_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        for (int i = 0; i < getIpAddrListCount(); i++) {
+          if (!getIpAddrList(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.IpAddr> ipAddrList_ =
+        java.util.Collections.emptyList();
+      private void ensureIpAddrListIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          ipAddrList_ = new java.util.ArrayList<com.blt.talk.common.code.proto.IMBaseDefine.IpAddr>(ipAddrList_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.IpAddr, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder, com.blt.talk.common.code.proto.IMBaseDefine.IpAddrOrBuilder> ipAddrListBuilder_;
 
       /**
        * <pre>
@@ -12256,8 +18115,11 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
        */
       public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.IpAddr> getIpAddrListList() {
-        return java.util.Collections.unmodifiableList(
-            instance.getIpAddrListList());
+        if (ipAddrListBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(ipAddrList_);
+        } else {
+          return ipAddrListBuilder_.getMessageList();
+        }
       }
       /**
        * <pre>
@@ -12267,8 +18129,13 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
        */
       public int getIpAddrListCount() {
-        return instance.getIpAddrListCount();
-      }/**
+        if (ipAddrListBuilder_ == null) {
+          return ipAddrList_.size();
+        } else {
+          return ipAddrListBuilder_.getCount();
+        }
+      }
+      /**
        * <pre>
        *cmd id:			0x0718
        * </pre>
@@ -12276,7 +18143,11 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
        */
       public com.blt.talk.common.code.proto.IMBaseDefine.IpAddr getIpAddrList(int index) {
-        return instance.getIpAddrList(index);
+        if (ipAddrListBuilder_ == null) {
+          return ipAddrList_.get(index);
+        } else {
+          return ipAddrListBuilder_.getMessage(index);
+        }
       }
       /**
        * <pre>
@@ -12287,8 +18158,16 @@ public final class IMServer {
        */
       public Builder setIpAddrList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr value) {
-        copyOnWrite();
-        instance.setIpAddrList(index, value);
+        if (ipAddrListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureIpAddrListIsMutable();
+          ipAddrList_.set(index, value);
+          onChanged();
+        } else {
+          ipAddrListBuilder_.setMessage(index, value);
+        }
         return this;
       }
       /**
@@ -12300,8 +18179,13 @@ public final class IMServer {
        */
       public Builder setIpAddrList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder builderForValue) {
-        copyOnWrite();
-        instance.setIpAddrList(index, builderForValue);
+        if (ipAddrListBuilder_ == null) {
+          ensureIpAddrListIsMutable();
+          ipAddrList_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          ipAddrListBuilder_.setMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -12312,8 +18196,16 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
        */
       public Builder addIpAddrList(com.blt.talk.common.code.proto.IMBaseDefine.IpAddr value) {
-        copyOnWrite();
-        instance.addIpAddrList(value);
+        if (ipAddrListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureIpAddrListIsMutable();
+          ipAddrList_.add(value);
+          onChanged();
+        } else {
+          ipAddrListBuilder_.addMessage(value);
+        }
         return this;
       }
       /**
@@ -12325,8 +18217,16 @@ public final class IMServer {
        */
       public Builder addIpAddrList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr value) {
-        copyOnWrite();
-        instance.addIpAddrList(index, value);
+        if (ipAddrListBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureIpAddrListIsMutable();
+          ipAddrList_.add(index, value);
+          onChanged();
+        } else {
+          ipAddrListBuilder_.addMessage(index, value);
+        }
         return this;
       }
       /**
@@ -12338,8 +18238,13 @@ public final class IMServer {
        */
       public Builder addIpAddrList(
           com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder builderForValue) {
-        copyOnWrite();
-        instance.addIpAddrList(builderForValue);
+        if (ipAddrListBuilder_ == null) {
+          ensureIpAddrListIsMutable();
+          ipAddrList_.add(builderForValue.build());
+          onChanged();
+        } else {
+          ipAddrListBuilder_.addMessage(builderForValue.build());
+        }
         return this;
       }
       /**
@@ -12351,8 +18256,13 @@ public final class IMServer {
        */
       public Builder addIpAddrList(
           int index, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder builderForValue) {
-        copyOnWrite();
-        instance.addIpAddrList(index, builderForValue);
+        if (ipAddrListBuilder_ == null) {
+          ensureIpAddrListIsMutable();
+          ipAddrList_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          ipAddrListBuilder_.addMessage(index, builderForValue.build());
+        }
         return this;
       }
       /**
@@ -12364,8 +18274,14 @@ public final class IMServer {
        */
       public Builder addAllIpAddrList(
           java.lang.Iterable<? extends com.blt.talk.common.code.proto.IMBaseDefine.IpAddr> values) {
-        copyOnWrite();
-        instance.addAllIpAddrList(values);
+        if (ipAddrListBuilder_ == null) {
+          ensureIpAddrListIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, ipAddrList_);
+          onChanged();
+        } else {
+          ipAddrListBuilder_.addAllMessages(values);
+        }
         return this;
       }
       /**
@@ -12376,8 +18292,13 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
        */
       public Builder clearIpAddrList() {
-        copyOnWrite();
-        instance.clearIpAddrList();
+        if (ipAddrListBuilder_ == null) {
+          ipAddrList_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          ipAddrListBuilder_.clear();
+        }
         return this;
       }
       /**
@@ -12388,133 +18309,440 @@ public final class IMServer {
        * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
        */
       public Builder removeIpAddrList(int index) {
-        copyOnWrite();
-        instance.removeIpAddrList(index);
+        if (ipAddrListBuilder_ == null) {
+          ensureIpAddrListIsMutable();
+          ipAddrList_.remove(index);
+          onChanged();
+        } else {
+          ipAddrListBuilder_.remove(index);
+        }
         return this;
       }
+      /**
+       * <pre>
+       *cmd id:			0x0718
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder getIpAddrListBuilder(
+          int index) {
+        return getIpAddrListFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       *cmd id:			0x0718
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.IpAddrOrBuilder getIpAddrListOrBuilder(
+          int index) {
+        if (ipAddrListBuilder_ == null) {
+          return ipAddrList_.get(index);  } else {
+          return ipAddrListBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       *cmd id:			0x0718
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
+       */
+      public java.util.List<? extends com.blt.talk.common.code.proto.IMBaseDefine.IpAddrOrBuilder> 
+           getIpAddrListOrBuilderList() {
+        if (ipAddrListBuilder_ != null) {
+          return ipAddrListBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(ipAddrList_);
+        }
+      }
+      /**
+       * <pre>
+       *cmd id:			0x0718
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder addIpAddrListBuilder() {
+        return getIpAddrListFieldBuilder().addBuilder(
+            com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *cmd id:			0x0718
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
+       */
+      public com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder addIpAddrListBuilder(
+          int index) {
+        return getIpAddrListFieldBuilder().addBuilder(
+            index, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       *cmd id:			0x0718
+       * </pre>
+       *
+       * <code>repeated .IM.BaseDefine.IpAddr ip_addr_list = 1;</code>
+       */
+      public java.util.List<com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder> 
+           getIpAddrListBuilderList() {
+        return getIpAddrListFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.blt.talk.common.code.proto.IMBaseDefine.IpAddr, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder, com.blt.talk.common.code.proto.IMBaseDefine.IpAddrOrBuilder> 
+          getIpAddrListFieldBuilder() {
+        if (ipAddrListBuilder_ == null) {
+          ipAddrListBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.blt.talk.common.code.proto.IMBaseDefine.IpAddr, com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.Builder, com.blt.talk.common.code.proto.IMBaseDefine.IpAddrOrBuilder>(
+                  ipAddrList_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          ipAddrList_ = null;
+        }
+        return ipAddrListBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.Server.IMFileServerIPRsp)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          for (int i = 0; i < getIpAddrListCount(); i++) {
-            if (!getIpAddrList(i).isInitialized()) {
-              if (shouldMemoize) {
-                memoizedIsInitialized = 0;
-              }
-              return null;
-            }
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          ipAddrList_.makeImmutable();
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp other = (com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp) arg1;
-          ipAddrList_= visitor.visitList(ipAddrList_, other.ipAddrList_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 10: {
-                  if (!ipAddrList_.isModifiable()) {
-                    ipAddrList_ =
-                        com.google.protobuf.GeneratedMessageLite.mutableCopy(ipAddrList_);
-                  }
-                  ipAddrList_.add(
-                      input.readMessage(com.blt.talk.common.code.proto.IMBaseDefine.IpAddr.parser(), extensionRegistry));
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.Server.IMFileServerIPRsp)
     private static final com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMFileServerIPRsp();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp();
     }
 
     public static com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMFileServerIPRsp> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMFileServerIPRsp>
+        PARSER = new com.google.protobuf.AbstractParser<IMFileServerIPRsp>() {
+      @java.lang.Override
+      public IMFileServerIPRsp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMFileServerIPRsp(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMFileServerIPRsp> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMFileServerIPRsp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMServer.IMFileServerIPRsp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMStopReceivePacket_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMStopReceivePacket_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMValidateReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMValidateReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMValidateRsp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMValidateRsp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMGetDeviceTokenReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMGetDeviceTokenReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMGetDeviceTokenRsp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMGetDeviceTokenRsp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMRoleSet_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMRoleSet_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMOnlineUserInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMOnlineUserInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMMsgServInfo_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMMsgServInfo_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMUserStatusUpdate_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMUserStatusUpdate_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMUserCntUpdate_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMUserCntUpdate_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMServerKickUser_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMServerKickUser_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMServerPCLoginStatusNotify_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMServerPCLoginStatusNotify_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMPushToUserReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMPushToUserReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMPushToUserRsp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMPushToUserRsp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMGroupGetShieldReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMGroupGetShieldReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMGroupGetShieldRsp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMGroupGetShieldRsp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMFileTransferReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMFileTransferReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMFileTransferRsp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMFileTransferRsp_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMFileServerIPReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMFileServerIPReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_Server_IMFileServerIPRsp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_Server_IMFileServerIPRsp_fieldAccessorTable;
 
+  public static com.google.protobuf.Descriptors.FileDescriptor
+      getDescriptor() {
+    return descriptor;
+  }
+  private static  com.google.protobuf.Descriptors.FileDescriptor
+      descriptor;
   static {
+    java.lang.String[] descriptorData = {
+      "\n\017IM.Server.proto\022\tIM.Server\032\023IM.BaseDef" +
+      "ine.proto\"%\n\023IMStopReceivePacket\022\016\n\006resu" +
+      "lt\030\001 \002(\r\"I\n\rIMValidateReq\022\021\n\tuser_name\030\001" +
+      " \002(\t\022\020\n\010password\030\002 \002(\t\022\023\n\013attach_data\030\024 " +
+      "\001(\014\"\217\001\n\rIMValidateRsp\022\021\n\tuser_name\030\001 \002(\t" +
+      "\022\023\n\013result_code\030\002 \002(\r\022\025\n\rresult_string\030\003" +
+      " \001(\t\022*\n\tuser_info\030\004 \001(\0132\027.IM.BaseDefine." +
+      "UserInfo\022\023\n\013attach_data\030\024 \001(\014\";\n\023IMGetDe" +
+      "viceTokenReq\022\017\n\007user_id\030\001 \003(\004\022\023\n\013attach_" +
+      "data\030\024 \001(\014\"a\n\023IMGetDeviceTokenRsp\0225\n\017use" +
+      "r_token_info\030\001 \003(\0132\034.IM.BaseDefine.UserT" +
+      "okenInfo\022\023\n\013attach_data\030\024 \001(\014\"\033\n\tIMRoleS" +
+      "et\022\016\n\006master\030\001 \002(\r\"I\n\020IMOnlineUserInfo\0225" +
+      "\n\016user_stat_list\030\001 \003(\0132\035.IM.BaseDefine.S" +
+      "erverUserStat\"v\n\rIMMsgServInfo\022\013\n\003ip1\030\001 " +
+      "\002(\t\022\013\n\003ip2\030\002 \002(\t\022\014\n\004port\030\003 \002(\r\022\024\n\014max_co" +
+      "nn_cnt\030\004 \002(\r\022\024\n\014cur_conn_cnt\030\005 \002(\r\022\021\n\tho" +
+      "st_name\030\006 \002(\t\"j\n\022IMUserStatusUpdate\022\023\n\013u" +
+      "ser_status\030\001 \002(\r\022\017\n\007user_id\030\002 \002(\004\022.\n\013cli" +
+      "ent_type\030\003 \002(\0162\031.IM.BaseDefine.ClientTyp" +
+      "e\"7\n\017IMUserCntUpdate\022\023\n\013user_action\030\001 \002(" +
+      "\r\022\017\n\007user_id\030\002 \002(\004\"c\n\020IMServerKickUser\022\017" +
+      "\n\007user_id\030\001 \002(\004\022.\n\013client_type\030\002 \002(\0162\031.I" +
+      "M.BaseDefine.ClientType\022\016\n\006reason\030\003 \002(\r\"" +
+      "D\n\033IMServerPCLoginStatusNotify\022\017\n\007user_i" +
+      "d\030\001 \002(\004\022\024\n\014login_status\030\002 \002(\r\"e\n\017IMPushT" +
+      "oUserReq\022\r\n\005flash\030\001 \002(\t\022\014\n\004data\030\002 \002(\t\0225\n" +
+      "\017user_token_list\030\003 \003(\0132\034.IM.BaseDefine.U" +
+      "serTokenInfo\"F\n\017IMPushToUserRsp\0223\n\020push_" +
+      "result_list\030\001 \003(\0132\031.IM.BaseDefine.PushRe" +
+      "sult\"M\n\023IMGroupGetShieldReq\022\020\n\010group_id\030" +
+      "\001 \002(\004\022\017\n\007user_id\030\002 \003(\004\022\023\n\013attach_data\030\024 " +
+      "\001(\014\"u\n\023IMGroupGetShieldRsp\022\020\n\010group_id\030\001" +
+      " \002(\004\0227\n\022shield_status_list\030\002 \003(\0132\033.IM.Ba" +
+      "seDefine.ShieldStatus\022\023\n\013attach_data\030\024 \001" +
+      "(\014\"\255\001\n\021IMFileTransferReq\022\024\n\014from_user_id" +
+      "\030\001 \002(\004\022\022\n\nto_user_id\030\002 \002(\004\022\021\n\tfile_name\030" +
+      "\003 \002(\t\022\021\n\tfile_size\030\004 \002(\r\0223\n\ntrans_mode\030\005" +
+      " \002(\0162\037.IM.BaseDefine.TransferFileType\022\023\n" +
+      "\013attach_data\030\024 \001(\014\"\323\001\n\021IMFileTransferRsp" +
+      "\022\023\n\013result_code\030\001 \002(\r\022\024\n\014from_user_id\030\002 " +
+      "\002(\004\022\022\n\nto_user_id\030\003 \002(\004\022\021\n\tfile_name\030\004 \001" +
+      "(\t\022\021\n\tfile_size\030\005 \001(\r\022\017\n\007task_id\030\006 \001(\t\0223" +
+      "\n\ntrans_mode\030\007 \001(\0162\037.IM.BaseDefine.Trans" +
+      "ferFileType\022\023\n\013attach_data\030\024 \001(\014\"\023\n\021IMFi" +
+      "leServerIPReq\"@\n\021IMFileServerIPRsp\022+\n\014ip" +
+      "_addr_list\030\001 \003(\0132\025.IM.BaseDefine.IpAddrB" +
+      "\"\n\036com.blt.talk.common.code.protoH\003"
+    };
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.blt.talk.common.code.proto.IMBaseDefine.getDescriptor(),
+        });
+    internal_static_IM_Server_IMStopReceivePacket_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_IM_Server_IMStopReceivePacket_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMStopReceivePacket_descriptor,
+        new java.lang.String[] { "Result", });
+    internal_static_IM_Server_IMValidateReq_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_IM_Server_IMValidateReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMValidateReq_descriptor,
+        new java.lang.String[] { "UserName", "Password", "AttachData", });
+    internal_static_IM_Server_IMValidateRsp_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_IM_Server_IMValidateRsp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMValidateRsp_descriptor,
+        new java.lang.String[] { "UserName", "ResultCode", "ResultString", "UserInfo", "AttachData", });
+    internal_static_IM_Server_IMGetDeviceTokenReq_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_IM_Server_IMGetDeviceTokenReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMGetDeviceTokenReq_descriptor,
+        new java.lang.String[] { "UserId", "AttachData", });
+    internal_static_IM_Server_IMGetDeviceTokenRsp_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_IM_Server_IMGetDeviceTokenRsp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMGetDeviceTokenRsp_descriptor,
+        new java.lang.String[] { "UserTokenInfo", "AttachData", });
+    internal_static_IM_Server_IMRoleSet_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_IM_Server_IMRoleSet_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMRoleSet_descriptor,
+        new java.lang.String[] { "Master", });
+    internal_static_IM_Server_IMOnlineUserInfo_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_IM_Server_IMOnlineUserInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMOnlineUserInfo_descriptor,
+        new java.lang.String[] { "UserStatList", });
+    internal_static_IM_Server_IMMsgServInfo_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_IM_Server_IMMsgServInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMMsgServInfo_descriptor,
+        new java.lang.String[] { "Ip1", "Ip2", "Port", "MaxConnCnt", "CurConnCnt", "HostName", });
+    internal_static_IM_Server_IMUserStatusUpdate_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_IM_Server_IMUserStatusUpdate_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMUserStatusUpdate_descriptor,
+        new java.lang.String[] { "UserStatus", "UserId", "ClientType", });
+    internal_static_IM_Server_IMUserCntUpdate_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_IM_Server_IMUserCntUpdate_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMUserCntUpdate_descriptor,
+        new java.lang.String[] { "UserAction", "UserId", });
+    internal_static_IM_Server_IMServerKickUser_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_IM_Server_IMServerKickUser_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMServerKickUser_descriptor,
+        new java.lang.String[] { "UserId", "ClientType", "Reason", });
+    internal_static_IM_Server_IMServerPCLoginStatusNotify_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_IM_Server_IMServerPCLoginStatusNotify_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMServerPCLoginStatusNotify_descriptor,
+        new java.lang.String[] { "UserId", "LoginStatus", });
+    internal_static_IM_Server_IMPushToUserReq_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_IM_Server_IMPushToUserReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMPushToUserReq_descriptor,
+        new java.lang.String[] { "Flash", "Data", "UserTokenList", });
+    internal_static_IM_Server_IMPushToUserRsp_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_IM_Server_IMPushToUserRsp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMPushToUserRsp_descriptor,
+        new java.lang.String[] { "PushResultList", });
+    internal_static_IM_Server_IMGroupGetShieldReq_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_IM_Server_IMGroupGetShieldReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMGroupGetShieldReq_descriptor,
+        new java.lang.String[] { "GroupId", "UserId", "AttachData", });
+    internal_static_IM_Server_IMGroupGetShieldRsp_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_IM_Server_IMGroupGetShieldRsp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMGroupGetShieldRsp_descriptor,
+        new java.lang.String[] { "GroupId", "ShieldStatusList", "AttachData", });
+    internal_static_IM_Server_IMFileTransferReq_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_IM_Server_IMFileTransferReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMFileTransferReq_descriptor,
+        new java.lang.String[] { "FromUserId", "ToUserId", "FileName", "FileSize", "TransMode", "AttachData", });
+    internal_static_IM_Server_IMFileTransferRsp_descriptor =
+      getDescriptor().getMessageTypes().get(17);
+    internal_static_IM_Server_IMFileTransferRsp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMFileTransferRsp_descriptor,
+        new java.lang.String[] { "ResultCode", "FromUserId", "ToUserId", "FileName", "FileSize", "TaskId", "TransMode", "AttachData", });
+    internal_static_IM_Server_IMFileServerIPReq_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_IM_Server_IMFileServerIPReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMFileServerIPReq_descriptor,
+        new java.lang.String[] { });
+    internal_static_IM_Server_IMFileServerIPRsp_descriptor =
+      getDescriptor().getMessageTypes().get(19);
+    internal_static_IM_Server_IMFileServerIPRsp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_Server_IMFileServerIPRsp_descriptor,
+        new java.lang.String[] { "IpAddrList", });
+    com.blt.talk.common.code.proto.IMBaseDefine.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

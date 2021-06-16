@@ -94,8 +94,8 @@ public class MessageServiceImpl implements MessageService {
             SearchCriteria<IMMessage> messageSearchCriteria = new SearchCriteria<>();
             messageSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
             messageSearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
-            Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
-            Pageable pageable = new PageRequest(0, 1, sortMessage);
+            Sort sortMessage = Sort.by(Sort.Direction.DESC, "created", "id");
+            Pageable pageable = PageRequest.of(0, 1, sortMessage);
             Page<IMMessage> messageList = messageRepository.findAll(messageSearchCriteria, pageable);
             if (messageList.hasContent()) {
                 lastMessage = messageList.getContent().get(0);
@@ -129,7 +129,7 @@ public class MessageServiceImpl implements MessageService {
         SearchCriteria<IMGroupMember> groupMemberSearchCriteria = new SearchCriteria<>();
         groupMemberSearchCriteria.add(JpaRestrictions.eq("userId", userId, false));
         groupMemberSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
-        Sort sort = new Sort(Sort.Direction.DESC, "updated", "id");
+        Sort sort = Sort.by(Sort.Direction.DESC, "updated", "id");
         List<IMGroupMember> groupList = groupMemberRepository.findAll(groupMemberSearchCriteria, sort);
 
         List<UnreadEntity> unreadList = new ArrayList<>();
@@ -160,8 +160,8 @@ public class MessageServiceImpl implements MessageService {
                     SearchCriteria<IMGroupMessage> groupMessageSearchCriteria = new SearchCriteria<>();
                     groupMessageSearchCriteria.add(JpaRestrictions.eq("groupId", group.getGroupId(), false));
                     groupMessageSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
-                    Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
-                    Pageable pageable = new PageRequest(0, 1, sortMessage);
+                    Sort sortMessage = Sort.by(Sort.Direction.DESC, "created", "id");
+                    Pageable pageable = PageRequest.of(0, 1, sortMessage);
                     Page<IMGroupMessage> groupMessageList =
                             groupMessageRepository.findAll(groupMessageSearchCriteria, pageable);
                     if (groupMessageList.hasContent()) {
@@ -205,8 +205,8 @@ public class MessageServiceImpl implements MessageService {
         SearchCriteria<IMGroupMessage> groupMessageSearchCriteria = new SearchCriteria<>();
         groupMessageSearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
         groupMessageSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
-        Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
-        Pageable pageable = new PageRequest(0, 1, sortMessage);
+        Sort sortMessage = Sort.by(Sort.Direction.DESC, "created", "id");
+        Pageable pageable = PageRequest.of(0, 1, sortMessage);
         Page<IMGroupMessage> groupMessageList =
                 groupMessageRepository.findAll(groupMessageSearchCriteria, pageable);
         if (groupMessageList.hasContent()) {
@@ -234,8 +234,8 @@ public class MessageServiceImpl implements MessageService {
         SearchCriteria<IMMessage> messageSearchCriteria = new SearchCriteria<>();
         messageSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
         messageSearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
-        Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
-        Pageable pageable = new PageRequest(0, 1, sortMessage);
+        Sort sortMessage = Sort.by(Sort.Direction.DESC, "created", "id");
+        Pageable pageable = PageRequest.of(0, 1, sortMessage);
         Page<IMMessage> messagePageList = messageRepository.findAll(messageSearchCriteria, pageable);
         if (messagePageList.hasContent()) {
             messageList = messagePageList.getContent();

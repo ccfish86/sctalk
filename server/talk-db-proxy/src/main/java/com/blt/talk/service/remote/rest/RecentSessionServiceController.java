@@ -64,8 +64,8 @@ public class RecentSessionServiceController {
         recentSessionCriteria.add(JpaRestrictions.gt("updated", lastUpdateTime, false));
 
         // 取最多100条
-        Sort sort = new Sort(Sort.Direction.DESC, "updated");
-        Pageable pageParam = new PageRequest(0, 100, sort);
+        Sort sort = Sort.by(Sort.Direction.DESC, "updated");
+        Pageable pageParam = PageRequest.of(0, 100, sort);
         Page<IMRecentSession> recentSessions = recentSessionRepository.findAll(recentSessionCriteria, pageParam);
 
         BaseModel<List<ContactSessionEntity>> sessionRes = new BaseModel<>();

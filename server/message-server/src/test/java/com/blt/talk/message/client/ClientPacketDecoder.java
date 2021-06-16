@@ -9,7 +9,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.blt.talk.common.code.DataBuffer;
 import com.blt.talk.common.code.IMHeader;
 import com.blt.talk.common.code.analysis.ProtobufParseMap;
 import com.blt.talk.common.constant.SysConstant;
@@ -43,8 +42,9 @@ public class ClientPacketDecoder  extends ByteToMessageDecoder {
                 return;
             }
 
-            DataBuffer dataBuf = new DataBuffer(in);
-
+            ByteBuf dataBuf = ctx.alloc().buffer(SysConstant.PROTOCOL_HEADER_LENGTH);
+            in.readBytes(dataBuf);
+            
             IMHeader header = new IMHeader();
             header.decode(dataBuf);
 

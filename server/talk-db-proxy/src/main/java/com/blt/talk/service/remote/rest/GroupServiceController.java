@@ -106,7 +106,7 @@ public class GroupServiceController {
     	 
         SearchCriteria<IMGroup> groupSearchCriteria = new SearchCriteria<>();
         groupSearchCriteria.add(JpaRestrictions.in("id", groupIdList, false));
-        Sort sort = new Sort(Sort.Direction.DESC, "updated");
+        Sort sort = Sort.by(Sort.Direction.DESC, "updated");
         
         List<IMGroup> groups = groupRepository.findAll(groupSearchCriteria, sort);
 
@@ -152,7 +152,7 @@ public class GroupServiceController {
     public BaseModel<GroupPushEntity> getGroupPushInfo(@RequestParam("groupId") Long groupId) {
         
         BaseModel<GroupPushEntity> groupRes = new BaseModel<>();
-        IMGroup group = groupRepository.findOne(groupId);
+        IMGroup group = groupRepository.getOne(groupId);
         if (group != null) {
             GroupPushEntity groupEntity = new GroupPushEntity();
             groupEntity.setId(group.getId());
@@ -212,7 +212,7 @@ public class GroupServiceController {
         
         SearchCriteria<IMGroup> groupSearchCriteria = new SearchCriteria<>();
         groupSearchCriteria.add(JpaRestrictions.in("id", groupIds, false));
-        Sort sort = new Sort(Sort.Direction.DESC, "updated");
+        Sort sort = Sort.by(Sort.Direction.DESC, "updated");
         
         List<IMGroup> groups = groupRepository.findAll(groupSearchCriteria, sort);
 

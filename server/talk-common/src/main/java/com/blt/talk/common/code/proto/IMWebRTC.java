@@ -8,9 +8,15 @@ public final class IMWebRTC {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
   }
+
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
   public interface IMAVCallInitiateReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.WebRTC.IMAVCallInitiateReq)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -18,6 +24,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
     boolean hasFromId();
     /**
@@ -26,6 +33,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
     long getFromId();
 
@@ -35,6 +43,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
     boolean hasToId();
     /**
@@ -43,58 +52,172 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
     long getToId();
 
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
     boolean hasCallId();
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
     long getCallId();
 
     /**
      * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
+     * @return Whether the callerClientType field is set.
      */
     boolean hasCallerClientType();
     /**
      * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
+     * @return The callerClientType.
      */
     com.blt.talk.common.code.proto.IMBaseDefine.ClientType getCallerClientType();
 
     /**
      * <code>required bytes body = 5;</code>
+     * @return Whether the body field is set.
      */
     boolean hasBody();
     /**
      * <code>required bytes body = 5;</code>
+     * @return The body.
      */
     com.google.protobuf.ByteString getBody();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.WebRTC.IMAVCallInitiateReq}
    */
-  public  static final class IMAVCallInitiateReq extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMAVCallInitiateReq, IMAVCallInitiateReq.Builder> implements
+  public static final class IMAVCallInitiateReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.WebRTC.IMAVCallInitiateReq)
       IMAVCallInitiateReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMAVCallInitiateReq.newBuilder() to construct.
+    private IMAVCallInitiateReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMAVCallInitiateReq() {
       callerClientType_ = 1;
       body_ = com.google.protobuf.ByteString.EMPTY;
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMAVCallInitiateReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMAVCallInitiateReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              fromId_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              toId_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              callId_ = input.readUInt64();
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
+              com.blt.talk.common.code.proto.IMBaseDefine.ClientType value = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+              } else {
+                bitField0_ |= 0x00000008;
+                callerClientType_ = rawValue;
+              }
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000010;
+              body_ = input.readBytes();
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000020;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq.Builder.class);
+    }
+
     private int bitField0_;
     public static final int FROM_ID_FIELD_NUMBER = 1;
     private long fromId_;
@@ -104,9 +227,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
+    @java.lang.Override
     public boolean hasFromId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -114,31 +239,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
+    @java.lang.Override
     public long getFromId() {
       return fromId_;
-    }
-    /**
-     * <pre>
-     *cmd id:		0x0901
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void setFromId(long value) {
-      bitField0_ |= 0x00000001;
-      fromId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:		0x0901
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void clearFromId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      fromId_ = 0L;
     }
 
     public static final int TO_ID_FIELD_NUMBER = 2;
@@ -149,9 +254,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
+    @java.lang.Override
     public boolean hasToId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <pre>
@@ -159,320 +266,577 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
+    @java.lang.Override
     public long getToId() {
       return toId_;
-    }
-    /**
-     * <pre>
-     * 被呼叫一方
-     * </pre>
-     *
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void setToId(long value) {
-      bitField0_ |= 0x00000002;
-      toId_ = value;
-    }
-    /**
-     * <pre>
-     * 被呼叫一方
-     * </pre>
-     *
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void clearToId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      toId_ = 0L;
     }
 
     public static final int CALL_ID_FIELD_NUMBER = 3;
     private long callId_;
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
+    @java.lang.Override
     public boolean hasCallId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
+    @java.lang.Override
     public long getCallId() {
       return callId_;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void setCallId(long value) {
-      bitField0_ |= 0x00000004;
-      callId_ = value;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void clearCallId() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      callId_ = 0L;
     }
 
     public static final int CALLER_CLIENT_TYPE_FIELD_NUMBER = 4;
     private int callerClientType_;
     /**
      * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
+     * @return Whether the callerClientType field is set.
      */
-    public boolean hasCallerClientType() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+    @java.lang.Override public boolean hasCallerClientType() {
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
+     * @return The callerClientType.
      */
-    public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getCallerClientType() {
-      com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.forNumber(callerClientType_);
+    @java.lang.Override public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getCallerClientType() {
+      @SuppressWarnings("deprecation")
+      com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(callerClientType_);
       return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.ClientType.CLIENT_TYPE_WINDOWS : result;
-    }
-    /**
-     * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
-     */
-    private void setCallerClientType(com.blt.talk.common.code.proto.IMBaseDefine.ClientType value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      bitField0_ |= 0x00000008;
-      callerClientType_ = value.getNumber();
-    }
-    /**
-     * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
-     */
-    private void clearCallerClientType() {
-      bitField0_ = (bitField0_ & ~0x00000008);
-      callerClientType_ = 1;
     }
 
     public static final int BODY_FIELD_NUMBER = 5;
     private com.google.protobuf.ByteString body_;
     /**
      * <code>required bytes body = 5;</code>
+     * @return Whether the body field is set.
      */
+    @java.lang.Override
     public boolean hasBody() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <code>required bytes body = 5;</code>
+     * @return The body.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getBody() {
       return body_;
-    }
-    /**
-     * <code>required bytes body = 5;</code>
-     */
-    private void setBody(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000010;
-      body_ = value;
-    }
-    /**
-     * <code>required bytes body = 5;</code>
-     */
-    private void clearBody() {
-      bitField0_ = (bitField0_ & ~0x00000010);
-      body_ = getDefaultInstance().getBody();
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000020);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFromId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasToId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCallId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCallerClientType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasBody()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt64(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt64(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeEnum(4, callerClientType_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeBytes(5, body_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, callerClientType_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(5, body_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq) obj;
+
+      if (hasFromId() != other.hasFromId()) return false;
+      if (hasFromId()) {
+        if (getFromId()
+            != other.getFromId()) return false;
+      }
+      if (hasToId() != other.hasToId()) return false;
+      if (hasToId()) {
+        if (getToId()
+            != other.getToId()) return false;
+      }
+      if (hasCallId() != other.hasCallId()) return false;
+      if (hasCallId()) {
+        if (getCallId()
+            != other.getCallId()) return false;
+      }
+      if (hasCallerClientType() != other.hasCallerClientType()) return false;
+      if (hasCallerClientType()) {
+        if (callerClientType_ != other.callerClientType_) return false;
+      }
+      if (hasBody() != other.hasBody()) return false;
+      if (hasBody()) {
+        if (!getBody()
+            .equals(other.getBody())) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasFromId()) {
+        hash = (37 * hash) + FROM_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFromId());
+      }
+      if (hasToId()) {
+        hash = (37 * hash) + TO_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getToId());
+      }
+      if (hasCallId()) {
+        hash = (37 * hash) + CALL_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getCallId());
+      }
+      if (hasCallerClientType()) {
+        hash = (37 * hash) + CALLER_CLIENT_TYPE_FIELD_NUMBER;
+        hash = (53 * hash) + callerClientType_;
+      }
+      if (hasBody()) {
+        hash = (37 * hash) + BODY_FIELD_NUMBER;
+        hash = (53 * hash) + getBody().hashCode();
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.WebRTC.IMAVCallInitiateReq}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.WebRTC.IMAVCallInitiateReq)
         com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fromId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        toId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        callId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        callerClientType_ = 1;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        body_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq build() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq buildPartial() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq result = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.fromId_ = fromId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.toId_ = toId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.callId_ = callId_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.callerClientType_ = callerClientType_;
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.body_ = body_;
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq other) {
+        if (other == com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq.getDefaultInstance()) return this;
+        if (other.hasFromId()) {
+          setFromId(other.getFromId());
+        }
+        if (other.hasToId()) {
+          setToId(other.getToId());
+        }
+        if (other.hasCallId()) {
+          setCallId(other.getCallId());
+        }
+        if (other.hasCallerClientType()) {
+          setCallerClientType(other.getCallerClientType());
+        }
+        if (other.hasBody()) {
+          setBody(other.getBody());
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasFromId()) {
+          return false;
+        }
+        if (!hasToId()) {
+          return false;
+        }
+        if (!hasCallId()) {
+          return false;
+        }
+        if (!hasCallerClientType()) {
+          return false;
+        }
+        if (!hasBody()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long fromId_ ;
       /**
        * <pre>
        *cmd id:		0x0901
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return Whether the fromId field is set.
        */
+      @java.lang.Override
       public boolean hasFromId() {
-        return instance.hasFromId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -480,9 +844,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return The fromId.
        */
+      @java.lang.Override
       public long getFromId() {
-        return instance.getFromId();
+        return fromId_;
       }
       /**
        * <pre>
@@ -490,10 +856,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @param value The fromId to set.
+       * @return This builder for chaining.
        */
       public Builder setFromId(long value) {
-        copyOnWrite();
-        instance.setFromId(value);
+        bitField0_ |= 0x00000001;
+        fromId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -502,22 +871,27 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFromId() {
-        copyOnWrite();
-        instance.clearFromId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fromId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long toId_ ;
       /**
        * <pre>
        * 被呼叫一方
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return Whether the toId field is set.
        */
+      @java.lang.Override
       public boolean hasToId() {
-        return instance.hasToId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <pre>
@@ -525,9 +899,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return The toId.
        */
+      @java.lang.Override
       public long getToId() {
-        return instance.getToId();
+        return toId_;
       }
       /**
        * <pre>
@@ -535,10 +911,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @param value The toId to set.
+       * @return This builder for chaining.
        */
       public Builder setToId(long value) {
-        copyOnWrite();
-        instance.setToId(value);
+        bitField0_ |= 0x00000002;
+        toId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -547,317 +926,236 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToId() {
-        copyOnWrite();
-        instance.clearToId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long callId_ ;
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return Whether the callId field is set.
        */
+      @java.lang.Override
       public boolean hasCallId() {
-        return instance.hasCallId();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return The callId.
        */
+      @java.lang.Override
       public long getCallId() {
-        return instance.getCallId();
+        return callId_;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @param value The callId to set.
+       * @return This builder for chaining.
        */
       public Builder setCallId(long value) {
-        copyOnWrite();
-        instance.setCallId(value);
+        bitField0_ |= 0x00000004;
+        callId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCallId() {
-        copyOnWrite();
-        instance.clearCallId();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        callId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private int callerClientType_ = 1;
       /**
        * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
+       * @return Whether the callerClientType field is set.
        */
-      public boolean hasCallerClientType() {
-        return instance.hasCallerClientType();
+      @java.lang.Override public boolean hasCallerClientType() {
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
+       * @return The callerClientType.
        */
+      @java.lang.Override
       public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getCallerClientType() {
-        return instance.getCallerClientType();
+        @SuppressWarnings("deprecation")
+        com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(callerClientType_);
+        return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.ClientType.CLIENT_TYPE_WINDOWS : result;
       }
       /**
        * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
+       * @param value The callerClientType to set.
+       * @return This builder for chaining.
        */
       public Builder setCallerClientType(com.blt.talk.common.code.proto.IMBaseDefine.ClientType value) {
-        copyOnWrite();
-        instance.setCallerClientType(value);
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        callerClientType_ = value.getNumber();
+        onChanged();
         return this;
       }
       /**
        * <code>required .IM.BaseDefine.ClientType caller_client_type = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCallerClientType() {
-        copyOnWrite();
-        instance.clearCallerClientType();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        callerClientType_ = 1;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString body_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>required bytes body = 5;</code>
+       * @return Whether the body field is set.
        */
+      @java.lang.Override
       public boolean hasBody() {
-        return instance.hasBody();
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>required bytes body = 5;</code>
+       * @return The body.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getBody() {
-        return instance.getBody();
+        return body_;
       }
       /**
        * <code>required bytes body = 5;</code>
+       * @param value The body to set.
+       * @return This builder for chaining.
        */
       public Builder setBody(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setBody(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        body_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required bytes body = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBody() {
-        copyOnWrite();
-        instance.clearBody();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        body_ = getDefaultInstance().getBody();
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallInitiateReq)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasFromId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasToId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCallId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCallerClientType()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasBody()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq) arg1;
-          fromId_ = visitor.visitLong(
-              hasFromId(), fromId_,
-              other.hasFromId(), other.fromId_);
-          toId_ = visitor.visitLong(
-              hasToId(), toId_,
-              other.hasToId(), other.toId_);
-          callId_ = visitor.visitLong(
-              hasCallId(), callId_,
-              other.hasCallId(), other.callId_);
-          callerClientType_ = visitor.visitInt(hasCallerClientType(), callerClientType_,
-              other.hasCallerClientType(), other.callerClientType_);
-          body_ = visitor.visitByteString(
-              hasBody(), body_,
-              other.hasBody(), other.body_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  fromId_ = input.readUInt64();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  toId_ = input.readUInt64();
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  callId_ = input.readUInt64();
-                  break;
-                }
-                case 32: {
-                  int rawValue = input.readEnum();
-                  com.blt.talk.common.code.proto.IMBaseDefine.ClientType value = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.forNumber(rawValue);
-                  if (value == null) {
-                    super.mergeVarintField(4, rawValue);
-                  } else {
-                    bitField0_ |= 0x00000008;
-                    callerClientType_ = rawValue;
-                  }
-                  break;
-                }
-                case 42: {
-                  bitField0_ |= 0x00000010;
-                  body_ = input.readBytes();
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000020;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.WebRTC.IMAVCallInitiateReq)
     private static final com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMAVCallInitiateReq();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq();
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMAVCallInitiateReq> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMAVCallInitiateReq>
+        PARSER = new com.google.protobuf.AbstractParser<IMAVCallInitiateReq>() {
+      @java.lang.Override
+      public IMAVCallInitiateReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMAVCallInitiateReq(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMAVCallInitiateReq> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMAVCallInitiateReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMAVCallInitiateResOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.WebRTC.IMAVCallInitiateRes)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -865,6 +1163,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
     boolean hasFromId();
     /**
@@ -873,6 +1172,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
     long getFromId();
 
@@ -882,6 +1182,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
     boolean hasToId();
     /**
@@ -890,82 +1191,212 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
     long getToId();
 
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
     boolean hasCallId();
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
     long getCallId();
 
     /**
      * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
+     * @return Whether the calledClientType field is set.
      */
     boolean hasCalledClientType();
     /**
      * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
+     * @return The calledClientType.
      */
     com.blt.talk.common.code.proto.IMBaseDefine.ClientType getCalledClientType();
 
     /**
      * <code>required uint32 code = 5;</code>
+     * @return Whether the code field is set.
      */
     boolean hasCode();
     /**
      * <code>required uint32 code = 5;</code>
+     * @return The code.
      */
     int getCode();
 
     /**
      * <code>required string reason = 6;</code>
+     * @return Whether the reason field is set.
      */
     boolean hasReason();
     /**
      * <code>required string reason = 6;</code>
+     * @return The reason.
      */
     java.lang.String getReason();
     /**
      * <code>required string reason = 6;</code>
+     * @return The bytes for reason.
      */
     com.google.protobuf.ByteString
         getReasonBytes();
 
     /**
      * <code>required bytes body = 7;</code>
+     * @return Whether the body field is set.
      */
     boolean hasBody();
     /**
      * <code>required bytes body = 7;</code>
+     * @return The body.
      */
     com.google.protobuf.ByteString getBody();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.WebRTC.IMAVCallInitiateRes}
    */
-  public  static final class IMAVCallInitiateRes extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMAVCallInitiateRes, IMAVCallInitiateRes.Builder> implements
+  public static final class IMAVCallInitiateRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.WebRTC.IMAVCallInitiateRes)
       IMAVCallInitiateResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMAVCallInitiateRes.newBuilder() to construct.
+    private IMAVCallInitiateRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMAVCallInitiateRes() {
       calledClientType_ = 1;
       reason_ = "";
       body_ = com.google.protobuf.ByteString.EMPTY;
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMAVCallInitiateRes();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMAVCallInitiateRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              fromId_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              toId_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              callId_ = input.readUInt64();
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+                @SuppressWarnings("deprecation")
+              com.blt.talk.common.code.proto.IMBaseDefine.ClientType value = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+              } else {
+                bitField0_ |= 0x00000008;
+                calledClientType_ = rawValue;
+              }
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
+              code_ = input.readUInt32();
+              break;
+            }
+            case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000020;
+              reason_ = bs;
+              break;
+            }
+            case 58: {
+              bitField0_ |= 0x00000040;
+              body_ = input.readBytes();
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000080;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateRes_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes.Builder.class);
+    }
+
     private int bitField0_;
     public static final int FROM_ID_FIELD_NUMBER = 1;
     private long fromId_;
@@ -975,9 +1406,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
+    @java.lang.Override
     public boolean hasFromId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -985,31 +1418,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
+    @java.lang.Override
     public long getFromId() {
       return fromId_;
-    }
-    /**
-     * <pre>
-     *cmd id:		0x0902
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void setFromId(long value) {
-      bitField0_ |= 0x00000001;
-      fromId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id:		0x0902
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void clearFromId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      fromId_ = 0L;
     }
 
     public static final int TO_ID_FIELD_NUMBER = 2;
@@ -1020,9 +1433,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
+    @java.lang.Override
     public boolean hasToId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <pre>
@@ -1030,414 +1445,709 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
+    @java.lang.Override
     public long getToId() {
       return toId_;
-    }
-    /**
-     * <pre>
-     * 被呼叫的一方
-     * </pre>
-     *
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void setToId(long value) {
-      bitField0_ |= 0x00000002;
-      toId_ = value;
-    }
-    /**
-     * <pre>
-     * 被呼叫的一方
-     * </pre>
-     *
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void clearToId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      toId_ = 0L;
     }
 
     public static final int CALL_ID_FIELD_NUMBER = 3;
     private long callId_;
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
+    @java.lang.Override
     public boolean hasCallId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
+    @java.lang.Override
     public long getCallId() {
       return callId_;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void setCallId(long value) {
-      bitField0_ |= 0x00000004;
-      callId_ = value;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void clearCallId() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      callId_ = 0L;
     }
 
     public static final int CALLED_CLIENT_TYPE_FIELD_NUMBER = 4;
     private int calledClientType_;
     /**
      * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
+     * @return Whether the calledClientType field is set.
      */
-    public boolean hasCalledClientType() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+    @java.lang.Override public boolean hasCalledClientType() {
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
+     * @return The calledClientType.
      */
-    public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getCalledClientType() {
-      com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.forNumber(calledClientType_);
+    @java.lang.Override public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getCalledClientType() {
+      @SuppressWarnings("deprecation")
+      com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(calledClientType_);
       return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.ClientType.CLIENT_TYPE_WINDOWS : result;
-    }
-    /**
-     * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
-     */
-    private void setCalledClientType(com.blt.talk.common.code.proto.IMBaseDefine.ClientType value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      bitField0_ |= 0x00000008;
-      calledClientType_ = value.getNumber();
-    }
-    /**
-     * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
-     */
-    private void clearCalledClientType() {
-      bitField0_ = (bitField0_ & ~0x00000008);
-      calledClientType_ = 1;
     }
 
     public static final int CODE_FIELD_NUMBER = 5;
     private int code_;
     /**
      * <code>required uint32 code = 5;</code>
+     * @return Whether the code field is set.
      */
+    @java.lang.Override
     public boolean hasCode() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <code>required uint32 code = 5;</code>
+     * @return The code.
      */
+    @java.lang.Override
     public int getCode() {
       return code_;
     }
-    /**
-     * <code>required uint32 code = 5;</code>
-     */
-    private void setCode(int value) {
-      bitField0_ |= 0x00000010;
-      code_ = value;
-    }
-    /**
-     * <code>required uint32 code = 5;</code>
-     */
-    private void clearCode() {
-      bitField0_ = (bitField0_ & ~0x00000010);
-      code_ = 0;
-    }
 
     public static final int REASON_FIELD_NUMBER = 6;
-    private java.lang.String reason_;
+    private volatile java.lang.Object reason_;
     /**
      * <code>required string reason = 6;</code>
+     * @return Whether the reason field is set.
      */
+    @java.lang.Override
     public boolean hasReason() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
      * <code>required string reason = 6;</code>
+     * @return The reason.
      */
+    @java.lang.Override
     public java.lang.String getReason() {
-      return reason_;
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          reason_ = s;
+        }
+        return s;
+      }
     }
     /**
      * <code>required string reason = 6;</code>
+     * @return The bytes for reason.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getReasonBytes() {
-      return com.google.protobuf.ByteString.copyFromUtf8(reason_);
-    }
-    /**
-     * <code>required string reason = 6;</code>
-     */
-    private void setReason(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
-      reason_ = value;
-    }
-    /**
-     * <code>required string reason = 6;</code>
-     */
-    private void clearReason() {
-      bitField0_ = (bitField0_ & ~0x00000020);
-      reason_ = getDefaultInstance().getReason();
-    }
-    /**
-     * <code>required string reason = 6;</code>
-     */
-    private void setReasonBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000020;
-      reason_ = value.toStringUtf8();
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        reason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int BODY_FIELD_NUMBER = 7;
     private com.google.protobuf.ByteString body_;
     /**
      * <code>required bytes body = 7;</code>
+     * @return Whether the body field is set.
      */
+    @java.lang.Override
     public boolean hasBody() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000040) != 0);
     }
     /**
      * <code>required bytes body = 7;</code>
+     * @return The body.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getBody() {
       return body_;
-    }
-    /**
-     * <code>required bytes body = 7;</code>
-     */
-    private void setBody(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000040;
-      body_ = value;
-    }
-    /**
-     * <code>required bytes body = 7;</code>
-     */
-    private void clearBody() {
-      bitField0_ = (bitField0_ & ~0x00000040);
-      body_ = getDefaultInstance().getBody();
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000080) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000080;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000080);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFromId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasToId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCallId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCalledClientType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasReason()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasBody()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt64(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt64(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeEnum(4, calledClientType_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeUInt32(5, code_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeString(6, getReason());
+      if (((bitField0_ & 0x00000020) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, reason_);
       }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+      if (((bitField0_ & 0x00000040) != 0)) {
         output.writeBytes(7, body_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, calledClientType_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(5, code_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(6, getReason());
+      if (((bitField0_ & 0x00000020) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, reason_);
       }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+      if (((bitField0_ & 0x00000040) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(7, body_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((bitField0_ & 0x00000080) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes) obj;
+
+      if (hasFromId() != other.hasFromId()) return false;
+      if (hasFromId()) {
+        if (getFromId()
+            != other.getFromId()) return false;
+      }
+      if (hasToId() != other.hasToId()) return false;
+      if (hasToId()) {
+        if (getToId()
+            != other.getToId()) return false;
+      }
+      if (hasCallId() != other.hasCallId()) return false;
+      if (hasCallId()) {
+        if (getCallId()
+            != other.getCallId()) return false;
+      }
+      if (hasCalledClientType() != other.hasCalledClientType()) return false;
+      if (hasCalledClientType()) {
+        if (calledClientType_ != other.calledClientType_) return false;
+      }
+      if (hasCode() != other.hasCode()) return false;
+      if (hasCode()) {
+        if (getCode()
+            != other.getCode()) return false;
+      }
+      if (hasReason() != other.hasReason()) return false;
+      if (hasReason()) {
+        if (!getReason()
+            .equals(other.getReason())) return false;
+      }
+      if (hasBody() != other.hasBody()) return false;
+      if (hasBody()) {
+        if (!getBody()
+            .equals(other.getBody())) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasFromId()) {
+        hash = (37 * hash) + FROM_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFromId());
+      }
+      if (hasToId()) {
+        hash = (37 * hash) + TO_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getToId());
+      }
+      if (hasCallId()) {
+        hash = (37 * hash) + CALL_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getCallId());
+      }
+      if (hasCalledClientType()) {
+        hash = (37 * hash) + CALLED_CLIENT_TYPE_FIELD_NUMBER;
+        hash = (53 * hash) + calledClientType_;
+      }
+      if (hasCode()) {
+        hash = (37 * hash) + CODE_FIELD_NUMBER;
+        hash = (53 * hash) + getCode();
+      }
+      if (hasReason()) {
+        hash = (37 * hash) + REASON_FIELD_NUMBER;
+        hash = (53 * hash) + getReason().hashCode();
+      }
+      if (hasBody()) {
+        hash = (37 * hash) + BODY_FIELD_NUMBER;
+        hash = (53 * hash) + getBody().hashCode();
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.WebRTC.IMAVCallInitiateRes}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.WebRTC.IMAVCallInitiateRes)
         com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateRes_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fromId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        toId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        callId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        calledClientType_ = 1;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        code_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        reason_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
+        body_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallInitiateRes_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes build() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes buildPartial() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes result = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.fromId_ = fromId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.toId_ = toId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.callId_ = callId_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.calledClientType_ = calledClientType_;
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.code_ = code_;
+          to_bitField0_ |= 0x00000010;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.reason_ = reason_;
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.body_ = body_;
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes other) {
+        if (other == com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes.getDefaultInstance()) return this;
+        if (other.hasFromId()) {
+          setFromId(other.getFromId());
+        }
+        if (other.hasToId()) {
+          setToId(other.getToId());
+        }
+        if (other.hasCallId()) {
+          setCallId(other.getCallId());
+        }
+        if (other.hasCalledClientType()) {
+          setCalledClientType(other.getCalledClientType());
+        }
+        if (other.hasCode()) {
+          setCode(other.getCode());
+        }
+        if (other.hasReason()) {
+          bitField0_ |= 0x00000020;
+          reason_ = other.reason_;
+          onChanged();
+        }
+        if (other.hasBody()) {
+          setBody(other.getBody());
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasFromId()) {
+          return false;
+        }
+        if (!hasToId()) {
+          return false;
+        }
+        if (!hasCallId()) {
+          return false;
+        }
+        if (!hasCalledClientType()) {
+          return false;
+        }
+        if (!hasCode()) {
+          return false;
+        }
+        if (!hasReason()) {
+          return false;
+        }
+        if (!hasBody()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long fromId_ ;
       /**
        * <pre>
        *cmd id:		0x0902
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return Whether the fromId field is set.
        */
+      @java.lang.Override
       public boolean hasFromId() {
-        return instance.hasFromId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -1445,9 +2155,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return The fromId.
        */
+      @java.lang.Override
       public long getFromId() {
-        return instance.getFromId();
+        return fromId_;
       }
       /**
        * <pre>
@@ -1455,10 +2167,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @param value The fromId to set.
+       * @return This builder for chaining.
        */
       public Builder setFromId(long value) {
-        copyOnWrite();
-        instance.setFromId(value);
+        bitField0_ |= 0x00000001;
+        fromId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -1467,22 +2182,27 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFromId() {
-        copyOnWrite();
-        instance.clearFromId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fromId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long toId_ ;
       /**
        * <pre>
        * 被呼叫的一方
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return Whether the toId field is set.
        */
+      @java.lang.Override
       public boolean hasToId() {
-        return instance.hasToId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <pre>
@@ -1490,9 +2210,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return The toId.
        */
+      @java.lang.Override
       public long getToId() {
-        return instance.getToId();
+        return toId_;
       }
       /**
        * <pre>
@@ -1500,10 +2222,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @param value The toId to set.
+       * @return This builder for chaining.
        */
       public Builder setToId(long value) {
-        copyOnWrite();
-        instance.setToId(value);
+        bitField0_ |= 0x00000002;
+        toId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -1512,421 +2237,359 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToId() {
-        copyOnWrite();
-        instance.clearToId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long callId_ ;
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return Whether the callId field is set.
        */
+      @java.lang.Override
       public boolean hasCallId() {
-        return instance.hasCallId();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return The callId.
        */
+      @java.lang.Override
       public long getCallId() {
-        return instance.getCallId();
+        return callId_;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @param value The callId to set.
+       * @return This builder for chaining.
        */
       public Builder setCallId(long value) {
-        copyOnWrite();
-        instance.setCallId(value);
+        bitField0_ |= 0x00000004;
+        callId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCallId() {
-        copyOnWrite();
-        instance.clearCallId();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        callId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private int calledClientType_ = 1;
       /**
        * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
+       * @return Whether the calledClientType field is set.
        */
-      public boolean hasCalledClientType() {
-        return instance.hasCalledClientType();
+      @java.lang.Override public boolean hasCalledClientType() {
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
+       * @return The calledClientType.
        */
+      @java.lang.Override
       public com.blt.talk.common.code.proto.IMBaseDefine.ClientType getCalledClientType() {
-        return instance.getCalledClientType();
+        @SuppressWarnings("deprecation")
+        com.blt.talk.common.code.proto.IMBaseDefine.ClientType result = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.valueOf(calledClientType_);
+        return result == null ? com.blt.talk.common.code.proto.IMBaseDefine.ClientType.CLIENT_TYPE_WINDOWS : result;
       }
       /**
        * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
+       * @param value The calledClientType to set.
+       * @return This builder for chaining.
        */
       public Builder setCalledClientType(com.blt.talk.common.code.proto.IMBaseDefine.ClientType value) {
-        copyOnWrite();
-        instance.setCalledClientType(value);
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        calledClientType_ = value.getNumber();
+        onChanged();
         return this;
       }
       /**
        * <code>required .IM.BaseDefine.ClientType called_client_type = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCalledClientType() {
-        copyOnWrite();
-        instance.clearCalledClientType();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        calledClientType_ = 1;
+        onChanged();
         return this;
       }
 
+      private int code_ ;
       /**
        * <code>required uint32 code = 5;</code>
+       * @return Whether the code field is set.
        */
+      @java.lang.Override
       public boolean hasCode() {
-        return instance.hasCode();
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>required uint32 code = 5;</code>
+       * @return The code.
        */
+      @java.lang.Override
       public int getCode() {
-        return instance.getCode();
+        return code_;
       }
       /**
        * <code>required uint32 code = 5;</code>
+       * @param value The code to set.
+       * @return This builder for chaining.
        */
       public Builder setCode(int value) {
-        copyOnWrite();
-        instance.setCode(value);
+        bitField0_ |= 0x00000010;
+        code_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint32 code = 5;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCode() {
-        copyOnWrite();
-        instance.clearCode();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        code_ = 0;
+        onChanged();
         return this;
       }
 
+      private java.lang.Object reason_ = "";
       /**
        * <code>required string reason = 6;</code>
+       * @return Whether the reason field is set.
        */
       public boolean hasReason() {
-        return instance.hasReason();
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
        * <code>required string reason = 6;</code>
+       * @return The reason.
        */
       public java.lang.String getReason() {
-        return instance.getReason();
+        java.lang.Object ref = reason_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            reason_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
        * <code>required string reason = 6;</code>
+       * @return The bytes for reason.
        */
       public com.google.protobuf.ByteString
           getReasonBytes() {
-        return instance.getReasonBytes();
+        java.lang.Object ref = reason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          reason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
       }
       /**
        * <code>required string reason = 6;</code>
+       * @param value The reason to set.
+       * @return This builder for chaining.
        */
       public Builder setReason(
           java.lang.String value) {
-        copyOnWrite();
-        instance.setReason(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        reason_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required string reason = 6;</code>
+       * @return This builder for chaining.
        */
       public Builder clearReason() {
-        copyOnWrite();
-        instance.clearReason();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        reason_ = getDefaultInstance().getReason();
+        onChanged();
         return this;
       }
       /**
        * <code>required string reason = 6;</code>
+       * @param value The bytes for reason to set.
+       * @return This builder for chaining.
        */
       public Builder setReasonBytes(
           com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setReasonBytes(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        reason_ = value;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString body_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>required bytes body = 7;</code>
+       * @return Whether the body field is set.
        */
+      @java.lang.Override
       public boolean hasBody() {
-        return instance.hasBody();
+        return ((bitField0_ & 0x00000040) != 0);
       }
       /**
        * <code>required bytes body = 7;</code>
+       * @return The body.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getBody() {
-        return instance.getBody();
+        return body_;
       }
       /**
        * <code>required bytes body = 7;</code>
+       * @param value The body to set.
+       * @return This builder for chaining.
        */
       public Builder setBody(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setBody(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000040;
+        body_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required bytes body = 7;</code>
+       * @return This builder for chaining.
        */
       public Builder clearBody() {
-        copyOnWrite();
-        instance.clearBody();
+        bitField0_ = (bitField0_ & ~0x00000040);
+        body_ = getDefaultInstance().getBody();
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000080) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000080;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000080);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallInitiateRes)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasFromId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasToId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCallId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCalledClientType()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCode()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasReason()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasBody()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes) arg1;
-          fromId_ = visitor.visitLong(
-              hasFromId(), fromId_,
-              other.hasFromId(), other.fromId_);
-          toId_ = visitor.visitLong(
-              hasToId(), toId_,
-              other.hasToId(), other.toId_);
-          callId_ = visitor.visitLong(
-              hasCallId(), callId_,
-              other.hasCallId(), other.callId_);
-          calledClientType_ = visitor.visitInt(hasCalledClientType(), calledClientType_,
-              other.hasCalledClientType(), other.calledClientType_);
-          code_ = visitor.visitInt(
-              hasCode(), code_,
-              other.hasCode(), other.code_);
-          reason_ = visitor.visitString(
-              hasReason(), reason_,
-              other.hasReason(), other.reason_);
-          body_ = visitor.visitByteString(
-              hasBody(), body_,
-              other.hasBody(), other.body_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  fromId_ = input.readUInt64();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  toId_ = input.readUInt64();
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  callId_ = input.readUInt64();
-                  break;
-                }
-                case 32: {
-                  int rawValue = input.readEnum();
-                  com.blt.talk.common.code.proto.IMBaseDefine.ClientType value = com.blt.talk.common.code.proto.IMBaseDefine.ClientType.forNumber(rawValue);
-                  if (value == null) {
-                    super.mergeVarintField(4, rawValue);
-                  } else {
-                    bitField0_ |= 0x00000008;
-                    calledClientType_ = rawValue;
-                  }
-                  break;
-                }
-                case 40: {
-                  bitField0_ |= 0x00000010;
-                  code_ = input.readUInt32();
-                  break;
-                }
-                case 50: {
-                  java.lang.String s = input.readString();
-                  bitField0_ |= 0x00000020;
-                  reason_ = s;
-                  break;
-                }
-                case 58: {
-                  bitField0_ |= 0x00000040;
-                  body_ = input.readBytes();
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000080;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.WebRTC.IMAVCallInitiateRes)
     private static final com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMAVCallInitiateRes();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes();
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMAVCallInitiateRes> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMAVCallInitiateRes>
+        PARSER = new com.google.protobuf.AbstractParser<IMAVCallInitiateRes>() {
+      @java.lang.Override
+      public IMAVCallInitiateRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMAVCallInitiateRes(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMAVCallInitiateRes> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMAVCallInitiateRes> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallInitiateRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMAVCallHungUpReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.WebRTC.IMAVCallHungUpReq)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -1934,6 +2597,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
     boolean hasFromId();
     /**
@@ -1942,6 +2606,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
     long getFromId();
 
@@ -1951,6 +2616,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
     boolean hasToId();
     /**
@@ -1959,38 +2625,131 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
     long getToId();
 
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
     boolean hasCallId();
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
     long getCallId();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.WebRTC.IMAVCallHungUpReq}
    */
-  public  static final class IMAVCallHungUpReq extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMAVCallHungUpReq, IMAVCallHungUpReq.Builder> implements
+  public static final class IMAVCallHungUpReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.WebRTC.IMAVCallHungUpReq)
       IMAVCallHungUpReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMAVCallHungUpReq.newBuilder() to construct.
+    private IMAVCallHungUpReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMAVCallHungUpReq() {
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMAVCallHungUpReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMAVCallHungUpReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              fromId_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              toId_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              callId_ = input.readUInt64();
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000008;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq.Builder.class);
+    }
+
     private int bitField0_;
     public static final int FROM_ID_FIELD_NUMBER = 1;
     private long fromId_;
@@ -2000,9 +2759,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
+    @java.lang.Override
     public boolean hasFromId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -2010,31 +2771,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
+    @java.lang.Override
     public long getFromId() {
       return fromId_;
-    }
-    /**
-     * <pre>
-     *cmd id: 		0x0903
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void setFromId(long value) {
-      bitField0_ |= 0x00000001;
-      fromId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id: 		0x0903
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void clearFromId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      fromId_ = 0L;
     }
 
     public static final int TO_ID_FIELD_NUMBER = 2;
@@ -2045,9 +2786,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
+    @java.lang.Override
     public boolean hasToId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <pre>
@@ -2055,241 +2798,476 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
+    @java.lang.Override
     public long getToId() {
       return toId_;
-    }
-    /**
-     * <pre>
-     * 被挂断的一方
-     * </pre>
-     *
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void setToId(long value) {
-      bitField0_ |= 0x00000002;
-      toId_ = value;
-    }
-    /**
-     * <pre>
-     * 被挂断的一方
-     * </pre>
-     *
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void clearToId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      toId_ = 0L;
     }
 
     public static final int CALL_ID_FIELD_NUMBER = 3;
     private long callId_;
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
+    @java.lang.Override
     public boolean hasCallId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
+    @java.lang.Override
     public long getCallId() {
       return callId_;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void setCallId(long value) {
-      bitField0_ |= 0x00000004;
-      callId_ = value;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void clearCallId() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      callId_ = 0L;
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000008);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFromId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasToId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCallId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt64(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt64(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq) obj;
+
+      if (hasFromId() != other.hasFromId()) return false;
+      if (hasFromId()) {
+        if (getFromId()
+            != other.getFromId()) return false;
+      }
+      if (hasToId() != other.hasToId()) return false;
+      if (hasToId()) {
+        if (getToId()
+            != other.getToId()) return false;
+      }
+      if (hasCallId() != other.hasCallId()) return false;
+      if (hasCallId()) {
+        if (getCallId()
+            != other.getCallId()) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasFromId()) {
+        hash = (37 * hash) + FROM_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFromId());
+      }
+      if (hasToId()) {
+        hash = (37 * hash) + TO_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getToId());
+      }
+      if (hasCallId()) {
+        hash = (37 * hash) + CALL_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getCallId());
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.WebRTC.IMAVCallHungUpReq}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.WebRTC.IMAVCallHungUpReq)
         com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fromId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        toId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        callId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq build() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq buildPartial() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq result = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.fromId_ = fromId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.toId_ = toId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.callId_ = callId_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq other) {
+        if (other == com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq.getDefaultInstance()) return this;
+        if (other.hasFromId()) {
+          setFromId(other.getFromId());
+        }
+        if (other.hasToId()) {
+          setToId(other.getToId());
+        }
+        if (other.hasCallId()) {
+          setCallId(other.getCallId());
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasFromId()) {
+          return false;
+        }
+        if (!hasToId()) {
+          return false;
+        }
+        if (!hasCallId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long fromId_ ;
       /**
        * <pre>
        *cmd id: 		0x0903
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return Whether the fromId field is set.
        */
+      @java.lang.Override
       public boolean hasFromId() {
-        return instance.hasFromId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -2297,9 +3275,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return The fromId.
        */
+      @java.lang.Override
       public long getFromId() {
-        return instance.getFromId();
+        return fromId_;
       }
       /**
        * <pre>
@@ -2307,10 +3287,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @param value The fromId to set.
+       * @return This builder for chaining.
        */
       public Builder setFromId(long value) {
-        copyOnWrite();
-        instance.setFromId(value);
+        bitField0_ |= 0x00000001;
+        fromId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -2319,22 +3302,27 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFromId() {
-        copyOnWrite();
-        instance.clearFromId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fromId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long toId_ ;
       /**
        * <pre>
        * 被挂断的一方
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return Whether the toId field is set.
        */
+      @java.lang.Override
       public boolean hasToId() {
-        return instance.hasToId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <pre>
@@ -2342,9 +3330,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return The toId.
        */
+      @java.lang.Override
       public long getToId() {
-        return instance.getToId();
+        return toId_;
       }
       /**
        * <pre>
@@ -2352,10 +3342,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @param value The toId to set.
+       * @return This builder for chaining.
        */
       public Builder setToId(long value) {
-        copyOnWrite();
-        instance.setToId(value);
+        bitField0_ |= 0x00000002;
+        toId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -2364,226 +3357,151 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToId() {
-        copyOnWrite();
-        instance.clearToId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long callId_ ;
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return Whether the callId field is set.
        */
+      @java.lang.Override
       public boolean hasCallId() {
-        return instance.hasCallId();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return The callId.
        */
+      @java.lang.Override
       public long getCallId() {
-        return instance.getCallId();
+        return callId_;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @param value The callId to set.
+       * @return This builder for chaining.
        */
       public Builder setCallId(long value) {
-        copyOnWrite();
-        instance.setCallId(value);
+        bitField0_ |= 0x00000004;
+        callId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCallId() {
-        copyOnWrite();
-        instance.clearCallId();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        callId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallHungUpReq)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasFromId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasToId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCallId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq) arg1;
-          fromId_ = visitor.visitLong(
-              hasFromId(), fromId_,
-              other.hasFromId(), other.fromId_);
-          toId_ = visitor.visitLong(
-              hasToId(), toId_,
-              other.hasToId(), other.toId_);
-          callId_ = visitor.visitLong(
-              hasCallId(), callId_,
-              other.hasCallId(), other.callId_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  fromId_ = input.readUInt64();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  toId_ = input.readUInt64();
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  callId_ = input.readUInt64();
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000008;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.WebRTC.IMAVCallHungUpReq)
     private static final com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMAVCallHungUpReq();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq();
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMAVCallHungUpReq> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMAVCallHungUpReq>
+        PARSER = new com.google.protobuf.AbstractParser<IMAVCallHungUpReq>() {
+      @java.lang.Override
+      public IMAVCallHungUpReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMAVCallHungUpReq(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMAVCallHungUpReq> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMAVCallHungUpReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMAVCallHungUpResOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.WebRTC.IMAVCallHungUpRes)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -2591,6 +3509,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
     boolean hasFromId();
     /**
@@ -2599,6 +3518,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
     long getFromId();
 
@@ -2608,6 +3528,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
     boolean hasToId();
     /**
@@ -2616,47 +3537,147 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
     long getToId();
 
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
     boolean hasCallId();
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
     long getCallId();
 
     /**
      * <code>required uint32 code = 4;</code>
+     * @return Whether the code field is set.
      */
     boolean hasCode();
     /**
      * <code>required uint32 code = 4;</code>
+     * @return The code.
      */
     int getCode();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.WebRTC.IMAVCallHungUpRes}
    */
-  public  static final class IMAVCallHungUpRes extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMAVCallHungUpRes, IMAVCallHungUpRes.Builder> implements
+  public static final class IMAVCallHungUpRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.WebRTC.IMAVCallHungUpRes)
       IMAVCallHungUpResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMAVCallHungUpRes.newBuilder() to construct.
+    private IMAVCallHungUpRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMAVCallHungUpRes() {
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMAVCallHungUpRes();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMAVCallHungUpRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              fromId_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              toId_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              callId_ = input.readUInt64();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              code_ = input.readUInt32();
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000010;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpRes_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes.Builder.class);
+    }
+
     private int bitField0_;
     public static final int FROM_ID_FIELD_NUMBER = 1;
     private long fromId_;
@@ -2666,9 +3687,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
+    @java.lang.Override
     public boolean hasFromId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -2676,31 +3699,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
+    @java.lang.Override
     public long getFromId() {
       return fromId_;
-    }
-    /**
-     * <pre>
-     *cmd id: 		0x0904
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void setFromId(long value) {
-      bitField0_ |= 0x00000001;
-      fromId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id: 		0x0904
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void clearFromId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      fromId_ = 0L;
     }
 
     public static final int TO_ID_FIELD_NUMBER = 2;
@@ -2711,9 +3714,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
+    @java.lang.Override
     public boolean hasToId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <pre>
@@ -2721,277 +3726,527 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
+    @java.lang.Override
     public long getToId() {
       return toId_;
-    }
-    /**
-     * <pre>
-     * 被挂断的一方
-     * </pre>
-     *
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void setToId(long value) {
-      bitField0_ |= 0x00000002;
-      toId_ = value;
-    }
-    /**
-     * <pre>
-     * 被挂断的一方
-     * </pre>
-     *
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void clearToId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      toId_ = 0L;
     }
 
     public static final int CALL_ID_FIELD_NUMBER = 3;
     private long callId_;
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
+    @java.lang.Override
     public boolean hasCallId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
+    @java.lang.Override
     public long getCallId() {
       return callId_;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void setCallId(long value) {
-      bitField0_ |= 0x00000004;
-      callId_ = value;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void clearCallId() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      callId_ = 0L;
     }
 
     public static final int CODE_FIELD_NUMBER = 4;
     private int code_;
     /**
      * <code>required uint32 code = 4;</code>
+     * @return Whether the code field is set.
      */
+    @java.lang.Override
     public boolean hasCode() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>required uint32 code = 4;</code>
+     * @return The code.
      */
+    @java.lang.Override
     public int getCode() {
       return code_;
-    }
-    /**
-     * <code>required uint32 code = 4;</code>
-     */
-    private void setCode(int value) {
-      bitField0_ |= 0x00000008;
-      code_ = value;
-    }
-    /**
-     * <code>required uint32 code = 4;</code>
-     */
-    private void clearCode() {
-      bitField0_ = (bitField0_ & ~0x00000008);
-      code_ = 0;
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000010) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000010;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000010);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFromId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasToId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCallId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt64(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt64(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeUInt32(4, code_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(4, code_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (((bitField0_ & 0x00000010) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes) obj;
+
+      if (hasFromId() != other.hasFromId()) return false;
+      if (hasFromId()) {
+        if (getFromId()
+            != other.getFromId()) return false;
+      }
+      if (hasToId() != other.hasToId()) return false;
+      if (hasToId()) {
+        if (getToId()
+            != other.getToId()) return false;
+      }
+      if (hasCallId() != other.hasCallId()) return false;
+      if (hasCallId()) {
+        if (getCallId()
+            != other.getCallId()) return false;
+      }
+      if (hasCode() != other.hasCode()) return false;
+      if (hasCode()) {
+        if (getCode()
+            != other.getCode()) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasFromId()) {
+        hash = (37 * hash) + FROM_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFromId());
+      }
+      if (hasToId()) {
+        hash = (37 * hash) + TO_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getToId());
+      }
+      if (hasCallId()) {
+        hash = (37 * hash) + CALL_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getCallId());
+      }
+      if (hasCode()) {
+        hash = (37 * hash) + CODE_FIELD_NUMBER;
+        hash = (53 * hash) + getCode();
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.WebRTC.IMAVCallHungUpRes}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.WebRTC.IMAVCallHungUpRes)
         com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpRes_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fromId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        toId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        callId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        code_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallHungUpRes_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes build() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes buildPartial() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes result = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.fromId_ = fromId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.toId_ = toId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.callId_ = callId_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.code_ = code_;
+          to_bitField0_ |= 0x00000008;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes other) {
+        if (other == com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes.getDefaultInstance()) return this;
+        if (other.hasFromId()) {
+          setFromId(other.getFromId());
+        }
+        if (other.hasToId()) {
+          setToId(other.getToId());
+        }
+        if (other.hasCallId()) {
+          setCallId(other.getCallId());
+        }
+        if (other.hasCode()) {
+          setCode(other.getCode());
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasFromId()) {
+          return false;
+        }
+        if (!hasToId()) {
+          return false;
+        }
+        if (!hasCallId()) {
+          return false;
+        }
+        if (!hasCode()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long fromId_ ;
       /**
        * <pre>
        *cmd id: 		0x0904
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return Whether the fromId field is set.
        */
+      @java.lang.Override
       public boolean hasFromId() {
-        return instance.hasFromId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -2999,9 +4254,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return The fromId.
        */
+      @java.lang.Override
       public long getFromId() {
-        return instance.getFromId();
+        return fromId_;
       }
       /**
        * <pre>
@@ -3009,10 +4266,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @param value The fromId to set.
+       * @return This builder for chaining.
        */
       public Builder setFromId(long value) {
-        copyOnWrite();
-        instance.setFromId(value);
+        bitField0_ |= 0x00000001;
+        fromId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -3021,22 +4281,27 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFromId() {
-        copyOnWrite();
-        instance.clearFromId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fromId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long toId_ ;
       /**
        * <pre>
        * 被挂断的一方
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return Whether the toId field is set.
        */
+      @java.lang.Override
       public boolean hasToId() {
-        return instance.hasToId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <pre>
@@ -3044,9 +4309,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return The toId.
        */
+      @java.lang.Override
       public long getToId() {
-        return instance.getToId();
+        return toId_;
       }
       /**
        * <pre>
@@ -3054,10 +4321,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @param value The toId to set.
+       * @return This builder for chaining.
        */
       public Builder setToId(long value) {
-        copyOnWrite();
-        instance.setToId(value);
+        bitField0_ |= 0x00000002;
+        toId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -3066,269 +4336,190 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 to_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToId() {
-        copyOnWrite();
-        instance.clearToId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long callId_ ;
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return Whether the callId field is set.
        */
+      @java.lang.Override
       public boolean hasCallId() {
-        return instance.hasCallId();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return The callId.
        */
+      @java.lang.Override
       public long getCallId() {
-        return instance.getCallId();
+        return callId_;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @param value The callId to set.
+       * @return This builder for chaining.
        */
       public Builder setCallId(long value) {
-        copyOnWrite();
-        instance.setCallId(value);
+        bitField0_ |= 0x00000004;
+        callId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCallId() {
-        copyOnWrite();
-        instance.clearCallId();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        callId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private int code_ ;
       /**
        * <code>required uint32 code = 4;</code>
+       * @return Whether the code field is set.
        */
+      @java.lang.Override
       public boolean hasCode() {
-        return instance.hasCode();
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>required uint32 code = 4;</code>
+       * @return The code.
        */
+      @java.lang.Override
       public int getCode() {
-        return instance.getCode();
+        return code_;
       }
       /**
        * <code>required uint32 code = 4;</code>
+       * @param value The code to set.
+       * @return This builder for chaining.
        */
       public Builder setCode(int value) {
-        copyOnWrite();
-        instance.setCode(value);
+        bitField0_ |= 0x00000008;
+        code_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint32 code = 4;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCode() {
-        copyOnWrite();
-        instance.clearCode();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        code_ = 0;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallHungUpRes)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasFromId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasToId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCallId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCode()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes) arg1;
-          fromId_ = visitor.visitLong(
-              hasFromId(), fromId_,
-              other.hasFromId(), other.fromId_);
-          toId_ = visitor.visitLong(
-              hasToId(), toId_,
-              other.hasToId(), other.toId_);
-          callId_ = visitor.visitLong(
-              hasCallId(), callId_,
-              other.hasCallId(), other.callId_);
-          code_ = visitor.visitInt(
-              hasCode(), code_,
-              other.hasCode(), other.code_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  fromId_ = input.readUInt64();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  toId_ = input.readUInt64();
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  callId_ = input.readUInt64();
-                  break;
-                }
-                case 32: {
-                  bitField0_ |= 0x00000008;
-                  code_ = input.readUInt32();
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000010;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.WebRTC.IMAVCallHungUpRes)
     private static final com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMAVCallHungUpRes();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes();
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMAVCallHungUpRes> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMAVCallHungUpRes>
+        PARSER = new com.google.protobuf.AbstractParser<IMAVCallHungUpRes>() {
+      @java.lang.Override
+      public IMAVCallHungUpRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMAVCallHungUpRes(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMAVCallHungUpRes> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMAVCallHungUpRes> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallHungUpRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMAVCallCancelReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.WebRTC.IMAVCallCancelReq)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -3336,6 +4527,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
     boolean hasFromId();
     /**
@@ -3344,47 +4536,142 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
     long getFromId();
 
     /**
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
     boolean hasToId();
     /**
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
     long getToId();
 
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
     boolean hasCallId();
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
     long getCallId();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.WebRTC.IMAVCallCancelReq}
    */
-  public  static final class IMAVCallCancelReq extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMAVCallCancelReq, IMAVCallCancelReq.Builder> implements
+  public static final class IMAVCallCancelReq extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.WebRTC.IMAVCallCancelReq)
       IMAVCallCancelReqOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMAVCallCancelReq.newBuilder() to construct.
+    private IMAVCallCancelReq(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMAVCallCancelReq() {
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMAVCallCancelReq();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMAVCallCancelReq(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              fromId_ = input.readUInt64();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              toId_ = input.readUInt64();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              callId_ = input.readUInt64();
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000008;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelReq_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelReq_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq.Builder.class);
+    }
+
     private int bitField0_;
     public static final int FROM_ID_FIELD_NUMBER = 1;
     private long fromId_;
@@ -3394,9 +4681,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
+    @java.lang.Override
     public boolean hasFromId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -3404,270 +4693,495 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint64 from_id = 1;</code>
+     * @return The fromId.
      */
+    @java.lang.Override
     public long getFromId() {
       return fromId_;
-    }
-    /**
-     * <pre>
-     *cmd id: 		0x0905
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void setFromId(long value) {
-      bitField0_ |= 0x00000001;
-      fromId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id: 		0x0905
-     * </pre>
-     *
-     * <code>required uint64 from_id = 1;</code>
-     */
-    private void clearFromId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      fromId_ = 0L;
     }
 
     public static final int TO_ID_FIELD_NUMBER = 2;
     private long toId_;
     /**
      * <code>required uint64 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
+    @java.lang.Override
     public boolean hasToId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <code>required uint64 to_id = 2;</code>
+     * @return The toId.
      */
+    @java.lang.Override
     public long getToId() {
       return toId_;
-    }
-    /**
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void setToId(long value) {
-      bitField0_ |= 0x00000002;
-      toId_ = value;
-    }
-    /**
-     * <code>required uint64 to_id = 2;</code>
-     */
-    private void clearToId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      toId_ = 0L;
     }
 
     public static final int CALL_ID_FIELD_NUMBER = 3;
     private long callId_;
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
+    @java.lang.Override
     public boolean hasCallId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
+    @java.lang.Override
     public long getCallId() {
       return callId_;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void setCallId(long value) {
-      bitField0_ |= 0x00000004;
-      callId_ = value;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void clearCallId() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      callId_ = 0L;
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000008);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFromId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasToId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCallId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt64(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt64(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt64(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq) obj;
+
+      if (hasFromId() != other.hasFromId()) return false;
+      if (hasFromId()) {
+        if (getFromId()
+            != other.getFromId()) return false;
+      }
+      if (hasToId() != other.hasToId()) return false;
+      if (hasToId()) {
+        if (getToId()
+            != other.getToId()) return false;
+      }
+      if (hasCallId() != other.hasCallId()) return false;
+      if (hasCallId()) {
+        if (getCallId()
+            != other.getCallId()) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasFromId()) {
+        hash = (37 * hash) + FROM_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getFromId());
+      }
+      if (hasToId()) {
+        hash = (37 * hash) + TO_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getToId());
+      }
+      if (hasCallId()) {
+        hash = (37 * hash) + CALL_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getCallId());
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.WebRTC.IMAVCallCancelReq}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.WebRTC.IMAVCallCancelReq)
         com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReqOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelReq_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelReq_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fromId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        toId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        callId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelReq_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq build() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq buildPartial() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq result = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.fromId_ = fromId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.toId_ = toId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.callId_ = callId_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq other) {
+        if (other == com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq.getDefaultInstance()) return this;
+        if (other.hasFromId()) {
+          setFromId(other.getFromId());
+        }
+        if (other.hasToId()) {
+          setToId(other.getToId());
+        }
+        if (other.hasCallId()) {
+          setCallId(other.getCallId());
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasFromId()) {
+          return false;
+        }
+        if (!hasToId()) {
+          return false;
+        }
+        if (!hasCallId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private long fromId_ ;
       /**
        * <pre>
        *cmd id: 		0x0905
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return Whether the fromId field is set.
        */
+      @java.lang.Override
       public boolean hasFromId() {
-        return instance.hasFromId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -3675,9 +5189,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return The fromId.
        */
+      @java.lang.Override
       public long getFromId() {
-        return instance.getFromId();
+        return fromId_;
       }
       /**
        * <pre>
@@ -3685,10 +5201,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @param value The fromId to set.
+       * @return This builder for chaining.
        */
       public Builder setFromId(long value) {
-        copyOnWrite();
-        instance.setFromId(value);
+        bitField0_ |= 0x00000001;
+        fromId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -3697,255 +5216,190 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint64 from_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFromId() {
-        copyOnWrite();
-        instance.clearFromId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fromId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long toId_ ;
       /**
        * <code>required uint64 to_id = 2;</code>
+       * @return Whether the toId field is set.
        */
+      @java.lang.Override
       public boolean hasToId() {
-        return instance.hasToId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <code>required uint64 to_id = 2;</code>
+       * @return The toId.
        */
+      @java.lang.Override
       public long getToId() {
-        return instance.getToId();
+        return toId_;
       }
       /**
        * <code>required uint64 to_id = 2;</code>
+       * @param value The toId to set.
+       * @return This builder for chaining.
        */
       public Builder setToId(long value) {
-        copyOnWrite();
-        instance.setToId(value);
+        bitField0_ |= 0x00000002;
+        toId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 to_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToId() {
-        copyOnWrite();
-        instance.clearToId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private long callId_ ;
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return Whether the callId field is set.
        */
+      @java.lang.Override
       public boolean hasCallId() {
-        return instance.hasCallId();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return The callId.
        */
+      @java.lang.Override
       public long getCallId() {
-        return instance.getCallId();
+        return callId_;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @param value The callId to set.
+       * @return This builder for chaining.
        */
       public Builder setCallId(long value) {
-        copyOnWrite();
-        instance.setCallId(value);
+        bitField0_ |= 0x00000004;
+        callId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCallId() {
-        copyOnWrite();
-        instance.clearCallId();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        callId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallCancelReq)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasFromId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasToId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCallId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq) arg1;
-          fromId_ = visitor.visitLong(
-              hasFromId(), fromId_,
-              other.hasFromId(), other.fromId_);
-          toId_ = visitor.visitLong(
-              hasToId(), toId_,
-              other.hasToId(), other.toId_);
-          callId_ = visitor.visitLong(
-              hasCallId(), callId_,
-              other.hasCallId(), other.callId_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  fromId_ = input.readUInt64();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  toId_ = input.readUInt64();
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  callId_ = input.readUInt64();
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000008;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.WebRTC.IMAVCallCancelReq)
     private static final com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMAVCallCancelReq();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq();
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMAVCallCancelReq> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMAVCallCancelReq>
+        PARSER = new com.google.protobuf.AbstractParser<IMAVCallCancelReq>() {
+      @java.lang.Override
+      public IMAVCallCancelReq parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMAVCallCancelReq(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMAVCallCancelReq> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMAVCallCancelReq> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelReq getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface IMAVCallCancelResOrBuilder extends
       // @@protoc_insertion_point(interface_extends:IM.WebRTC.IMAVCallCancelRes)
-      com.google.protobuf.MessageLiteOrBuilder {
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
@@ -3953,6 +5407,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint32 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
     boolean hasFromId();
     /**
@@ -3961,6 +5416,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint32 from_id = 1;</code>
+     * @return The fromId.
      */
     int getFromId();
 
@@ -3970,6 +5426,7 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint32 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
     boolean hasToId();
     /**
@@ -3978,38 +5435,131 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint32 to_id = 2;</code>
+     * @return The toId.
      */
     int getToId();
 
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
     boolean hasCallId();
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
     long getCallId();
 
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
     boolean hasAttachData();
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
     com.google.protobuf.ByteString getAttachData();
   }
   /**
    * Protobuf type {@code IM.WebRTC.IMAVCallCancelRes}
    */
-  public  static final class IMAVCallCancelRes extends
-      com.google.protobuf.GeneratedMessageLite<
-          IMAVCallCancelRes, IMAVCallCancelRes.Builder> implements
+  public static final class IMAVCallCancelRes extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:IM.WebRTC.IMAVCallCancelRes)
       IMAVCallCancelResOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMAVCallCancelRes.newBuilder() to construct.
+    private IMAVCallCancelRes(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
     private IMAVCallCancelRes() {
       attachData_ = com.google.protobuf.ByteString.EMPTY;
     }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMAVCallCancelRes();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private IMAVCallCancelRes(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              fromId_ = input.readUInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              toId_ = input.readUInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              callId_ = input.readUInt64();
+              break;
+            }
+            case 162: {
+              bitField0_ |= 0x00000008;
+              attachData_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelRes_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelRes_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes.Builder.class);
+    }
+
     private int bitField0_;
     public static final int FROM_ID_FIELD_NUMBER = 1;
     private int fromId_;
@@ -4019,9 +5569,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint32 from_id = 1;</code>
+     * @return Whether the fromId field is set.
      */
+    @java.lang.Override
     public boolean hasFromId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <pre>
@@ -4029,31 +5581,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint32 from_id = 1;</code>
+     * @return The fromId.
      */
+    @java.lang.Override
     public int getFromId() {
       return fromId_;
-    }
-    /**
-     * <pre>
-     *cmd id: 		0x0906
-     * </pre>
-     *
-     * <code>required uint32 from_id = 1;</code>
-     */
-    private void setFromId(int value) {
-      bitField0_ |= 0x00000001;
-      fromId_ = value;
-    }
-    /**
-     * <pre>
-     *cmd id: 		0x0906
-     * </pre>
-     *
-     * <code>required uint32 from_id = 1;</code>
-     */
-    private void clearFromId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      fromId_ = 0;
     }
 
     public static final int TO_ID_FIELD_NUMBER = 2;
@@ -4064,9 +5596,11 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint32 to_id = 2;</code>
+     * @return Whether the toId field is set.
      */
+    @java.lang.Override
     public boolean hasToId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000002) != 0);
     }
     /**
      * <pre>
@@ -4074,241 +5608,474 @@ public final class IMWebRTC {
      * </pre>
      *
      * <code>required uint32 to_id = 2;</code>
+     * @return The toId.
      */
+    @java.lang.Override
     public int getToId() {
       return toId_;
-    }
-    /**
-     * <pre>
-     * 对方
-     * </pre>
-     *
-     * <code>required uint32 to_id = 2;</code>
-     */
-    private void setToId(int value) {
-      bitField0_ |= 0x00000002;
-      toId_ = value;
-    }
-    /**
-     * <pre>
-     * 对方
-     * </pre>
-     *
-     * <code>required uint32 to_id = 2;</code>
-     */
-    private void clearToId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      toId_ = 0;
     }
 
     public static final int CALL_ID_FIELD_NUMBER = 3;
     private long callId_;
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return Whether the callId field is set.
      */
+    @java.lang.Override
     public boolean hasCallId() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
      * <code>required uint64 call_id = 3;</code>
+     * @return The callId.
      */
+    @java.lang.Override
     public long getCallId() {
       return callId_;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void setCallId(long value) {
-      bitField0_ |= 0x00000004;
-      callId_ = value;
-    }
-    /**
-     * <code>required uint64 call_id = 3;</code>
-     */
-    private void clearCallId() {
-      bitField0_ = (bitField0_ & ~0x00000004);
-      callId_ = 0L;
     }
 
     public static final int ATTACH_DATA_FIELD_NUMBER = 20;
     private com.google.protobuf.ByteString attachData_;
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return Whether the attachData field is set.
      */
+    @java.lang.Override
     public boolean hasAttachData() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000008) != 0);
     }
     /**
      * <code>optional bytes attach_data = 20;</code>
+     * @return The attachData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAttachData() {
       return attachData_;
     }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void setAttachData(com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-      attachData_ = value;
-    }
-    /**
-     * <code>optional bytes attach_data = 20;</code>
-     */
-    private void clearAttachData() {
-      bitField0_ = (bitField0_ & ~0x00000008);
-      attachData_ = getDefaultInstance().getAttachData();
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFromId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasToId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCallId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
     }
 
+    @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt32(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeUInt32(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt64(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         output.writeBytes(20, attachData_);
       }
       unknownFields.writeTo(output);
     }
 
+    @java.lang.Override
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(1, fromId_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(2, toId_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(3, callId_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(20, attachData_);
       }
       size += unknownFields.getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes)) {
+        return super.equals(obj);
+      }
+      com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes) obj;
+
+      if (hasFromId() != other.hasFromId()) return false;
+      if (hasFromId()) {
+        if (getFromId()
+            != other.getFromId()) return false;
+      }
+      if (hasToId() != other.hasToId()) return false;
+      if (hasToId()) {
+        if (getToId()
+            != other.getToId()) return false;
+      }
+      if (hasCallId() != other.hasCallId()) return false;
+      if (hasCallId()) {
+        if (getCallId()
+            != other.getCallId()) return false;
+      }
+      if (hasAttachData() != other.hasAttachData()) return false;
+      if (hasAttachData()) {
+        if (!getAttachData()
+            .equals(other.getAttachData())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasFromId()) {
+        hash = (37 * hash) + FROM_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getFromId();
+      }
+      if (hasToId()) {
+        hash = (37 * hash) + TO_ID_FIELD_NUMBER;
+        hash = (53 * hash) + getToId();
+      }
+      if (hasCallId()) {
+        hash = (37 * hash) + CALL_ID_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            getCallId());
+      }
+      if (hasAttachData()) {
+        hash = (37 * hash) + ATTACH_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAttachData().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data);
+      return PARSER.parseFrom(data);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, data, extensionRegistry);
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return parseDelimitedFrom(DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageLite.parseFrom(
-          DEFAULT_INSTANCE, input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
     public static Builder newBuilder(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
     /**
      * Protobuf type {@code IM.WebRTC.IMAVCallCancelRes}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessageLite.Builder<
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes, Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:IM.WebRTC.IMAVCallCancelRes)
         com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelResOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelRes_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelRes_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes.class, com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes.Builder.class);
+      }
+
       // Construct using com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes.newBuilder()
       private Builder() {
-        super(DEFAULT_INSTANCE);
+        maybeForceBuilderInitialization();
       }
 
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        fromId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        toId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        callId_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        attachData_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
 
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.internal_static_IM_WebRTC_IMAVCallCancelRes_descriptor;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes getDefaultInstanceForType() {
+        return com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes build() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes buildPartial() {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes result = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.fromId_ = fromId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.toId_ = toId_;
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.callId_ = callId_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.attachData_ = attachData_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes) {
+          return mergeFrom((com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes other) {
+        if (other == com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes.getDefaultInstance()) return this;
+        if (other.hasFromId()) {
+          setFromId(other.getFromId());
+        }
+        if (other.hasToId()) {
+          setToId(other.getToId());
+        }
+        if (other.hasCallId()) {
+          setCallId(other.getCallId());
+        }
+        if (other.hasAttachData()) {
+          setAttachData(other.getAttachData());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasFromId()) {
+          return false;
+        }
+        if (!hasToId()) {
+          return false;
+        }
+        if (!hasCallId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int fromId_ ;
       /**
        * <pre>
        *cmd id: 		0x0906
        * </pre>
        *
        * <code>required uint32 from_id = 1;</code>
+       * @return Whether the fromId field is set.
        */
+      @java.lang.Override
       public boolean hasFromId() {
-        return instance.hasFromId();
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <pre>
@@ -4316,9 +6083,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint32 from_id = 1;</code>
+       * @return The fromId.
        */
+      @java.lang.Override
       public int getFromId() {
-        return instance.getFromId();
+        return fromId_;
       }
       /**
        * <pre>
@@ -4326,10 +6095,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint32 from_id = 1;</code>
+       * @param value The fromId to set.
+       * @return This builder for chaining.
        */
       public Builder setFromId(int value) {
-        copyOnWrite();
-        instance.setFromId(value);
+        bitField0_ |= 0x00000001;
+        fromId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -4338,22 +6110,27 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint32 from_id = 1;</code>
+       * @return This builder for chaining.
        */
       public Builder clearFromId() {
-        copyOnWrite();
-        instance.clearFromId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fromId_ = 0;
+        onChanged();
         return this;
       }
 
+      private int toId_ ;
       /**
        * <pre>
        * 对方
        * </pre>
        *
        * <code>required uint32 to_id = 2;</code>
+       * @return Whether the toId field is set.
        */
+      @java.lang.Override
       public boolean hasToId() {
-        return instance.hasToId();
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
        * <pre>
@@ -4361,9 +6138,11 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint32 to_id = 2;</code>
+       * @return The toId.
        */
+      @java.lang.Override
       public int getToId() {
-        return instance.getToId();
+        return toId_;
       }
       /**
        * <pre>
@@ -4371,10 +6150,13 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint32 to_id = 2;</code>
+       * @param value The toId to set.
+       * @return This builder for chaining.
        */
       public Builder setToId(int value) {
-        copyOnWrite();
-        instance.setToId(value);
+        bitField0_ |= 0x00000002;
+        toId_ = value;
+        onChanged();
         return this;
       }
       /**
@@ -4383,225 +6165,251 @@ public final class IMWebRTC {
        * </pre>
        *
        * <code>required uint32 to_id = 2;</code>
+       * @return This builder for chaining.
        */
       public Builder clearToId() {
-        copyOnWrite();
-        instance.clearToId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        toId_ = 0;
+        onChanged();
         return this;
       }
 
+      private long callId_ ;
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return Whether the callId field is set.
        */
+      @java.lang.Override
       public boolean hasCallId() {
-        return instance.hasCallId();
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return The callId.
        */
+      @java.lang.Override
       public long getCallId() {
-        return instance.getCallId();
+        return callId_;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @param value The callId to set.
+       * @return This builder for chaining.
        */
       public Builder setCallId(long value) {
-        copyOnWrite();
-        instance.setCallId(value);
+        bitField0_ |= 0x00000004;
+        callId_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>required uint64 call_id = 3;</code>
+       * @return This builder for chaining.
        */
       public Builder clearCallId() {
-        copyOnWrite();
-        instance.clearCallId();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        callId_ = 0L;
+        onChanged();
         return this;
       }
 
+      private com.google.protobuf.ByteString attachData_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return Whether the attachData field is set.
        */
+      @java.lang.Override
       public boolean hasAttachData() {
-        return instance.hasAttachData();
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return The attachData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAttachData() {
-        return instance.getAttachData();
+        return attachData_;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @param value The attachData to set.
+       * @return This builder for chaining.
        */
       public Builder setAttachData(com.google.protobuf.ByteString value) {
-        copyOnWrite();
-        instance.setAttachData(value);
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        attachData_ = value;
+        onChanged();
         return this;
       }
       /**
        * <code>optional bytes attach_data = 20;</code>
+       * @return This builder for chaining.
        */
       public Builder clearAttachData() {
-        copyOnWrite();
-        instance.clearAttachData();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        attachData_ = getDefaultInstance().getAttachData();
+        onChanged();
         return this;
       }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
 
       // @@protoc_insertion_point(builder_scope:IM.WebRTC.IMAVCallCancelRes)
     }
-    private byte memoizedIsInitialized = -1;
-    @java.lang.SuppressWarnings({"unchecked", "fallthrough"})
-    protected final java.lang.Object dynamicMethod(
-        com.google.protobuf.GeneratedMessageLite.MethodToInvoke method,
-        java.lang.Object arg0, java.lang.Object arg1) {
-      switch (method) {
-        case NEW_MUTABLE_INSTANCE: {
-          return new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes();
-        }
-        case IS_INITIALIZED: {
-          byte isInitialized = memoizedIsInitialized;
-          if (isInitialized == 1) return DEFAULT_INSTANCE;
-          if (isInitialized == 0) return null;
-
-          boolean shouldMemoize = ((Boolean) arg0).booleanValue();
-          if (!hasFromId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasToId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (!hasCallId()) {
-            if (shouldMemoize) {
-              memoizedIsInitialized = 0;
-            }
-            return null;
-          }
-          if (shouldMemoize) memoizedIsInitialized = 1;
-          return DEFAULT_INSTANCE;
-
-        }
-        case MAKE_IMMUTABLE: {
-          return null;
-        }
-        case NEW_BUILDER: {
-          return new Builder();
-        }
-        case VISIT: {
-          Visitor visitor = (Visitor) arg0;
-          com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes other = (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes) arg1;
-          fromId_ = visitor.visitInt(
-              hasFromId(), fromId_,
-              other.hasFromId(), other.fromId_);
-          toId_ = visitor.visitInt(
-              hasToId(), toId_,
-              other.hasToId(), other.toId_);
-          callId_ = visitor.visitLong(
-              hasCallId(), callId_,
-              other.hasCallId(), other.callId_);
-          attachData_ = visitor.visitByteString(
-              hasAttachData(), attachData_,
-              other.hasAttachData(), other.attachData_);
-          if (visitor == com.google.protobuf.GeneratedMessageLite.MergeFromVisitor
-              .INSTANCE) {
-            bitField0_ |= other.bitField0_;
-          }
-          return this;
-        }
-        case MERGE_FROM_STREAM: {
-          com.google.protobuf.CodedInputStream input =
-              (com.google.protobuf.CodedInputStream) arg0;
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry =
-              (com.google.protobuf.ExtensionRegistryLite) arg1;
-          try {
-            boolean done = false;
-            while (!done) {
-              int tag = input.readTag();
-              switch (tag) {
-                case 0:
-                  done = true;
-                  break;
-                default: {
-                  if (!parseUnknownField(tag, input)) {
-                    done = true;
-                  }
-                  break;
-                }
-                case 8: {
-                  bitField0_ |= 0x00000001;
-                  fromId_ = input.readUInt32();
-                  break;
-                }
-                case 16: {
-                  bitField0_ |= 0x00000002;
-                  toId_ = input.readUInt32();
-                  break;
-                }
-                case 24: {
-                  bitField0_ |= 0x00000004;
-                  callId_ = input.readUInt64();
-                  break;
-                }
-                case 162: {
-                  bitField0_ |= 0x00000008;
-                  attachData_ = input.readBytes();
-                  break;
-                }
-              }
-            }
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            throw new RuntimeException(e.setUnfinishedMessage(this));
-          } catch (java.io.IOException e) {
-            throw new RuntimeException(
-                new com.google.protobuf.InvalidProtocolBufferException(
-                    e.getMessage()).setUnfinishedMessage(this));
-          } finally {
-          }
-        }
-        // fall through
-        case GET_DEFAULT_INSTANCE: {
-          return DEFAULT_INSTANCE;
-        }
-        case GET_PARSER: {
-          if (PARSER == null) {    synchronized (com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes.class) {
-              if (PARSER == null) {
-                PARSER = new DefaultInstanceBasedParser(DEFAULT_INSTANCE);
-              }
-            }
-          }
-          return PARSER;
-        }
-      }
-      throw new UnsupportedOperationException();
-    }
-
 
     // @@protoc_insertion_point(class_scope:IM.WebRTC.IMAVCallCancelRes)
     private static final com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new IMAVCallCancelRes();
-      DEFAULT_INSTANCE.makeImmutable();
+      DEFAULT_INSTANCE = new com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes();
     }
 
     public static com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static volatile com.google.protobuf.Parser<IMAVCallCancelRes> PARSER;
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<IMAVCallCancelRes>
+        PARSER = new com.google.protobuf.AbstractParser<IMAVCallCancelRes>() {
+      @java.lang.Override
+      public IMAVCallCancelRes parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new IMAVCallCancelRes(input, extensionRegistry);
+      }
+    };
 
     public static com.google.protobuf.Parser<IMAVCallCancelRes> parser() {
-      return DEFAULT_INSTANCE.getParserForType();
+      return PARSER;
     }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMAVCallCancelRes> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.blt.talk.common.code.proto.IMWebRTC.IMAVCallCancelRes getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_WebRTC_IMAVCallInitiateReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_WebRTC_IMAVCallInitiateReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_WebRTC_IMAVCallInitiateRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_WebRTC_IMAVCallInitiateRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_WebRTC_IMAVCallHungUpReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_WebRTC_IMAVCallHungUpReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_WebRTC_IMAVCallHungUpRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_WebRTC_IMAVCallHungUpRes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_WebRTC_IMAVCallCancelReq_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_WebRTC_IMAVCallCancelReq_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_IM_WebRTC_IMAVCallCancelRes_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_IM_WebRTC_IMAVCallCancelRes_fieldAccessorTable;
 
+  public static com.google.protobuf.Descriptors.FileDescriptor
+      getDescriptor() {
+    return descriptor;
+  }
+  private static  com.google.protobuf.Descriptors.FileDescriptor
+      descriptor;
   static {
+    java.lang.String[] descriptorData = {
+      "\n\017IM.WebRTC.proto\022\tIM.WebRTC\032\023IM.BaseDef" +
+      "ine.proto\"\240\001\n\023IMAVCallInitiateReq\022\017\n\007fro" +
+      "m_id\030\001 \002(\004\022\r\n\005to_id\030\002 \002(\004\022\017\n\007call_id\030\003 \002" +
+      "(\004\0225\n\022caller_client_type\030\004 \002(\0162\031.IM.Base" +
+      "Define.ClientType\022\014\n\004body\030\005 \002(\014\022\023\n\013attac" +
+      "h_data\030\024 \001(\014\"\276\001\n\023IMAVCallInitiateRes\022\017\n\007" +
+      "from_id\030\001 \002(\004\022\r\n\005to_id\030\002 \002(\004\022\017\n\007call_id\030" +
+      "\003 \002(\004\0225\n\022called_client_type\030\004 \002(\0162\031.IM.B" +
+      "aseDefine.ClientType\022\014\n\004code\030\005 \002(\r\022\016\n\006re" +
+      "ason\030\006 \002(\t\022\014\n\004body\030\007 \002(\014\022\023\n\013attach_data\030" +
+      "\024 \001(\014\"Y\n\021IMAVCallHungUpReq\022\017\n\007from_id\030\001 " +
+      "\002(\004\022\r\n\005to_id\030\002 \002(\004\022\017\n\007call_id\030\003 \002(\004\022\023\n\013a" +
+      "ttach_data\030\024 \001(\014\"g\n\021IMAVCallHungUpRes\022\017\n" +
+      "\007from_id\030\001 \002(\004\022\r\n\005to_id\030\002 \002(\004\022\017\n\007call_id" +
+      "\030\003 \002(\004\022\014\n\004code\030\004 \002(\r\022\023\n\013attach_data\030\024 \001(" +
+      "\014\"Y\n\021IMAVCallCancelReq\022\017\n\007from_id\030\001 \002(\004\022" +
+      "\r\n\005to_id\030\002 \002(\004\022\017\n\007call_id\030\003 \002(\004\022\023\n\013attac" +
+      "h_data\030\024 \001(\014\"Y\n\021IMAVCallCancelRes\022\017\n\007fro" +
+      "m_id\030\001 \002(\r\022\r\n\005to_id\030\002 \002(\r\022\017\n\007call_id\030\003 \002" +
+      "(\004\022\023\n\013attach_data\030\024 \001(\014B\"\n\036com.blt.talk." +
+      "common.code.protoH\003"
+    };
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.blt.talk.common.code.proto.IMBaseDefine.getDescriptor(),
+        });
+    internal_static_IM_WebRTC_IMAVCallInitiateReq_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_IM_WebRTC_IMAVCallInitiateReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_WebRTC_IMAVCallInitiateReq_descriptor,
+        new java.lang.String[] { "FromId", "ToId", "CallId", "CallerClientType", "Body", "AttachData", });
+    internal_static_IM_WebRTC_IMAVCallInitiateRes_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_IM_WebRTC_IMAVCallInitiateRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_WebRTC_IMAVCallInitiateRes_descriptor,
+        new java.lang.String[] { "FromId", "ToId", "CallId", "CalledClientType", "Code", "Reason", "Body", "AttachData", });
+    internal_static_IM_WebRTC_IMAVCallHungUpReq_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_IM_WebRTC_IMAVCallHungUpReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_WebRTC_IMAVCallHungUpReq_descriptor,
+        new java.lang.String[] { "FromId", "ToId", "CallId", "AttachData", });
+    internal_static_IM_WebRTC_IMAVCallHungUpRes_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_IM_WebRTC_IMAVCallHungUpRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_WebRTC_IMAVCallHungUpRes_descriptor,
+        new java.lang.String[] { "FromId", "ToId", "CallId", "Code", "AttachData", });
+    internal_static_IM_WebRTC_IMAVCallCancelReq_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_IM_WebRTC_IMAVCallCancelReq_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_WebRTC_IMAVCallCancelReq_descriptor,
+        new java.lang.String[] { "FromId", "ToId", "CallId", "AttachData", });
+    internal_static_IM_WebRTC_IMAVCallCancelRes_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_IM_WebRTC_IMAVCallCancelRes_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_IM_WebRTC_IMAVCallCancelRes_descriptor,
+        new java.lang.String[] { "FromId", "ToId", "CallId", "AttachData", });
+    com.blt.talk.common.code.proto.IMBaseDefine.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

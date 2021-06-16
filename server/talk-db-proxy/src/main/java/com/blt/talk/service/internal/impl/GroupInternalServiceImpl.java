@@ -103,7 +103,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
             incMemberCnt++;
         }
 
-        groupMemberRepository.save(groupMembers);
+        groupMemberRepository.saveAll(groupMembers);
 
         groupMemeberCriteria = new SearchCriteria<>();
         groupMemeberCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
@@ -112,7 +112,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
 
         // 更新件数 & 版本
         // 更新IMGroup版本
-        IMGroup group = groupRepository.findOne(groupId);
+        IMGroup group = groupRepository.getOne(groupId);
         group.setVersion(group.getVersion() + 1);
         if (incMemberCnt > 0) {
             group.setUserCnt(group.getUserCnt() + incMemberCnt);
@@ -164,7 +164,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
             memeber.setStatus(DBConstant.DELETE_STATUS_DELETE);
             memeber.setUpdated(time);
         });
-        groupMemberRepository.save(groupMembers);
+        groupMemberRepository.saveAll(groupMembers);
 
         groupMemeberCriteria = new SearchCriteria<>();
         groupMemeberCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
@@ -177,7 +177,7 @@ public class GroupInternalServiceImpl implements GroupInternalService {
         });
         
         // 更新版本
-        IMGroup group = groupRepository.findOne(groupId);
+        IMGroup group = groupRepository.getOne(groupId);
         group.setVersion(group.getVersion() + 1);
         group.setUpdated(CommonUtils.currentTimeSeconds());
         groupRepository.save(group);
