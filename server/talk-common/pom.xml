@@ -18,6 +18,7 @@
         </snapshotRepository>
     </distributionManagement>
     <properties>
+        <protobuf.version>3.21.1</protobuf.version>
         <common-lang.version>2.6</common-lang.version>
         <minio.version>6.0.11</minio.version>
         <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
@@ -54,11 +55,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
+            <version>2.13.3</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.73</version>
+            <version>1.2.83</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
