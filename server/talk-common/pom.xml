@@ -20,11 +20,11 @@
     <properties>
         <common-lang.version>2.6</common-lang.version>
         <minio.version>6.0.11</minio.version>
-        <commons-io.version>2.6</commons-io.version>
         <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
         <spring-boot.version>2.3.8.RELEASE</spring-boot.version>
         <java.version>11</java.version>
-    </properties>
+        <commons-io.version>2.7</commons-io.version>
+   </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
