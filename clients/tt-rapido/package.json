@@ -13,7 +13,7 @@
     "electron": "^9.1.0",
     "google-protobuf": "3.4.0",
     "moment": "^2.21.0",
-    "sequelize": "^4.35.2",
+    "sequelize": "^6.21.2",
     "sqlite3": "^3.1.13"
   },
   "devDependencies": {
