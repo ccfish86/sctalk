@@ -10,10 +10,10 @@
     "installer": "node build_installer.js"
   },
   "dependencies": {
-    "electron": "^9.1.0",
+    "electron": "^20.0.0",
     "google-protobuf": "3.4.0",
     "moment": "^2.21.0",
-    "sequelize": "^4.35.2",
+    "sequelize": "^5.1.0",
     "sqlite3": "^3.1.13"
   },
   "devDependencies": {
