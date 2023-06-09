@@ -20,9 +20,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.hazelcast.config.CacheConfiguration;
 import com.hazelcast.config.Config;
-import com.hazelcast.config.EvictionPolicy;
 import com.hazelcast.config.MapConfig;
-import com.hazelcast.config.MaxSizeConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
@@ -110,19 +108,19 @@ public class HazelCastConfigration {
          */
         mapConfig.setBackupCount(1);
 
-        /*
-         * Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU (Least Frequently
-         * Used). NONE is the default.
-         */
-        mapConfig.setEvictionPolicy(EvictionPolicy.LRU);
-
-        /*
-         * Maximum size of the map. When max size is reached, map is evicted based on the policy
-         * defined. Any integer between 0 and Integer.MAX_VALUE. 0 means Integer.MAX_VALUE. Default
-         * is 0.
-         */
-        mapConfig
-                .setMaxSizeConfig(new MaxSizeConfig(0, MaxSizeConfig.MaxSizePolicy.USED_HEAP_SIZE));
+//        /*
+//         * Valid values are: NONE (no eviction), LRU (Least Recently Used), LFU (Least Frequently
+//         * Used). NONE is the default.
+//         */
+//        mapConfig.setEvictionPolicy(EvictionPolicy.LRU);
+//
+//        /*
+//         * Maximum size of the map. When max size is reached, map is evicted based on the policy
+//         * defined. Any integer between 0 and Integer.MAX_VALUE. 0 means Integer.MAX_VALUE. Default
+//         * is 0.
+//         */
+//        mapConfig
+//                .setMaxSizeConfig(new MaxSizeConfig(0, MaxSizeConfig.MaxSizePolicy.USED_HEAP_SIZE));
 
         return mapConfig;
     }

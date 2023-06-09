@@ -122,7 +122,7 @@ public class IMLoginHandlerImpl extends AbstractUserHandlerImpl implements IMLog
                 // 查询同一用户的其他Client
                 Long userId = userRes.getData().getId();
                 ClientUser clientUser = ClientUserManager.getUserById(userId);
-                Long handleId = hazelCastInstance.getAtomicLong("message-server#HANDLE_ID").getAndIncrement();
+                Long handleId = hazelCastInstance.getCPSubsystem().getAtomicLong("message-server#HANDLE_ID").getAndIncrement();
                 if (clientUser == null) {
                     logger.debug("登录成功:{}", userId);
                     clientUser = new ClientUser(ctx, userId, handleId, req.getClientType(), UserStatType.USER_STATUS_ONLINE);

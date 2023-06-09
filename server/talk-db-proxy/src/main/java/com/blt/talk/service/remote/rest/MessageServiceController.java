@@ -137,7 +137,7 @@ public class MessageServiceController {
         sessionService.update(sessionId, messageSendReq.getCreateTime());
 
         // 更新最后消息时间
-        IMGroup group = groupRepository.findOne(messageSendReq.getGroupId());
+        IMGroup group = groupRepository.getOne(messageSendReq.getGroupId());
         group.setLastChated(CommonUtils.currentTimeSeconds());
         groupRepository.save(group);
 
@@ -321,8 +321,8 @@ public class MessageServiceController {
         	//当消息ID参数指定了的时候
         	messageSearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
         }
-        Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
-        Pageable pageable = new PageRequest(0, messageCount, sortMessage);
+        Sort sortMessage = Sort.by(Sort.Direction.DESC, "created", "id");
+        Pageable pageable = PageRequest.of(0, messageCount, sortMessage);
         Page<IMMessage> messagePageList = messageRepository.findAll(messageSearchCriteria, pageable);
         if (messagePageList.hasContent()) {
             messageList = messageService.findMessageList(messagePageList.getContent());
@@ -358,8 +358,8 @@ public class MessageServiceController {
         	//当消息ID参数指定了的时候
         	groupMessageSearchCriteria.add(JpaRestrictions.lte("msgId", messageId, false));
         }
-        Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
-        Pageable pageable = new PageRequest(0, messageCount, sortMessage);
+        Sort sortMessage = Sort.by(Sort.Direction.DESC, "created", "id");
+        Pageable pageable = PageRequest.of(0, messageCount, sortMessage);
         Page<IMGroupMessage> groupMessageList =
                 groupMessageRepository.findAll(groupMessageSearchCriteria, pageable);
         if (groupMessageList.hasContent()) {
@@ -433,7 +433,7 @@ public class MessageServiceController {
         messageSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
         messageSearchCriteria.add(JpaRestrictions.eq("relateId", relateId, false));
         messageSearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
-        Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
+        Sort sortMessage = Sort.by(Sort.Direction.DESC, "created", "id");
         List<IMMessage> messagePageList = messageRepository.findAll(messageSearchCriteria, sortMessage);
         if (!messagePageList.isEmpty()) {
             messageList = messageService.findMessageList(messagePageList);
@@ -464,7 +464,7 @@ public class MessageServiceController {
         groupMessageSearchCriteria.add(JpaRestrictions.eq("groupId", groupId, false));
         groupMessageSearchCriteria.add(JpaRestrictions.in("msgId", msgIdList, false));
         groupMessageSearchCriteria.add(JpaRestrictions.eq("status", DBConstant.DELETE_STATUS_OK, false));
-        Sort sortMessage = new Sort(Sort.Direction.DESC, "created", "id");
+        Sort sortMessage = Sort.by(Sort.Direction.DESC, "created", "id");
         List<IMGroupMessage> groupMessageList =
                 groupMessageRepository.findAll(groupMessageSearchCriteria, sortMessage);
         if (!groupMessageList.isEmpty()) {

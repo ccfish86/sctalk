@@ -6,21 +6,12 @@ package com.blt.talk.service.jpa.projection.test;
 
 import java.util.List;
 
-import org.hibernate.jpa.criteria.path.CollectionAttributeJoin;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.blt.talk.service.TalkDbProxyApplication;
 import com.blt.talk.service.jpa.entity.IMGroup;
 import com.blt.talk.service.jpa.repository.IMGroupRepository;
-import com.blt.talk.service.jpa.util.JpaRestrictions;
-import com.blt.talk.service.jpa.util.SearchCriteria;
 
 /**
  * 
@@ -28,7 +19,6 @@ import com.blt.talk.service.jpa.util.SearchCriteria;
  * @version 1.0
  * @since  1.0
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class GroupServiceTest {
 

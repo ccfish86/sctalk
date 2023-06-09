@@ -7,6 +7,7 @@ package com.blt.talk.message.server.cluster;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +35,10 @@ import com.blt.talk.message.server.cluster.UserClientInfoManager.UserClientInfo;
 import com.blt.talk.message.server.cluster.task.MessageToUserTask;
 import com.blt.talk.message.server.manager.ClientUser;
 import com.google.protobuf.MessageLite;
+import com.hazelcast.cluster.Member;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.ILock;
-import com.hazelcast.core.ITopic;
-import com.hazelcast.core.Member;
+import com.hazelcast.cp.lock.FencedLock;
+import com.hazelcast.topic.ITopic;
 
 import io.netty.channel.ChannelHandlerContext;
 
@@ -131,10 +132,10 @@ public class MessageServerCluster implements InitializingBean {
 
         ClientType clientType = msgCtx.attr(ClientUser.CLIENT_TYPE).get();
         long handleId = msgCtx.attr(ClientUser.HANDLE_ID).get();
-        String nodeId = hazelcastInstance.getCluster().getLocalMember().getUuid();
+        UUID nodeId = hazelcastInstance.getCluster().getLocalMember().getUuid();
         
         String userStatusLockKey = "user_status_" + userId;
-        ILock lock = hazelcastInstance.getLock(userStatusLockKey);
+        FencedLock lock = hazelcastInstance.getCPSubsystem().getLock(userStatusLockKey);
         
         try {
             // 用户状态改变，同期处理，避免MAP更新时出现脏数据
@@ -145,9 +146,9 @@ public class MessageServerCluster implements InitializingBean {
             
             // 处理服务器与连接关联
             if (status == IMBaseDefine.UserStatType.USER_STATUS_ONLINE) {
-                messageServerManager.addConnect(nodeId, handleId);
+                messageServerManager.addConnect(nodeId.toString(), handleId);
             } else {
-                messageServerManager.removeConnect(nodeId, handleId);
+                messageServerManager.removeConnect(nodeId.toString(), handleId);
             }
     
             if (userClientInfo != null) {

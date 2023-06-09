@@ -6,7 +6,7 @@ package com.blt.talk.message.server.remote;
 
 import java.util.List;
 
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +26,7 @@ import com.blt.talk.common.param.SessionRemoveReq;
  * @version 1.0
  * @since  1.0
  */
-@FeignClient("talk-db-server")
+@FeignClient(name = "talk-db-server", contextId = "buddy")
 public interface BuddyListService {
 
     @PostMapping(path = "/buddyList/updateUserSignInfo")

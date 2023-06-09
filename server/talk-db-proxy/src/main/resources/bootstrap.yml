@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: talk-db-server
+  cloud:
+    nacos:
+      config:
+        enabled: false
+      discovery:
+        namespace: 435a74ff-6a1f-4bd0-9fde-adb8d612797c
+        server-addr: 192.168.124.13:8848
+    inetutils:
+      preferred-networks:
+      - 192.168 # 注册时使用的网络

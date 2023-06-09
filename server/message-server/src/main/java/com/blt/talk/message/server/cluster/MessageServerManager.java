@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.MultiMap;
+import com.hazelcast.multimap.MultiMap;
 
 /**
  * 
@@ -37,7 +37,7 @@ public class MessageServerManager {
     public MessageServerManager(HazelcastInstance hazelcastInstance) {
         this.messageServerInfoMap = hazelcastInstance.getMap("message-server#router#server");
         this.messageServerConnectionMap = hazelcastInstance.getMultiMap("message-server#router#server#connection");
-        this.memberId = hazelcastInstance.getCluster().getLocalMember().getUuid();
+        this.memberId = hazelcastInstance.getCluster().getLocalMember().getUuid().toString();
     }
 
     public void addConnect(String uuid, Long netId) {

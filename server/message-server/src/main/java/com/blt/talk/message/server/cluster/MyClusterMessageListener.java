@@ -44,9 +44,9 @@ import com.blt.talk.message.server.remote.GroupService;
 import com.blt.talk.message.server.remote.IphonePushService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.MessageLite;
-import com.hazelcast.core.Member;
-import com.hazelcast.core.Message;
-import com.hazelcast.core.MessageListener;
+import com.hazelcast.cluster.Member;
+import com.hazelcast.topic.Message;
+import com.hazelcast.topic.MessageListener;
 
 /**
  * 

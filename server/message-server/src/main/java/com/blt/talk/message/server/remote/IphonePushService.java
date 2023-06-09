@@ -6,7 +6,7 @@ package com.blt.talk.message.server.remote;
 
 import java.util.concurrent.Callable;
 
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +22,7 @@ import com.blt.talk.common.param.IosPushReq;
  * @version 3.0
  * @since  3.0
  */
-@FeignClient("talk-db-server")
+@FeignClient(name = "talk-db-server", contextId = "iphone")
 public interface IphonePushService {
 
     /**

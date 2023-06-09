@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import com.blt.talk.common.constant.SysConstant;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+
 /**
  * TCP协议的头文件
  *
@@ -103,16 +106,20 @@ public class IMHeader implements Serializable {
      *
      * @return 数据包
      */
-    public DataBuffer encode() {
-        DataBuffer db = new DataBuffer(SysConstant.PROTOCOL_HEADER_LENGTH);
-        db.writeInt(length);
-        db.writeShort(version);
-        db.writeShort(flag);
-        db.writeShort(serviceId);
-        db.writeShort(commandId);
-        db.writeShort(seqnum);
-        db.writeShort(reserved);
-        return db;
+    public byte[] encode() {
+        ByteBuf byteBuf = Unpooled.buffer();
+        try {
+            byteBuf.writeInt(length);
+            byteBuf.writeShort(version);
+            byteBuf.writeShort(flag);
+            byteBuf.writeShort(serviceId);
+            byteBuf.writeShort(commandId);
+            byteBuf.writeShort(seqnum);
+            byteBuf.writeShort(reserved);
+            return byteBuf.array();
+        } finally {
+            byteBuf.release();
+        }
 
     }
 
@@ -122,7 +129,7 @@ public class IMHeader implements Serializable {
      *
      * @param buffer the buffer
      */
-    public void decode(DataBuffer buffer) {
+    public void decode(ByteBuf buffer) {
 
         if (null == buffer)
             return;
