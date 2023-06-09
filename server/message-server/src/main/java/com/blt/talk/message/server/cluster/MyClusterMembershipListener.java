@@ -4,14 +4,15 @@
 
 package com.blt.talk.message.server.cluster;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.hazelcast.core.MemberAttributeEvent;
-import com.hazelcast.core.MembershipEvent;
-import com.hazelcast.core.MembershipListener;
+import com.hazelcast.cluster.MembershipEvent;
+import com.hazelcast.cluster.MembershipListener;
 
 /**
  * 
@@ -32,7 +33,7 @@ public class MyClusterMembershipListener implements MembershipListener {
      */
     @Override
     public void memberAdded(MembershipEvent membershipEvent) {
-        String uuid = membershipEvent.getMember().getUuid();
+        UUID uuid = membershipEvent.getMember().getUuid();
         logger.info("建立连接: {}",  uuid);
     }
 
@@ -41,19 +42,10 @@ public class MyClusterMembershipListener implements MembershipListener {
      */
     @Override
     public void memberRemoved(MembershipEvent membershipEvent) {
-        String uuid = membershipEvent.getMember().getUuid();
+        UUID uuid = membershipEvent.getMember().getUuid();
         logger.info("关闭连接: {}", uuid);
-        messageServerManager.unload(uuid);
+        messageServerManager.unload(uuid.toString());
         // userClientInfoManager.unloadServer(uuid);
-    }
-
-    /* (non-Javadoc)
-     * @see com.hazelcast.core.MembershipListener#memberAttributeChanged(com.hazelcast.core.MemberAttributeEvent)
-     */
-    @Override
-    public void memberAttributeChanged(MemberAttributeEvent memberAttributeEvent) {
-        // TODO Auto-generated method stub
-
     }
 
 }

@@ -1,0 +1,72 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.12'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id "io.freefair.lombok" version "6.5.1"
+}
+
+group = 'net.ccfish.talk'
+version '2.1.0-SNAPSHOT'
+
+allprojects {
+    apply plugin: 'io.spring.dependency-management'
+    repositories {
+        //mavenCentral()
+        maven{ url 'https://maven.aliyun.com/nexus/content/groups/public/'}
+    }
+}
+
+// 子模块统一配置
+subprojects {
+    apply plugin: 'java'
+    
+    // 指定JDK版本
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    // 指定编码格式
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+
+    dependencyManagement {
+        imports {
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.7.12'
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.5'
+            mavenBom 'com.alibaba.cloud:spring-cloud-alibaba-dependencies:2021.0.1.0'
+        }
+
+        dependencies {
+            dependency 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2021.0.1.0'
+            
+            dependency 'com.alibaba.nacos:nacos-client:1.4.3'
+    
+            dependency 'org.apache.commons:commons-lang3:3.12.0'
+            dependency 'commons-lang:commons-lang:2.6'
+            
+            dependency 'org.bouncycastle:bcpkix-jdk15on:1.70'
+            
+            dependency 'io.minio:minio:6.0.13'
+            
+            // 阿里
+		    dependency 'com.alibaba:fastjson:1.2.83'
+            
+            // commons-io
+            dependency 'commons-io:commons-io:2.11.0'
+
+            dependency 'com.google.protobuf:protobuf-java:3.22.2'
+        }
+    }
+    
+    dependencies {
+    
+        // lombok
+        compileOnly 'org.projectlombok:lombok:1.18.24'
+        annotationProcessor 'org.projectlombok:lombok:1.18.24'
+        testCompileOnly 'org.projectlombok:lombok:1.18.24'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+    }
+    
+    configurations {
+        //移除spring boot 默认logger依赖
+        // all*.exclude module: 'spring-boot-starter-logging'
+        all*.exclude module: 'hsqldb'
+    }
+}

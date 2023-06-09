@@ -1,20 +1,15 @@
 server:
   port: ${port:8080}
 spring:
-  application:
-    name: message-server
   servlet:    multipart:      max-file-size: 10MB
-  cloud:    consul:      host: 127.0.0.1
-      port: 8500
-      discovery:        prefer-ip-address: true
-    inetutils:      preferred-networks:      - 192.168 # 注册时使用的网络
+
 talk:
   message:
     fileServer: ${imageUrl:http://www.100902.com/}
     hazelcast:
       backup-count: 1
       time-to-live-seconds: 3600
-    ip: ${message.ip:192.168.124.24}
+    ip: ${message.ip:192.168.124.189}
     port: ${message.port:8009}
     
 minio:
